@@ -8,7 +8,7 @@
             <generator class="uuid"/>
         </id>
 
-        <property name="version" type="java.lang.Integer" column="version" />
+        <version name="version" type="java.lang.Integer" column="version" />
 
         <property name="name" column="name" type="java.lang.String" />
 

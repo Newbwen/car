@@ -8,7 +8,7 @@
             <generator class="uuid"/>
         </id>
 
-        <property name="version" type="java.lang.Integer" column="version" />
+        <version name="version" type="java.lang.Integer" column="version" />
 
         <many-to-one name="evaluateUser" column="evaluate_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
