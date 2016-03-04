@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="pengyi.domain.model.message.Message" table="t_message">
+        <id name="id" type="java.lang.String" column="id" unsaved-value="-1" length="32">
+            <generator class="uuid"/>
+        </id>
+
+        <property name="version" type="java.lang.Integer" column="version" />
+
+        <many-to-one name="sendBaseUser" column="send_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+
+        <many-to-one name="receiveBaseUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+
+        <property name="sendDate" column="send_date" type="java.lang.String" length="19" />
+
+        <property name="receiveDate" column="receive_date" type="java.lang.String" length="19" />
+
+        <property name="content" column="content" type="java.lang.String" />
+
+        <property name="type" column="type" type="java.lang.Integer" />
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="pengyi.domain.model.order.Order" table="t_order">
+        <id name="id" type="java.lang.String" column="id" unsaved-value="-1" length="32">
+            <generator class="uuid"/>
+        </id>
+
+        <property name="version" type="java.lang.Integer" column="version" />
+
+        <property name="orderNumber" column="order_number" type="java.lang.String" />
+
+        <many-to-one name="orderUser" column="order_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+
+        <property name="createDate" column="create_date" type="java.lang.String" length="19" />
+
+        <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+
+        <property name="receiveDate" column="receive_date" type="java.lang.String" length="19" />
+
+        <property name="subscribeDate" column="subscribe_date" type="java.lang.String" length="19" />
+
+        <property name="beginTime" column="begin_time" type="java.lang.String" length="19" />
+
+        <property name="type" column="type" type="java.lang.Integer" />
+
+        <property name="endTime" column="end_time" type="java.lang.String" length="19" />
+
+        <property name="shouldMoney" column="should_money" type="java.math.BigDecimal" />
+
+        <property name="extraMoney" column="extra_money" type="java.math.BigDecimal" />
+
+        <property name="payTime" column="pay_time" type="java.lang.String" length="19" />
+
+        <property name="orderStatus" column="order_status" type="java.lang.Integer" />
+
+        <property name="evaluateStatus" column="evaluate_status" type="java.lang.Integer" />
+
+    </class>
+
+</hibernate-mapping>
