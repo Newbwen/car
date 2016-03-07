@@ -43,16 +43,13 @@ public interface IHibernateGenericRepository<T, ID extends Serializable> {
     void refresh(Object obj);
 
     //TODO 重构没有传入fetchModeMap的方法
-    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders);
+    Pagination<T> pagination(int page, int pageSize, List<Criterion> criteriaList, List<Order> orderList);
 
-    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders,
+    Pagination<T> pagination(int page, int pageSize, List<Criterion> criterionList, List<Order> orderList,
                              Map<String, FetchMode> fetchModeMap);
 
-    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Map<String, String> aliasMap, Order[] orders,
-                             Map<String, FetchMode> fetchModeMap);
-
-    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Map<String, String> aliasMap,
-                             Order[] orders, Map<String, FetchMode> fetchModeMap, ProjectionList projectionList);
+    Pagination<T> pagination(int page, int pageSize, List<Criterion> criterionList, Map<String, String> aliasMap,
+                             List<Order> orderList, Map<String, FetchMode> fetchModeMap, ProjectionList projectionList);
 
     List<T> findAll();
 

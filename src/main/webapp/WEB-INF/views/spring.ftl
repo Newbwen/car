@@ -119,7 +119,7 @@
     <#else>
         <#assign status = springMacroRequestContext.getBindStatus(path)>
     </#if>
-    <#-- assign a temporary value, forcing a string representation for any
+    <#-- assign a temporary value, forcing a string UserRepresentation for any
     kind of variable. This temp value is only used in this macro lib -->
     <#if status.value?exists && status.value?is_boolean>
         <#assign stringStatusValue=status.value?string>
@@ -136,7 +136,7 @@
  -->
 <#macro bindEscaped path, htmlEscape>
     <#assign status = springMacroRequestContext.getBindStatus(path, htmlEscape)>
-    <#-- assign a temporary value, forcing a string representation for any
+    <#-- assign a temporary value, forcing a string UserRepresentation for any
     kind of variable. This temp value is only used in this macro lib -->
     <#if status.value?exists && status.value?is_boolean>
         <#assign stringStatusValue=status.value?string>

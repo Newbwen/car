@@ -1,5 +1,7 @@
 package pengyi.domain.model.base;
 
+import pengyi.core.exception.ConcurrencyException;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -28,5 +30,11 @@ public abstract class Identity implements Serializable {
 
     public Identity() {
         this.version = 0;
+    }
+
+    public void fainWhenConcurrencyViolation(Integer version){
+        if(!version.equals(this.getVersion())){
+            throw new ConcurrencyException("记录在提交之前已发生改变[id="+this.getId()+"],请重新提交.");
+        }
     }
 }

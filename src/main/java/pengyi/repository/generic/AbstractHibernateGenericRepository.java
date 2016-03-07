@@ -134,37 +134,26 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
 
     @Override
     @SuppressWarnings("unchecked")
-    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders) {
-        return pagination(page, pageSize, criteria, null, orders, null);
+    public Pagination<T> pagination(int page, int pageSize, List<Criterion> criteriaList, List<Order> orderList) {
+        return pagination(page, pageSize, criteriaList, orderList, null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders,
+    public Pagination<T> pagination(int page, int pageSize, List<Criterion> criterionList, List<Order> orderList,
                                     Map<String, FetchMode> fetchModeMap) {
-        return pagination(page, pageSize, criteria, null, orders, fetchModeMap);
+        return pagination(page, pageSize, criterionList, null, orderList, fetchModeMap, null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Map<String, String> aliasMap,
-                                    Order[] orders, Map<String, FetchMode> fetchModeMap) {
-
-        return pagination(page, pageSize, criteria, aliasMap, orders, fetchModeMap, null);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Map<String, String> aliasMap,
-                                    Order[] orders, Map<String, FetchMode> fetchModeMap, ProjectionList projectionList) {
+    public Pagination<T> pagination(int page, int pageSize, List<Criterion> criterionList, Map<String, String> aliasMap,
+                                    List<Order> orderList, Map<String, FetchMode> fetchModeMap, ProjectionList projectionList) {
 
         Criteria criteriaCount = getSession().createCriteria(getPersistentClass()).
                 setProjection(Projections.rowCount());
 
         Criteria criteriaSearch = getSession().createCriteria(getPersistentClass());
-
-        criteriaCount.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        criteriaSearch.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         if (null != aliasMap) {
             for (Map.Entry<String, String> entry : aliasMap.entrySet()) {
@@ -175,15 +164,21 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
             }
         }
 
-        if (null != criteria) {
-            for (Criterion criterion : criteria) {
+        if (null != criterionList) {
+            for (Criterion criterion : criterionList) {
                 criteriaCount.add(criterion);
                 criteriaSearch.add(criterion);
             }
         }
 
-        if (null != orders) {
-            for (Order order : orders) {
+        if (null != projectionList) {
+            criteriaCount.setProjection(projectionList);
+
+            criteriaSearch.setProjection(projectionList);
+        }
+
+        if (null != orderList) {
+            for (Order order : orderList) {
                 criteriaSearch.addOrder(order);
             }
         }
@@ -195,11 +190,6 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
                 criteriaCount.setFetchMode(key, value);
                 criteriaSearch.setFetchMode(key, value);
             }
-        }
-
-        if (null != projectionList) {
-            criteriaCount.setProjection(projectionList);
-            criteriaSearch.setProjection(projectionList);
         }
 
         int count = ((Long) criteriaCount.uniqueResult()).intValue();
