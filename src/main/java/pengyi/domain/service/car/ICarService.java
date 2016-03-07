@@ -1,4 +1,4 @@
-package pengyi.domain.service.cart;
+package pengyi.domain.service.car;
 
 import org.gjt.mm.mysql.Driver;
 import pengyi.domain.model.car.Car;
