@@ -251,15 +251,15 @@
             <artifactId>hibernate-core</artifactId>
             <version>${version.hibernate}</version>
             <!--<exclusions>-->
-                <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging-annotations</artifactId>-->
-                <!--</exclusion>-->
+            <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging</artifactId>-->
+            <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging-annotations</artifactId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -267,11 +267,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${version.hibernateValidator}</version>
             <!--<exclusions>-->
-                <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging</artifactId>-->
-                <!--</exclusion>-->
+            <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging</artifactId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -279,15 +279,15 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${version.hibernate}</version>
             <!--<exclusions>-->
-                <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging-annotations</artifactId>-->
-                <!--</exclusion>-->
+            <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging</artifactId>-->
+            <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging-annotations</artifactId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -295,15 +295,15 @@
             <artifactId>hibernate-ehcache</artifactId>
             <version>${version.hibernate}</version>
             <!--<exclusions>-->
-                <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.jboss.logging</groupId>-->
-                    <!--<artifactId>jboss-logging-annotations</artifactId>-->
-                <!--</exclusion>-->
+            <!--&lt;!&ndash; Exclude jboss-logging in favor of SLF4j &ndash;&gt;-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging</artifactId>-->
+            <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging-annotations</artifactId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -371,29 +371,29 @@
         <!-- End Quartz -->
 
         <!-- Shiro -->
-       <dependency>
-           <groupId>org.apache.shiro</groupId>
-           <artifactId>shiro-core</artifactId>
-           <version>${version.shiro}</version>
-       </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${version.shiro}</version>
+        </dependency>
 
-       <dependency>
-           <groupId>org.apache.shiro</groupId>
-           <artifactId>shiro-web</artifactId>
-           <version>${version.shiro}</version>
-       </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${version.shiro}</version>
+        </dependency>
 
-       <dependency>
-           <groupId>org.apache.shiro</groupId>
-           <artifactId>shiro-spring</artifactId>
-           <version>${version.shiro}</version>
-       </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${version.shiro}</version>
+        </dependency>
 
-       <dependency>
-           <groupId>org.apache.shiro</groupId>
-           <artifactId>shiro-ehcache</artifactId>
-           <version>${version.shiro}</version>
-       </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${version.shiro}</version>
+        </dependency>
         <!-- End shiro -->
 
         <!-- Poi -->

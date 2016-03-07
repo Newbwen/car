@@ -21,6 +21,7 @@
 
     <import resource="spring-persistence.xml"/>
     <import resource="spring-mvc.xml" />
+    <import resource="spring-sms.xml" />
 
     <!-- Application service-->
     <bean id="imageCaptchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
