@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class BaseUser extends Identity {
 
     private String phone;                           //手机号
+    private String password;                        //密码
     private Boolean status;                         //是否启用
     private BigDecimal balance;                     //余额
     private String createDate;                      //创建时间
@@ -24,6 +25,14 @@ public class BaseUser extends Identity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getStatus() {
@@ -78,9 +87,10 @@ public class BaseUser extends Identity {
         super();
     }
 
-    public BaseUser(String phone, Boolean status, BigDecimal balance, String createDate, Role userRole, String email, int type) {
+    public BaseUser(String phone,String password, Boolean status, BigDecimal balance, String createDate, Role userRole, String email, int type) {
         super();
         this.phone = phone;
+        this.password = password;
         this.status = status;
         this.balance = balance;
         this.createDate = createDate;
