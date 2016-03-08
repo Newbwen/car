@@ -1,4 +1,4 @@
-package pengyi.domain.service.Car1;
+package pengyi.domain.service.car;
 
 /**
  * Created by Administrator on 2016/3/8.
