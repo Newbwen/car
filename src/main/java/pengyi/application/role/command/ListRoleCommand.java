@@ -1,6 +1,7 @@
 package pengyi.application.role.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.EnableStatus;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -8,7 +9,7 @@ import pengyi.core.commons.command.BasicPaginationCommand;
 public class ListRoleCommand extends BasicPaginationCommand {
 
     private String roleName;
-    private Boolean status;
+    private EnableStatus status;
 
     public String getRoleName() {
         return roleName;
@@ -18,11 +19,11 @@ public class ListRoleCommand extends BasicPaginationCommand {
         this.roleName = roleName;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 }

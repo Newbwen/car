@@ -1,13 +1,14 @@
 package pengyi.application.permission.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.EnableStatus;
 
 /**
  * Created by YJH on 2016/3/7.
  */
 public class ListPermissionCommand extends BasicPaginationCommand {
     private String permissionName;
-    private Boolean status;
+    private EnableStatus status;
 
     public String getPermissionName() {
         return permissionName;
@@ -17,11 +18,11 @@ public class ListPermissionCommand extends BasicPaginationCommand {
         this.permissionName = permissionName;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 }

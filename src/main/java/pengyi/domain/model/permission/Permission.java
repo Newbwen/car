@@ -1,5 +1,6 @@
 package pengyi.domain.model.permission;
 
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.base.Identity;
 
 /**
@@ -13,7 +14,7 @@ public class Permission extends Identity{
 
     private String permissionName;                  //权限名
     private String description;                     //描述
-    private Boolean status;                         //是否启用（true=启用，false=禁用）
+    private EnableStatus status;                         //是否启用（true=启用，false=禁用）
 
     public String getPermissionName() {
         return permissionName;
@@ -31,11 +32,11 @@ public class Permission extends Identity{
         this.description = description;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
@@ -43,8 +44,7 @@ public class Permission extends Identity{
         super();
     }
 
-    public Permission(String permissionName, String description, Boolean status) {
-        super();
+    public Permission(String permissionName, String description, EnableStatus status) {
         this.permissionName = permissionName;
         this.description = description;
         this.status = status;

@@ -8,5 +8,5 @@ import java.io.Serializable;
  * Created by liubowen on 2016/03/07.
  */
 
-public interface IMessageResposition<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
+public interface IMessageRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
 }

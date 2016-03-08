@@ -8,6 +8,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import pengyi.application.user.IBaseUserAppService;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.permission.Permission;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
@@ -42,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
         if (null == user) {
             throw new UnknownAccountException(); //未知用户
         } else {
-            if (user.getStatus() == false) {
+            if (user.getStatus().equals("DISABLE")) {
                 throw new LockedAccountException(); //账户被禁用
             }
         }
@@ -87,11 +88,11 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> permissions = new HashSet<String>();
         Role role = user.getUserRole();
         if (null != role) {
-            if (role.getStatus() == true) {
+            if (role.getStatus().equals(EnableStatus.ENABLE)) {
                 List<Permission> permissionList = role.getPermissions();
                 if (!permissionList.isEmpty()) {
                     for (Permission permission : permissionList) {
-                        if (permission.getStatus() == true) {
+                        if (permission.getStatus().equals(EnableStatus.ENABLE)) {
                             permissions.add(permission.getPermissionName());
                         }
                     }

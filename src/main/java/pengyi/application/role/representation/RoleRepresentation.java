@@ -1,6 +1,7 @@
 package pengyi.application.role.representation;
 
 import pengyi.application.permission.representation.PermissionRepresentation;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.permission.Permission;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class RoleRepresentation {
     private Integer version;
     private String roleName;                        //角色名
     private String description;                     //描述
-    private Boolean status;                         //是否启用
+    private EnableStatus status;                         //是否启用
     private List<PermissionRepresentation> permissions;            //权限列表
 
     public String getId() {
@@ -49,11 +50,11 @@ public class RoleRepresentation {
         this.description = description;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 

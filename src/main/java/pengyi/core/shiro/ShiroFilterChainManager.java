@@ -43,7 +43,7 @@ public class ShiroFilterChainManager {
         //2、循环URL Filter 注册filter chain
         for (UrlResources urlResources : apiUrlMatcherList) {
             String urlName = urlResources.getUrlName();
-            if (urlResources.getStatus() == true) {
+            if (urlResources.getStatus().equals("ENABLE")) {
 //                //注册roles filter
 //                List<RoleRepresentation> roleRepresentationList = urlMatcherRepresentation.getRoleRepresentationList();
 //                String roleNames = StringUtils.EMPTY;
@@ -68,7 +68,7 @@ public class ShiroFilterChainManager {
                 List<Permission> permissionList = urlResources.getUrlPermission();
                 if (null != permissionList) {
                     for (Permission permission : permissionList) {
-                        if (permission.getStatus() == true) {
+                        if (permission.getStatus().equals("ENABLE")) {
                             filterChainManager.addToChain(urlName, "perms", permission.getPermissionName());
                         }
                     }

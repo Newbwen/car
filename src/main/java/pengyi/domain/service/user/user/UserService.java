@@ -7,6 +7,7 @@ import pengyi.application.user.user.command.EditUserCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.user.IUserRepository;
@@ -46,7 +47,7 @@ public class UserService implements IUserService {
         Role role = roleService.searchByName("user");
 
         User user = new User(command.getPhone(), password, salt, command.getStatus(),
-                new BigDecimal(0), new Date(), role, command.getEmail(), 2, command.getName(),
+                new BigDecimal(0), new Date(), role, command.getEmail(), UserType.USER, command.getName(),
                 command.getHead(), command.getSex(), 0, new BigDecimal(0), 0);
 
         userRepository.save(user);

@@ -7,6 +7,7 @@ import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
@@ -50,9 +51,9 @@ public class DriverService implements IDriverService {
         Role role = roleService.searchByName("driver");
 
         Driver driver = new Driver(command.getPhone(), password, salt, command.getStatus(),
-                new BigDecimal(0), new Date(), role, command.getEmail(), 2, command.getName(),
+                new BigDecimal(0), new Date(), role, command.getEmail(), UserType.DRIVER, command.getName(),
                 command.getHead(), company, command.getSex(), new BigDecimal(0), 0.0, 0.0, 0.0,
-                0, false, command.getType());
+                0, false, command.getDriverType());
 
         driverRepository.save(driver);
 
@@ -73,7 +74,7 @@ public class DriverService implements IDriverService {
         driver.setSex(command.getSex());
         driver.setLevel(command.getLevel());
         driver.setReportCount(command.getReportCount());
-        driver.setType(command.getDriverType());
+        driver.setDriverType(command.getDriverType());
 
         driverRepository.update(driver);
 

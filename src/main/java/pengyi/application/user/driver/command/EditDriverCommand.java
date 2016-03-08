@@ -1,8 +1,8 @@
 package pengyi.application.user.driver.command;
 
 import pengyi.application.user.command.BaseEditBaseUserCommand;
-
-import java.math.BigDecimal;
+import pengyi.core.type.DriverType;
+import pengyi.core.type.Sex;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -12,10 +12,10 @@ public class EditDriverCommand extends BaseEditBaseUserCommand {
     private String name;                    //姓名
     private String head;                    //头像
     private String company;                //公司
-    private int sex;                        //性别（0为男，1为女）
+    private Sex sex;                        //性别（0为男，1为女）
     private Double level;                   //等级
-    private int reportCount;                //举报次数
-    private int driverType;                       //类型（1代驾、2专车、3出租车）
+    private Integer reportCount;                //举报次数
+    private DriverType driverType;                       //类型
 
     public String getName() {
         return name;
@@ -41,11 +41,11 @@ public class EditDriverCommand extends BaseEditBaseUserCommand {
         this.company = company;
     }
 
-    public int getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -57,19 +57,19 @@ public class EditDriverCommand extends BaseEditBaseUserCommand {
         this.level = level;
     }
 
-    public int getReportCount() {
+    public Integer getReportCount() {
         return reportCount;
     }
 
-    public void setReportCount(int reportCount) {
+    public void setReportCount(Integer reportCount) {
         this.reportCount = reportCount;
     }
 
-    public int getDriverType() {
+    public DriverType getDriverType() {
         return driverType;
     }
 
-    public void setDriverType(int driverType) {
+    public void setDriverType(DriverType driverType) {
         this.driverType = driverType;
     }
 }

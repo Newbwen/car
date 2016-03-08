@@ -14,7 +14,12 @@
 
         <property name="description" column="description" type="java.lang.String" />
 
-        <property name="status" column="status" type="java.lang.Boolean" />
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.EnableStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>

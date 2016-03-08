@@ -1,5 +1,6 @@
 package pengyi.domain.model.role;
 
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.permission.Permission;
 
@@ -13,7 +14,7 @@ public class Role extends Identity{
 
     private String roleName;                        //角色名
     private String description;                     //描述
-    private Boolean status;                         //是否启用
+    private EnableStatus status;                         //是否启用
     private List<Permission> permissions;            //权限列表
 
     public String getRoleName() {
@@ -32,11 +33,11 @@ public class Role extends Identity{
         this.description = description;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
@@ -52,8 +53,7 @@ public class Role extends Identity{
         super();
     }
 
-    public Role(String roleName, String description, Boolean status, List<Permission> permissions) {
-        super();
+    public Role(String roleName, String description, EnableStatus status, List<Permission> permissions) {
         this.roleName = roleName;
         this.description = description;
         this.status = status;

@@ -7,6 +7,7 @@ import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.company.Company;
@@ -51,7 +52,7 @@ public class CompanyService implements ICompanyService {
         Area operateAddress = areaService.show(command.getOperateAddress());
 
         Company company = new Company(command.getPhone(), password, salt, command.getStatus(),
-                new BigDecimal(0), new Date(), role, command.getEmail(), 2, command.getName(), command.getFolder(),
+                new BigDecimal(0), new Date(), role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
                 command.getRegisterDate(), registerAddress, operateAddress, new BigDecimal(0), 0.0);
 
         companyRepository.save(company);

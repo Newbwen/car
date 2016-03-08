@@ -1,6 +1,8 @@
 package pengyi.application.user.driver.command;
 
 import pengyi.application.user.command.BaseCreateBaseUserCommand;
+import pengyi.core.type.DriverType;
+import pengyi.core.type.Sex;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -10,8 +12,8 @@ public class CreateDriverCommand extends BaseCreateBaseUserCommand {
     private String name;                    //姓名
     private String head;                    //头像
     private String company;                //公司
-    private int sex;                        //性别（0为男，1为女）
-    private int type;                       //类型（1代驾、2专车、3出租车）
+    private Sex sex;                        //性别（0为男，1为女）
+    private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
 
     public String getName() {
         return name;
@@ -37,21 +39,19 @@ public class CreateDriverCommand extends BaseCreateBaseUserCommand {
         this.company = company;
     }
 
-    public int getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
-    @Override
-    public int getType() {
-        return type;
+    public DriverType getDriverType() {
+        return driverType;
     }
 
-    @Override
-    public void setType(int type) {
-        this.type = type;
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
     }
 }

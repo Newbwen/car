@@ -1,6 +1,7 @@
 package pengyi.application.user.user.command;
 
 import pengyi.application.user.command.BaseEditBaseUserCommand;
+import pengyi.core.type.Sex;
 
 import java.math.BigDecimal;
 
@@ -11,7 +12,7 @@ public class EditUserCommand extends BaseEditBaseUserCommand {
 
     private String name;                    //用户名
     private String head;                    //头像
-    private int sex;                        //性别（0为男，2为女）
+    private Sex sex;                        //性别（0为男，2为女）
 
     public String getName() {
         return name;
@@ -29,11 +30,11 @@ public class EditUserCommand extends BaseEditBaseUserCommand {
         this.head = head;
     }
 
-    public int getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 }

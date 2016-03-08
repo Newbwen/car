@@ -1,5 +1,7 @@
 package pengyi.application.role.command;
 
+import pengyi.core.type.EnableStatus;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -7,7 +9,7 @@ public class CreateRoleCommand {
 
     private String roleName;                        //角色名
     private String description;                     //描述
-    private Boolean status;                         //是否启用
+    private EnableStatus status;                         //是否启用
     private String[] permissions;                   //权限列表
 
     public String getRoleName() {
@@ -26,11 +28,11 @@ public class CreateRoleCommand {
         this.description = description;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 

@@ -1,6 +1,7 @@
 package pengyi.application.urlresources.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.EnableStatus;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -8,7 +9,7 @@ import pengyi.core.commons.command.BasicPaginationCommand;
 public class ListUrlResourcesCommand extends BasicPaginationCommand {
 
     private String urlName;     //路径名
-    private Boolean status;     //状态
+    private EnableStatus status;     //状态
 
     public String getUrlName() {
         return urlName;
@@ -18,11 +19,11 @@ public class ListUrlResourcesCommand extends BasicPaginationCommand {
         this.urlName = urlName;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 }

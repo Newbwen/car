@@ -1,5 +1,9 @@
 package pengyi.domain.model.user.driver;
 
+import pengyi.core.type.DriverType;
+import pengyi.core.type.EnableStatus;
+import pengyi.core.type.Sex;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
@@ -19,22 +23,14 @@ public class Driver extends BaseUser {
     private String name;                    //姓名
     private String head;                    //头像
     private Company company;                //公司
-    private int sex;                        //性别（0为男，1为女）
+    private Sex sex;                        //性别（0为男，1为女）
     private BigDecimal money;               //余额
     private Double level;                   //等级
     private Double longitude;               //经度
     private Double latitude;                //纬度
-    private int reportCount;                //举报次数
+    private Integer reportCount;                //举报次数
     private Boolean online;                 //是否在线
-    private int driverType;                       //类型（1代驾、2专车、3出租车）
-
-    public int getDriverType() {
-        return driverType;
-    }
-
-    public void setDriverType(int driverType) {
-        this.driverType = driverType;
-    }
+    private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
 
     public String getName() {
         return name;
@@ -60,11 +56,11 @@ public class Driver extends BaseUser {
         this.company = company;
     }
 
-    public int getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -100,11 +96,11 @@ public class Driver extends BaseUser {
         this.latitude = latitude;
     }
 
-    public int getReportCount() {
+    public Integer getReportCount() {
         return reportCount;
     }
 
-    public void setReportCount(int reportCount) {
+    public void setReportCount(Integer reportCount) {
         this.reportCount = reportCount;
     }
 
@@ -116,11 +112,19 @@ public class Driver extends BaseUser {
         this.online = online;
     }
 
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
     public Driver() {
         super();
     }
 
-    public Driver(String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, int reportCount, Boolean online, int driverType) {
+    public Driver(String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType) {
         this.name = name;
         this.head = head;
         this.company = company;
@@ -134,8 +138,8 @@ public class Driver extends BaseUser {
         this.driverType = driverType;
     }
 
-    public Driver(String phone, String password, String salt, Boolean status, BigDecimal balance, Date createDate, Role userRole, String email, int type, String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, int reportCount, Boolean online, int driverType) {
-        super(phone, password, salt, status, balance, createDate, userRole, email, type);
+    public Driver(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType) {
+        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
         this.company = company;

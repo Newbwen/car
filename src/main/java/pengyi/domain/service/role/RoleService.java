@@ -11,6 +11,7 @@ import pengyi.application.role.command.ListRoleCommand;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.permission.Permission;
 import pengyi.domain.model.role.IRoleRepository;
@@ -98,10 +99,10 @@ public class RoleService implements IRoleService {
         Role role = this.show(command.getId());
         role.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (role.getStatus() == true) {
-            role.setStatus(false);
+        if (role.getStatus().equals("ENABLE")) {
+            role.setStatus(EnableStatus.DISABLE);
         } else {
-            role.setStatus(true);
+            role.setStatus(EnableStatus.ENABLE);
         }
         roleRepository.update(role);
         return role;

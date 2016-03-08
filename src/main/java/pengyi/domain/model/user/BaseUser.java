@@ -1,5 +1,7 @@
 package pengyi.domain.model.user;
 
+import pengyi.core.type.EnableStatus;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.role.Role;
 
@@ -16,12 +18,12 @@ public class BaseUser extends Identity {
     private String phone;                           //手机号
     private String password;                        //密码
     private String salt;                            //密码盐
-    private Boolean status;                         //是否启用(true=启用，false=禁用)
+    private EnableStatus status;                         //是否启用(true=启用，false=禁用)
     private BigDecimal balance;                     //余额
     private Date createDate;                      //创建时间
     private Role userRole;                          //用户角色
     private String email;                           //邮箱
-    private int type;                               //1平台、2用户、3公司、4司机
+    private UserType userType;                               //1平台、2用户、3公司、4司机
 
     public String getPhone() {
         return phone;
@@ -47,11 +49,11 @@ public class BaseUser extends Identity {
         this.salt = salt;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
@@ -87,23 +89,23 @@ public class BaseUser extends Identity {
         this.email = email;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public String getCredentialsSalt() {
         return this.phone + this.salt;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public BaseUser() {
         super();
     }
 
-    public BaseUser(String phone, String password, String salt, Boolean status, BigDecimal balance, Date createDate, Role userRole, String email, int type) {
+    public BaseUser(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
         this.phone = phone;
         this.password = password;
         this.salt = salt;
@@ -112,6 +114,6 @@ public class BaseUser extends Identity {
         this.createDate = createDate;
         this.userRole = userRole;
         this.email = email;
-        this.type = type;
+        this.userType = userType;
     }
 }

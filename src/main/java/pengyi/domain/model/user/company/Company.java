@@ -1,5 +1,7 @@
 package pengyi.domain.model.user.company;
 
+import pengyi.core.type.EnableStatus;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.role.Role;
@@ -95,8 +97,8 @@ public class Company extends BaseUser {
         this.level = level;
     }
 
-    public Company(String phone, String password, String salt, Boolean status, BigDecimal balance, Date createDate, Role userRole, String email, int type, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
-        super(phone, password, salt, status, balance, createDate, userRole, email, type);
+    public Company(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
+        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.folder = folder;
         this.registerDate = registerDate;
