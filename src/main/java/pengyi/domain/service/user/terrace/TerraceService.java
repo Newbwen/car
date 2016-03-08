@@ -7,6 +7,7 @@ import pengyi.application.user.terrace.command.EditTerraceCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.terrace.ITerraceRepository;
 import pengyi.domain.model.user.terrace.Terrace;
@@ -43,7 +44,7 @@ public class TerraceService implements ITerraceService {
         Role role = roleService.searchByName("terrace");
 
         Terrace terrace = new Terrace(command.getPhone(), password, salt, command.getStatus(),
-                new BigDecimal(0), new Date(), role, command.getEmail(), 2,command.getName());
+                new BigDecimal(0), new Date(), role, command.getEmail(), UserType.TERRACR,command.getName());
 
         terraceRepository.save(terrace);
 

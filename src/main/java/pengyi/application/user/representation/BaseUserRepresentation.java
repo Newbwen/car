@@ -1,7 +1,8 @@
 package pengyi.application.user.representation;
 
 import pengyi.application.role.representation.RoleRepresentation;
-import pengyi.domain.model.role.Role;
+import pengyi.core.type.EnableStatus;
+import pengyi.core.type.UserType;
 
 import java.math.BigDecimal;
 
@@ -16,12 +17,12 @@ public class BaseUserRepresentation {
     private String phone;                           //手机号
     private String password;                        //密码
     private String salt;                            //密码盐
-    private Boolean status;                         //是否启用(true=启用，false=禁用)
+    private EnableStatus status;                         //是否启用
     private BigDecimal balance;                     //余额
     private String createDate;                      //创建时间
     private RoleRepresentation userRole;                          //用户角色
     private String email;                           //邮箱
-    private int type;                               //1平台、2用户、3公司、4司机
+    private UserType userTyper;                               //1平台、2用户、3公司、4司机
 
     public String getId() {
         return id;
@@ -63,11 +64,11 @@ public class BaseUserRepresentation {
         this.salt = salt;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
@@ -103,11 +104,11 @@ public class BaseUserRepresentation {
         this.email = email;
     }
 
-    public int getType() {
-        return type;
+    public UserType getUserTyper() {
+        return userTyper;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setUserTyper(UserType userTyper) {
+        this.userTyper = userTyper;
     }
 }

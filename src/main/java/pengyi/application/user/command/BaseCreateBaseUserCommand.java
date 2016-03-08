@@ -1,5 +1,7 @@
 package pengyi.application.user.command;
 
+import pengyi.core.type.EnableStatus;
+import pengyi.core.type.UserType;
 import pengyi.domain.model.role.Role;
 
 import java.math.BigDecimal;
@@ -11,10 +13,10 @@ public class BaseCreateBaseUserCommand {
 
     private String phone;                           //手机号
     private String password;                        //密码
-    private Boolean status;                         //是否启用(true=启用，false=禁用)
+    private EnableStatus status;                         //是否启用(true=启用，false=禁用)
     private String userRole;                        //用户角色
     private String email;                           //邮箱
-    private int type;                               //1平台、2用户、3公司、4司机
+    private UserType userType;                               //1平台、2用户、3公司、4司机
 
     public String getPhone() {
         return phone;
@@ -32,11 +34,11 @@ public class BaseCreateBaseUserCommand {
         this.password = password;
     }
 
-    public Boolean getStatus() {
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
@@ -56,11 +58,11 @@ public class BaseCreateBaseUserCommand {
         this.email = email;
     }
 
-    public int getType() {
-        return type;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

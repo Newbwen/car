@@ -14,6 +14,7 @@ public class Evaluate extends Identity{
     private Order order;                            //订单
     private String content;                         //评价内容
     private int level;                              //评级
+    private String createDate;                      //评价时间
 
     public BaseUser getEvaluateUser() {
         return evaluateUser;
@@ -47,15 +48,24 @@ public class Evaluate extends Identity{
         this.level = level;
     }
 
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
     public Evaluate() {
         super();
     }
 
-    public Evaluate(BaseUser evaluateUser, Order order, String content, int level) {
+    public Evaluate(BaseUser evaluateUser, Order order, String content, int level, String createDate) {
         super();
         this.evaluateUser = evaluateUser;
         this.order = order;
         this.content = content;
         this.level = level;
+        this.createDate = createDate;
     }
 }

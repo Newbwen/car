@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.core.util.CoreDateUtils;
-import pengyi.domain.model.message.IMessageResposition;
+import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @Service("messageService")
 public class MessageService implements IMessageService {
     @Autowired
-    private IMessageResposition messageResposition;
+    private IMessageRepository messageResposition;
 
     @Override
     @SuppressWarnings("unchecked")

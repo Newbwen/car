@@ -2,6 +2,8 @@ package pengyi.application.user.driver.representation;
 
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.core.type.DriverType;
+import pengyi.core.type.Sex;
 
 import java.math.BigDecimal;
 
@@ -13,15 +15,14 @@ public class DriverRepresentation extends BaseUserRepresentation {
     private String name;                    //姓名
     private String head;                    //头像
     private CompanyRepresentation company;                //公司
-    private int sex;                        //性别（0为男，1为女）
+    private Sex sex;                        //性别（0为男，1为女）
     private BigDecimal money;               //余额
     private Double level;                   //等级
     private Double longitude;               //经度
     private Double latitude;                //纬度
-    private Boolean status;                 //是否启用
-    private int reportCount;                //举报次数
+    private Integer reportCount;                //举报次数
     private Boolean online;                 //是否在线
-    private int type;                       //类型（1代驾、2专车、3出租车）
+    private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
 
     public String getName() {
         return name;
@@ -47,11 +48,11 @@ public class DriverRepresentation extends BaseUserRepresentation {
         this.company = company;
     }
 
-    public int getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -87,21 +88,11 @@ public class DriverRepresentation extends BaseUserRepresentation {
         this.latitude = latitude;
     }
 
-    @Override
-    public Boolean getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public int getReportCount() {
+    public Integer getReportCount() {
         return reportCount;
     }
 
-    public void setReportCount(int reportCount) {
+    public void setReportCount(Integer reportCount) {
         this.reportCount = reportCount;
     }
 
@@ -113,13 +104,11 @@ public class DriverRepresentation extends BaseUserRepresentation {
         this.online = online;
     }
 
-    @Override
-    public int getType() {
-        return type;
+    public DriverType getDriverType() {
+        return driverType;
     }
 
-    @Override
-    public void setType(int type) {
-        this.type = type;
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
     }
 }

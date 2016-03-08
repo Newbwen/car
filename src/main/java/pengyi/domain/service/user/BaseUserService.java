@@ -14,6 +14,7 @@ import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.exception.NotEqualException;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
@@ -87,10 +88,10 @@ public class BaseUserService implements IBaseUserService {
         BaseUser baseUser = this.show(command.getId());
         baseUser.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (baseUser.getStatus() == true) {
-            baseUser.setStatus(false);
+        if (baseUser.getStatus().equals("ENABLE")) {
+            baseUser.setStatus(EnableStatus.DISABLE);
         } else {
-            baseUser.setStatus(true);
+            baseUser.setStatus(EnableStatus.ENABLE);
         }
         return baseUser;
     }

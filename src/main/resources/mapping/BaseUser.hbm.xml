@@ -16,7 +16,12 @@
 
         <property name="salt" column="salt" type="java.lang.String"/>
 
-        <property name="status" column="status" type="java.lang.Boolean"/>
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.EnableStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
         <property name="balance" column="balance" type="java.math.BigDecimal" scale="2"/>
 
@@ -27,10 +32,16 @@
 
         <property name="email" column="email" type="java.lang.String"/>
 
-        <property name="type" type="java.lang.Integer" column="type"/>
+        <property name="userType" column="user_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.UserType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
-        <union-subclass name="pengyi.domain.model.user.company.Company"
+        <joined-subclass name="pengyi.domain.model.user.company.Company"
                         table="base_user_company">
+            <key column="base_user_company_id"/>
             <property name="name" column="name" type="java.lang.String"/>
             <property name="folder" column="folder" type="java.lang.String"/>
             <property name="registerDate" column="register_date" type="java.util.Date"/>
@@ -38,36 +49,55 @@
             <many-to-one name="operateAddress" column="operate_address_id" class="pengyi.domain.model.area.Area"/>
             <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="level" column="level" type="java.lang.Double"/>
-        </union-subclass>
+        </joined-subclass>
 
-        <union-subclass name="pengyi.domain.model.user.driver.Driver"
+        <joined-subclass name="pengyi.domain.model.user.driver.Driver"
                         table="base_user_driver">
+            <key column="base_user_driver_id"/>
             <property name="name" column="name" type="java.lang.String"/>
             <property name="head" column="head" type="java.lang.String"/>
             <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
-            <property name="sex" column="sex" type="java.lang.Integer"/>
+            <property name="sex" column="sex">
+                <type name="org.hibernate.type.EnumType">
+                    <param name="enumClass">pengyi.core.type.Sex</param>
+                    <param name="type">4</param>
+                </type>
+            </property>
             <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="level" column="level" type="java.lang.Double"/>
             <property name="longitude" column="longitude" type="java.lang.Double"/>
             <property name="latitude" column="latitude" type="java.lang.Double"/>
             <property name="reportCount" column="reportCount" type="java.lang.Integer"/>
             <property name="online" column="online" type="java.lang.Boolean"/>
-            <property name="driverType" column="driver_type" type="java.lang.Integer"/>
-        </union-subclass>
+            <property name="driverType" column="driver_type">
+                <type name="org.hibernate.type.EnumType">
+                    <param name="enumClass">pengyi.core.type.DriverType</param>
+                    <param name="type">4</param>
+                </type>
+            </property>
+        </joined-subclass>
 
-        <union-subclass name="pengyi.domain.model.user.terrace.Terrace"
+        <joined-subclass name="pengyi.domain.model.user.terrace.Terrace"
                         table="base_user_terrace">
+            <key column="base_user_terrace_id"/>
             <property name="name" column="name" type="java.lang.String"/>
-        </union-subclass>
+        </joined-subclass>
 
-        <union-subclass name="pengyi.domain.model.user.user.User"
+        <joined-subclass name="pengyi.domain.model.user.user.User"
                         table="base_user_user">
+            <key column="base_user_user_id"/>
             <property name="name" column="name" type="java.lang.String"/>
             <property name="head" column="head" type="java.lang.String"/>
+            <property name="sex" column="sex">
+                <type name="org.hibernate.type.EnumType">
+                    <param name="enumClass">pengyi.core.type.Sex</param>
+                    <param name="type">4</param>
+                </type>
+            </property>
             <property name="integral" column="integral" type="java.lang.Integer"/>
             <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="reportCount" column="report_count" type="java.lang.Integer"/>
-        </union-subclass>
+        </joined-subclass>
 
     </class>
 

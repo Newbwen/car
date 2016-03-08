@@ -12,6 +12,7 @@ import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.shiro.ShiroFilterChainManager;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.permission.Permission;
 import pengyi.domain.model.urlresources.IUrlResourcesRepository;
@@ -113,10 +114,10 @@ public class UrlResourcesService implements IUrlResourcesService {
     public UrlResources updateStatus(EditStatusCommand command) {
         UrlResources urlResources = this.show(command.getId());
         urlResources.fainWhenConcurrencyViolation(command.getVersion());
-        if (urlResources.getStatus() == true) {
-            urlResources.setStatus(false);
+        if (urlResources.getStatus().equals("ENABLE")) {
+            urlResources.setStatus(EnableStatus.DISABLE);
         } else {
-            urlResources.setStatus(true);
+            urlResources.setStatus(EnableStatus.ENABLE);
         }
 
         urlResourcesRepository.update(urlResources);

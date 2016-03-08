@@ -11,6 +11,7 @@ import pengyi.application.permission.command.ListPermissionCommand;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.permission.IPermissionRepository;
 import pengyi.domain.model.permission.Permission;
@@ -87,10 +88,10 @@ public class PermissionService implements IPermissionService {
         Permission permission = this.show(command.getId());
         permission.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (permission.getStatus() == true) {
-            permission.setStatus(false);
+        if (permission.getStatus().equals("ENABLE")) {
+            permission.setStatus(EnableStatus.DISABLE);
         } else {
-            permission.setStatus(true);
+            permission.setStatus(EnableStatus.ENABLE);
         }
 
         permissionRepository.update(permission);
