@@ -18,7 +18,7 @@
 
         <property name="description" column="description" type="java.lang.String" />
 
-        <many-to-one name="driver" column="driver_id" class="pengyi.domain.model.user.Driver" />
+        <many-to-one name="driver" column="driver_id" class="pengyi.domain.model.user.driver.Driver" />
 
         <property name="rescueTime" column="rescue_time" type="java.lang.String" length="19"/>
 

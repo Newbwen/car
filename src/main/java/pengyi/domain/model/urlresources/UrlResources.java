@@ -6,6 +6,9 @@ import pengyi.domain.model.permission.Permission;
 import java.util.List;
 
 /**
+ *
+ * update by yjh
+ *
  * 请求路径
  * Created by pengyi on 2016/3/4.
  */
@@ -14,7 +17,7 @@ public class UrlResources extends Identity{
     private String urlName;                     //路径名
     private String description;                 //描述
     private List<Permission> urlPermission;     //路径权限列表
-    private Boolean status;                     //是否启用
+    private Boolean status;                     //是否启用（true=启用，false=禁用）
 
     public String getUrlName() {
         return urlName;
