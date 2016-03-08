@@ -52,6 +52,7 @@ public class MessageService implements IMessageService {
         orderList.add(Order.desc("sendDate"));
 
         return messageResposition.list((Criterion[])criterionList.toArray(), (Order[]) orderList.toArray());
+
     }
 
     //标记已读

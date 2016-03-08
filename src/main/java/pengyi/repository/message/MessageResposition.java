@@ -3,8 +3,6 @@ package pengyi.repository.message;
 import org.springframework.stereotype.Repository;
 import pengyi.domain.model.message.IMessageResposition;
 import pengyi.domain.model.message.Message;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.IUserRepository;
 import pengyi.repository.generic.AbstractHibernateGenericRepository;
 
 /**
