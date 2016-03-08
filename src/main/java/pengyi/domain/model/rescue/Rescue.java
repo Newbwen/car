@@ -2,7 +2,7 @@ package pengyi.domain.model.rescue;
 
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.Driver;
+import pengyi.domain.model.user.driver.Driver;
 
 /**
  * 救援

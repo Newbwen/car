@@ -1,7 +1,7 @@
 package pengyi.domain.model.car;
 
 import pengyi.domain.model.base.Identity;
-import pengyi.domain.model.user.Driver;
+import pengyi.domain.model.user.driver.Driver;
 
 /**
  * 车辆
