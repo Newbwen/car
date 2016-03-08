@@ -1,5 +1,6 @@
 package pengyi.domain.model.report;
 
+import pengyi.core.type.StatusType;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
@@ -17,7 +18,7 @@ public class Report extends Identity {
     private String startDealTime;               //开始处理时间
     private String endDealTime;                 //处理完成时间
     private String description;                 //说明
-    private int status;                         //状态（待处理、处理中、处理完成）
+    private StatusType status;                         //状态（待处理、处理中、处理完成）
 
     public BaseUser getReportUser() {
         return reportUser;
@@ -67,11 +68,11 @@ public class Report extends Identity {
         this.description = description;
     }
 
-    public int getStatus() {
+    public StatusType getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusType status) {
         this.status = status;
     }
 
@@ -79,7 +80,7 @@ public class Report extends Identity {
         super();
     }
 
-    public Report(BaseUser reportUser, Order order, String reportTime, String startDealTime, String endDealTime, String description, int status) {
+    public Report(BaseUser reportUser, Order order, String reportTime, String startDealTime, String endDealTime, String description, StatusType status) {
         super();
         this.reportUser = reportUser;
         this.order = order;
