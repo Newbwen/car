@@ -3,11 +3,11 @@ package pengyi.domain.service.evaluate;
 import org.hibernate.criterion.Order;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.repository.generic.Pagination;
 
-import java.util.List;
 
 /**
- * Created by pengyi on 2015/12/24.
+ * Created by lvdi on 2016/3/8.
  */
 public interface IEvaluateService {
 
@@ -15,10 +15,13 @@ public interface IEvaluateService {
 
     void upadte(Evaluate evaluate);
 
-    void delete(BaseUser evaluateUser);
+    void delete(int evaluateId);
 
-    List<Evaluate> getEvaluateList(BaseUser evaluateUser);
+    Pagination<Evaluate> getEvaluateList(BaseUser evaluateUser, int page, int pageSize);
 
-    List<Evaluate> getEvaluateList(Order orderId);
+    Pagination<Evaluate> getEvaluateList(Order orderId, int page, int pageSize);
+
+    Evaluate getById(int evaluateId);
+
 
 }
