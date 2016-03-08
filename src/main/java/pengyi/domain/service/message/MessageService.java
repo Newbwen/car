@@ -21,12 +21,12 @@ import java.util.List;
 @Service("messageService")
 public class MessageService implements IMessageService {
     @Autowired
-    private IMessageRepository messageResposition;
+    private IMessageRepository<Message,String> messageRepository;
 
     @Override
     @SuppressWarnings("unchecked")
     public Message getById(String messageId) {
-        return (Message) messageResposition.getById(messageId);
+        return messageRepository.getById(messageId);
     }
 
     //添加消息
@@ -35,7 +35,7 @@ public class MessageService implements IMessageService {
     @Transactional(readOnly = true)
     public void insert(Message message) {
 
-        messageResposition.save(message);
+        messageRepository.save(message);
     }
 
     //根据用户查询站内消息
@@ -51,7 +51,7 @@ public class MessageService implements IMessageService {
 
         orderList.add(Order.desc("sendDate"));
 
-        return messageResposition.list((Criterion[])criterionList.toArray(), (Order[]) orderList.toArray());
+        return messageRepository.list((Criterion[])criterionList.toArray(), (Order[]) orderList.toArray());
 
     }
 
@@ -64,7 +64,7 @@ public class MessageService implements IMessageService {
 
         message.setReceiveDate(CoreDateUtils.formatDateTime(new Date()));
 
-        messageResposition.update(message);
+        messageRepository.update(message);
     }
 
 }

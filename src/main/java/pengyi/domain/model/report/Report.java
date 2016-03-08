@@ -18,7 +18,7 @@ public class Report extends Identity {
     private String startDealTime;               //开始处理时间
     private String endDealTime;                 //处理完成时间
     private String description;                 //说明
-    private StatusType status;                         //状态（待处理、处理中、处理完成）
+    private StatusType status;                  //状态（待处理、处理中、处理完成）
 
     public BaseUser getReportUser() {
         return reportUser;
