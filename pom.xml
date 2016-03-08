@@ -368,7 +368,6 @@
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
             <version>${version.orika}</version>
-            <scope>provided</scope>
         </dependency>
         <!-- End Orika -->
 

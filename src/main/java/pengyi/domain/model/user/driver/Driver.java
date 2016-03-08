@@ -1,6 +1,5 @@
 package pengyi.domain.model.user.driver;
 
-import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
@@ -10,9 +9,8 @@ import java.util.Date;
 
 
 /**
- *
  * update by yjh
- *
+ * <p>
  * 司机
  * Created by pengyi on 2016/3/4.
  */
@@ -26,17 +24,16 @@ public class Driver extends BaseUser {
     private Double level;                   //等级
     private Double longitude;               //经度
     private Double latitude;                //纬度
-    private Boolean status;                 //是否启用
     private int reportCount;                //举报次数
     private Boolean online;                 //是否在线
-    private int type;                       //类型（1代驾、2专车、3出租车）
+    private int driverType;                       //类型（1代驾、2专车、3出租车）
 
-    public int getType() {
-        return type;
+    public int getDriverType() {
+        return driverType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setDriverType(int driverType) {
+        this.driverType = driverType;
     }
 
     public String getName() {
@@ -103,14 +100,6 @@ public class Driver extends BaseUser {
         this.latitude = latitude;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public int getReportCount() {
         return reportCount;
     }
@@ -131,7 +120,7 @@ public class Driver extends BaseUser {
         super();
     }
 
-    public Driver(String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, Boolean status, int reportCount, Boolean online, int type) {
+    public Driver(String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, int reportCount, Boolean online, int driverType) {
         this.name = name;
         this.head = head;
         this.company = company;
@@ -140,13 +129,12 @@ public class Driver extends BaseUser {
         this.level = level;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.status = status;
         this.reportCount = reportCount;
         this.online = online;
-        this.type = type;
+        this.driverType = driverType;
     }
 
-    public Driver(String phone, String password, String salt, Boolean status, BigDecimal balance, Date createDate, Role userRole, String email, int type, String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, Boolean status1, int reportCount, Boolean online, int type1) {
+    public Driver(String phone, String password, String salt, Boolean status, BigDecimal balance, Date createDate, Role userRole, String email, int type, String name, String head, Company company, int sex, BigDecimal money, Double level, Double longitude, Double latitude, int reportCount, Boolean online, int driverType) {
         super(phone, password, salt, status, balance, createDate, userRole, email, type);
         this.name = name;
         this.head = head;
@@ -156,9 +144,8 @@ public class Driver extends BaseUser {
         this.level = level;
         this.longitude = longitude;
         this.latitude = latitude;
-        status = status1;
         this.reportCount = reportCount;
         this.online = online;
-        type = type1;
+        this.driverType = driverType;
     }
 }

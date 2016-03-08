@@ -10,8 +10,8 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
 /**
  * Created by YJH on 2016/3/7.
  */
-@Repository("userRepository")
-public class BaseBaseUserRepository extends AbstractHibernateGenericRepository<BaseUser, String> implements IBaseUserRepository<BaseUser, String> {
+@Repository("baseUserRepository")
+public class BaseUserRepository extends AbstractHibernateGenericRepository<BaseUser, String> implements IBaseUserRepository<BaseUser, String> {
     @Override
     public BaseUser getByPhone(String phone) {
         Criteria criteria = getSession().createCriteria(getPersistentClass());

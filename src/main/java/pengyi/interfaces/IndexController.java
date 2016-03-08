@@ -1,10 +1,8 @@
-package pengyi.interfaces.web.user;
+package pengyi.interfaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import pengyi.core.response.BaseResponse;
 import pengyi.domain.service.user.IBaseUserService;
 
 /**
@@ -12,8 +10,8 @@ import pengyi.domain.service.user.IBaseUserService;
  * Date: 15-12-30
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/")
+public class IndexController {
 
     @Autowired
     private IBaseUserService userService;

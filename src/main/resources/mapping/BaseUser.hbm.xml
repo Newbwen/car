@@ -50,10 +50,9 @@
             <property name="level" column="level" type="java.lang.Double"/>
             <property name="longitude" column="longitude" type="java.lang.Double"/>
             <property name="latitude" column="latitude" type="java.lang.Double"/>
-            <property name="status" column="status" type="java.lang.Boolean"/>
             <property name="reportCount" column="reportCount" type="java.lang.Integer"/>
             <property name="online" column="online" type="java.lang.Boolean"/>
-            <property name="type" column="type" type="java.lang.Integer"/>
+            <property name="driverType" column="driver_type" type="java.lang.Integer"/>
         </union-subclass>
 
         <union-subclass name="pengyi.domain.model.user.terrace.Terrace"
