@@ -1,8 +1,8 @@
 package pengyi.domain.service.evaluate;
 
-import org.hibernate.criterion.Order;
+import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.domain.model.evaluate.Evaluate;
-import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.urlresources.UrlResources;
 import pengyi.repository.generic.Pagination;
 
 
@@ -11,17 +11,24 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IEvaluateService {
 
-    void save(Evaluate evaluate);
+    void create(Evaluate evaluate);
 
-    void upadte(Evaluate evaluate);
+    void update(Evaluate evaluate);
 
     void delete(int evaluateId);
 
-    Pagination<Evaluate> getEvaluateList(BaseUser evaluateUser, int page, int pageSize);
+    Pagination<Evaluate> getByUser(String evaluateUserId, int page, int pageSize);
 
-    Pagination<Evaluate> getEvaluateList(Order orderId, int page, int pageSize);
+    Pagination<Evaluate> getByOrder(String orderId, int page, int pageSize);
 
     Evaluate getById(int evaluateId);
+
+    Evaluate edit(EditEvaluateCommand command);
+
+    Evaluate show(String id);
+
+    Evaluate searchByName(String evaluateUserame);
+
 
 
 }

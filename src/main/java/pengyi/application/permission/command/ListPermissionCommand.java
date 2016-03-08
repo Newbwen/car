@@ -21,7 +21,5 @@ public class ListPermissionCommand extends BasicPaginationCommand {
         return status;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
+    public void setStatus(Boolean status) { this.status = status; }
 }
