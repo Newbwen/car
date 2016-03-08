@@ -8,15 +8,22 @@
             <generator class="uuid"/>
         </id>
 
-        <version name="version" type="java.lang.Integer" column="version" />
+        <version name="version" type="java.lang.Integer" column="version"/>
 
-        <many-to-one name="reportUser" column="report_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+        <many-to-one name="reportUser" column="report_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join"/>
 
-        <many-to-one name="order" column="order_id" class="pengyi.domain.model.order.Order" fetch="join" />
+        <many-to-one name="order" column="order_id" class="pengyi.domain.model.order.Order" fetch="join"/>
 
-        <property name="description" column="description" type="java.lang.String" />
+        <property name="reportTime" column="report_time" type="java.lang.String" length="19"/>
 
-        <property name="status" column="status" type="java.lang.Integer" />
+        <property name="startDealTime" column="start_deal_time" type="java.lang.String" length="19"/>
+
+        <property name="endDealTime" column="end_deal_time" type="java.lang.String" length="19"/>
+
+        <property name="description" column="description" type="java.lang.String"/>
+
+        <property name="status" column="status" type="java.lang.Integer"/>
+
     </class>
 
 </hibernate-mapping>
