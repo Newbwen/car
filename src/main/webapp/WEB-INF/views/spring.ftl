@@ -94,7 +94,7 @@
  * Exposes a BindStatus object for the given bind path, which can be
  * a bean (e.g. "person") to get global errors, or a bean property
  * (e.g. "person.name") to get field errors. Can be called multiple times
- * within a form to bind to multiple command objects and/or field names.
+ * within a form to bind to multiple IOrderAppService objects and/or field names.
  *
  * This macro will participate in the default HTML escape setting for the given
  * RequestContext. This can be customized by calling "setDefaultHtmlEscape"
@@ -106,11 +106,11 @@
  * each time this macro is referenced (assuming you import this library in
  * your templates with the namespace 'spring'):
  *
- *   spring.status : a BindStatus instance holding the command object name,
+ *   spring.status : a BindStatus instance holding the IOrderAppService object name,
  *   expression, value, and error messages and codes for the path supplied
  *
  * @param path : the path (string value) of the value required to bind to.
- *   Spring defaults to a command name of "command" but this can be overridden
+ *   Spring defaults to a IOrderAppService name of "IOrderAppService" but this can be overridden
  *   by baseUser config.
  -->
 <#macro bind path>
@@ -149,7 +149,7 @@
  * formInput
  *
  * Display a form input field of type 'text' and bind it to an attribute
- * of a command or bean.
+ * of a IOrderAppService or bean.
  *
  * @param path the name of the field to bind to
  * @param attributes any additional attributes for the element (such as class
@@ -164,7 +164,7 @@
  * formPasswordInput
  *
  * Display a form input field of type 'password' and bind it to an attribute
- * of a command or bean. No value will ever be displayed. This functionality
+ * of a IOrderAppService or bean. No value will ever be displayed. This functionality
  * can also be obtained by calling the formInput macro with a 'type' parameter
  * of 'password'.
  *
@@ -180,7 +180,7 @@
  * formHiddenInput
  *
  * Generate a form input field of type 'hidden' and bind it to an attribute
- * of a command or bean. This functionality can also be obtained by calling
+ * of a IOrderAppService or bean. This functionality can also be obtained by calling
  * the formInput macro with a 'type' parameter of 'hidden'.
  *
  * @param path the name of the field to bind to
@@ -194,7 +194,7 @@
 <#--
  * formTextarea
  *
- * Display a text area and bind it to an attribute of a command or bean.
+ * Display a text area and bind it to an attribute of a IOrderAppService or bean.
  *
  * @param path the name of the field to bind to
  * @param attributes any additional attributes for the element (such as class

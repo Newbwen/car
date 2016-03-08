@@ -75,6 +75,7 @@ public class BaseUserService implements IBaseUserService {
         return baseUser;
     }
 
+    @Override
     public BaseUser show(String id) {
         BaseUser baseUser = baseUserRepository.getById(id);
         if (null == baseUser) {

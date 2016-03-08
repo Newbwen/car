@@ -59,6 +59,7 @@
         <version.orika>1.4.5</version.orika>
         <version.quartz>1.8.5</version.quartz>
         <version.shiro>1.2.3</version.shiro>
+        <version.thumbnailator>0.4.8</version.thumbnailator>
     </properties>
 
     <dependencies>
@@ -433,6 +434,12 @@
             <version>6.1.1</version>
         </dependency>
         <!-- End activation -->
+
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${version.thumbnailator}</version>
+        </dependency>
     </dependencies>
 
     <repositories>

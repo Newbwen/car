@@ -23,4 +23,5 @@ public interface IBaseUserService {
 
     BaseUser updateBaseUserRole(EditBaseUserRoleCommand command);
 
+    BaseUser show(String id);
 }

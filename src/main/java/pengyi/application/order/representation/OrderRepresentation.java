@@ -1,25 +1,25 @@
-package pengyi.domain.model.order;
+package pengyi.application.order.representation;
 
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
-import pengyi.domain.model.base.Identity;
-import pengyi.domain.model.report.Report;
-import pengyi.domain.model.user.BaseUser;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 订单
- * Created by pengyi on 2016/3/4.
+ * Created by YJH on 2016/3/8.
  */
-public class Order extends Identity{
+public class OrderRepresentation {
+
+    private String id;
+    private Integer version;
 
     private String orderNumber;                         //订单号
-    private BaseUser orderUser;                         //下单人
+    private BaseUserRepresentation orderUser;                         //下单人
     private Date createDate;                          //下单时间
-    private BaseUser receiveUser;                       //接单人
+    private BaseUserRepresentation receiveUser;                       //接单人
     private Date receiveDate;                         //接单时间
     private Date subscribeDate;                       //预约时间
     private Date beginTime;                           //开始时间
@@ -31,6 +31,22 @@ public class Order extends Identity{
     private OrderStatus orderStatus;                  //订单状态
     private EvaluateStatus evaluateStatus;            //评价状态
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     public String getOrderNumber() {
         return orderNumber;
     }
@@ -39,11 +55,11 @@ public class Order extends Identity{
         this.orderNumber = orderNumber;
     }
 
-    public BaseUser getOrderUser() {
+    public BaseUserRepresentation getOrderUser() {
         return orderUser;
     }
 
-    public void setOrderUser(BaseUser orderUser) {
+    public void setOrderUser(BaseUserRepresentation orderUser) {
         this.orderUser = orderUser;
     }
 
@@ -55,11 +71,11 @@ public class Order extends Identity{
         this.createDate = createDate;
     }
 
-    public BaseUser getReceiveUser() {
+    public BaseUserRepresentation getReceiveUser() {
         return receiveUser;
     }
 
-    public void setReceiveUser(BaseUser receiveUser) {
+    public void setReceiveUser(BaseUserRepresentation receiveUser) {
         this.receiveUser = receiveUser;
     }
 
@@ -140,27 +156,6 @@ public class Order extends Identity{
     }
 
     public void setEvaluateStatus(EvaluateStatus evaluateStatus) {
-        this.evaluateStatus = evaluateStatus;
-    }
-
-    public Order() {
-        super();
-    }
-
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus) {
-        this.orderNumber = orderNumber;
-        this.orderUser = orderUser;
-        this.createDate = createDate;
-        this.receiveUser = receiveUser;
-        this.receiveDate = receiveDate;
-        this.subscribeDate = subscribeDate;
-        this.beginTime = beginTime;
-        this.driverType = driverType;
-        this.endTime = endTime;
-        this.shouldMoney = shouldMoney;
-        this.extraMoney = extraMoney;
-        this.payTime = payTime;
-        this.orderStatus = orderStatus;
         this.evaluateStatus = evaluateStatus;
     }
 }

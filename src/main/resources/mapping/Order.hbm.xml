@@ -14,29 +14,44 @@
 
         <many-to-one name="orderUser" column="order_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
-        <property name="createDate" column="create_date" type="java.lang.String" length="19" />
+        <property name="createDate" column="create_date" type="java.util.Date"/>
 
         <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
-        <property name="receiveDate" column="receive_date" type="java.lang.String" length="19" />
+        <property name="receiveDate" column="receive_date" type="java.util.Date"/>
 
-        <property name="subscribeDate" column="subscribe_date" type="java.lang.String" length="19" />
+        <property name="subscribeDate" column="subscribe_date" type="java.util.Date" />
 
-        <property name="beginTime" column="begin_time" type="java.lang.String" length="19" />
+        <property name="beginTime" column="begin_time" type="java.util.Date" />
 
-        <property name="type" column="type" type="java.lang.Integer" />
+        <property name="driverType" column="driver_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.DriverType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
-        <property name="endTime" column="end_time" type="java.lang.String" length="19" />
+        <property name="endTime" column="end_time" type="java.util.Date"/>
 
         <property name="shouldMoney" column="should_money" type="java.math.BigDecimal" />
 
         <property name="extraMoney" column="extra_money" type="java.math.BigDecimal" />
 
-        <property name="payTime" column="pay_time" type="java.lang.String" length="19" />
+        <property name="payTime" column="pay_time" type="java.util.Date"/>
 
-        <property name="orderStatus" column="order_status" type="java.lang.Integer" />
+        <property name="orderStatus" column="order_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.OrderStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
-        <property name="evaluateStatus" column="evaluate_status" type="java.lang.Integer" />
+        <property name="evaluateStatus" column="evaluate_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.EvaluateStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
     </class>
 
