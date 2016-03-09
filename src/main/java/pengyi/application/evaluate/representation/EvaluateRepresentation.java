@@ -1,10 +1,7 @@
 package pengyi.application.evaluate.representation;
 
+import pengyi.application.order.representation.OrderRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
-import pengyi.domain.model.order.Order;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.repository.order.OrderResposition;
-import pengyi.repository.user.BaseUserRepository;
 
 /**
  * Created by ${lvdi} on 2016/3/8.
@@ -14,7 +11,7 @@ public class EvaluateRepresentation {
     private Integer version;
 
     private BaseUserRepresentation evaluateUser;               //评价人
-    private OrderResposition order;                            //订单
+    private OrderRepresentation order;                            //订单
     private String content;                                    //评价内容
     private int level;                                         //评级
     private String createDate;                                 //评价时间
@@ -35,11 +32,11 @@ public class EvaluateRepresentation {
         this.evaluateUser = evaluateUser;
     }
 
-    public OrderResposition getOrder() {
+    public OrderRepresentation getOrder() {
         return order;
     }
 
-    public void setOrder(OrderResposition order) {
+    public void setOrder(OrderRepresentation order) {
         this.order = order;
     }
 

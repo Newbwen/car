@@ -97,7 +97,8 @@ public class RescueService implements IRescueService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("applyUser", applyUser));
 
-        return rescueRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+//        return rescueRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+        return null;
     }
 
     /**
@@ -113,8 +114,10 @@ public class RescueService implements IRescueService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("driver", driver));
 
-        return rescueRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+//        return rescueRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+        return null;
     }
+
 
     /**
      * 根据救援Id查询救援

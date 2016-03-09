@@ -62,7 +62,7 @@ public class EvaluateAppService implements IEvaluateAppService {
     @Override
     @Transactional(readOnly = true)
     public EvaluateRepresentation show(String id) {
-        return mappingService.map(evaluateAppService.show(id), EvaluateRepresentation.class, false);
+        return mappingService.map(evaluateService.show(id), EvaluateRepresentation.class, false);
     }
 
 

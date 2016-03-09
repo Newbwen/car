@@ -11,15 +11,7 @@ public class EditEvaluateCommand {
     private String evaluateUser;                     //评价人
     private String order;                            //订单
     private String content;                          //评价内容
-    private String createDate;                      //评价时间
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
+    private Integer level;                              //评级
 
     public String getId() {
         return id;
@@ -61,4 +53,11 @@ public class EditEvaluateCommand {
         this.content = content;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 }

@@ -5,16 +5,12 @@ import ma.glasnost.orika.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pengyi.application.evaluate.representation.EvaluateRepresentation;
+import pengyi.application.order.representation.OrderRepresentation;
 import pengyi.application.permission.representation.PermissionRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.evaluate.Evaluate;
-import pengyi.domain.model.order.Order;
-import pengyi.domain.model.permission.Permission;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.repository.order.OrderResposition;
 
-import java.util.List;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -27,7 +23,7 @@ public class EvaluateRepresentationMapper extends CustomMapper<Evaluate, Evaluat
 
     public void mapAtoB(Evaluate evaluate,EvaluateRepresentation representation,MappingContext context){
         if(null!=evaluate.getOrder()){
-            OrderResposition order = mappingService.map(evaluate.getOrder(),OrderResposition.class,false);
+            OrderRepresentation order = mappingService.map(evaluate.getOrder(),OrderRepresentation.class,false);
             representation.setOrder(order);
         }
         if(null!=evaluate.getEvaluateUser()){

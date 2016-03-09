@@ -12,4 +12,8 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
  */
 @Repository("evaluateRepository")
 public class EvaluateResposition extends AbstractHibernateGenericRepository<Evaluate, String> implements IEvaluateRepository<Evaluate, String> {
+    @Override
+    public Evaluate getByName(String evaluateUser) {
+        return null;
+    }
 }

@@ -9,4 +9,8 @@ import java.io.Serializable;
  */
 
 public interface IEvaluateRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
+
+    Evaluate getByName(String evaluateUser);
+
+
 }

@@ -1,5 +1,6 @@
 package pengyi.domain.service.evaluate;
 
+import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.urlresources.UrlResources;
@@ -11,7 +12,9 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IEvaluateService {
 
-    void create(Evaluate evaluate);
+    void save(Evaluate evaluate);
+
+    Evaluate create(EditEvaluateCommand command);
 
     void update(Evaluate evaluate);
 
@@ -30,5 +33,5 @@ public interface IEvaluateService {
     Evaluate searchByName(String evaluateUserame);
 
 
-
+    Evaluate create(CreateEvaluateCommand command);
 }
