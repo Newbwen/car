@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.evaluate.command.EditEvaluateCommand;
+import pengyi.core.exception.NoFoundException;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.evaluate.IEvaluateRepository;
 import pengyi.domain.model.user.BaseUser;
@@ -30,7 +32,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void save(Evaluate evaluate) {
+    public void create(Evaluate evaluate) {
 
         Evaluate evaluate1 = new Evaluate();
         evaluate.setEvaluateUser(evaluate.getEvaluateUser());
@@ -47,7 +49,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void upadte(Evaluate evaluate) {
+    public void update(Evaluate evaluate) {
 
         Evaluate evaluate1 = new Evaluate();
 
@@ -78,15 +80,15 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public Pagination<Evaluate> getEvaluateList(BaseUser evaluateUser, int page, int pageSize) {
+    public Pagination<Evaluate> getByUser(String evaluateUserId, int page, int pageSize) {
 
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("createDate"));
 
         List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("evaluateUser", evaluateUser));
+        criterionList.add(Restrictions.eq("evaluateUser.id", evaluateUserId));
 
-        return evaluateRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+        return evaluateRepository.pagination(page, pageSize, criterionList, orderList);
 
     }
 
@@ -95,7 +97,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public Pagination<Evaluate> getEvaluateList(Order orderId, int page, int pageSize) {
+    public Pagination<Evaluate> getByOrder(String orderId, int page, int pageSize) {
 
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("createDate"));
@@ -103,7 +105,7 @@ public class EvaluateService implements IEvaluateService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("order.id", orderId));
 
-        return evaluateRepository.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+        return evaluateRepository.pagination(page, pageSize, criterionList, orderList);
     }
 
     /**
@@ -114,5 +116,29 @@ public class EvaluateService implements IEvaluateService {
     public Evaluate getById(int evaluateId) {
 
         return (Evaluate) evaluateRepository.getById(evaluateId);
+    }
+
+    @Override
+    public Evaluate edit(EditEvaluateCommand command) {
+
+        Evaluate evaluate = this.show(command.getId());
+        if (!evaluate.getEvaluateUser().equals(command.getEvaluateUser())) {
+
+        }
+    }
+
+    @Override
+    public Evaluate show(String id) {
+
+       Evaluate evaluate= (Evaluate) evaluateRepository.getById(id);
+        if(null==evaluate){
+            throw new NoFoundException("没有找到资源路径id=[" + id + "]的记录");
+        }
+        return evaluate;
+    }
+
+    @Override
+    public Evaluate searchByName(String evaluateUserame) {
+        return null;
     }
 }
