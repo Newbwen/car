@@ -1,5 +1,6 @@
 package pengyi.domain.service.report;
 
+import pengyi.application.report.command.ListReportCommand;
 import pengyi.domain.model.report.Report;
 import pengyi.repository.generic.Pagination;
 
@@ -13,8 +14,5 @@ public interface IReportService {
 
     Report getById(String reportId);
 
-    Pagination<Report> paginationByUser(int page, int pageSize, String userId);
-
-    Pagination<Report> paginationByOrder(int page, int pageSize, String orderId);
-
+    Pagination<Report> pagination(ListReportCommand command);
 }

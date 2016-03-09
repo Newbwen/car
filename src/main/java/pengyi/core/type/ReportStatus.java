@@ -3,7 +3,7 @@ package pengyi.core.type;
 /**
  * Created by liubowen on 2016/3/8.
  */
-public enum StatusType {
+public enum ReportStatus {
 
     PENDING("待处理",1,Boolean.FALSE),
     IN_PROCESS("正在处理",2,Boolean.FALSE),
@@ -12,7 +12,7 @@ public enum StatusType {
     private int value;
     private Boolean onlyQuery;
 
-    StatusType(String name, int value, Boolean onlyQuery) {
+    ReportStatus(String name, int value, Boolean onlyQuery) {
         this.name = name;
         this.value = value;
         this.onlyQuery = onlyQuery;

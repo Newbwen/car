@@ -1,7 +1,9 @@
 package pengyi.domain.service.message;
 
+import pengyi.application.message.command.ListMessageCommand;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.repository.generic.Pagination;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ public interface IMessageService {
 
     void insert(Message message);
 
-    List<Message> getMessageList(BaseUser user);
+    Pagination<Message> pagination(ListMessageCommand command);
 
     void read(String messageId);
 

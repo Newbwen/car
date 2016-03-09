@@ -5,10 +5,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.report.command.ListReportCommand;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.domain.model.report.Report;
 import pengyi.repository.generic.Pagination;
-import pengyi.repository.report.ReportResposition;
+import pengyi.repository.report.ReportRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +22,7 @@ import java.util.List;
 public class ReportService implements IReportService {
 
     @Autowired
-    private ReportResposition reportResposition;
+    private ReportRepository reportRepository;
 
     @Override
     @SuppressWarnings("unchecked")//添加举报订单信息
@@ -29,7 +30,7 @@ public class ReportService implements IReportService {
 
         report.setReportTime(CoreDateUtils.formatDateTime(new Date()));
 
-        reportResposition.save(report);
+        reportRepository.save(report);
     }
 
     @Override
@@ -37,49 +38,38 @@ public class ReportService implements IReportService {
     //状态1待处理.2处理中.3处理完成
     public void updateState(String reportId) {
 
-        Report report = getById(reportId);
-
-        switch (report.getStatus()) {
-
-            case 1:
-                report.setStatus(2);
-                report.setStartDealTime(CoreDateUtils.formatDateTime(new Date()));
-                break;
-
-            case 2:
-                report.setStatus(3);
-                report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
-                break;
-        }
-
-        report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
-
-        reportResposition.update(report);
+//        Report report = getById(reportId);
+//
+//        switch (report.getStatus()) {
+//
+//            case 1:
+//                report.setStatus(2);
+//                report.setStartDealTime(CoreDateUtils.formatDateTime(new Date()));
+//                break;
+//
+//            case 2:
+//                report.setStatus(3);
+//                report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
+//                break;
+//        }
+//
+//        report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
+//
+//        reportRepository.update(report);
     }
 
     @Override
-    @SuppressWarnings("unchecked")//根据举报订单id查询
     public Report getById(String reportId) {
-        return reportResposition.getById(reportId);
+        return reportRepository.getById(reportId);
     }
 
     @Override
-    @SuppressWarnings("unchecked")//根据用户分页
-    public Pagination<Report> paginationByUser(int page, int pageSize, String userId) {
+    public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("reportUser.id", userId));
+//        criterionList.add(Restrictions.eq("reportUser.id", userId));
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("reportTime"));
-        return reportResposition.pagination(page, pageSize, (Criterion[]) criterionList.toArray(), (Order[]) orderList.toArray());
+        return reportRepository.pagination(command.getPage(),command.getPageSize(),criterionList,orderList);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")//根据举报订单id分页
-    public Pagination<Report> paginationByOrder(int page, int pageSize, String orderId) {
-        List<Criterion> criterionList=new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("order.id",orderId));
-        List<Order> orderList=new ArrayList<Order>();
-        orderList.add(Order.desc("reportTime"));
-        return reportResposition.pagination(page,pageSize,(Criterion[]) criterionList.toArray(),(Order[]) orderList.toArray());
-    }
 }
