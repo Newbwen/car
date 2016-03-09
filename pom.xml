@@ -56,9 +56,11 @@
         <version.jedis>2.4.2</version.jedis>
         <version.springdataredis>1.2.1.RELEASE</version.springdataredis>
         <version.jcaptcha>1.0</version.jcaptcha>
+        <version.orika>1.4.5</version.orika>
         <version.quartz>1.8.5</version.quartz>
         <version.shiro>1.2.3</version.shiro>
         <version.xstream>1.4.8</version.xstream>
+        <version.thumbnailator>0.4.8</version.thumbnailator>
     </properties>
 
     <dependencies>
@@ -363,6 +365,14 @@
         </dependency>
         <!--End JCaptcha-->
 
+        <!-- Orika -->
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <version>${version.orika}</version>
+        </dependency>
+        <!-- End Orika -->
+
         <!-- Quartz -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
@@ -425,6 +435,12 @@
             <version>6.1.1</version>
         </dependency>
         <!-- End activation -->
+
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${version.thumbnailator}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>

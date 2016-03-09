@@ -6,10 +6,12 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.message.command.ListMessageCommand;
 import pengyi.core.util.CoreDateUtils;
-import pengyi.domain.model.message.IMessageResposition;
+import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.repository.generic.Pagination;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +23,12 @@ import java.util.List;
 @Service("messageService")
 public class MessageService implements IMessageService {
     @Autowired
-    private IMessageResposition messageResposition;
+    private IMessageRepository<Message,String> messageRepository;
 
     @Override
     @SuppressWarnings("unchecked")
     public Message getById(String messageId) {
-        return (Message) messageResposition.getById(messageId);
+        return messageRepository.getById(messageId);
     }
 
     //添加消息
@@ -35,23 +37,23 @@ public class MessageService implements IMessageService {
     @Transactional(readOnly = true)
     public void insert(Message message) {
 
-        messageResposition.save(message);
+        messageRepository.save(message);
     }
 
     //根据用户查询站内消息
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Message> getMessageList(BaseUser user) {
+    public Pagination<Message> pagination(ListMessageCommand command) {
 
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
-        criterionList.add(Restrictions.eq("receiveBaseUser", user));
+//        criterionList.add(Restrictions.eq("receiveBaseUser", user));
 
         List<Order> orderList = new ArrayList<Order>();
 
         orderList.add(Order.desc("sendDate"));
 
-        return messageResposition.list((Criterion[])criterionList.toArray(), (Order[]) orderList.toArray());
+        return messageRepository.pagination(command.getPage(),command.getPageSize(),criterionList,orderList);
+
     }
 
     //标记已读
@@ -63,7 +65,7 @@ public class MessageService implements IMessageService {
 
         message.setReceiveDate(CoreDateUtils.formatDateTime(new Date()));
 
-        messageResposition.update(message);
+        messageRepository.update(message);
     }
 
 }

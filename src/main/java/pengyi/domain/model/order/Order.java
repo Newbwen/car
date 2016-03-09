@@ -1,10 +1,14 @@
 package pengyi.domain.model.order;
 
+import pengyi.core.type.DriverType;
+import pengyi.core.type.EvaluateStatus;
+import pengyi.core.type.OrderStatus;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 订单
@@ -14,18 +18,18 @@ public class Order extends Identity{
 
     private String orderNumber;                         //订单号
     private BaseUser orderUser;                         //下单人
-    private String createDate;                          //下单时间
+    private Date createDate;                          //下单时间
     private BaseUser receiveUser;                       //接单人
-    private String receiveDate;                         //接单时间
-    private String subscribeDate;                       //预约时间
-    private String beginTime;                           //开始时间
-    private int type;                                   //类型（1代驾、2专车、3出租车）
-    private String endTime;                             //订单完成时间
+    private Date receiveDate;                         //接单时间
+    private Date subscribeDate;                       //预约时间
+    private Date beginTime;                           //开始时间
+    private DriverType driverType;                    //类型
+    private Date endTime;                             //订单完成时间
     private BigDecimal shouldMoney;                     //应付
     private BigDecimal extraMoney;                      //调度费
-    private String payTime;                             //支付时间
-    private int orderStatus;                            //订单状态（1已下单、2已接单、3已开始、4已结束待支付、5已完成）
-    private int evaluateStatus;                         //评价状态（0未评价、1司机已评价、2用户已评价、3已评价）
+    private Date payTime;                             //支付时间
+    private OrderStatus orderStatus;                  //订单状态
+    private EvaluateStatus evaluateStatus;            //评价状态
 
     public String getOrderNumber() {
         return orderNumber;
@@ -43,11 +47,11 @@ public class Order extends Identity{
         this.orderUser = orderUser;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -59,43 +63,43 @@ public class Order extends Identity{
         this.receiveUser = receiveUser;
     }
 
-    public String getReceiveDate() {
+    public Date getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(String receiveDate) {
+    public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public String getSubscribeDate() {
+    public Date getSubscribeDate() {
         return subscribeDate;
     }
 
-    public void setSubscribeDate(String subscribeDate) {
+    public void setSubscribeDate(Date subscribeDate) {
         this.subscribeDate = subscribeDate;
     }
 
-    public String getBeginTime() {
+    public Date getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(String beginTime) {
+    public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
     }
 
-    public int getType() {
-        return type;
+    public DriverType getDriverType() {
+        return driverType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -115,27 +119,27 @@ public class Order extends Identity{
         this.extraMoney = extraMoney;
     }
 
-    public String getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(String payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
 
-    public int getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(int orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public int getEvaluateStatus() {
+    public EvaluateStatus getEvaluateStatus() {
         return evaluateStatus;
     }
 
-    public void setEvaluateStatus(int evaluateStatus) {
+    public void setEvaluateStatus(EvaluateStatus evaluateStatus) {
         this.evaluateStatus = evaluateStatus;
     }
 
@@ -143,8 +147,7 @@ public class Order extends Identity{
         super();
     }
 
-    public Order(String orderNumber, BaseUser orderUser, String createDate, BaseUser receiveUser, String receiveDate, String subscribeDate, String beginTime, int type, String endTime, BigDecimal shouldMoney, BigDecimal extraMoney, String payTime, int orderStatus, int evaluateStatus) {
-        super();
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -152,7 +155,7 @@ public class Order extends Identity{
         this.receiveDate = receiveDate;
         this.subscribeDate = subscribeDate;
         this.beginTime = beginTime;
-        this.type = type;
+        this.driverType = driverType;
         this.endTime = endTime;
         this.shouldMoney = shouldMoney;
         this.extraMoney = extraMoney;
