@@ -27,25 +27,33 @@ public class MessageAppService implements IMessageAppService {
 
     @Override
     public Pagination<MessageRepresentation> pagination(ListMessageCommand command) {
+
         command.verifyPage();
+
         command.verifyPageSize(20);
+
         Pagination<Message> pagination = messageService.pagination(command);
+
         List<MessageRepresentation> date = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
+
         return new Pagination<MessageRepresentation>(date, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
     @Override
     public MessageRepresentation create(CreateMessageCommand command) {
+
         return mappingService.map(messageService.create(command), MessageRepresentation.class, false);
     }
 
     @Override
     public MessageRepresentation show(String id) {
+
         return mappingService.map(messageService.show(id), MessageRepresentation.class, false);
     }
 
     @Override
     public MessageRepresentation edit(EditMessageCommand command) {
+
         return mappingService.map(messageService.edit(command), MessageRepresentation.class, false);
     }
 }

@@ -11,6 +11,7 @@ import pengyi.repository.generic.Pagination;
  * Created by liubowen on 2016/3/8.
  */
 public interface IMessageAppService {
+
     Pagination<MessageRepresentation> pagination(ListMessageCommand command);
 
     MessageRepresentation create(CreateMessageCommand command);
