@@ -180,7 +180,7 @@ public class CoreStringUtils {
 
         String result = null;
         try {
-            MessageDigest mdInst = MessageDigest.getInstance("MD5");
+            MessageDigest mdInst = MessageDigest.getInstance("MD5Util");
             byte[] md = mdInst.digest(src.getBytes(charset));
             StringBuilder sb = new StringBuilder();
             for (byte b : md) {

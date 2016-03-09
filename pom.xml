@@ -58,6 +58,7 @@
         <version.jcaptcha>1.0</version.jcaptcha>
         <version.quartz>1.8.5</version.quartz>
         <version.shiro>1.2.3</version.shiro>
+        <version.xstream>1.4.8</version.xstream>
     </properties>
 
     <dependencies>
@@ -424,6 +425,12 @@
             <version>6.1.1</version>
         </dependency>
         <!-- End activation -->
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${version.xstream}</version>
+        </dependency>
     </dependencies>
 
     <repositories>
