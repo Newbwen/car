@@ -1,7 +1,7 @@
 package pengyi.domain.service.evaluate;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
+import pengyi.application.evaluate.command.ListEvaluateCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.evaluate.IEvaluateRepository;
-import pengyi.domain.model.permission.Permission;
-import pengyi.domain.model.urlresources.UrlResources;
+import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.OrderService;
 import pengyi.domain.service.user.BaseUserService;
@@ -40,110 +41,20 @@ public class EvaluateService implements IEvaluateService {
     @Autowired
     private OrderService orderService;
 
-    /**
-     * 保存
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public void save(Evaluate evaluate) {
-
-        Evaluate evaluate1 = new Evaluate();
-        evaluate.setEvaluateUser(evaluate.getEvaluateUser());
-        evaluate.setOrder(evaluate.getOrder());
-        evaluate.setContent(evaluate.getContent());
-        evaluate.setLevel(evaluate.getLevel());
-
-        evaluateRepository.save(evaluate1);
-
-    }
 
     @Override
-    public Evaluate create(EditEvaluateCommand command) {
+    public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
+        List<Criterion> criteriaList = new ArrayList();
+        if (!CoreStringUtils.isEmpty(command.getEvaluateUserId())) {
+            criteriaList.add(Restrictions.like("evaluateUserId", command.getEvaluateUserId(), MatchMode.ANYWHERE));
+        }
+        if (!CoreStringUtils.isEmpty(command.getOrderId())) {
+            criteriaList.add(Restrictions.like("OrderId", command.getOrderId(), MatchMode.ANYWHERE));
+        }
 
-        Evaluate evaluate=this.show(command.getId());
-        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
-//        TODO  获取订单信息
-//        Order order=OrderServ
-        Evaluate evaluate1=new Evaluate(baseUser,null,command.getLevel(),command.getContent(),new Date());
-        evaluateRepository.save(evaluate1);
-
-        return evaluate1;
-
+        return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
 
-    /**
-     * 更新评价
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public void update(Evaluate evaluate) {
-
-        Evaluate evaluate1 = new Evaluate();
-
-        evaluate.setEvaluateUser(evaluate.getEvaluateUser());
-        evaluate.setOrder(evaluate.getOrder());
-        evaluate.setContent(evaluate.getContent());
-        evaluate.setLevel(evaluate.getLevel());
-
-        evaluateRepository.update(evaluate1);
-
-    }
-
-    /**
-     * 根据评论Id删除评论
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public void delete(int evaluateId) {
-
-        Evaluate evaluate = getById(evaluateId);
-
-        evaluateRepository.delete(evaluate);
-    }
-
-
-    /**
-     * 根据评论人查询评论
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Pagination<Evaluate> getByUser(String evaluateUserId, int page, int pageSize) {
-
-        List<Order> orderList = new ArrayList<Order>();
-        orderList.add(Order.desc("createDate"));
-
-        List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("evaluateUser.id", evaluateUserId));
-
-        return evaluateRepository.pagination(page, pageSize, criterionList, orderList);
-
-    }
-
-    /**
-     * 根据订单id查询评论
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Pagination<Evaluate> getByOrder(String orderId, int page, int pageSize) {
-
-        List<Order> orderList = new ArrayList<Order>();
-        orderList.add(Order.desc("createDate"));
-
-        List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("order.id", orderId));
-
-        return evaluateRepository.pagination(page, pageSize, criterionList, orderList);
-    }
-
-    /**
-     * 根据评论id查询评论
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Evaluate getById(int evaluateId) {
-
-        return (Evaluate) evaluateRepository.getById(evaluateId);
-    }
 
     @Override
     public Evaluate edit(EditEvaluateCommand command) {
@@ -157,9 +68,10 @@ public class EvaluateService implements IEvaluateService {
         }
 
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
+        Order order = orderService.show(command.getOrder());
 //        TODO  获取订单信息
 //        Order order=OrderServ
-        Evaluate evaluate1=new Evaluate(baseUser,null,command.getLevel(),command.getContent(),new Date());
+        Evaluate evaluate1 = new Evaluate(baseUser, order,command.getContent(),command.getLevel(), new Date());
         evaluateRepository.save(evaluate1);
 
         return evaluate1;
@@ -184,6 +96,16 @@ public class EvaluateService implements IEvaluateService {
 
     @Override
     public Evaluate create(CreateEvaluateCommand command) {
-        return null;
+        if (null != this.searchByName(command.getEvaluateUser())) {
+
+            throw new ExistException("评价[" + command.getEvaluateUser() + "]的记录已存在");
+        }
+
+        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
+
+        Order order = orderService.show(command.getOrder());
+
+        Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
+        return evaluate;
     }
 }
