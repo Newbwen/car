@@ -46,10 +46,10 @@ public class EvaluateService implements IEvaluateService {
     public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getEvaluateUserId())) {
-            criteriaList.add(Restrictions.like("evaluateUserId", command.getEvaluateUserId(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("evaluateUserId", command.getEvaluateUserId()));
         }
         if (!CoreStringUtils.isEmpty(command.getOrderId())) {
-            criteriaList.add(Restrictions.like("OrderId", command.getOrderId(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("OrderId", command.getOrderId()));
         }
 
         return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
@@ -102,10 +102,10 @@ public class EvaluateService implements IEvaluateService {
         }
 
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
-
         Order order = orderService.show(command.getOrder());
 
         Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
+        evaluateRepository.save(evaluate);
         return evaluate;
     }
 }
