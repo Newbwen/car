@@ -59,6 +59,7 @@
         <version.orika>1.4.5</version.orika>
         <version.quartz>1.8.5</version.quartz>
         <version.shiro>1.2.3</version.shiro>
+        <version.xstream>1.4.8</version.xstream>
         <version.thumbnailator>0.4.8</version.thumbnailator>
         <version.fileupload>1.3.1</version.fileupload>
     </properties>
@@ -440,6 +441,12 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${version.thumbnailator}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${version.xstream}</version>
         </dependency>
 
         <!-- Commons-fileupload -->
