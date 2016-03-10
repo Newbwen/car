@@ -2,8 +2,6 @@ package pengyi.application.rescue.representation;
 
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.driver.Driver;
 
 /**
  * Created by LvDi on 2016/3/9.

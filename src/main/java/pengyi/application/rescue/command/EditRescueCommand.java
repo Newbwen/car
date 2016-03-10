@@ -1,9 +1,6 @@
 package pengyi.application.rescue.command;
 
 import pengyi.core.type.RescueStatus;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.driver.Driver;
-
 /**
  * Created by YJH on 2016/3/9.
  */

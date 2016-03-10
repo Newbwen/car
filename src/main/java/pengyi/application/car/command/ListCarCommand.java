@@ -1,7 +1,6 @@
 package pengyi.application.car.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
-import pengyi.domain.model.user.driver.Driver;
 
 /**
  * Created by lvdi on 2016/3/7.

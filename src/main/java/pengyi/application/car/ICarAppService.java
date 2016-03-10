@@ -4,8 +4,6 @@ import pengyi.application.car.command.CreateCarCommand;
 import pengyi.application.car.command.EditCarCommand;
 import pengyi.application.car.command.ListCarCommand;
 import pengyi.application.car.representation.CarRepresentation;
-import pengyi.application.urlresources.representation.UrlResourcesRepresentation;
-import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.repository.generic.Pagination;
 
 /**
