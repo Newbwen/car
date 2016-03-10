@@ -1,7 +1,5 @@
 package pengyi.application.car.command;
 
-import pengyi.domain.model.user.driver.Driver;
-
 /**
  * Created by lvdi on 2016/3/8.
  */

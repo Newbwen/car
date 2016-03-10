@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pengyi.application.evaluate.representation.EvaluateRepresentation;
 import pengyi.application.order.representation.OrderRepresentation;
-import pengyi.application.permission.representation.PermissionRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.evaluate.Evaluate;
 
 
 /**
- * Created by YJH on 2016/3/7.
+ * Created by lvdi on 2016/3/7.
  */
 @Component
 public class EvaluateRepresentationMapper extends CustomMapper<Evaluate, EvaluateRepresentation> {

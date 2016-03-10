@@ -10,7 +10,6 @@ import pengyi.application.car.command.ListCarCommand;
 import pengyi.application.car.representation.CarRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.car.Car;
-import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.service.car.ICarService;
 import pengyi.repository.generic.Pagination;
 

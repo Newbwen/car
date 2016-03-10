@@ -1,8 +1,6 @@
 package pengyi.application.car.representation;
 
 import pengyi.application.user.driver.representation.DriverRepresentation;
-import pengyi.domain.model.user.driver.Driver;
-
 /**
  * Created by lvdi on 2016/3/8.
  */
