@@ -1,5 +1,6 @@
 package pengyi.core.freemarker.directive;
 
+
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -11,9 +12,7 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * Author: pengyi
- * Date: 15-12-30
- * Time: 下午10:23
+ * Created by YJH on 2016/3/3.
  */
 public class OverrideDirective implements TemplateDirectiveModel {
 
@@ -59,3 +58,4 @@ public class OverrideDirective implements TemplateDirectiveModel {
     }
 
 }
+

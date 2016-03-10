@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Author: pengyi
- * Date: 15-12-30
- * Time: 下午10:21
+ * Created by YJH on 2016/3/3.
  */
 public class BlockDirective implements TemplateDirectiveModel {
     public final static String DIRECTIVE_NAME = "block";
@@ -34,3 +32,4 @@ public class BlockDirective implements TemplateDirectiveModel {
     }
 
 }
+

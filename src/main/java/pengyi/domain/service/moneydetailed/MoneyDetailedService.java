@@ -39,7 +39,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
         if (!CoreStringUtils.isEmpty(command.getPhone())) {
-            criterionList.add(Restrictions.like("user.phone", command.getPhone(), MatchMode.ANYWHERE));
+            criterionList.add(Restrictions.like("baseUser.phone", command.getPhone(), MatchMode.ANYWHERE));
         }
 
         List<Order> orders = new ArrayList<Order>();

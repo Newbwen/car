@@ -62,8 +62,9 @@
         <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component" />-->
     </context:component-scan>
 
-    <!--<mvc:resources mapping="/favicon.ico" location="/resources/images/favicon.ico" order="0"/>-->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/favicon.ico" location="/resources/assets/images/favicon.ico" order="0"/>
+    <!-- 对静态资源文件的访问 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>
 
     <!--<bean id="multipartResolver"-->
           <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver"-->
