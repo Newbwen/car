@@ -5,6 +5,8 @@ import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
 
+import java.util.Date;
+
 /**
  * 举报
  * Created by pengyi on 2016/3/4.
@@ -14,9 +16,9 @@ public class Report extends Identity {
 
     private BaseUser reportUser;                //举报人
     private Order order;                        //举报订单
-    private String reportTime;                  //举报时间
-    private String startDealTime;               //开始处理时间
-    private String endDealTime;                 //处理完成时间
+    private Date reportTime;                  //举报时间
+    private Date startDealTime;               //开始处理时间
+    private Date endDealTime;                 //处理完成时间
     private String description;                 //说明
     private ReportStatus status;                  //状态（待处理、处理中、处理完成）
 
@@ -36,27 +38,27 @@ public class Report extends Identity {
         this.order = order;
     }
 
-    public String getReportTime() {
+    public Date getReportTime() {
         return reportTime;
     }
 
-    public void setReportTime(String reportTime) {
+    public void setReportTime(Date reportTime) {
         this.reportTime = reportTime;
     }
 
-    public String getStartDealTime() {
+    public Date getStartDealTime() {
         return startDealTime;
     }
 
-    public void setStartDealTime(String startDealTime) {
+    public void setStartDealTime(Date startDealTime) {
         this.startDealTime = startDealTime;
     }
 
-    public String getEndDealTime() {
+    public Date getEndDealTime() {
         return endDealTime;
     }
 
-    public void setEndDealTime(String endDealTime) {
+    public void setEndDealTime(Date endDealTime) {
         this.endDealTime = endDealTime;
     }
 
@@ -80,7 +82,7 @@ public class Report extends Identity {
         super();
     }
 
-    public Report(BaseUser reportUser, Order order, String reportTime, String startDealTime, String endDealTime, String description, ReportStatus status) {
+    public Report(BaseUser reportUser, Order order, Date reportTime, Date startDealTime, Date endDealTime, String description, ReportStatus status) {
         this.reportUser = reportUser;
         this.order = order;
         this.reportTime = reportTime;

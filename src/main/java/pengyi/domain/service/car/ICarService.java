@@ -1,23 +1,27 @@
 package pengyi.domain.service.car;
 
-import org.gjt.mm.mysql.Driver;
+import pengyi.application.car.command.CreateCarCommand;
+import pengyi.application.car.command.EditCarCommand;
+import pengyi.application.car.command.ListCarCommand;
 import pengyi.domain.model.car.Car;
-
-import java.util.List;
+import pengyi.repository.generic.Pagination;
 
 /**
  * Created by lvdi on 2015/3/8.
  */
 public interface ICarService {
 
-    void save(Car car);
+    Pagination<Car> pagination(ListCarCommand command);
 
-    void delete(int carId);
+    Car edit(EditCarCommand command);
 
-    void upadte(Car car);
+    Car show(String id);
 
-    List<Car> getCarList(Driver driver);
+    Car searchByNumber(String carNumber);
 
-    Car getById(int carId);
+    Car create(CreateCarCommand command);
+
+    Car updateCar(EditCarCommand command);
+
 
 }

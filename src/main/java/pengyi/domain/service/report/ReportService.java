@@ -1,13 +1,18 @@
 package pengyi.domain.service.report;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.report.command.CreateReportCommand;
+import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
-import pengyi.core.util.CoreDateUtils;
+import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.ReportStatus;
+import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.Report;
+import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.service.order.IOrderService;
+import pengyi.domain.service.user.IBaseUserService;
 import pengyi.repository.generic.Pagination;
 import pengyi.repository.report.ReportRepository;
 
@@ -24,52 +29,60 @@ public class ReportService implements IReportService {
     @Autowired
     private ReportRepository reportRepository;
 
+    @Autowired
+    private IBaseUserService baseUserService;
+
+    @Autowired
+    private IOrderService orderService;
+
     @Override
-    @SuppressWarnings("unchecked")//添加举报订单信息
-    public void preortOrder(Report report) {
+    public Report createReport(CreateReportCommand command) {
 
-        report.setReportTime(CoreDateUtils.formatDateTime(new Date()));
+        BaseUser baseUser = baseUserService.show(command.getReportUser());
 
-        reportRepository.save(report);
+        Order order = orderService.show(command.getOrder());
+
+        Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING);
+
+        return report;
     }
 
     @Override
     @SuppressWarnings("unchecked")//修改举报订单状态
     //状态1待处理.2处理中.3处理完成
-    public void updateState(String reportId) {
+    public Report updateState(EditReportCommand command) {
 
-//        Report report = getById(reportId);
-//
-//        switch (report.getStatus()) {
-//
-//            case 1:
-//                report.setStatus(2);
-//                report.setStartDealTime(CoreDateUtils.formatDateTime(new Date()));
-//                break;
-//
-//            case 2:
-//                report.setStatus(3);
-//                report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
-//                break;
-//        }
-//
-//        report.setEndDealTime(CoreDateUtils.formatDateTime(new Date()));
-//
-//        reportRepository.update(report);
+        Report report = this.getById(command.getId());
+
+        report.fainWhenConcurrencyViolation(command.getVersion());
+        /* PENDING("待处理",1,Boolean.FALSE),
+        IN_PROCESS("正在处理",2,Boolean.FALSE),
+        FIGURE_OUT("处理完成",3,Boolean.FALSE);*/
+        if (report.getStatus().equals("PENDING")) {
+            report.setStatus(ReportStatus.IN_PROCESS);
+        } else if (report.getStatus().equals("IN_PROCESS")) {
+            report.setStatus(ReportStatus.FIGURE_OUT);
+        }
+        reportRepository.update(report);
+        return report;
     }
 
     @Override
     public Report getById(String reportId) {
-        return reportRepository.getById(reportId);
+        Report report = reportRepository.getById(reportId);
+        if (report == null) {
+            throw new NoFoundException("没有找到id=[" + reportId + "]的记录");
+        }
+        return report;
     }
 
     @Override
     public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
 //        criterionList.add(Restrictions.eq("reportUser.id", userId));
-        List<Order> orderList = new ArrayList<Order>();
-        orderList.add(Order.desc("reportTime"));
-        return reportRepository.pagination(command.getPage(),command.getPageSize(),criterionList,orderList);
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
+        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
     }
 
 }

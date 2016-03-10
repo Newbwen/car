@@ -15,7 +15,7 @@ public class MoneyDetailed extends Identity {
     private BaseUser baseUser;      //用户
     private FlowType flowType;  //资金流向类型
     private BigDecimal money;   //金额
-    private String explain;     //说明（如：专车订单+订单号）
+    private String description;     //说明（如：专车订单+订单号）
     private BigDecimal oldMoney;    //原有金额
     private BigDecimal newMoney;    //现有金额
     private Date createDate;        //创建日期
@@ -44,12 +44,12 @@ public class MoneyDetailed extends Identity {
         this.money = money;
     }
 
-    public String getExplain() {
-        return explain;
+    public String getDescription() {
+        return description;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getOldMoney() {
@@ -80,11 +80,11 @@ public class MoneyDetailed extends Identity {
         super();
     }
 
-    public MoneyDetailed(BaseUser baseUser, FlowType flowType, BigDecimal money, String explain, BigDecimal oldMoney, BigDecimal newMoney, Date createDate) {
+    public MoneyDetailed(BaseUser baseUser, FlowType flowType, BigDecimal money, String description, BigDecimal oldMoney, BigDecimal newMoney, Date createDate) {
         this.baseUser = baseUser;
         this.flowType = flowType;
         this.money = money;
-        this.explain = explain;
+        this.description = description;
         this.oldMoney = oldMoney;
         this.newMoney = newMoney;
         this.createDate = createDate;
