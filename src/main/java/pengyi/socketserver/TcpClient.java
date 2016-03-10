@@ -1,4 +1,4 @@
-package pengyi.TcpServer;
+package pengyi.socketserver;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

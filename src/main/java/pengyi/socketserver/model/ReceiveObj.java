@@ -1,4 +1,4 @@
-package pengyi.TcpServer.model;
+package pengyi.socketserver.model;
 
 /**
  * 接收客户端

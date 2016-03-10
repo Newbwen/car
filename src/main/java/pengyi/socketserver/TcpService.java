@@ -1,7 +1,4 @@
-package pengyi.TcpServer;
-
-import com.alibaba.fastjson.JSON;
-import pengyi.TcpServer.model.ReceiveObj;
+package pengyi.socketserver;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -88,13 +85,14 @@ public class TcpService {
             try {
                 while (bConnected) {
                     String str = dis.readUTF();
-                    ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-                    switch (obj.getType()) {
-                        case 1:
-                            userId = obj.getContent();
-                            clients.put(userId, this);
-                            break;
-                    }
+                    dos.writeUTF(str);
+//                    ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+//                    switch (obj.getType()) {
+//                        case 1:
+//                            userId = obj.getContent();
+//                            clients.put(userId, this);
+//                            break;
+//                    }
                 }
             } catch (EOFException e) {
                 e.printStackTrace();
