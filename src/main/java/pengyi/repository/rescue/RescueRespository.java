@@ -16,7 +16,6 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
 public class RescueRespository extends AbstractHibernateGenericRepository<Rescue, String> implements IRescueRepository<Rescue, String> {
     @Override
     public Rescue getByName(String rescueName) {
-
         Criteria criteria=getSession().createCriteria(getPersistentClass());
         criteria.add(Restrictions.eq("rescueName",rescueName));
         return (Rescue) criteria.uniqueResult();

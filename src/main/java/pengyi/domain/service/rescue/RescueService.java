@@ -54,10 +54,10 @@ public class RescueService implements IRescueService {
 
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.like("applyUser", command.getApplyUser(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("applyUser", command.getApplyUser()));
         }
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.like("driver", command.getDriver(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("driver", command.getDriver()));
         }
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
@@ -74,6 +74,7 @@ public class RescueService implements IRescueService {
         BaseUser applyuser=baseUserService.show(command.getApplyUser());
         Driver driver=driverService.show(command.getDriver());
         Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
+        rescueRepository.save(rescue1);
         return rescue1;
     }
 
@@ -87,6 +88,7 @@ public class RescueService implements IRescueService {
         BaseUser applyuser=baseUserService.show(command.getApplyUser());
         Driver driver=driverService.show(command.getDriver());
         Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
+        rescueRepository.save(rescue1);
         return rescue1;
     }
 

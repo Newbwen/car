@@ -34,10 +34,13 @@ public class CarService implements ICarService{
     public Pagination<Car> pagination(ListCarCommand command) {
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getCarNumber())) {
-            criteriaList.add(Restrictions.like("carName", command.getCarNumber(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
         }
         if (!CoreStringUtils.isEmpty(command.getDriver())) {
-            criteriaList.add(Restrictions.like("carName", command.getDriver(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.eq("driverId", command.getDriver()));
+        }
+        if(!CoreStringUtils.isEmpty(command.getName())){
+            criteriaList.add(Restrictions.like("carName",command.getName()));
         }
         return carRepository.pagination(command.getPage(),command.getPageSize(),criteriaList,null);
     }
@@ -56,12 +59,12 @@ public class CarService implements ICarService{
         }
         Driver driver=driverService.show(command.getDriver());
         Car car1=new Car(command.getName(),command.getCarNumber(),driver);
-
+        carRepository.save(car1);
         return car1;
     }
 
     @Override
-    public Car show(String id) {
+        public Car show(String id) {
         Car car= (Car) carRepository.getById(id);
         if (null == car) {
             throw new NoFoundException("没有找到车辆id=[" + id + "]的记录");
@@ -84,6 +87,7 @@ public class CarService implements ICarService{
 
         Driver driver=driverService.show(command.getDriver());
         Car car=new Car(command.getName(),command.getCarNumber(),driver);
+        carRepository.save(car);
         return car;
     }
 
