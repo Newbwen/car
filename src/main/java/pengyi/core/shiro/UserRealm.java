@@ -43,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
         if (null == user) {
             throw new UnknownAccountException(); //未知用户
         } else {
-            if (user.getStatus().equals("DISABLE")) {
+            if (user.getStatus() == EnableStatus.DISABLE) {
                 throw new LockedAccountException(); //账户被禁用
             }
         }
@@ -88,11 +88,11 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> permissions = new HashSet<String>();
         Role role = user.getUserRole();
         if (null != role) {
-            if (role.getStatus().equals(EnableStatus.ENABLE)) {
+            if (role.getStatus() == EnableStatus.ENABLE) {
                 List<Permission> permissionList = role.getPermissions();
                 if (!permissionList.isEmpty()) {
                     for (Permission permission : permissionList) {
-                        if (permission.getStatus().equals(EnableStatus.ENABLE)) {
+                        if (permission.getStatus() == EnableStatus.ENABLE) {
                             permissions.add(permission.getPermissionName());
                         }
                     }

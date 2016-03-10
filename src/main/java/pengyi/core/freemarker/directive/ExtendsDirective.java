@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Author: pengyi
- * Date: 15-12-30
- * Time: 下午10:22
+ * Created by YJH on 2016/3/3.
  */
 public class ExtendsDirective implements TemplateDirectiveModel {
 
@@ -35,3 +33,4 @@ public class ExtendsDirective implements TemplateDirectiveModel {
     }
 
 }
+

@@ -1,9 +1,8 @@
 package pengyi.interfaces;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pengyi.domain.service.user.IBaseUserService;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Author: pengyi
@@ -13,7 +12,9 @@ import pengyi.domain.service.user.IBaseUserService;
 @RequestMapping("/")
 public class IndexController {
 
-    @Autowired
-    private IBaseUserService userService;
+    @RequestMapping(value = "/")
+    public ModelAndView index(){
+        return new ModelAndView("index");
+    }
 
 }

@@ -7,10 +7,9 @@ import pengyi.core.freemarker.directive.DirectiveUtils;
 
 import java.io.IOException;
 
+
 /**
- * Author: pengyi
- * Date: 15-12-30
- * Time: PM6:20
+ * Created by YJH on 2016/3/3.
  */
 public class FreeMarkerConfigurerExtension extends FreeMarkerConfigurer {
     /**
@@ -30,3 +29,4 @@ public class FreeMarkerConfigurerExtension extends FreeMarkerConfigurer {
         return configuration;
     }
 }
+

@@ -3,6 +3,7 @@ package pengyi.core.shiro;
 import org.apache.shiro.web.filter.mgt.NamedFilterList;
 import org.springframework.beans.factory.annotation.Autowired;
 import pengyi.application.urlresources.IUrlResourcesAppService;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.permission.Permission;
 import pengyi.domain.model.urlresources.UrlResources;
 
@@ -43,7 +44,7 @@ public class ShiroFilterChainManager {
         //2、循环URL Filter 注册filter chain
         for (UrlResources urlResources : apiUrlMatcherList) {
             String urlName = urlResources.getUrlName();
-            if (urlResources.getStatus().equals("ENABLE")) {
+            if (urlResources.getStatus() == EnableStatus.ENABLE) {
 //                //注册roles filter
 //                List<RoleRepresentation> roleRepresentationList = urlMatcherRepresentation.getRoleRepresentationList();
 //                String roleNames = StringUtils.EMPTY;
@@ -68,7 +69,7 @@ public class ShiroFilterChainManager {
                 List<Permission> permissionList = urlResources.getUrlPermission();
                 if (null != permissionList) {
                     for (Permission permission : permissionList) {
-                        if (permission.getStatus().equals("ENABLE")) {
+                        if (permission.getStatus() == EnableStatus.ENABLE) {
                             filterChainManager.addToChain(urlName, "perms", permission.getPermissionName());
                         }
                     }

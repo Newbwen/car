@@ -329,16 +329,17 @@
 -->
 <#macro showErrors id classOrStyle="">
     <#if spring.status.errorMessages?size != 0>
-        <ul class="parsley-errors-list filled" id="parsley-id-${id}">
+    <div class="parsley-errors-list" id="parsley-id-${id}">
+        <br>
         <#list status.errorMessages as error>
-        <#if classOrStyle == "">
-            <li class="parsley-type">${error}</li>
-        <#else>
-            <li class="parsley-type ${classOrStyle}">${error}</li>
-        </#if>
-        <#if error_has_next>${separator}</#if>
+            <#if classOrStyle == "">
+                <div class="alert alert-danger">${error}</div>
+            <#else>
+                <div class="alert alert-danger ${classOrStyle}">${error}</div>
+            </#if>
+            <#if error_has_next>${separator}</#if>
         </#list>
-        </ul>
+    </div>
     </#if>
 </#macro>
 
