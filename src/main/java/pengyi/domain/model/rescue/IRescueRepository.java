@@ -9,4 +9,6 @@ import java.io.Serializable;
  */
 
 public interface IRescueRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
+
+    Rescue getByName(String rescueName);
 }

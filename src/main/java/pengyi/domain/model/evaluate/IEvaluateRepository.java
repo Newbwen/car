@@ -13,4 +13,5 @@ public interface IEvaluateRepository<T, ID extends Serializable> extends IHibern
     Evaluate getByName(String evaluateUser);
 
 
+
 }

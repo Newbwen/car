@@ -1,8 +1,11 @@
 package pengyi.domain.model.rescue;
 
+import pengyi.core.type.RescueStatus;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.driver.Driver;
+
+import java.util.Date;
 
 /**
  * 救援
@@ -11,13 +14,13 @@ import pengyi.domain.model.user.driver.Driver;
 public class Rescue extends Identity {
 
     private BaseUser applyUser;                 //申请人
-    private String applyTime;                   //申请时间
+    private Date applyTime;                   //申请时间
     private int type;                           //救援类型
     private String description;                 //救援说明
     private Driver driver;                      //救援司机
-    private String rescueTime;                  //救援时间
-    private int status;                         //救援状态（1待救援、2救援中、3已救援）
-    private String finishTime;                  //救援完成时间
+    private Date rescueTime;                  //救援时间
+    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
+    private Date finishTime;                  //救援完成时间
 
     public BaseUser getApplyUser() {
         return applyUser;
@@ -27,11 +30,11 @@ public class Rescue extends Identity {
         this.applyUser = applyUser;
     }
 
-    public String getApplyTime() {
+    public Date getApplyTime() {
         return applyTime;
     }
 
-    public void setApplyTime(String applyTime) {
+    public void setApplyTime(Date applyTime) {
         this.applyTime = applyTime;
     }
 
@@ -59,36 +62,31 @@ public class Rescue extends Identity {
         this.driver = driver;
     }
 
-    public String getRescueTime() {
+    public Date getRescueTime() {
         return rescueTime;
     }
 
-    public void setRescueTime(String rescueTime) {
+    public void setRescueTime(Date rescueTime) {
         this.rescueTime = rescueTime;
     }
 
-    public int getStatus() {
+    public RescueStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(RescueStatus status) {
         this.status = status;
     }
 
-    public String getFinishTime() {
+    public Date getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(String finishTime) {
+    public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
     }
 
-    public Rescue() {
-        super();
-    }
-
-    public Rescue(BaseUser applyUser, String applyTime, int type, String description, Driver driver, String rescueTime, int status, String finishTime) {
-        super();
+    public Rescue(BaseUser applyUser, Date applyTime, int type, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;
         this.type = type;

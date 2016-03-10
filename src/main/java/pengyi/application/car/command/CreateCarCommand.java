@@ -9,7 +9,7 @@ public class CreateCarCommand {
 
     private String name;                //车辆名称
     private String carNumber;           //车牌号
-    private Driver driver;              //司机
+    private String driver;              //司机
 
     public String getName() {
         return name;
@@ -27,12 +27,11 @@ public class CreateCarCommand {
         this.carNumber = carNumber;
     }
 
-    public Driver getDriver() {
+    public String getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(String driver) {
         this.driver = driver;
     }
-
 }

@@ -8,7 +8,7 @@ import pengyi.domain.model.user.BaseUser;
  */
 public class MessageRepresentation {
     private String id;
-    private Integer version;
+    private Integer version;                        //数据库版本
     private BaseUser sendBaseUser;                  //发送人
     private BaseUser receiveBaseUser;               //接收人
     private String sendDate;                //发送时间

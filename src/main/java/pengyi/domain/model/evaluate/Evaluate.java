@@ -18,9 +18,6 @@ public class Evaluate extends Identity {
     private Integer level;                              //评级
     private Date createDate;                      //评价时间
 
-    public Evaluate(BaseUser baseUser, Order order, Integer level, String content, Date date) {
-    }
-
     public BaseUser getEvaluateUser() {
         return evaluateUser;
     }
@@ -66,7 +63,6 @@ public class Evaluate extends Identity {
     }
 
     public Evaluate(BaseUser evaluateUser, Order order, String content, Integer level, Date createDate) {
-        super();
         this.evaluateUser = evaluateUser;
         this.order = order;
         this.content = content;

@@ -35,13 +35,13 @@ public class EvaluateAppService implements IEvaluateAppService {
         if (null != command.getOrderId()) {
             command.verifyPage();
             command.verifyPageSize(20);
-            Pagination<Evaluate> pagination = evaluateService.getByOrder(command.getOrderId(), command.getPage(), command.getPageSize());
+            Pagination<Evaluate> pagination = evaluateService.pagination(command);
             List<EvaluateRepresentation> data = mappingService.mapAsList(pagination.getData(), EvaluateRepresentation.class);
             return new Pagination<EvaluateRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
         } else {
             command.verifyPage();
             command.verifyPageSize(20);
-            Pagination<Evaluate> pagination = evaluateService.getByUser(command.getEvaluateUserId(), command.getPage(), command.getPageSize());
+            Pagination<Evaluate> pagination = evaluateService.pagination(command);
             List<EvaluateRepresentation> data = mappingService.mapAsList(pagination.getData(), EvaluateRepresentation.class);
             return new Pagination<EvaluateRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
         }
