@@ -24,6 +24,5 @@ public interface IEvaluateService {
 
     Evaluate searchByName(String evaluateUserame);
 
-
     Evaluate create(CreateEvaluateCommand command);
 }

@@ -54,27 +54,22 @@ public class RescueService implements IRescueService {
 
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("applyUser", command.getApplyUser()));
+            criteriaList.add(Restrictions.eq("applyuser.id", command.getApplyUser()));
         }
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("driver", command.getDriver()));
+            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
 
     @Override
     public Rescue create(CreateRescueCommand command) {
-      if(null!=command.getApplyUser()){
-          throw new ExistException("申请救援人[" + command.getApplyUser() + "]的记录已存在");
-      }
-      if(null!=command.getDriver()){
-          throw new ExistException("申请司机[" + command.getApplyUser() + "]的记录已存在");
 
-      }
         BaseUser applyuser=baseUserService.show(command.getApplyUser());
         Driver driver=driverService.show(command.getDriver());
         Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
         rescueRepository.save(rescue1);
+
         return rescue1;
     }
 
@@ -82,13 +77,11 @@ public class RescueService implements IRescueService {
     public Rescue edit(EditRescueCommand command) {
 
         Rescue rescue=this.show(command.getApplyUser());
-        if(null!=this.searchByName(command.getApplyUser())){
-            throw new ExistException("申请人[" + command.getApplyUser() + "]的记录已存在");
-        }
         BaseUser applyuser=baseUserService.show(command.getApplyUser());
         Driver driver=driverService.show(command.getDriver());
         Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
         rescueRepository.save(rescue1);
+
         return rescue1;
     }
 

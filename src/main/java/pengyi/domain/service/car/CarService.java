@@ -27,6 +27,7 @@ import java.util.List;
 public class CarService implements ICarService{
     @Autowired
     private ICarRepository carRepository;
+    @Autowired
     private IDriverService driverService;
 
 
@@ -57,10 +58,12 @@ public class CarService implements ICarService{
             throw new ExistException("车牌号为[" + command.getCarNumber() + "]的记录已存在");
 
         }
-        Driver driver=driverService.show(command.getDriver());
-        Car car1=new Car(command.getName(),command.getCarNumber(),driver);
-        carRepository.save(car1);
-        return car1;
+//       Driver driver=driverService.show(command.getDriver();
+//        car.setDriver(driver);
+        car.setCarNumber(command.getCarNumber());
+        car.setName(command.getName());
+        carRepository.update(car);
+        return car;
     }
 
     @Override
@@ -81,21 +84,24 @@ public class CarService implements ICarService{
     @Override
     public Car create(CreateCarCommand command) {
 
-        if(null!=command.getCarNumber()){
+        Car car = this.searchByNumber(command.getCarNumber());
+        if(null!=car){
+
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
+
         }
 
         Driver driver=driverService.show(command.getDriver());
-        Car car=new Car(command.getName(),command.getCarNumber(),driver);
-        carRepository.save(car);
-        return car;
+        Car car1=new Car(command.getName(),command.getCarNumber(),driver);
+        carRepository.save(car1);
+        return car1;
     }
 
     @Override
     public Car updateCar(EditCarCommand command) {
         Car car=this.show(command.getId());
         car.fainWhenConcurrencyViolation(command.getVersion());
-        if(car.getCarNumber()==null){
+        if(null!=car.getCarNumber()){
             car.setCarNumber(command.getCarNumber());
         }
         carRepository.update(car);
