@@ -17,7 +17,7 @@ import pengyi.repository.generic.Pagination;
 /**
  * Created by YJH on 2016/3/7.
  */
-@Service("permissionAppService")
+@Service("carAppService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 public class CarAppService implements ICarAppService {
 
