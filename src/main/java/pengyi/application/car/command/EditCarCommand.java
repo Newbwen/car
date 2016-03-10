@@ -10,7 +10,6 @@ public class EditCarCommand {
 
     private String name;                //车辆名称
     private String carNumber;           //车牌号
-    private String driver;              //司机
 
     public String getId() {
         return id;
@@ -44,11 +43,5 @@ public class EditCarCommand {
         this.carNumber = carNumber;
     }
 
-    public String getDriver() {
-        return driver;
-    }
 
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
 }

@@ -46,10 +46,10 @@ public class EvaluateService implements IEvaluateService {
     public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getEvaluateUserId())) {
-            criteriaList.add(Restrictions.eq("evaluateUserId", command.getEvaluateUserId()));
+            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUserId()));
         }
         if (!CoreStringUtils.isEmpty(command.getOrderId())) {
-            criteriaList.add(Restrictions.eq("OrderId", command.getOrderId()));
+            criteriaList.add(Restrictions.eq("Order.id", command.getOrderId()));
         }
 
         return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
@@ -62,7 +62,7 @@ public class EvaluateService implements IEvaluateService {
         Evaluate evaluate = this.show(command.getId());
         if (!evaluate.getEvaluateUser().equals(command.getEvaluateUser())) {
             if (null != this.searchByName(command.getEvaluateUser())) {
-                throw new ExistException("评价名[" + command.getEvaluateUser() + "]的记录已存在");
+                throw new ExistException("评价人[" + command.getEvaluateUser() + "]的记录已存在");
 
             }
         }
