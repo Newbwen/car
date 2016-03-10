@@ -27,26 +27,25 @@ import java.util.List;
 @Service("messageService")
 public class MessageService implements IMessageService {
     @Autowired
-    private IMessageRepository<Message,String> messageRepository;
+    private IMessageRepository<Message, String> messageRepository;
 
     @Override
     public Message show(String messageId) {
-        Message message=messageRepository.getById(messageId);
-        if(null == message){
-            throw new NoFoundException("没有找到messageId=["+messageId+"]的记录");
-        }
+        Message message = messageRepository.getById(messageId);
+        if (null == message) {
+            throw new NoFoundException("没有找到messageId=[" + messageId + "]的记录");
+        } else
         return message;
     }
 
-    @Override
+    @Override/*添加的时候将发送时间设置为当前时间，接收时间为Null*/
     public Message create(CreateMessageCommand command) {
-        Message message = new Message(command.getSendBaseUser(), command.getReceiveBaseUser(), command.getSendDate(), command.getReceiveDate(), command.getContent(), command.getType());
+        Message message = new Message(command.getSendBaseUser(), command.getReceiveBaseUser(), new Date(), null, command.getContent(), command.getType());
         messageRepository.save(message);
 
         return message;
     }
 
-    //根据用户查询站内消息
     @Override
     public Pagination<Message> pagination(ListMessageCommand command) {
 
@@ -58,7 +57,7 @@ public class MessageService implements IMessageService {
 
         orderList.add(Order.desc("sendDate"));
 
-        return messageRepository.pagination(command.getPage(),command.getPageSize(),criterionList,orderList);
+        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
 
     }
 
@@ -66,10 +65,11 @@ public class MessageService implements IMessageService {
     @Override
     public Message edit(EditMessageCommand command) {
 
-        Message message=this.show(command.getId());
+        Message message = this.show(command.getId());
+
         message.fainWhenConcurrencyViolation(command.getVersion());
 
-        message.setReceiveDate(CoreDateUtils.formatDateTime(new Date()));
+        message.setReceiveDate(new Date());
 
         messageRepository.update(message);
 
