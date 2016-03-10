@@ -1,7 +1,6 @@
 package pengyi.application.car.representation;
 
-import pengyi.domain.model.user.driver.Driver;
-
+import pengyi.application.user.driver.representation.DriverRepresentation;
 /**
  * Created by lvdi on 2016/3/8.
  */
@@ -12,7 +11,7 @@ public class CarRepresentation {
 
     private String name;                //车辆名称
     private String carNumber;           //车牌号
-    private Driver driver;              //司机
+    private DriverRepresentation driver;              //司机
 
     public String getId() { return id; }
 
@@ -36,9 +35,11 @@ public class CarRepresentation {
         this.carNumber = carNumber;
     }
 
-    public Driver getDriver() {
+    public DriverRepresentation getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) { this.driver = driver; }
+    public void setDriver(DriverRepresentation driver) {
+        this.driver = driver;
+    }
 }

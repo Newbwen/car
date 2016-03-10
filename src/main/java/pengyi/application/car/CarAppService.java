@@ -10,9 +10,10 @@ import pengyi.application.car.command.ListCarCommand;
 import pengyi.application.car.representation.CarRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.car.Car;
-import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.service.car.ICarService;
 import pengyi.repository.generic.Pagination;
+
+import java.util.List;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -31,33 +32,29 @@ public class CarAppService implements ICarAppService {
     @Override
     @Transactional(readOnly = true)
     public Pagination<CarRepresentation> pagination(ListCarCommand command) {
-        if (null != command.getDriver()) {
-            command.verifyPage();
-            command.verifyPageSize(20);
-//            Pagination<Car> pagination=carService.getById(command.getDriver(),command.getPage(),command.getPageSize())
 
-        }
-        return null;
+        Pagination<Car> pagination = carService.pagination(command);
+        List<CarRepresentation> data = mappingService.mapAsList(pagination.getData(), CarRepresentation.class);
+        return new Pagination<CarRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
     @Override
-    @Transactional(readOnly = true)
     public CarRepresentation create(CreateCarCommand command) {
-//        return mappingService.map(carService.create(command), CarRepresentation.class, false);
-        return null;
+        return mappingService.map(carService.create(command),CarRepresentation.class,false);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public CarRepresentation edit(EditCarCommand command) {
-//        return mappingService.map(carService.edit(command), CarRepresentation.class, false);
-        return null;
+        return mappingService.map(carService.edit(command),CarRepresentation.class,false);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public CarRepresentation show(String id) {
-//        return mappingService.map(carService.show(id), CarRepresentation.class, false);
-        return null;
+        return mappingService.map(carService.show(id),CarRepresentation.class,false);
+    }
+
+    @Override
+    public CarRepresentation updateCar(EditCarCommand command) {
+        return mappingService.map(carService.updateCar(command),CarRepresentation.class,false);
     }
 }

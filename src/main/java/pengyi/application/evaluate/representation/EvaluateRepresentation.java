@@ -8,6 +8,7 @@ import pengyi.application.user.representation.BaseUserRepresentation;
  */
 public class EvaluateRepresentation {
 
+    private String id;
     private Integer version;
 
     private BaseUserRepresentation evaluateUser;               //评价人
@@ -63,4 +64,13 @@ public class EvaluateRepresentation {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }

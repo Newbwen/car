@@ -19,5 +19,7 @@ public interface ICarAppService {
 
     CarRepresentation show(String id);
 
+    CarRepresentation updateCar(EditCarCommand command);
+
 
 }

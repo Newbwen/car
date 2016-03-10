@@ -1,7 +1,9 @@
 package pengyi.domain.service.evaluate;
 
+import pengyi.application.car.command.ListCarCommand;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
+import pengyi.application.evaluate.command.ListEvaluateCommand;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.urlresources.UrlResources;
 import pengyi.repository.generic.Pagination;
@@ -12,19 +14,9 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IEvaluateService {
 
-    void save(Evaluate evaluate);
 
-    Evaluate create(EditEvaluateCommand command);
+    Pagination<Evaluate> pagination(ListEvaluateCommand command);
 
-    void update(Evaluate evaluate);
-
-    void delete(int evaluateId);
-
-    Pagination<Evaluate> getByUser(String evaluateUserId, int page, int pageSize);
-
-    Pagination<Evaluate> getByOrder(String orderId, int page, int pageSize);
-
-    Evaluate getById(int evaluateId);
 
     Evaluate edit(EditEvaluateCommand command);
 

@@ -14,7 +14,7 @@
 
         <property name="money" column="money" type="java.math.BigDecimal"/>
 
-        <property name="explain" column="explain" type="java.lang.String"/>
+        <property name="description" column="description" type="java.lang.String"/>
 
         <property name="oldMoney" column="old_money" type="java.math.BigDecimal"/>
 

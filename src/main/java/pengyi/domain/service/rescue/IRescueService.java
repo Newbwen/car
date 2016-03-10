@@ -1,8 +1,9 @@
 package pengyi.domain.service.rescue;
 
-import org.gjt.mm.mysql.Driver;
+import pengyi.application.rescue.command.CreateRescueCommand;
+import pengyi.application.rescue.command.EditRescueCommand;
+import pengyi.application.rescue.command.ListRescueCommand;
 import pengyi.domain.model.rescue.Rescue;
-import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
 
 
@@ -11,16 +12,19 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IRescueService {
 
-    void save(Rescue rescue);
-
-    void delete(int rescueId);
-
-    void upadte(Rescue rescue);
-
-    Pagination<Rescue> getRescueList(BaseUser applyUser, int page, int pageSize);
-
-    Pagination<Rescue> getRescueList(Driver driver, int page, int pageSize);
 
     Rescue getById(int rescueId);
+
+    Pagination pagination(ListRescueCommand command);
+
+    Rescue create(CreateRescueCommand command);
+
+    Rescue edit(EditRescueCommand command);
+
+    Rescue show(String id);
+
+    Rescue updateStatus(EditRescueCommand command);
+
+    Rescue searchByName(String rescueName);
 
 }
