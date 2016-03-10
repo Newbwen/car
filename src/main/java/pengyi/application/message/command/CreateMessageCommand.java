@@ -7,26 +7,26 @@ import pengyi.domain.model.user.BaseUser;
  * Created by liubowen on 2016/3/8.
  */
 public class CreateMessageCommand {
-    private BaseUser sendBaseUser;                  //发送人
-    private BaseUser receiveBaseUser;               //接收人
+    private String sendBaseUser;                  //发送人
+    private String receiveBaseUser;               //接收人
     private String sendDate;                //发送时间
     private String receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
 
-    public BaseUser getSendBaseUser() {
+    public String getSendBaseUser() {
         return sendBaseUser;
     }
 
-    public void setSendBaseUser(BaseUser sendBaseUser) {
+    public void setSendBaseUser(String sendBaseUser) {
         this.sendBaseUser = sendBaseUser;
     }
 
-    public BaseUser getReceiveBaseUser() {
+    public String getReceiveBaseUser() {
         return receiveBaseUser;
     }
 
-    public void setReceiveBaseUser(BaseUser receiveBaseUser) {
+    public void setReceiveBaseUser(String receiveBaseUser) {
         this.receiveBaseUser = receiveBaseUser;
     }
 
