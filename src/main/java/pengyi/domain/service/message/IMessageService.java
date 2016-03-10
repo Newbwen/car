@@ -1,5 +1,7 @@
 package pengyi.domain.service.message;
 
+import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
@@ -12,13 +14,13 @@ import java.util.List;
  */
 public interface IMessageService {
 
-    Message getById(String messageId);
+    Message show(String messageId);
 
-    void insert(Message message);
+    Message create(CreateMessageCommand command);
 
     Pagination<Message> pagination(ListMessageCommand command);
 
-    void read(String messageId);
+    Message edit(EditMessageCommand command);
 
 
 }
