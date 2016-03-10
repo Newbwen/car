@@ -34,7 +34,6 @@
         <version.spring>4.1.6.RELEASE</version.spring>
         <version.fastjson>1.1.37</version.fastjson>
         <version.freemarker>2.3.21</version.freemarker>
-        <version.httpclient>4.3.3</version.httpclient>
         <!-- The plugins -->
         <version.surefire.plugin>2.4.3</version.surefire.plugin>
         <version.assembly.plugin>2.2.1</version.assembly.plugin>
@@ -183,28 +182,6 @@
             <version>${version.freemarker}</version>
         </dependency>
         <!-- End freemarker -->
-
-
-        <!-- Httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${version.httpclient}</version>
-            <exclusions>
-                <!-- Exclude commons-logging in favor of SLF4j -->
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>${version.httpclient}</version>
-        </dependency>
-        <!-- End httpcient -->
 
         <!-- Apache commons -->
         <dependency>
