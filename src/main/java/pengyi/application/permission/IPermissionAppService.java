@@ -14,6 +14,8 @@ public interface IPermissionAppService {
 
     Pagination<PermissionRepresentation> pagination(ListPermissionCommand command);
 
+    Pagination<PermissionRepresentation> permissionList(ListPermissionCommand command);
+
     PermissionRepresentation create(CreatePermissionCommand command);
 
     PermissionRepresentation edit(EditPermissionCommand command);

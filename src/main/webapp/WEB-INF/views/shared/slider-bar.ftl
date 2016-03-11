@@ -1,11 +1,4 @@
 <div class="sidebar" id="sidebar">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('sidebar', 'fixed')
-        } catch (e) {
-        }
-    </script>
-
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             自定义内容 待定
@@ -347,13 +340,13 @@
 
                     <ul class="submenu">
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/role/list'/]">
                                 <i class="icon-calendar"></i>
                                 角色列表
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/role/create'/]">
                                 <i class="icon-pencil"></i>
                                 角色创建
                             </a>
@@ -394,13 +387,13 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/url_resources/list'/]">
                                 <i class="icon-calendar"></i>
                                 访问资源路径列表
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/url_resources/create'/]">
                                 <i class="icon-pencil"></i>
                                 访问资源路径创建
                             </a>

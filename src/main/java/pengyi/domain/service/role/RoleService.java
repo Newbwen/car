@@ -38,7 +38,7 @@ public class RoleService implements IRoleService {
     public Pagination<Role> pagination(ListRoleCommand command) {
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getRoleName())) {
-            criteriaList.add(Restrictions.like("role", command.getRoleName(), MatchMode.ANYWHERE));
+            criteriaList.add(Restrictions.like("roleName", command.getRoleName(), MatchMode.ANYWHERE));
         }
 
         if (null != command.getStatus()) {
@@ -111,5 +111,10 @@ public class RoleService implements IRoleService {
     @Override
     public Role searchByName(String roleName) {
         return roleRepository.getByName(roleName);
+    }
+
+    @Override
+    public List<Role> roleList() {
+        return roleRepository.findAll();
     }
 }

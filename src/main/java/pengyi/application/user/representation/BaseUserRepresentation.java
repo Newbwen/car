@@ -14,7 +14,7 @@ public class BaseUserRepresentation {
     private String id;
     private Integer version;
 
-    private String phone;                           //手机号
+    private String userName;                           //用户名
     private String password;                        //密码
     private String salt;                            //密码盐
     private EnableStatus status;                         //是否启用
@@ -40,12 +40,12 @@ public class BaseUserRepresentation {
         this.version = version;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

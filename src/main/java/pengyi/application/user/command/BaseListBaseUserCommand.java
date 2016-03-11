@@ -6,17 +6,17 @@ import pengyi.core.type.EnableStatus;
 /**
  * Created by YJH on 2016/3/7.
  */
-public class ListBaseUserCommand extends BasicPaginationCommand {
+public class BaseListBaseUserCommand extends BasicPaginationCommand {
 
-    private String phone;
+    private String userName;
     private EnableStatus status;
 
-    public String getPhone() {
-        return phone;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public EnableStatus getStatus() {

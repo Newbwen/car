@@ -35,27 +35,32 @@ public class RoleAppService implements IRoleAppService {
         command.verifyPage();
         command.verifyPageSize(20);
         Pagination<Role> pagination = roleService.pagination(command);
-        List<RoleRepresentation> data = mappingService.mapAsList(pagination.getData(),RoleRepresentation.class);
-        return new Pagination<RoleRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
+        List<RoleRepresentation> data = mappingService.mapAsList(pagination.getData(), RoleRepresentation.class);
+        return new Pagination<RoleRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+    }
+
+    @Override
+    public List<RoleRepresentation> roleList() {
+        return mappingService.mapAsList(roleService.roleList(), RoleRepresentation.class);
     }
 
     @Override
     public RoleRepresentation create(CreateRoleCommand command) {
-        return mappingService.map(roleService.create(command),RoleRepresentation.class,false);
+        return mappingService.map(roleService.create(command), RoleRepresentation.class, false);
     }
 
     @Override
     public RoleRepresentation edit(EditRoleCommand command) {
-        return mappingService.map(roleService.edit(command),RoleRepresentation.class,false);
+        return mappingService.map(roleService.edit(command), RoleRepresentation.class, false);
     }
 
     @Override
     public RoleRepresentation show(String id) {
-        return mappingService.map(roleService.show(id),RoleRepresentation.class,false);
+        return mappingService.map(roleService.show(id), RoleRepresentation.class, false);
     }
 
     @Override
     public RoleRepresentation updateStatus(EditStatusCommand command) {
-        return mappingService.map(roleService.updateStatus(command),RoleRepresentation.class,false);
+        return mappingService.map(roleService.updateStatus(command), RoleRepresentation.class, false);
     }
 }

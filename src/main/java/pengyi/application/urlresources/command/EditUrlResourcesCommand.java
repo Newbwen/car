@@ -1,5 +1,7 @@
 package pengyi.application.urlresources.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -8,7 +10,9 @@ public class EditUrlResourcesCommand {
     private String id;
     private Integer version;
 
+    @NotEmpty(message = "{url_resource.urlName.NotEmpty.message}")
     private String urlName;                     //路径名
+    @NotEmpty(message = "{url_resource.urlPermission.NotEmpty.message}")
     private String description;                 //描述
     private String[] urlPermission;     //路径权限列表
 
