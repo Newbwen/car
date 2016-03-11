@@ -1,5 +1,7 @@
 package pengyi.application.permission.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -8,7 +10,9 @@ public class EditPermissionCommand {
     private String id;
     private Integer version;
 
+    @NotEmpty(message = "{permission.permissionName,NotEmpty,message}")
     private String permissionName;                  //权限名
+    @NotEmpty(message = "{permission.description,NotEmpty,message}")
     private String description;                     //描述
 
     public String getId() {

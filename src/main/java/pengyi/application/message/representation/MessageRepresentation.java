@@ -1,5 +1,6 @@
 package pengyi.application.message.representation;
 
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.MessageType;
 import pengyi.domain.model.user.BaseUser;
 
@@ -9,8 +10,8 @@ import pengyi.domain.model.user.BaseUser;
 public class MessageRepresentation {
     private String id;
     private Integer version;                        //数据库版本
-    private BaseUser sendBaseUser;                  //发送人
-    private BaseUser receiveBaseUser;               //接收人
+    private BaseUserRepresentation sendBaseUser;                  //发送人
+    private BaseUserRepresentation receiveBaseUser;               //接收人
     private String sendDate;                //发送时间
     private String receiveDate;             //接收时间
     private String content;                 //内容
@@ -32,19 +33,19 @@ public class MessageRepresentation {
         this.version = version;
     }
 
-    public BaseUser getSendBaseUser() {
+    public BaseUserRepresentation getSendBaseUser() {
         return sendBaseUser;
     }
 
-    public void setSendBaseUser(BaseUser sendBaseUser) {
+    public void setSendBaseUser(BaseUserRepresentation sendBaseUser) {
         this.sendBaseUser = sendBaseUser;
     }
 
-    public BaseUser getReceiveBaseUser() {
+    public BaseUserRepresentation getReceiveBaseUser() {
         return receiveBaseUser;
     }
 
-    public void setReceiveBaseUser(BaseUser receiveBaseUser) {
+    public void setReceiveBaseUser(BaseUserRepresentation receiveBaseUser) {
         this.receiveBaseUser = receiveBaseUser;
     }
 
@@ -80,7 +81,7 @@ public class MessageRepresentation {
         this.type = type;
     }
 
-    public MessageRepresentation(String id, Integer version, BaseUser sendBaseUser, BaseUser receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type) {
+    public MessageRepresentation(String id, Integer version, BaseUserRepresentation sendBaseUser, BaseUserRepresentation receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type) {
         this.id = id;
         this.version = version;
         this.sendBaseUser = sendBaseUser;

@@ -1,6 +1,5 @@
 package pengyi.core.freemarker.directive;
 
-
 import freemarker.core.Environment;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -10,9 +9,7 @@ import pengyi.core.util.CoreStringUtils;
 import java.util.Map;
 
 /**
- * Author: pengyi
- * Date: 15-12-30
- * Time: 下午10:22
+ * Created by YJH on 2016/3/3.
  */
 public class DirectiveUtils {
 
@@ -58,3 +55,4 @@ public class DirectiveUtils {
         parent.parentBody = topBody;
     }
 }
+

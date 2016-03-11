@@ -22,7 +22,7 @@
     <bean id="mappingService" class="pengyi.core.mapping.MappingService"/>
 
     <import resource="spring-persistence.xml"/>
-    <import resource="spring-mvc.xml" />
+    <import resource="spring-mvc.xml"/>
     <import resource="spring-shiro.xml"/>
     <import resource="spring-service.xml"/>
     <import resource="spring-sms.xml" />
