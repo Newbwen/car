@@ -9,27 +9,27 @@ import pengyi.core.type.ReportStatus;
  * Created by liubowen on 2016/3/9.
  */
 public class ListReportCommand extends BasicPaginationCommand {
-    private UserRepresentation reportUser;      //举报人
-    private OrderRepresentation order;          //举报订单
+    private String reportUser;      //举报人
+    private String order;          //举报订单
     private String reportTime;                  //举报时间
     private String  startDealTime;               //开始处理时间
     private String endDealTime;                 //处理完成时间
     private String description;                 //说明
     private ReportStatus status;                //状态（待处理、处理中、处理完成）
 
-    public UserRepresentation getReportUser() {
+    public String getReportUser() {
         return reportUser;
     }
 
-    public void setReportUser(UserRepresentation reportUser) {
+    public void setReportUser(String reportUser) {
         this.reportUser = reportUser;
     }
 
-    public OrderRepresentation getOrder() {
+    public String getOrder() {
         return order;
     }
 
-    public void setOrder(OrderRepresentation order) {
+    public void setOrder(String order) {
         this.order = order;
     }
 
