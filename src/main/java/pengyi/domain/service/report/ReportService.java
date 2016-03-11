@@ -1,6 +1,7 @@
 package pengyi.domain.service.report;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.report.command.CreateReportCommand;
@@ -79,7 +80,7 @@ public class ReportService implements IReportService {
     @Override
     public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
-//        criterionList.add(Restrictions.eq("reportUser.id", userId));
+        criterionList.add(Restrictions.eq("reportUser.id", command.getReportUser()));
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
         return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);

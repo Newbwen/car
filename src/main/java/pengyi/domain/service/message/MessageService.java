@@ -9,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CreateMessageCommand;
 import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
+import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 import pengyi.repository.message.MessageRepository;
 
@@ -29,6 +31,9 @@ public class MessageService implements IMessageService {
     @Autowired
     private IMessageRepository<Message, String> messageRepository;
 
+    @Autowired
+    private IUserService userService;
+
     @Override
     public Message show(String messageId) {
         Message message = messageRepository.getById(messageId);
@@ -40,7 +45,12 @@ public class MessageService implements IMessageService {
 
     @Override/*添加的时候将发送时间设置为当前时间，接收时间为Null*/
     public Message create(CreateMessageCommand command) {
-        Message message = new Message(command.getSendBaseUser(), command.getReceiveBaseUser(), new Date(), null, command.getContent(), command.getType());
+        //从service中获取用户
+        BaseUser sendUser = userService.show(command.getSendBaseUser());
+
+        BaseUser receiveUser = userService.show(command.getReceiveBaseUser());
+
+        Message message = new Message(sendUser, receiveUser, new Date(), null, command.getContent(), command.getType());
         messageRepository.save(message);
 
         return message;
