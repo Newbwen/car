@@ -51,8 +51,12 @@ public class CarService implements ICarService{
 
     @Override
     public Car edit(EditCarCommand command) {
+        List<Criterion> criteriaList = new ArrayList();
 
-      Car car=this.show(command.getId());
+        criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
+
+
+      Car car=this.searchByNumber(command.getCarNumber());
         car.fainWhenConcurrencyViolation(command.getVersion());
         if(!car.getCarNumber().equals(command.getCarNumber())){
             throw new ExistException("车牌号为[" + command.getCarNumber() + "]的记录已存在");
