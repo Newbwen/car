@@ -81,7 +81,12 @@ public class CarService implements ICarService{
 
     @Override
     public Car searchByNumber(String carNumber) {
-        return carRepository.getBynuBNumber(carNumber);
+        return carRepository.getBynuNumber(carNumber);
+    }
+
+    @Override
+    public Car searchByDriver(String driver) {
+        return null;
     }
 
 
@@ -96,19 +101,10 @@ public class CarService implements ICarService{
         }
 
         Driver driver=driverService.show(command.getDriver());
-        Car car1=new Car(command.getName(),command.getCarNumber(),driver);
-        carRepository.save(car1);
-        return car1;
+        Car car2=new Car(command.getName(),command.getCarNumber(),driver);
+        carRepository.save(car2);
+        return car2;
     }
 
-    @Override
-    public Car updateCar(EditCarCommand command) {
-        Car car=this.show(command.getId());
-        car.fainWhenConcurrencyViolation(command.getVersion());
-        if(null!=car.getCarNumber()){
-            car.setCarNumber(command.getCarNumber());
-        }
-        carRepository.update(car);
-        return car;
-    }
+
 }
