@@ -246,7 +246,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/report/list'/]">
                         <i class="icon-calendar"></i>
                         投诉列表
                     </a>

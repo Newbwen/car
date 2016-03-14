@@ -2,6 +2,8 @@ package pengyi.application.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CreateMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
@@ -16,6 +18,7 @@ import java.util.List;
  * Created by liubowen on 2016/3/8.
  */
 @Service("messageAppService")
+@Transactional(propagation = Propagation.REQUIRED,readOnly = false,rollbackFor = Exception.class)
 public class MessageAppService implements IMessageAppService {
     @Autowired
     private IMessageService messageService;
@@ -25,6 +28,7 @@ public class MessageAppService implements IMessageAppService {
 
 
     @Override//返回paginationList并将ListMessageCommand转换成MessageRepresentation
+    @Transactional(readOnly = true)
     public Pagination<MessageRepresentation> pagination(ListMessageCommand command) {
 
         command.verifyPage();
@@ -45,6 +49,7 @@ public class MessageAppService implements IMessageAppService {
     }
 
     @Override//根据id显示数据
+    @Transactional(readOnly = true)
     public MessageRepresentation show(String id) {
 
         return mappingService.map(messageService.show(id), MessageRepresentation.class, false);

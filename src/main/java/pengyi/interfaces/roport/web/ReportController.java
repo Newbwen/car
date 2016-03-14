@@ -38,7 +38,8 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(ListReportCommand command) {
-        return new ModelAndView("/report/list", "command", command);
+        return new ModelAndView("/report/list", "command", command)
+                .addObject("pagination",reportAppService.pagination(command));
     }
 
    /* @RequestMapping(value = "/create", method = RequestMethod.GET)
