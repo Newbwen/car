@@ -19,6 +19,13 @@
         <property name="content" column="content" type="java.lang.String"/>
 
         <property name="createDate" column="create_date" type="java.util.Date"/>
+
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.HandleStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>

@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.user.driver.IDriverAppService;
-import pengyi.application.user.driver.command.CreateDriverCommand;
-import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
+import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
@@ -40,41 +39,6 @@ public class DriverController extends BaseController {
     public ModelAndView list(BaseListDriverCommand command) {
         return new ModelAndView("/user/driver/list", "command", command)
                 .addObject("pagination", driverAppService.pagination(command));
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("command") CreateDriverCommand command) {
-        return new ModelAndView("/user/driver/create", "command", command);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("command") CreateDriverCommand command,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                               Locale locale) {
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/driver/create", "command", command);
-        }
-
-        AlertMessage alertMessage = null;
-
-        DriverRepresentation driver = null;
-
-        try {
-            driver = driverAppService.create(command);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/driver/create", "command", command)
-                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        }
-
-        logger.info("创建driver(司机)用户成功id=[" + driver.getId() + "],时间[" + new Date() + "]");
-
-        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", driver.getId());
-        return new ModelAndView("redirect:/user/driver/show/{id}");
     }
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)

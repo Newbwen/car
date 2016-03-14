@@ -65,14 +65,15 @@
     </servlet-mapping>
 
      <!--404，500页面错误 -->
-    <!--<error-page>-->
-        <!--<error-code>404</error-code>-->
-        <!--<location>/errors/404.jsp</location>-->
-    <!--</error-page>-->
-    <!--<error-page>-->
-        <!--<error-code>500</error-code>-->
-        <!--<location>/errors/500.jsp</location>-->
-    <!--</error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/page404</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/page500</location>
+    </error-page>
+
     <session-config>
         <session-timeout>30</session-timeout>
         <tracking-mode>COOKIE</tracking-mode>

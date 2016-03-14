@@ -97,4 +97,8 @@ public class User extends BaseUser {
         this.money = money;
         this.reportCount = reportCount;
     }
+
+    public User(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    }
 }

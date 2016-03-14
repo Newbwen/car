@@ -5,7 +5,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.core.commons.PasswordHelper;
@@ -15,6 +14,7 @@ import pengyi.core.type.UserType;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.role.Role;
+import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.company.ICompanyRepository;
 import pengyi.domain.service.area.IAreaService;
@@ -59,28 +59,6 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public Company create(CreateCompanyCommand command) {
-        if (null != baseUserService.searchByUserName(command.getUserName())) {
-            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
-        }
-
-        String salt = PasswordHelper.getSalt();
-        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
-
-        Role role = roleService.searchByName("company");
-
-        Area registerAddress = areaService.show(command.getRegisterAddress());
-        Area operateAddress = areaService.show(command.getOperateAddress());
-
-        Company company = new Company(command.getUserName(), password, salt, command.getStatus(),
-                new BigDecimal(0), new Date(), role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
-                command.getRegisterDate(), registerAddress, operateAddress, new BigDecimal(0), 0.0);
-
-        companyRepository.save(company);
-        return company;
-    }
-
-    @Override
     public Company edit(EditCompanyCommand command) {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());
@@ -107,5 +85,11 @@ public class CompanyService implements ICompanyService {
             throw new NoFoundException("没有找到用户id=[" + id + "]的记录");
         }
         return null;
+    }
+
+    @Override
+    public Company create(Company company) {
+        companyRepository.save(company);
+        return company;
     }
 }

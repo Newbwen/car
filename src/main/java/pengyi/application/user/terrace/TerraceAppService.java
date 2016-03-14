@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.terrace.command.CreateTerraceCommand;
 import pengyi.application.user.terrace.command.EditTerraceCommand;
 import pengyi.application.user.terrace.command.BaseListTerraceCommand;
 import pengyi.application.user.terrace.representation.TerraceRepresentation;
@@ -35,11 +34,6 @@ public class TerraceAppService implements ITerraceAppService {
         Pagination<Terrace> pagination = terraceService.pagination(command);
         List<TerraceRepresentation> data = mappingService.mapAsList(pagination.getData(), TerraceRepresentation.class);
         return new Pagination<TerraceRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
-    }
-
-    @Override
-    public TerraceRepresentation create(CreateTerraceCommand command) {
-        return mappingService.map(terraceService.create(command), TerraceRepresentation.class, false);
     }
 
     @Override

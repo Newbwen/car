@@ -1,6 +1,5 @@
 package pengyi.application.user.terrace;
 
-import pengyi.application.user.terrace.command.CreateTerraceCommand;
 import pengyi.application.user.terrace.command.EditTerraceCommand;
 import pengyi.application.user.terrace.command.BaseListTerraceCommand;
 import pengyi.application.user.terrace.representation.TerraceRepresentation;
@@ -12,8 +11,6 @@ import pengyi.repository.generic.Pagination;
 public interface ITerraceAppService {
 
     Pagination<TerraceRepresentation> pagination(BaseListTerraceCommand command);
-
-    TerraceRepresentation create(CreateTerraceCommand command);
 
     TerraceRepresentation edit(EditTerraceCommand command);
 

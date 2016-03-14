@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
@@ -35,11 +34,6 @@ public class CompanyAppService implements ICompanyAppService {
         Pagination<Company> pagination = companyService.pagination(command);
         List<CompanyRepresentation> data = mappingService.mapAsList(pagination.getData(), CompanyRepresentation.class);
         return new Pagination<CompanyRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
-    }
-
-    @Override
-    public CompanyRepresentation create(CreateCompanyCommand command) {
-        return mappingService.map(companyService.create(command), CompanyRepresentation.class, false);
     }
 
     @Override

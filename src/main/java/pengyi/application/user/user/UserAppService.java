@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.user.command.CreateUserCommand;
 import pengyi.application.user.user.command.EditUserCommand;
 import pengyi.application.user.user.command.BaseListUserCommand;
 import pengyi.application.user.user.representation.UserRepresentation;
@@ -35,11 +34,6 @@ public class UserAppService implements IUserAppService {
         Pagination<User> pagination = userService.pagination(command);
         List<UserRepresentation> data = mappingService.mapAsList(pagination.getData(), UserRepresentation.class);
         return new Pagination<UserRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
-    }
-
-    @Override
-    public UserRepresentation create(CreateUserCommand command) {
-        return mappingService.map(userService.create(command), UserRepresentation.class, false);
     }
 
     @Override

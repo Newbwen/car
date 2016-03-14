@@ -1,5 +1,7 @@
 package pengyi.application.feedback.representation;
 
+import pengyi.core.type.HandleStatus;
+
 import java.util.Date;
 
 /**
@@ -15,6 +17,7 @@ public class FeedBackRepresentation {
     private String qq;          //联系QQ
     private String content;     //意见内容
     private Date createDate;    //创建时间
+    private HandleStatus status;//处理状态
 
     public String getId() {
         return id;
@@ -70,5 +73,13 @@ public class FeedBackRepresentation {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public HandleStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(HandleStatus status) {
+        this.status = status;
     }
 }

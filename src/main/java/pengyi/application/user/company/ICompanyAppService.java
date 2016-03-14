@@ -1,6 +1,5 @@
 package pengyi.application.user.company;
 
-import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
@@ -12,8 +11,6 @@ import pengyi.repository.generic.Pagination;
 public interface ICompanyAppService {
 
     Pagination<CompanyRepresentation> pagination(BaseListCompanyCommand command);
-
-    CompanyRepresentation create(CreateCompanyCommand command);
 
     CompanyRepresentation edit(EditCompanyCommand command);
 

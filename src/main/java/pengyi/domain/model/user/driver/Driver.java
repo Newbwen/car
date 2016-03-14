@@ -152,4 +152,8 @@ public class Driver extends BaseUser {
         this.online = online;
         this.driverType = driverType;
     }
+
+    public Driver(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    }
 }

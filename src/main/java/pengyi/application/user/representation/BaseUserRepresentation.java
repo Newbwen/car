@@ -22,7 +22,7 @@ public class BaseUserRepresentation {
     private String createDate;                      //创建时间
     private RoleRepresentation userRole;                          //用户角色
     private String email;                           //邮箱
-    private UserType userTyper;                               //1平台、2用户、3公司、4司机
+    private UserType userType;                               //1平台、2用户、3公司、4司机
 
     public String getId() {
         return id;
@@ -104,11 +104,11 @@ public class BaseUserRepresentation {
         this.email = email;
     }
 
-    public UserType getUserTyper() {
-        return userTyper;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setUserTyper(UserType userTyper) {
-        this.userTyper = userTyper;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

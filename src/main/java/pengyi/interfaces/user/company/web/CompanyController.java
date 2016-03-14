@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.user.company.ICompanyAppService;
-import pengyi.application.user.company.command.CreateCompanyCommand;
-import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
+import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
@@ -40,41 +39,6 @@ public class CompanyController extends BaseController {
     public ModelAndView list(BaseListCompanyCommand command) {
         return new ModelAndView("/user/company/list", "command", command)
                 .addObject("pagination", companyAppService.pagination(command));
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("command") CreateCompanyCommand command) {
-        return new ModelAndView("/user/company/create", "command", command);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("command") CreateCompanyCommand command,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                               Locale locale) {
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/company/create", "command", command);
-        }
-
-        AlertMessage alertMessage = null;
-
-        CompanyRepresentation company = null;
-
-        try {
-            company = companyAppService.create(command);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/company/create", "command", command)
-                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        }
-
-        logger.info("创建company(公司)用户成功id=[" + company.getId() + "],时间[" + new Date() + "]");
-
-        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", company.getId());
-        return new ModelAndView("redirect:/user/company/show/{id}");
     }
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)

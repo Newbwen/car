@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.user.user.IUserAppService;
-import pengyi.application.user.user.command.CreateUserCommand;
 import pengyi.application.user.user.command.EditUserCommand;
 import pengyi.application.user.user.command.BaseListUserCommand;
 import pengyi.application.user.user.representation.UserRepresentation;
@@ -40,41 +39,6 @@ public class UserController extends BaseController {
     public ModelAndView list(BaseListUserCommand command) {
         return new ModelAndView("/user/user/list", "command", command)
                 .addObject("pagination", userAppService.pagination(command));
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("command") CreateUserCommand command) {
-        return new ModelAndView("/user/user/create", "command", command);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("command") CreateUserCommand command,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                               Locale locale) {
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/user/create", "command", command);
-        }
-
-        AlertMessage alertMessage = null;
-
-        UserRepresentation user = null;
-
-        try {
-            user = userAppService.create(command);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/user/create", "command", command)
-                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        }
-
-        logger.info("创建user用户成功id=[" + user.getId() + "],时间[" + new Date() + "]");
-
-        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", user.getId());
-        return new ModelAndView("redirect:/user/show/{id}");
     }
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)

@@ -1,14 +1,15 @@
 package pengyi.domain.service.user;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pengyi.application.user.command.BaseCreateBaseUserCommand;
-import pengyi.application.user.command.EditBaseUserRoleCommand;
-import pengyi.application.user.command.BaseListBaseUserCommand;
-import pengyi.application.user.command.UpDatePasswordCommand;
+import pengyi.application.user.command.*;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
@@ -20,7 +21,15 @@ import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.IBaseUserRepository;
+import pengyi.domain.model.user.company.Company;
+import pengyi.domain.model.user.driver.Driver;
+import pengyi.domain.model.user.terrace.Terrace;
+import pengyi.domain.model.user.user.User;
 import pengyi.domain.service.role.IRoleService;
+import pengyi.domain.service.user.company.ICompanyService;
+import pengyi.domain.service.user.driver.IDriverService;
+import pengyi.domain.service.user.terrace.ITerraceService;
+import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 
 import java.math.BigDecimal;
@@ -39,6 +48,18 @@ public class BaseUserService implements IBaseUserService {
 
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private IDriverService driverService;
+
+    @Autowired
+    private ITerraceService terraceService;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private ICompanyService companyService;
 
     @Override
     public BaseUser searchByUserName(String userName) {
@@ -93,14 +114,43 @@ public class BaseUserService implements IBaseUserService {
 
         Role role = roleService.show(command.getUserRole());
 
+
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
-        BaseUser baseUser = new BaseUser(command.getUserName(),password,salt,command.getStatus(),new BigDecimal(0),new Date(),
-                role,command.getEmail(),command.getUserType());
+        if (role.getRoleName().equals("user")) {
+            command.setUserType(UserType.USER);
+            User user = new User(command.getUserName(), password, salt, command.getStatus(), new BigDecimal(0), new Date(),
+                    role, command.getEmail(), command.getUserType());
+            return userService.create(user);
+        } else if (role.getRoleName().equals("company")) {
+            command.setUserType(UserType.COMPANY);
+            Company company = new Company(command.getUserName(), password, salt, command.getStatus(), new BigDecimal(0), new Date(),
+                    role, command.getEmail(), command.getUserType());
+            return companyService.create(company);
+        } else if (role.getRoleName().equals("terrace")) {
+            command.setUserType(UserType.TERRACR);
+            Terrace terrace = new Terrace(command.getUserName(), password, salt, command.getStatus(), new BigDecimal(0), new Date(),
+                    role, command.getEmail(), command.getUserType());
+            return terraceService.create(terrace);
+        } else {
+            command.setUserType(UserType.DRIVER);
+            Driver driver = new Driver(command.getUserName(), password, salt, command.getStatus(), new BigDecimal(0), new Date(),
+                    role, command.getEmail(), command.getUserType());
+            return driverService.create(driver);
+        }
+    }
 
-        baseUserRepository.save(baseUser);
+    @Override
+    public BaseUser login(LoginUserCommand command) {
+        BaseUser baseUser = baseUserRepository.getByUserName(command.getUsername());
+        if (null == baseUser) {
+            throw new UnknownAccountException();
+        }
 
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(command.getUsername(), command.getPassword());
+        subject.login(token);
         return baseUser;
     }
 
@@ -109,11 +159,14 @@ public class BaseUserService implements IBaseUserService {
         BaseUser baseUser = this.show(command.getId());
         baseUser.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (baseUser.getStatus().equals("ENABLE")) {
+        if (baseUser.getStatus() == EnableStatus.ENABLE) {
             baseUser.setStatus(EnableStatus.DISABLE);
         } else {
             baseUser.setStatus(EnableStatus.ENABLE);
         }
+
+        baseUserRepository.update(baseUser);
+
         return baseUser;
     }
 
@@ -122,9 +175,12 @@ public class BaseUserService implements IBaseUserService {
         BaseUser baseUser = this.show(command.getId());
         baseUser.fainWhenConcurrencyViolation(command.getVersion());
 
-        Role role = roleService.show(command.getUserRole());
-
-        baseUser.setUserRole(role);
+        if (!CoreStringUtils.isEmpty(command.getUserRole())) {
+            Role role = roleService.show(command.getUserRole());
+            baseUser.setUserRole(role);
+        } else {
+            baseUser.setUserRole(null);
+        }
 
         baseUserRepository.update(baseUser);
         return baseUser;

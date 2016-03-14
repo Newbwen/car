@@ -90,7 +90,7 @@
                         <img class="nav-user-photo" src="[@spring.url '/resources/assets/avatars/user.jpg'/]" alt="Jason's Photo"/>
 								<span class="user-info">
 									<small>欢迎光临,</small>
-									Jason
+                                ${Session["sessionUser"].userName!}
 								</span>
 
                         <i class="icon-caret-down"></i>
@@ -114,7 +114,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="[@spring.url '/logout'/]">
                                 <i class="icon-off"></i>
                                 退出
                             </a>

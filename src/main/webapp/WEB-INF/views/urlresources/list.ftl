@@ -56,11 +56,31 @@
                                 <td>${urlResources.description!}</td>
                                 <td>${(urlResources.status.getName())!}</td>
                                 <td>
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/url_resources/show/${urlResources.id!}'/]"
-                                           title="查看"><i class="icon-zoom-in bigger-130"></i></a>
-                                        <a class="green" href="[@spring.url '/url_resources/edit/${urlResources.id}'/]"
-                                           title="编辑"><i class="icon-pencil bigger-130"></i></a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
+                                            操作
+                                            <i class="icon-angle-down icon-on-right"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="blue" href="[@spring.url '/url_resources/show/${urlResources.id!}'/]">查看</a>
+                                            </li>
+                                            <li>
+                                                <a class="green" href="[@spring.url '/url_resources/edit/${urlResources.id}'/]">编辑</a>
+                                            </li>
+                                            <li>
+                                                [#if urlResources.status == "ENABLE"]
+                                                    <a class="red" href="[@spring.url '/url_resources/update_status?id=${urlResources.id!}&version=${urlResources.version!}'/]">
+                                                        禁用
+                                                    </a>
+                                                [#else ]
+                                                    <a class="red" href="[@spring.url '/url_resources/update_status?id=${urlResources.id!}&version=${urlResources.version!}'/]">
+                                                        启用
+                                                    </a>
+                                                [/#if]
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>

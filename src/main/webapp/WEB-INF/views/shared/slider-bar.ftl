@@ -40,6 +40,13 @@
                 </li>
 
                 <li>
+                    <a href="[@spring.url '/base_user/create' /]">
+                        <i class="icon-pencil"></i>
+                        用户创建
+                    </a>
+                </li>
+
+                <li>
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-double-angle-right"></i>
                         司机用户管理
@@ -142,7 +149,7 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="tables.html">
+                    <a href="[@spring.url '/order/list'/]">
                         <i class="icon-calendar"></i>
                         订单列表
                     </a>
@@ -203,7 +210,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/money_detailed/list'/]">
                         <i class="icon-calendar"></i>
                         资金流向列表
                     </a>
@@ -221,7 +228,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/feed_back/list'/]">
                         <i class="icon-calendar"></i>
                         意见反馈列表
                     </a>

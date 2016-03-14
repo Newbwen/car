@@ -1,6 +1,5 @@
 package pengyi.domain.service.moneydetailed;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -38,8 +37,8 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     public Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
-        if (!CoreStringUtils.isEmpty(command.getPhone())) {
-            criterionList.add(Restrictions.like("baseUser.phone", command.getPhone(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getUserName())) {
+            criterionList.add(Restrictions.like("baseUser.userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
         List<Order> orders = new ArrayList<Order>();
@@ -76,6 +75,6 @@ public class MoneyDetailedService implements IMoneyDetailedService {
         if(null == moneyDetailed){
             throw new NoFoundException("没有找到资金流向id=[" + id + "]的记录");
         }
-        return null;
+        return moneyDetailed;
     }
 }

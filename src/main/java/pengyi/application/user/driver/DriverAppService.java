@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.driver.command.CreateDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
@@ -35,11 +34,6 @@ public class DriverAppService implements IDriverAppService {
         Pagination<Driver> pagination = driverService.pagination(command);
         List<DriverRepresentation> data = mappingService.mapAsList(pagination.getData(), DriverRepresentation.class);
         return new Pagination<DriverRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
-    }
-
-    @Override
-    public DriverRepresentation create(CreateDriverCommand command) {
-        return mappingService.map(driverService.create(command), DriverRepresentation.class, false);
     }
 
     @Override
