@@ -1,9 +1,6 @@
 package pengyi.domain.service.user;
 
-import pengyi.application.user.command.BaseCreateBaseUserCommand;
-import pengyi.application.user.command.EditBaseUserRoleCommand;
-import pengyi.application.user.command.BaseListBaseUserCommand;
-import pengyi.application.user.command.UpDatePasswordCommand;
+import pengyi.application.user.command.*;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
@@ -26,4 +23,6 @@ public interface IBaseUserService {
     BaseUser show(String id);
 
     BaseUser create(BaseCreateBaseUserCommand command);
+
+    BaseUser login(LoginUserCommand command);
 }

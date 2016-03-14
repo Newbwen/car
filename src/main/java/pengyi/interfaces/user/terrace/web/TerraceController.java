@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.user.terrace.ITerraceAppService;
-import pengyi.application.user.terrace.command.CreateTerraceCommand;
-import pengyi.application.user.terrace.command.EditTerraceCommand;
 import pengyi.application.user.terrace.command.BaseListTerraceCommand;
+import pengyi.application.user.terrace.command.EditTerraceCommand;
 import pengyi.application.user.terrace.representation.TerraceRepresentation;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
@@ -40,41 +39,6 @@ public class TerraceController extends BaseController {
     public ModelAndView list(BaseListTerraceCommand command) {
         return new ModelAndView("/user/terrace/list", "command", command)
                 .addObject("pagination", terraceAppService.pagination(command));
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("command") CreateTerraceCommand command) {
-        return new ModelAndView("/user/terrace/create", "command", command);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("command") CreateTerraceCommand command,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                               Locale locale) {
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/terrace/create", "command", command);
-        }
-
-        AlertMessage alertMessage = null;
-
-        TerraceRepresentation terrace = null;
-
-        try {
-            terrace = terraceAppService.create(command);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/terrace/create", "command", command)
-                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        }
-
-        logger.info("创建terrace(平台)用户成功id=[" + terrace.getId() + "],时间[" + new Date() + "]");
-
-        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", terrace.getId());
-        return new ModelAndView("redirect:/user/terrace/show/{id}");
     }
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)

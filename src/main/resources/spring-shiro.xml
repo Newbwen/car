@@ -49,9 +49,8 @@
         <property name="arguments" ref="securityManager"/>
     </bean>
 
-    <bean id="shiroFilterChainManager" class="pengyi.core.shiro.ShiroFilterChainManager">
-        <property name="urlResourcesAppService" ref="urlResourcesAppService"/>
-    </bean>
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilterChainManager" class="pengyi.core.shiro.ShiroFilterChainManager"/>
 
     <bean id="filterChainManager" class="pengyi.core.shiro.CustomDefaultFilterChainManager">
         <property name="loginUrl" value="${shiro.loginUrl}"/>

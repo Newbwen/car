@@ -99,7 +99,7 @@ public class RoleService implements IRoleService {
         Role role = this.show(command.getId());
         role.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (role.getStatus().equals("ENABLE")) {
+        if (role.getStatus() == EnableStatus.ENABLE) {
             role.setStatus(EnableStatus.DISABLE);
         } else {
             role.setStatus(EnableStatus.ENABLE);
