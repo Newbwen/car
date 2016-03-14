@@ -1,17 +1,35 @@
 package pengyi.application.rescue.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import pengyi.core.type.RescueStatus;
 /**
  * Created by LvDi on 2016/3/9.
  */
 public class CreateRescueCommand {
+
+    @NotEmpty(message = "{rescue.applyUser,NotEmpty,message}")
     private String applyUser;                   //申请人
+
+    @NotEmpty(message = "{rescue.applyTime,NotEmpty,message}")
     private String applyTime;                   //申请时间
+
+    @NotEmpty(message = "{rescue.type,NotEmpty,message}")
     private int type;                           //救援类型
+
+    @NotEmpty(message = "{rescue.description,NotEmpty,message}")
     private String description;                 //救援说明
+
+    @NotEmpty(message = "{rescue.driver,NotEmpty,message}")
     private String driver;                      //救援司机
+
+    @NotEmpty(message = "{rescue.rescueTime,NotEmpty,message}")
     private String rescueTime;                  //救援时间
+
+    @NotEmpty(message = "{rescue.status,NotEmpty,message}")
     private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
+
+
+    @NotEmpty(message = "{rescue.finishTime,NotEmpty,message}")
     private String finishTime;                  //救援完成时间
 
     public String getApplyUser() {

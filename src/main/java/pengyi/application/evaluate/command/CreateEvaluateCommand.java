@@ -1,15 +1,26 @@
 package pengyi.application.evaluate.command;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by ${lvdi} on 2016/3/8.
  */
 public class CreateEvaluateCommand {
 
+    @NotEmpty(message = "{evaluate.evaluateUser,NotEmpty,message}")
     private String evaluateUser;                      //评价人
+
+    @NotEmpty(message = "{evaluate.order,NotEmpty,message}")
     private String order;                             //订单
+
+    @NotEmpty(message = "{evaluate.content,NotEmpty,message}")
     private String content;                           //评价内容
+
+    @NotEmpty(message = "{evaluate.level,NotEmpty,message}")
     private int level;                                //评级
+
+    @NotEmpty(message = "{evaluate.createDate,NotEmpty,message}")
     private String createDate;                       //评价时间
 
 

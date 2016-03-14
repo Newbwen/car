@@ -146,9 +146,4 @@ public class PermissionController extends BaseController {
         return new ModelAndView("redirect:/permission/show/{id}");
     }
 
-    @RequestMapping()
-    public ModelAndView updateStatus(){
-        return null;
-    }
-
 }

@@ -88,7 +88,7 @@ public class RescueComtroller extends BaseController {
         return new ModelAndView("/rescue/show","rescueRepresentation",rescueRepresentation);
     }
 
-    @RequestMapping(value = "edit/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable String id, @ModelAttribute("command")EditRescueCommand command ,
                              RedirectAttributes redirectAttributes,Locale locale){
         AlertMessage alertMessage;
@@ -136,6 +136,63 @@ public class RescueComtroller extends BaseController {
         }
         logger.info("修改评价成功id=[" + rescueRepresentation.getId() + "],时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        redirectAttributes.addAttribute("id", rescueRepresentation.getId());
+
+        return new ModelAndView("redirect:/rescue/show/{id}");
+
+    }
+
+    @RequestMapping(value = "/updateStatus/{id}",method = RequestMethod.GET)
+    public ModelAndView updateStatus(@PathVariable String id,@ModelAttribute("command")EditRescueCommand command,
+                                     RedirectAttributes redirectAttributes,Locale locale ){
+        AlertMessage alertMessage;
+
+        RescueRepresentation rescueRepresentation=null;
+
+        try {
+            rescueRepresentation= rescueAppService.updateStatus(command);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
+            return new ModelAndView("redirect:/rescue/list");
+
+        }
+        return new ModelAndView("/rescue/updateStatus","command",command).addObject("rescueRepresentation",rescueRepresentation);
+
+    }
+
+    @RequestMapping(value = "/updateStatus",method = RequestMethod.POST)
+    public ModelAndView updateStatus(@Valid @ModelAttribute("command")EditRescueCommand command,
+                                     BindingResult bindingResult,RedirectAttributes redirectAttributes,Locale locale){
+
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("/rescue/edit","command",command);
+        }
+
+        AlertMessage alertMessage;
+
+        RescueRepresentation rescueRepresentation=null;
+        try{
+            rescueRepresentation= rescueAppService.updateStatus(command);
+        }catch (ConcurrencyException e){
+            logger.warn(e.getMessage());
+            alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
+            redirectAttributes.addAttribute("id",command.getId());
+
+            return new ModelAndView("redirect:/rescue/updateStatus/{id}");
+
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            return new ModelAndView("/rescue/updateStatus", "command", command)
+                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+
+        }
+        logger.info("修改评价状态成功id=[" + rescueRepresentation.getId() + "],时间[" + new Date() + "]");
+        alertMessage = new AlertMessage(this.getMessage("default.updateStatus.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         redirectAttributes.addAttribute("id", rescueRepresentation.getId());
 
