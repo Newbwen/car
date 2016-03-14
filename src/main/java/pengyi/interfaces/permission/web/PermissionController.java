@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.permission.IPermissionAppService;
@@ -16,12 +13,15 @@ import pengyi.application.permission.command.CreatePermissionCommand;
 import pengyi.application.permission.command.EditPermissionCommand;
 import pengyi.application.permission.command.ListPermissionCommand;
 import pengyi.application.permission.representation.PermissionRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
+import pengyi.repository.generic.Pagination;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -40,6 +40,12 @@ public class PermissionController extends BaseController {
     public ModelAndView list(ListPermissionCommand command) {
         return new ModelAndView("/permission/list", "command", command)
                 .addObject("pagination", permissionAppService.pagination(command));
+    }
+
+    @RequestMapping(value = "/permission_list")
+    @ResponseBody
+    public Pagination<PermissionRepresentation> permissionList(@RequestBody ListPermissionCommand command){
+        return permissionAppService.permissionList(command);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -92,7 +98,7 @@ public class PermissionController extends BaseController {
         return new ModelAndView("/permission/show", "permission", permission);
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id, @ModelAttribute("command") EditPermissionCommand command,
                              RedirectAttributes redirectAttributes, Locale locale) {
 
@@ -126,7 +132,7 @@ public class PermissionController extends BaseController {
             permission = permissionAppService.edit(command);
         } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             redirectAttributes.addAttribute("id", command.getId());
 
@@ -144,6 +150,24 @@ public class PermissionController extends BaseController {
         redirectAttributes.addAttribute("id", permission.getId());
 
         return new ModelAndView("redirect:/permission/show/{id}");
+    }
+
+    @RequestMapping(value = "/update_status")
+    public ModelAndView updateStatus(EditStatusCommand command, RedirectAttributes redirectAttributes, Locale locale){
+        AlertMessage alertMessage;
+        PermissionRepresentation permission = null;
+        try {
+            permission = permissionAppService.updateStatus(command);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            return new ModelAndView("redirect:/permission/list");
+        }
+
+        logger.info("修改权限状态成功id=[" + permission.getId() + "],时间[" + new Date() + "]");
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message",null,locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
+        return new ModelAndView("redirect:/permission/list");
     }
 
 }

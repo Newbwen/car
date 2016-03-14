@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.DeleteMessageCommand;
 import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
@@ -71,19 +72,12 @@ public class MessageService implements IMessageService {
 
     }
 
-    //标记已读
     @Override
-    public Message edit(EditMessageCommand command) {
-
-        Message message = this.show(command.getId());
-
-        message.fainWhenConcurrencyViolation(command.getVersion());
-
-        message.setReceiveDate(new Date());
-
-        messageRepository.update(message);
-
+    public Message delete(String messageId) {
+        Message message=messageRepository.getById(messageId);
+        messageRepository.delete(message);
         return message;
     }
+
 
 }

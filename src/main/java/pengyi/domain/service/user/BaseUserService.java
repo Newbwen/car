@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.user.command.BaseCreateBaseUserCommand;
 import pengyi.application.user.command.EditBaseUserRoleCommand;
-import pengyi.application.user.command.ListBaseUserCommand;
+import pengyi.application.user.command.BaseListBaseUserCommand;
 import pengyi.application.user.command.UpDatePasswordCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
@@ -15,6 +15,7 @@ import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.exception.NotEqualException;
 import pengyi.core.type.EnableStatus;
+import pengyi.core.type.UserType;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
@@ -40,15 +41,15 @@ public class BaseUserService implements IBaseUserService {
     private IRoleService roleService;
 
     @Override
-    public BaseUser searchByPhone(String phone) {
-        return baseUserRepository.getByPhone(phone);
+    public BaseUser searchByUserName(String userName) {
+        return baseUserRepository.getByUserName(userName);
     }
 
     @Override
-    public Pagination<BaseUser> pagination(ListBaseUserCommand command) {
+    public Pagination<BaseUser> pagination(BaseListBaseUserCommand command) {
         List<Criterion> criteriaList = new ArrayList();
-        if (!CoreStringUtils.isEmpty(command.getPhone())) {
-            criteriaList.add(Restrictions.like("phone", command.getPhone(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getUserName())) {
+            criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
         if (null != command.getStatus()) {
@@ -81,6 +82,25 @@ public class BaseUserService implements IBaseUserService {
         if (null == baseUser) {
             throw new NoFoundException("没有找到用户id=[" + id + "]的记录");
         }
+        return baseUser;
+    }
+
+    @Override
+    public BaseUser create(BaseCreateBaseUserCommand command) {
+        if (null != this.searchByUserName(command.getUserName())) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+
+        Role role = roleService.show(command.getUserRole());
+
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        BaseUser baseUser = new BaseUser(command.getUserName(),password,salt,command.getStatus(),new BigDecimal(0),new Date(),
+                role,command.getEmail(),command.getUserType());
+
+        baseUserRepository.save(baseUser);
+
         return baseUser;
     }
 

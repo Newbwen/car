@@ -8,6 +8,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import pengyi.application.user.IBaseUserAppService;
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.permission.Permission;
 import pengyi.domain.model.role.Role;
@@ -36,7 +37,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         BaseUser user = null;
         try {
-            user = baseUserAppService.searchByPhone(token.getPrincipal().toString());
+            user = baseUserAppService.searchByUserName(token.getPrincipal().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,7 +49,7 @@ public class UserRealm extends AuthorizingRealm {
             }
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getPhone(),
+                user.getUserName(),
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getCredentialsSalt()),
                 getName()
@@ -65,9 +66,9 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         BaseUser user = null;
-        String phone = (String) principals.getPrimaryPrincipal();
+        String userName = (String) principals.getPrimaryPrincipal();
         try {
-            user = baseUserAppService.searchByPhone(phone);
+            user = baseUserAppService.searchByUserName(userName);
         } catch (Exception e) {
             e.printStackTrace();
         }

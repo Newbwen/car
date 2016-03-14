@@ -6,9 +6,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
+import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.mapping.IMappingService;
+import pengyi.domain.model.user.company.Company;
 import pengyi.domain.service.user.company.ICompanyService;
+import pengyi.repository.generic.Pagination;
+
+import java.util.List;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -22,6 +27,15 @@ public class CompanyAppService implements ICompanyAppService {
 
     @Autowired
     private IMappingService mappingService;
+
+    @Override
+    public Pagination<CompanyRepresentation> pagination(BaseListCompanyCommand command) {
+        command.verifyPage();
+        command.verifyPageSize(20);
+        Pagination<Company> pagination = companyService.pagination(command);
+        List<CompanyRepresentation> data = mappingService.mapAsList(pagination.getData(), CompanyRepresentation.class);
+        return new Pagination<CompanyRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+    }
 
     @Override
     public CompanyRepresentation create(CreateCompanyCommand command) {
