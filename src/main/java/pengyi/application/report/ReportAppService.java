@@ -2,6 +2,9 @@ package pengyi.application.report;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
@@ -16,6 +19,8 @@ import java.util.List;
 /**
  * Created by liubowen on 2016/3/10.
  */
+@Service("reportAppService")
+@Transactional(propagation = Propagation.REQUIRED,readOnly = false,rollbackFor = Exception.class)
 public class ReportAppService implements IReportAppService {
 
     @Autowired
@@ -25,6 +30,7 @@ public class ReportAppService implements IReportAppService {
     private IMappingService mappingService;
 
     @Override
+    @Transactional(readOnly = true)
     public Pagination<ReportRepresentation> pagination(ListReportCommand command) {
 
         command.verifyPage();

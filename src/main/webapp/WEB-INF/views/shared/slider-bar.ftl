@@ -264,14 +264,14 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/message/list'/]">
                         <i class="icon-calendar"></i>
                         站内信息列表
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="[@spring.url'/message/create'/]">
                         <i class="icon-leaf"></i>
                         站内信息创建
                     </a>
