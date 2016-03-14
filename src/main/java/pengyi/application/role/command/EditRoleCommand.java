@@ -1,8 +1,6 @@
 package pengyi.application.role.command;
 
-import pengyi.domain.model.permission.Permission;
-
-import java.util.List;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -12,7 +10,9 @@ public class EditRoleCommand {
     private String id;
     private Integer version;
 
+    @NotEmpty(message = "{role.roleName.NotEmpty.message}")
     private String roleName;                        //角色名
+    @NotEmpty(message = "{role.description.NotEmpty.message}")
     private String description;                     //描述
     private String[] permissions;            //权限列表
 

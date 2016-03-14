@@ -6,9 +6,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.driver.command.CreateDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
+import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.mapping.IMappingService;
+import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.user.driver.IDriverService;
+import pengyi.repository.generic.Pagination;
+
+import java.util.List;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -22,6 +27,15 @@ public class DriverAppService implements IDriverAppService {
 
     @Autowired
     private IMappingService mappingService;
+
+    @Override
+    public Pagination<DriverRepresentation> pagination(BaseListDriverCommand command) {
+        command.verifyPage();
+        command.verifyPageSize(20);
+        Pagination<Driver> pagination = driverService.pagination(command);
+        List<DriverRepresentation> data = mappingService.mapAsList(pagination.getData(), DriverRepresentation.class);
+        return new Pagination<DriverRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+    }
 
     @Override
     public DriverRepresentation create(CreateDriverCommand command) {

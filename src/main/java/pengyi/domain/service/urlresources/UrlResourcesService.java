@@ -71,7 +71,7 @@ public class UrlResourcesService implements IUrlResourcesService {
 
         urlResourcesRepository.save(urlResources);
 
-        this.initFilterChains(urlResources);
+//        this.initFilterChains(urlResources);
 
         return urlResources;
     }
@@ -96,7 +96,7 @@ public class UrlResourcesService implements IUrlResourcesService {
 
         urlResourcesRepository.update(urlResources);
 
-        this.initFilterChains(urlResources);
+//        this.initFilterChains(urlResources);
 
         return urlResources;
     }

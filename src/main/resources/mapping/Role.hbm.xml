@@ -21,11 +21,10 @@
             </type>
         </property>
 
-        <list name="permissions" table="t_role_permission" fetch="join">
-            <key column="role_id" />
-            <index column="_index" />
-            <many-to-many column="permission_id" class="pengyi.domain.model.permission.Permission" />
-        </list>
+        <bag name="permissions" cascade="save-update" table="t_role_permission">
+            <key column="role_id"/>
+            <many-to-many class="pengyi.domain.model.permission.Permission" column="permission_id"/>
+        </bag>
     </class>
 
 </hibernate-mapping>

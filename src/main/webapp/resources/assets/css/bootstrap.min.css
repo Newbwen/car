@@ -378,7 +378,7 @@ cite {
 }
 
 .text-muted {
-    color: #999
+    color: #777
 }
 
 .text-primary {
@@ -5172,7 +5172,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 .modal-dialog {
     z-index: 1050;
     width: auto;
-    padding: 10px;
+    /*padding: 10px;*/
     margin-right: auto;
     margin-left: auto
 }
@@ -5271,9 +5271,9 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
     .modal-dialog {
         right: auto;
         left: 50%;
-        width: 600px;
-        padding-top: 30px;
-        padding-bottom: 30px
+        width: 100%;
+        /*padding-top: 30px;*/
+        /*padding-bottom: 30px*/
     }
 
     .modal-content {

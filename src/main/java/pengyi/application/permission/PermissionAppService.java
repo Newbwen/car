@@ -40,6 +40,14 @@ public class PermissionAppService implements IPermissionAppService {
     }
 
     @Override
+    public Pagination<PermissionRepresentation> permissionList(ListPermissionCommand command) {
+        command.verifyPage();
+        Pagination<Permission> pagination = permissionService.pagination(command);
+        List<PermissionRepresentation> data = mappingService.mapAsList(pagination.getData(), PermissionRepresentation.class);
+        return new Pagination<PermissionRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+    }
+
+    @Override
     public PermissionRepresentation create(CreatePermissionCommand command) {
         return mappingService.map(permissionService.create(command), PermissionRepresentation.class, false);
     }
