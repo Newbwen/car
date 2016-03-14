@@ -22,25 +22,65 @@
                 <div class="profile-info-name"> 申请人</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username">${permission.applyUser!}</span>
+                    <span class="editable editable-click" id="username">${rescue.applyUser!}</span>
                 </div>
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> 描述</div>
+                <div class="profile-info-name"> 申请时间</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="country">${permission.description!}</span>
+                    <span class="editable editable-click" id="applyTime">${rescue.applyTime!}</span>
                 </div>
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> 状态</div>
+                <div class="profile-info-name"> 救援类型</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="type">${rescue.type!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 救援说明</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="description">${rescue.description!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 救援司机</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="driver">${rescue.driver!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 救援时间</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="rescueTime">${rescue.rescueTime!}</span>
+                </div>
+            </div
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 救援状态</div>
 
                 <div class="profile-info-value">
                     <span class="editable editable-click" id="age">${(permission.status.getName())!}</span>
                 </div>
             </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 救援完成时间</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="finishTime">${rescue.finishTime!}</span>
+                </div>
+            </div
         </div>
         <br>
         <br>

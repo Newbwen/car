@@ -45,11 +45,11 @@ public class EvaluateService implements IEvaluateService {
     @Override
     public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
         List<Criterion> criteriaList = new ArrayList();
-        if (!CoreStringUtils.isEmpty(command.getEvaluateUserId())) {
-            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUserId()));
+        if (!CoreStringUtils.isEmpty(command.getEvaluateUser())) {
+            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUser()));
         }
-        if (!CoreStringUtils.isEmpty(command.getOrderId())) {
-            criteriaList.add(Restrictions.eq("Order.id", command.getOrderId()));
+        if (!CoreStringUtils.isEmpty(command.getOrder())) {
+            criteriaList.add(Restrictions.eq("Order.id", command.getOrder()));
         }
 
         return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
