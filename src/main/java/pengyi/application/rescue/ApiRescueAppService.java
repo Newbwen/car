@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
+import pengyi.core.api.BaseResponse;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.service.rescue.IRescueService;
 
@@ -27,5 +29,10 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Override
     public List<RescueRepresentation> allList() {
         return mappingService.mapAsList(rescueService.findAllRescue(),RescueRepresentation.class);
+    }
+
+    @Override
+    public BaseResponse edit(EditRescueCommand command) {
+        return null;
     }
 }

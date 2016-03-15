@@ -1,6 +1,8 @@
 package pengyi.application.rescue;
 
+import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
+import pengyi.core.api.BaseResponse;
 
 import java.util.List;
 
@@ -9,4 +11,8 @@ import java.util.List;
  */
 public interface IApiRescueAppService {
     List<RescueRepresentation> allList();
+
+    BaseResponse edit(EditRescueCommand command);
+
+
 }

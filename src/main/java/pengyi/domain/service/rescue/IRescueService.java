@@ -30,4 +30,8 @@ public interface IRescueService {
 
     Rescue searchByName(String rescueName);
 
+    /********** api 方法    *************/
+    void apiUpdateDriver(EditRescueCommand command);
+
+
 }

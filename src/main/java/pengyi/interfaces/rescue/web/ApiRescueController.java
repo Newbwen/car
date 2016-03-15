@@ -25,6 +25,10 @@ public class ApiRescueController {
     @Autowired
     private IApiRescueAppService iApiRescueAppService;
 
+    /**
+     *查看救援列表
+     */
+
     @RequestMapping(value = "/all_list")
     @ResponseBody
     public BaseResponse allList() {
@@ -41,5 +45,22 @@ public class ApiRescueController {
         response.setDebug_time(System.currentTimeMillis() - startTime);
         return response;
     }
+    /**
+     * 处理救援
+     */
+    @RequestMapping(value = "/deal")
+    @ResponseBody
+    public BaseResponse deal(){
+        long startTime=System.currentTimeMillis();
+        BaseResponse baseResponse=null;
+        try {
+
+        }catch (Exception e){
+
+        }
+
+        return null;
+    }
+
 
 }

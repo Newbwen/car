@@ -122,4 +122,12 @@ public class RescueService implements IRescueService {
     public Rescue searchByName(String rescueName) {
         return rescueRepository.getByName(rescueName);
     }
+
+    @Override
+    public void apiUpdateDriver(EditRescueCommand command) {
+        Rescue rescue=this.show(command.getId());
+        Driver driver=driverService.show(command.getDriver());
+        rescue.setDriver(driver);
+      rescueRepository.update(rescue);
+    }
 }
