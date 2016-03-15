@@ -1,11 +1,4 @@
 <div class="sidebar" id="sidebar">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('sidebar', 'fixed')
-        } catch (e) {
-        }
-    </script>
-
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             自定义内容 待定
@@ -43,6 +36,13 @@
                     <a href="[@spring.url '/base_user/list' /]">
                         <i class="icon-calendar"></i>
                         用户列表
+                    </a>
+                </li>
+
+                <li>
+                    <a href="[@spring.url '/base_user/create' /]">
+                        <i class="icon-pencil"></i>
+                        用户创建
                     </a>
                 </li>
 
@@ -149,7 +149,7 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="tables.html">
+                    <a href="[@spring.url '/order/list'/]">
                         <i class="icon-calendar"></i>
                         订单列表
                     </a>
@@ -210,7 +210,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/money_detailed/list'/]">
                         <i class="icon-calendar"></i>
                         资金流向列表
                     </a>
@@ -228,7 +228,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/feed_back/list'/]">
                         <i class="icon-calendar"></i>
                         意见反馈列表
                     </a>
@@ -246,7 +246,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/report/list'/]">
                         <i class="icon-calendar"></i>
                         投诉列表
                     </a>
@@ -264,14 +264,14 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="[@spring.url '/message/list'/]">
                         <i class="icon-calendar"></i>
                         站内信息列表
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="[@spring.url'/message/create'/]">
                         <i class="icon-leaf"></i>
                         站内信息创建
                     </a>
@@ -347,13 +347,13 @@
 
                     <ul class="submenu">
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/role/list'/]">
                                 <i class="icon-calendar"></i>
                                 角色列表
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/role/create'/]">
                                 <i class="icon-pencil"></i>
                                 角色创建
                             </a>
@@ -394,13 +394,13 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/url_resources/list'/]">
                                 <i class="icon-calendar"></i>
                                 访问资源路径列表
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/url_resources/create'/]">
                                 <i class="icon-pencil"></i>
                                 访问资源路径创建
                             </a>

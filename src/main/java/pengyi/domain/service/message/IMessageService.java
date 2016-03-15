@@ -1,6 +1,7 @@
 package pengyi.domain.service.message;
 
 import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.DeleteMessageCommand;
 import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.domain.model.message.Message;
@@ -20,7 +21,7 @@ public interface IMessageService {
 
     Pagination<Message> pagination(ListMessageCommand command);
 
-    Message edit(EditMessageCommand command);
+    Message delete(String  messageId);
 
 
 }

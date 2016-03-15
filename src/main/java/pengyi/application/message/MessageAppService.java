@@ -2,8 +2,9 @@ package pengyi.application.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CreateMessageCommand;
-import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.mapping.IMappingService;
@@ -17,6 +18,7 @@ import java.util.List;
  * Created by liubowen on 2016/3/8.
  */
 @Service("messageAppService")
+@Transactional(propagation = Propagation.REQUIRED,readOnly = false,rollbackFor = Exception.class)
 public class MessageAppService implements IMessageAppService {
     @Autowired
     private IMessageService messageService;
@@ -25,7 +27,8 @@ public class MessageAppService implements IMessageAppService {
     private IMappingService mappingService;
 
 
-    @Override
+    @Override//返回paginationList并将ListMessageCommand转换成MessageRepresentation
+    @Transactional(readOnly = true)
     public Pagination<MessageRepresentation> pagination(ListMessageCommand command) {
 
         command.verifyPage();
@@ -39,21 +42,23 @@ public class MessageAppService implements IMessageAppService {
         return new Pagination<MessageRepresentation>(date, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
-    @Override
+    @Override//返回发送的信息
     public MessageRepresentation create(CreateMessageCommand command) {
 
         return mappingService.map(messageService.create(command), MessageRepresentation.class, false);
     }
 
-    @Override
+    @Override//根据id显示数据
+    @Transactional(readOnly = true)
     public MessageRepresentation show(String id) {
 
         return mappingService.map(messageService.show(id), MessageRepresentation.class, false);
     }
 
     @Override
-    public MessageRepresentation edit(EditMessageCommand command) {
-
-        return mappingService.map(messageService.edit(command), MessageRepresentation.class, false);
+    public MessageRepresentation delete(String messageId) {
+        return mappingService.map(messageService.delete(messageId),MessageRepresentation.class,false);
     }
+
+
 }

@@ -11,6 +11,6 @@ import java.io.Serializable;
  */
 public interface IBaseUserRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
 
-    BaseUser getByPhone(String phone);
+    BaseUser getByUserName(String userName);
 
 }

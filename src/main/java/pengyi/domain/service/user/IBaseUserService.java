@@ -1,9 +1,6 @@
 package pengyi.domain.service.user;
 
-import pengyi.application.user.command.BaseCreateBaseUserCommand;
-import pengyi.application.user.command.EditBaseUserRoleCommand;
-import pengyi.application.user.command.ListBaseUserCommand;
-import pengyi.application.user.command.UpDatePasswordCommand;
+import pengyi.application.user.command.*;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
@@ -13,9 +10,9 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IBaseUserService {
 
-    BaseUser searchByPhone(String phone);
+    BaseUser searchByUserName(String userName);
 
-    Pagination<BaseUser> pagination(ListBaseUserCommand command);
+    Pagination<BaseUser> pagination(BaseListBaseUserCommand command);
 
     BaseUser updatePassword(UpDatePasswordCommand command);
 
@@ -24,4 +21,8 @@ public interface IBaseUserService {
     BaseUser updateBaseUserRole(EditBaseUserRoleCommand command);
 
     BaseUser show(String id);
+
+    BaseUser create(BaseCreateBaseUserCommand command);
+
+    BaseUser login(LoginUserCommand command);
 }

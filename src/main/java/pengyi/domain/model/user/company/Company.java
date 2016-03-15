@@ -107,4 +107,8 @@ public class Company extends BaseUser {
         this.money = money;
         this.level = level;
     }
+
+    public Company(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    }
 }
