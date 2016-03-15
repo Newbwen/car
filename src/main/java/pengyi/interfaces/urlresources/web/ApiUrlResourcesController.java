@@ -29,15 +29,17 @@ public class ApiUrlResourcesController {
     @ResponseBody
     public BaseResponse allList() {
         long startTime = System.currentTimeMillis();
-        BaseResponse baseResponse = null;
+        BaseResponse response = null;
         try {
             List<UrlResourcesRepresentation> urlResources = apiUrlResourcesAppService.allList();
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, (System.currentTimeMillis() - startTime), urlResources);
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, urlResources, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } catch (Exception e) {
             logger.warn(e.getMessage());
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, (System.currentTimeMillis() - startTime), null);
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
-        return baseResponse;
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
     }
 
 }

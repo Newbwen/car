@@ -1,13 +1,13 @@
-package pengyi.interfaces.user.web;
+package pengyi.interfaces.order.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pengyi.application.user.IApiBaseUserAppService;
-import pengyi.application.user.representation.BaseUserRepresentation;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pengyi.application.order.IApiOrderAppService;
+import pengyi.application.order.command.CompanyOrderListCommand;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 
@@ -15,25 +15,26 @@ import pengyi.core.api.ResponseCode;
  * Created by YJH on 2016/3/15.
  */
 @Controller
-@RequestMapping("/base_user/api")
-public class ApiBaseUserController {
+@RequestMapping("/order/api")
+public class ApiOrderController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IApiBaseUserAppService apiBaseUserAppService;
+    private IApiOrderAppService apiOrderAppService;
 
-    @RequestMapping(value = "/search_by_user_name")
-    public BaseResponse searchByUserName(@PathVariable String userName) {
+    @RequestMapping(value = "/company_list")
+    @ResponseBody
+    private BaseResponse companyOrderList(CompanyOrderListCommand command) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            BaseUserRepresentation baseUser = apiBaseUserAppService.apiSearchByUserName(userName);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, baseUser, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            response = apiOrderAppService.companyOrderList(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
+
         response.setDebug_time(System.currentTimeMillis() - startTime);
         return response;
     }

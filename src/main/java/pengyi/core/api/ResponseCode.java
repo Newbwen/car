@@ -7,7 +7,10 @@ package pengyi.core.api;
 public enum  ResponseCode {
 
     RESPONSE_CODE_SUCCESS(10000, "成功"),
-    RESPONSE_CODE_FAILURE(90000, "未知错误");
+    RESPONSE_CODE_FAILURE(90000, "未知错误"),
+
+    RESPONSE_CODE_CONCURRENCY_ERROR(90001,"记录在提交之前已发生改变,请重新提交."),
+    RESPONSE_CODE_PARAMETER_ERROR(90002,"参数错误");
 
     private int code;
     private String message;
@@ -32,5 +35,4 @@ public enum  ResponseCode {
         this.code = code;
         this.message = message;
     }
-
 }

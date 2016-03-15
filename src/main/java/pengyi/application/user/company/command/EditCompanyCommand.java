@@ -12,8 +12,6 @@ import java.util.Date;
 public class EditCompanyCommand extends BaseEditBaseUserCommand {
 
     private String name;            //公司名
-    private String folder;          //公司资质
-    private Date registerDate;    //注册时间
     private String registerAddress;   //注册地点
     private String operateAddress;    //运营地点
 
@@ -23,22 +21,6 @@ public class EditCompanyCommand extends BaseEditBaseUserCommand {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFolder() {
-        return folder;
-    }
-
-    public void setFolder(String folder) {
-        this.folder = folder;
-    }
-
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(Date registerDate) {
-        this.registerDate = registerDate;
     }
 
     public String getRegisterAddress() {
