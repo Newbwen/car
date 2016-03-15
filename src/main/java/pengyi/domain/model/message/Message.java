@@ -1,6 +1,7 @@
 package pengyi.domain.model.message;
 
 import pengyi.core.type.MessageType;
+import pengyi.core.type.ShowType;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.BaseUser;
 
@@ -18,6 +19,15 @@ public class Message extends Identity {
     private Date receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
+    private ShowType showType;
+
+    public ShowType getShowType() {
+        return showType;
+    }
+
+    public void setShowType(ShowType showType) {
+        this.showType = showType;
+    }
 
     public BaseUser getSendBaseUser() {
         return sendBaseUser;
@@ -71,7 +81,7 @@ public class Message extends Identity {
         super();
     }
 
-    public Message(BaseUser sendBaseUser, BaseUser receiveBaseUser, Date sendDate, Date receiveDate, String content, MessageType type) {
+    public Message(BaseUser sendBaseUser, BaseUser receiveBaseUser, Date sendDate, Date receiveDate, String content, MessageType type, ShowType showType) {
         super();
         this.sendBaseUser = sendBaseUser;
         this.receiveBaseUser = receiveBaseUser;
@@ -79,5 +89,6 @@ public class Message extends Identity {
         this.receiveDate = receiveDate;
         this.content = content;
         this.type = type;
+        this.showType = showType;
     }
 }
