@@ -5,20 +5,15 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CreateMessageCommand;
-import pengyi.application.message.command.DeleteMessageCommand;
-import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
-import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.exception.NoFoundException;
-import pengyi.core.util.CoreDateUtils;
+import pengyi.core.type.ShowType;
 import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
-import pengyi.repository.message.MessageRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +29,7 @@ public class MessageService implements IMessageService {
 
     @Autowired
     private IUserService userService;
+
 
     @Override
     public Message show(String messageId) {
@@ -63,6 +59,7 @@ public class MessageService implements IMessageService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
 //        criterionList.add(Restrictions.eq("receiveBaseUser", user));
+        criterionList.add(Restrictions.eq("showType",command.getShowType()));
 
         List<Order> orderList = new ArrayList<Order>();
 
@@ -75,7 +72,8 @@ public class MessageService implements IMessageService {
     @Override
     public Message delete(String messageId) {
         Message message=messageRepository.getById(messageId);
-        messageRepository.delete(message);
+        message.setShowType(ShowType.BLANK);
+        messageRepository.update(message);
         return message;
     }
 

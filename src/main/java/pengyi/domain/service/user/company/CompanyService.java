@@ -84,7 +84,7 @@ public class CompanyService implements ICompanyService {
         if (null == company) {
             throw new NoFoundException("没有找到用户id=[" + id + "]的记录");
         }
-        return null;
+        return company;
     }
 
     @Override
