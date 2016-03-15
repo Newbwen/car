@@ -45,6 +45,11 @@ public class RescueService implements IRescueService {
     private DriverService driverService;
 
     @Override
+    public List<Rescue> findAllRescue() {
+        return rescueRepository.findAll();
+    }
+
+    @Override
     public Rescue getById(int rescueId) {
         return (Rescue) rescueRepository.getById(rescueId);
     }
