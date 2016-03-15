@@ -5,13 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.user.IBaseUserAppService;
 import pengyi.application.user.command.BaseCreateBaseUserCommand;
 import pengyi.application.user.command.BaseListBaseUserCommand;
 import pengyi.application.user.command.EditBaseUserRoleCommand;
+import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.interfaces.shared.web.AlertMessage;
@@ -148,5 +152,48 @@ public class BaseUserController extends BaseController {
         return new ModelAndView("redirect:/base_user/list");
     }
 
+    @RequestMapping(value = "/reset_password/{id}")
+    public ModelAndView updatePassword(@PathVariable String id, ResetPasswordCommand command, RedirectAttributes redirectAttributes,
+                                       Locale locale) {
+        AlertMessage alertMessage;
+        BaseUserRepresentation baseUser = null;
+
+        try {
+            baseUser = baseUserAppService.show(id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/base_user/list");
+        }
+
+        return new ModelAndView("/baseuser/resetpassword", "command", command)
+                .addObject("baseUser", baseUser);
+    }
+
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
+    public ModelAndView updatePassword(@Valid @ModelAttribute("command") ResetPasswordCommand command, BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes, Locale locale) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("/baseuser/resetpassword", "command", command);
+        }
+
+        AlertMessage alertMessage;
+        BaseUserRepresentation baseUser = null;
+        try {
+            baseUser = baseUserAppService.resetPassword(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            redirectAttributes.addAttribute("id", command.getId());
+            return new ModelAndView("redirect:/base_user/reset_password/{id}");
+        }
+
+        logger.info("重置用户id=[" + baseUser.getId() + "]密码成功,时间[" + new Date() + "]");
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/base_user/list");
+    }
 
 }

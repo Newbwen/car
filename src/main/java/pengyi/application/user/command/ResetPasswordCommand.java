@@ -3,12 +3,12 @@ package pengyi.application.user.command;
 /**
  * Created by YJH on 2016/3/7.
  */
-public class UpDatePasswordCommand {
+public class ResetPasswordCommand {
 
     private String id;
     private Integer version;
-    private String oldPassword;
-    private String newPassword;
+    private String password;
+    private String confirmPassword;
 
     public String getId() {
         return id;
@@ -26,19 +26,19 @@ public class UpDatePasswordCommand {
         this.version = version;
     }
 
-    public String getOldPassword() {
-        return oldPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getNewPassword() {
-        return newPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

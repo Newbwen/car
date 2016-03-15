@@ -5,15 +5,21 @@ package pengyi.core.api;
  */
 public class BaseResponse {
 
-    private int code;                                                                       //错误码
+    private ResponseCode code;                                                                       //错误码
     private long debug_time;                                                                //后台处理时间
-    private Object obj;                                                                     //返回对象
+    private Object data;                                                                     //返回对象
 
-    public int getCode() {
+    public BaseResponse(ResponseCode code, long debug_time, Object data) {
+        this.code = code;
+        this.debug_time = debug_time;
+        this.data = data;
+    }
+
+    public ResponseCode getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(ResponseCode code) {
         this.code = code;
     }
 
@@ -25,17 +31,11 @@ public class BaseResponse {
         this.debug_time = debug_time;
     }
 
-    public Object getObj() {
-        return obj;
+    public Object getData() {
+        return data;
     }
 
-    public void setObj(Object obj) {
-        this.obj = obj;
-    }
-
-    public BaseResponse(int code, long debug_time, Object obj) {
-        this.code = code;
-        this.debug_time = debug_time;
-        this.obj = obj;
+    public void setData(Object data) {
+        this.data = data;
     }
 }

@@ -44,8 +44,8 @@ public class BaseUserAppService implements IBaseUserAppService {
     }
 
     @Override
-    public BaseUserRepresentation updatePassword(UpDatePasswordCommand command) {
-        return mappingService.map(baseUserService.updatePassword(command), BaseUserRepresentation.class, false);
+    public BaseUserRepresentation resetPassword(ResetPasswordCommand command) {
+        return mappingService.map(baseUserService.resetPassword(command), BaseUserRepresentation.class, false);
     }
 
     @Override
