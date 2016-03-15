@@ -19,8 +19,8 @@
         [@mc.showAlert /]
         <form action="/car/edit" class="form-horizontal" method="post">
 
-            <input type="hidden" name="id" value="${permission.id!command.id}" />
-            <input type="hidden" name="version" value="${permission.version!command.version}" />
+            <input type="hidden" name="id" value="${car.id!command.id}" />
+            <input type="hidden" name="version" value="${car.version!command.version}" />
 
             [@spring.bind "command.carName"/]
             <div class="form-group">

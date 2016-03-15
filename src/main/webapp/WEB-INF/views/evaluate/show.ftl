@@ -22,7 +22,7 @@
                 <div class="profile-info-name"> 评价人</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username">${evaluate.evaluateUser!}</span>
+                    <span class="editable editable-click" id="evaluateUser">${evaluate.evaluateUser!}</span>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
         <br>
         <br>
         <div class="col-xs-12">
-            <a href="/permission/list" class="btn btn-success btn-block">返回列表</a>
+            <a href="/car/list" class="btn btn-success btn-block">返回列表</a>
         </div>
     </div>
 </div>

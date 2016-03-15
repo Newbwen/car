@@ -54,7 +54,7 @@
 
             [@spring.bind "command.type"/]
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 救援类型类型* </label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 救援类型* </label>
 
                 <div class="col-sm-9">
                     <input type="text" id="form-field-1" name="type" value="${command.type!}"

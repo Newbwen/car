@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>评价人<input type="text" value="${command.evaluateUserId!}" name="evaluateUserId" /></label>
-                                <label>订单<input type="text" value="${command.orderId!}" name="orderId" /></label>
+                                <label>评价人<input type="text" value="${command.evaluateUser!}" name="evaluateUser" /></label>
+                                <label>订单<input type="text" value="${command.order!}" name="orderId" /></label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
@@ -44,13 +44,13 @@
                         [#if pagination.data??]
                             [#list pagination.data as evaluate ]
                             <tr class="even">
-                                <td>${evaluate.evaluateUserId!}</td>
+                                <td>${evaluate.evaluateUser!}</td>
                                 <td>${evaluate.orderId!}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/permission/show/${evaluate.id!}'/]"
+                                        <a class="blue" href="[@spring.url '/car/show/${evaluate.id!}'/]"
                                            title="查看"><i class="icon-zoom-in bigger-130"></i></a>
-                                        <a class="green" href="[@spring.url '/permission/edit/${evaluate.id}'/]"
+                                        <a class="green" href="[@spring.url '/car/edit/${evaluate.id}'/]"
                                            title="编辑"><i class="icon-pencil bigger-130"></i></a>
                                     </div>
                                 </td>
@@ -61,7 +61,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/evaluate/list?permissionName=${command.evaluateUserId!}&status=${command.orderId!}' /]
+                    [@mc.showPagination '/evaluate/list?evaluateUserId=${command.evaluateUser!}&orderId=${command.order!}' /]
                 [/#if]
 
             </div>
