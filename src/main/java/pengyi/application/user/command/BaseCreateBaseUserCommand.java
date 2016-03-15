@@ -11,19 +11,20 @@ import java.math.BigDecimal;
  */
 public class BaseCreateBaseUserCommand {
 
-    private String phone;                           //手机号
+    private String userName;                           //用户名
     private String password;                        //密码
-    private EnableStatus status;                         //是否启用(true=启用，false=禁用)
+    private String confirmPassword;                 //确认密码
+    private EnableStatus status;                      //是否启用(true=启用，false=禁用)
     private String userRole;                        //用户角色
     private String email;                           //邮箱
     private UserType userType;                               //1平台、2用户、3公司、4司机
 
-    public String getPhone() {
-        return phone;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -32,6 +33,15 @@ public class BaseCreateBaseUserCommand {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public EnableStatus getStatus() {

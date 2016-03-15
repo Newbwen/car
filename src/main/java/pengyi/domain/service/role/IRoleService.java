@@ -7,6 +7,8 @@ import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.role.Role;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -24,4 +26,5 @@ public interface IRoleService {
 
     Role searchByName(String roleName);
 
+    List<Role> roleList();
 }

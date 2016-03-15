@@ -46,6 +46,10 @@
                         [/#if]
                     </tbody>
                 </table>
+
+                [#if pagination??]
+                    [@mc.showPagination '/message/list' /]
+                [/#if]
             </div>
         </div>
     </div>

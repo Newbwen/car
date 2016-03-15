@@ -35,12 +35,6 @@ public class UrlResourcesService implements IUrlResourcesService {
     @Autowired
     private IPermissionService permissionService;
 
-    private ShiroFilterChainManager shiroFilterChainManager;
-
-    public void setShiroFilterChainManager(ShiroFilterChainManager shiroFilterChainManager) {
-        this.shiroFilterChainManager = shiroFilterChainManager;
-    }
-
     @Override
     public List<UrlResources> findAllUrlResources() {
         return urlResourcesRepository.findAll();
@@ -71,8 +65,6 @@ public class UrlResourcesService implements IUrlResourcesService {
 
         urlResourcesRepository.save(urlResources);
 
-        this.initFilterChains(urlResources);
-
         return urlResources;
     }
 
@@ -96,8 +88,6 @@ public class UrlResourcesService implements IUrlResourcesService {
 
         urlResourcesRepository.update(urlResources);
 
-        this.initFilterChains(urlResources);
-
         return urlResources;
     }
 
@@ -114,15 +104,13 @@ public class UrlResourcesService implements IUrlResourcesService {
     public UrlResources updateStatus(EditStatusCommand command) {
         UrlResources urlResources = this.show(command.getId());
         urlResources.fainWhenConcurrencyViolation(command.getVersion());
-        if (urlResources.getStatus().equals("ENABLE")) {
+        if (urlResources.getStatus() == EnableStatus.ENABLE) {
             urlResources.setStatus(EnableStatus.DISABLE);
         } else {
             urlResources.setStatus(EnableStatus.ENABLE);
         }
 
         urlResourcesRepository.update(urlResources);
-
-        this.initFilterChains(urlResources);
 
         return urlResources;
     }
@@ -132,13 +120,5 @@ public class UrlResourcesService implements IUrlResourcesService {
         return urlResourcesRepository.getByName(urlResourcesName);
     }
 
-    /**
-     * 更新filter
-     * @param urlResources
-     */
-    public void initFilterChains(UrlResources urlResources){
-        List<UrlResources> urlResourcesList = new ArrayList<UrlResources>();
-        urlResourcesList.add(urlResources);
-        shiroFilterChainManager.initFilterChains(urlResourcesList);
-    }
+
 }

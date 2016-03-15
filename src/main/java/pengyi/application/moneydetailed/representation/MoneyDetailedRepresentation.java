@@ -16,7 +16,7 @@ public class MoneyDetailedRepresentation {
     private BaseUserRepresentation baseUser;      //用户
     private FlowType flowType;  //资金流向类型
     private BigDecimal money;   //金额
-    private String explain;     //说明（如：专车订单+订单号）
+    private String description;     //说明（如：专车订单+订单号）
     private BigDecimal oldMoney;    //原有金额
     private BigDecimal newMoney;    //现有金额
 
@@ -60,12 +60,12 @@ public class MoneyDetailedRepresentation {
         this.money = money;
     }
 
-    public String getExplain() {
-        return explain;
+    public String getDescription() {
+        return description;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getOldMoney() {

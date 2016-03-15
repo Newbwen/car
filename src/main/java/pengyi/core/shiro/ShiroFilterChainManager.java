@@ -20,6 +20,7 @@ public class ShiroFilterChainManager {
     @Autowired
     private CustomDefaultFilterChainManager filterChainManager;
 
+    @Autowired
     private IUrlResourcesAppService urlResourcesAppService;
 
     public void setUrlResourcesAppService(IUrlResourcesAppService urlResourcesAppService) {

@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.command.EditBaseUserRoleCommand;
-import pengyi.application.user.command.ListBaseUserCommand;
-import pengyi.application.user.command.UpDatePasswordCommand;
+import pengyi.application.user.command.*;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.mapping.IMappingService;
@@ -31,13 +29,13 @@ public class BaseUserAppService implements IBaseUserAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public BaseUser searchByPhone(String phone) {
-        return baseUserService.searchByPhone(phone);
+    public BaseUser searchByUserName(String userName) {
+        return baseUserService.searchByUserName(userName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Pagination<BaseUserRepresentation> pagination(ListBaseUserCommand command) {
+    public Pagination<BaseUserRepresentation> pagination(BaseListBaseUserCommand command) {
         command.verifyPage();
         command.verifyPageSize(20);
         Pagination<BaseUser> pagination = baseUserService.pagination(command);
@@ -58,5 +56,22 @@ public class BaseUserAppService implements IBaseUserAppService {
     @Override
     public BaseUserRepresentation updateBaseUserRole(EditBaseUserRoleCommand command) {
         return mappingService.map(baseUserService.updateBaseUserRole(command), BaseUserRepresentation.class, false);
+    }
+
+    @Override
+    public BaseUserRepresentation create(BaseCreateBaseUserCommand command) {
+        return mappingService.map(baseUserService.create(command), BaseUserRepresentation.class, false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BaseUserRepresentation show(String id) {
+        return mappingService.map(baseUserService.show(id), BaseUserRepresentation.class, false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BaseUser login(LoginUserCommand command) {
+        return baseUserService.login(command);
     }
 }

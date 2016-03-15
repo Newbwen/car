@@ -15,6 +15,7 @@ import pengyi.domain.model.urlresources.UrlResources;
 import pengyi.domain.service.urlresources.IUrlResourcesService;
 import pengyi.repository.generic.Pagination;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,9 @@ public class UrlResourcesAppService implements IUrlResourcesAppService {
 
     @Autowired
     private IMappingService mappingService;
+
+    @Autowired
+    private ShiroFilterChainManager shiroFilterChainManager;
 
     @Override
     @Transactional(readOnly = true)
@@ -49,12 +53,16 @@ public class UrlResourcesAppService implements IUrlResourcesAppService {
 
     @Override
     public UrlResourcesRepresentation create(CreateUrlResourcesCommand command) {
-        return mappingService.map(urlResourcesService.create(command), UrlResourcesRepresentation.class, false);
+        UrlResources urlResources =urlResourcesService.create(command);
+        this.initFilterChains(urlResources);
+        return mappingService.map(urlResources, UrlResourcesRepresentation.class, false);
     }
 
     @Override
     public UrlResourcesRepresentation edit(EditUrlResourcesCommand command) {
-        return mappingService.map(urlResourcesService.edit(command), UrlResourcesRepresentation.class, false);
+        UrlResources urlResources =urlResourcesService.edit(command);
+        this.initFilterChains(urlResources);
+        return mappingService.map(urlResources, UrlResourcesRepresentation.class, false);
     }
 
     @Override
@@ -64,6 +72,20 @@ public class UrlResourcesAppService implements IUrlResourcesAppService {
 
     @Override
     public UrlResourcesRepresentation updateStatus(EditStatusCommand command) {
-        return mappingService.map(urlResourcesService.updateStatus(command), UrlResourcesRepresentation.class, false);
+        UrlResources urlResources =urlResourcesService.updateStatus(command);
+        this.initFilterChains(urlResources);
+        return mappingService.map(urlResources, UrlResourcesRepresentation.class, false);
     }
+
+    /**
+     * 更新filter
+     *
+     * @param urlResources
+     */
+    public void initFilterChains(UrlResources urlResources) {
+        List<UrlResources> urlResourcesList = new ArrayList<UrlResources>();
+        urlResourcesList.add(urlResources);
+        shiroFilterChainManager.initFilterChains(urlResourcesList);
+    }
+
 }

@@ -88,7 +88,7 @@ public class PermissionService implements IPermissionService {
         Permission permission = this.show(command.getId());
         permission.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (permission.getStatus().equals("ENABLE")) {
+        if (permission.getStatus() == EnableStatus.ENABLE) {
             permission.setStatus(EnableStatus.DISABLE);
         } else {
             permission.setStatus(EnableStatus.ENABLE);
@@ -107,7 +107,7 @@ public class PermissionService implements IPermissionService {
     @Override
     public List<Permission> getPermissionsByIds(String[] ids) {
         List<Permission> permissions = null;
-        if(null != ids && ids.length > 0) {
+        if (null != ids && ids.length > 0) {
             permissions = new ArrayList<Permission>();
             for (String item : ids) {
                 Permission permission = this.show(item);

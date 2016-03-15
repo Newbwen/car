@@ -1,6 +1,5 @@
 package pengyi.domain.service.feedback;
 
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -11,6 +10,7 @@ import pengyi.application.feedback.command.CreateFeedBackCommand;
 import pengyi.application.feedback.command.EditFeedBackCommand;
 import pengyi.application.feedback.command.ListFeedBackCommand;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.HandleStatus;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.feedback.FeedBack;
 import pengyi.domain.model.feedback.IFeedBackRepository;
@@ -51,7 +51,7 @@ public class FeedBackService implements IFeedBackService {
 
     @Override
     public FeedBack create(CreateFeedBackCommand command) {
-        FeedBack feedBack = new FeedBack(command.getEmail(), command.getPhone(), command.getQq(), command.getContent(), new Date());
+        FeedBack feedBack = new FeedBack(command.getEmail(), command.getPhone(), command.getQq(), command.getContent(), new Date(), HandleStatus.WAIT_HANDLE);
 
         feedBackRepository.save(feedBack);
 

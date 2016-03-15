@@ -55,7 +55,10 @@
     <link rel="stylesheet" href="[@spring.url '/resources/assets/css/ace-rtl.min.css'/]"/>
     <link rel="stylesheet" href="[@spring.url '/resources/assets/css/ace-skins.min.css'/]"/>
     <link rel="stylesheet" href="[@spring.url '/resources/assets/app/css/app.css'/]"/>
+    <link rel="stylesheet" href="[@spring.url '/resources/assets/css/minimal.css/' /]"/>
+    <link rel="stylesheet" href="[@spring.url '/resources/assets/css/reset.css/' /]"/>
     <script src="[@spring.url '/resources/assets/js/ace-extra.min.js'/]"></script>
+    <script src="[@spring.url '/resources/assets/js/common.js'/]"></script>
 [/@block]
 
 
@@ -70,12 +73,7 @@
 
 <!-- 页面主内容 -->
 <div class="main-container" id="main-container">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('main-container', 'fixed')
-        } catch (e) {
-        }
-    </script>
+
     <!-- 页面主内容(内) -->
     <div class="main-container-inner">
         <a class="menu-toggler" id="menu-toggler" href="#">
@@ -89,12 +87,6 @@
         <div class="main-content">
             <!-- 面包屑导航 -->
             <div class="breadcrumbs" id="breadcrumbs">
-                <script type="text/javascript">
-                    try {
-                        ace.settings.check('breadcrumbs', 'fixed')
-                    } catch (e) {
-                    }
-                </script>
 
                 <ul class="breadcrumb">
                     <li>
@@ -207,7 +199,10 @@
 <!-- ace scripts -->
 <script src="[@spring.url '/resources/assets/js/ace-elements.min.js'/]"></script>
 <script src="[@spring.url '/resources/assets/js/ace.min.js'/]"></script>
-
+<script>
+    $('body').addClass(getCookie("themeName"));
+    $('.change-bg').addClass(getCookie("themeName"));
+</script>
 <script src="[@spring.url '/resources/assets/app/js/app.js'/]"></script>
 [/@block]
 
