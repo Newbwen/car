@@ -1,5 +1,6 @@
 package pengyi.domain.service.order;
 
+import pengyi.application.order.command.CompanyOrderListCommand;
 import pengyi.application.order.command.CreateOrderCommand;
 import pengyi.application.order.command.ListOrderCommand;
 import pengyi.application.order.command.UpDateOrderStatusCommand;
@@ -18,4 +19,6 @@ public interface IOrderService {
     Order updateOrderStatus(UpDateOrderStatusCommand command);
 
     Order show(String id);
+
+    Pagination<Order> apiPagination(CompanyOrderListCommand command);
 }

@@ -15,6 +15,7 @@ import pengyi.application.user.company.ICompanyAppService;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
+import pengyi.core.api.BaseResponse;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
@@ -109,5 +110,4 @@ public class CompanyController extends BaseController {
 
         return new ModelAndView("redirect:/user/company/show/{id}");
     }
-
 }

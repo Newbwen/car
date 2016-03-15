@@ -93,4 +93,9 @@ public class DriverService implements IDriverService {
         driverRepository.save(driver);
         return driver;
     }
+
+    @Override
+    public List<Driver> searchByCompany(String company) {
+        return driverRepository.searchByCompany(company);
+    }
 }
