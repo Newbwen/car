@@ -1,4 +1,4 @@
-[@override name="title"]平台用户管理-查看用户[/@override]
+[@override name="title"]用户管理-查看用户[/@override]
 
 [@override name="topResources"]
     [@super /]
@@ -10,7 +10,7 @@
 [/@override]
 
 [@override name="pageHeaderTitle"]
-创建用户
+查看用户
 [/@override]
 
 [@override name="subContent"]

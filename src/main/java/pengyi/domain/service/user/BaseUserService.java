@@ -80,16 +80,12 @@ public class BaseUserService implements IBaseUserService {
     }
 
     @Override
-    public BaseUser updatePassword(UpDatePasswordCommand command) {
+    public BaseUser resetPassword(ResetPasswordCommand command) {
         BaseUser baseUser = this.show(command.getId());
 
         baseUser.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (!PasswordHelper.equalsPassword(baseUser, command.getOldPassword())) {
-            throw new NotEqualException("旧密码错误");
-        }
-
-        String newPassword = PasswordHelper.encryptPassword(command.getNewPassword(), baseUser.getCredentialsSalt());
+        String newPassword = PasswordHelper.encryptPassword(command.getPassword(), baseUser.getCredentialsSalt());
 
         baseUser.setPassword(newPassword);
 

@@ -1,4 +1,4 @@
-[@override name="title"]平台用户管理-用户列表[/@override]
+[@override name="title"]用户管理-用户列表[/@override]
 
 [@override name="topResources"]
     [@super /]
@@ -74,6 +74,9 @@
                                             </li>
                                             <li>
                                                 <a class="orange" href="[@spring.url '/base_user/authorize/${baseUser.id!}'/]">授权</a>
+                                            </li>
+                                            <li>
+                                                <a class="pink" href="[@spring.url '/base_user/reset_password/${baseUser.id!}'/]">重置密码</a>
                                             </li>
                                             <li>
                                                 [#if baseUser.status == "ENABLE"]

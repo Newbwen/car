@@ -14,7 +14,7 @@ public interface IBaseUserAppService {
 
     Pagination<BaseUserRepresentation> pagination(BaseListBaseUserCommand command);
 
-    BaseUserRepresentation updatePassword(UpDatePasswordCommand command);
+    BaseUserRepresentation resetPassword(ResetPasswordCommand command);
 
     BaseUserRepresentation updateStatus(EditStatusCommand command);
 

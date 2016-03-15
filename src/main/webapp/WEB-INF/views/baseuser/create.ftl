@@ -1,4 +1,4 @@
-[@override name="title"]平台用户管理-创建用户[/@override]
+[@override name="title"]用户管理-创建用户[/@override]
 
 [@override name="topResources"]
     [@super /]

@@ -32,7 +32,8 @@ public class CarAppService implements ICarAppService {
     @Override
     @Transactional(readOnly = true)
     public Pagination<CarRepresentation> pagination(ListCarCommand command) {
-
+        command.verifyPage();
+        command.verifyPageSize(20);
         Pagination<Car> pagination = carService.pagination(command);
         List<CarRepresentation> data = mappingService.mapAsList(pagination.getData(), CarRepresentation.class);
         return new Pagination<CarRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
@@ -53,8 +54,4 @@ public class CarAppService implements ICarAppService {
         return mappingService.map(carService.show(id),CarRepresentation.class,false);
     }
 
-    @Override
-    public CarRepresentation updateCar(EditCarCommand command) {
-        return mappingService.map(carService.updateCar(command),CarRepresentation.class,false);
-    }
 }

@@ -50,7 +50,6 @@ public class MessageAppService implements IMessageAppService {
     }
 
     @Override//根据id显示数据
-    @Transactional(readOnly = true)
     public MessageRepresentation show(String id) {
 
         return mappingService.map(messageService.show(id), MessageRepresentation.class, false);

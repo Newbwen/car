@@ -19,9 +19,10 @@ public interface ICarService {
 
     Car searchByNumber(String carNumber);
 
+    Car searchByDriver(String driver);
+
     Car create(CreateCarCommand command);
 
-    Car updateCar(EditCarCommand command);
 
 
 }

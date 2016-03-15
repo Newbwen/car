@@ -33,7 +33,6 @@ public class RescueAppService implements IRescueAppService{
     public Pagination<RescueRepresentation> pagination(ListRescueCommand command) {
 
         if(null!=command.getApplyUser()){
-
             command.verifyPage();
             command.verifyPageSize(20);
             Pagination<Rescue> pagination= rescueService.pagination(command);
@@ -62,7 +61,7 @@ public class RescueAppService implements IRescueAppService{
     }
 
     @Override
-    public RescueRepresentation update(EditRescueCommand command) {
+    public RescueRepresentation updateStatus(EditRescueCommand command) {
         return mappingService.map(rescueService.updateStatus(command),RescueRepresentation.class,false);
     }
 

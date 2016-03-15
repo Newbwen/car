@@ -28,4 +28,8 @@
     <import resource="spring-sms.xml" />
     <import resource="spring-upload.xml"/>
 
+    <bean id="tcpService" class="pengyi.socketserver.TcpService"/>
+    <bean id="threadContainer" class="pengyi.socketserver.ThreadContainer" init-method="start" destroy-method="stop">
+    </bean>
+
 </beans>
