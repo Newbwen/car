@@ -13,21 +13,19 @@ import java.util.Map;
 /**
  * Created by pengyi on 2016/3/9.
  */
-public class TcpService {
+public class TcpService implements Runnable {
 
-    private Map<String, Socket> addressMap;
     private ServerSocket serverSocket;
-
     boolean started = false;
-    ServerSocket ss = null;
     Map<String, Client> clients = new HashMap<String, Client>();
 
-    public void start() {
+    @Override
+    public void run() {
         int port = 8888;
         boolean used = true;
         while (used) {
             try {
-                ss = new ServerSocket(port);
+                serverSocket = new ServerSocket(port);
                 started = true;
                 used = false;
             } catch (BindException e) {
@@ -40,7 +38,7 @@ public class TcpService {
 
         try {
             while (started) {
-                Socket s = ss.accept();
+                Socket s = serverSocket.accept();
                 Client c = new Client(s);
                 new Thread(c).start();
             }
@@ -48,7 +46,7 @@ public class TcpService {
             e.printStackTrace();
         } finally {
             try {
-                ss.close();
+                serverSocket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
