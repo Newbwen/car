@@ -2,6 +2,7 @@ package pengyi.application.message.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
 import pengyi.core.type.MessageType;
+import pengyi.core.type.ShowType;
 import pengyi.domain.model.user.BaseUser;
 
 /**
@@ -14,6 +15,7 @@ public class ListMessageCommand extends BasicPaginationCommand {
     private String receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
+    private ShowType showType;
 
     public String getSendBaseUser() {
         return sendBaseUser;
@@ -61,5 +63,13 @@ public class ListMessageCommand extends BasicPaginationCommand {
 
     public void setType(MessageType type) {
         this.type = type;
+    }
+
+    public ShowType getShowType() {
+        return showType;
+    }
+
+    public void setShowType(ShowType showType) {
+        this.showType = showType;
     }
 }

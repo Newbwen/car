@@ -1,11 +1,14 @@
 package pengyi.application.message.command;
 
+import pengyi.core.type.ShowType;
+
 /**
  * Created by liubowen on 2016/3/14.
  */
 public class DeleteMessageCommand {
     private String id;
     private String version;
+    private ShowType showType;
 
 
     public String getId() {
@@ -22,5 +25,13 @@ public class DeleteMessageCommand {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public ShowType getShowType() {
+        return showType;
+    }
+
+    public void setShowType(ShowType showType) {
+        this.showType = showType;
     }
 }
