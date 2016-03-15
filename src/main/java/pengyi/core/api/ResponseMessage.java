@@ -11,7 +11,11 @@ public enum ResponseMessage {
     ERROR_10003(10003, "registerAddress字段不能为空"),
     ERROR_10004(10004, "operateAddress字段不能为空"),
     ERROR_10005(10005, "folder字段不能为空"),
-    ERROR_10006(10006, "company字段不能为空");
+    ERROR_10006(10006, "company字段不能为空"),
+    ERROR_10007(10007, "sex字段不能为空"),
+    ERROR_10008(10008, "driverType字段不能为空"),
+    ERROR_10009(10009, "driver字段不能为空"),
+    ERROR_10010(10010, "userName字段不能为空");
 
 
     private int code;

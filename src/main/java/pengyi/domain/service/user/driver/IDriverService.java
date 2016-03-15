@@ -1,7 +1,7 @@
 package pengyi.domain.service.user.driver;
 
-import pengyi.application.user.driver.command.EditDriverCommand;
-import pengyi.application.user.driver.command.BaseListDriverCommand;
+import pengyi.application.user.driver.command.*;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.repository.generic.Pagination;
@@ -22,4 +22,14 @@ public interface IDriverService {
     Driver create(Driver driver);
 
     List<Driver> searchByCompany(String company);
+
+
+    /***********  api 方法 **************/
+    Pagination<Driver> apiPagination(CompanyDriverListCommand command);
+
+    Driver apiCompanyEditDriver(CompanyDriverEditCommand command);
+
+    Driver apiCompanyAuditingDriver(CompanyAuditingDriverCommand command);
+
+    Driver apiCompanyEditStatusDriver(EditStatusCommand command);
 }
