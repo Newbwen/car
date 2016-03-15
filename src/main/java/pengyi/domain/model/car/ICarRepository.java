@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 
 public interface ICarRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
-    Car getBynuBNumber(String carNumber);
+    Car getBynuNumber(String carNumber);
+
+    Car getByDriver(String driver);
 
 }

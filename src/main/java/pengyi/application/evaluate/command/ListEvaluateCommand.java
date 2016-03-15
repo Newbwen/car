@@ -7,26 +7,22 @@ import pengyi.core.commons.command.BasicPaginationCommand;
  */
 public class ListEvaluateCommand extends BasicPaginationCommand {
 
-    private String evaluateUserId;                  //评价人
-    private String orderId;                         //订单
+    private String evaluateUser;                  //评价人
+    private String order;                         //订单
 
-
-    public String getOrderId() {
-        return orderId;
+    public String getEvaluateUser() {
+        return evaluateUser;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setEvaluateUser(String evaluateUser) {
+        this.evaluateUser = evaluateUser;
     }
 
-    public String getEvaluateUserId() {
-        return evaluateUserId;
+    public String getOrder() {
+        return order;
     }
 
-    public void setEvaluateUserId(String evaluateUserId) {
-        this.evaluateUserId = evaluateUserId;
+    public void setOrder(String order) {
+        this.order = order;
     }
-
-
-
 }

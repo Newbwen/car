@@ -61,7 +61,7 @@ public class RescueAppService implements IRescueAppService{
     }
 
     @Override
-    public RescueRepresentation update(EditRescueCommand command) {
+    public RescueRepresentation updateStatus(EditRescueCommand command) {
         return mappingService.map(rescueService.updateStatus(command),RescueRepresentation.class,false);
     }
 

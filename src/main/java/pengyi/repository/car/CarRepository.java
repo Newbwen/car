@@ -16,10 +16,17 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
 public class CarRepository extends AbstractHibernateGenericRepository<Car, String> implements ICarRepository<Car, String> {
 
     @Override
-    public Car getBynuBNumber(String carNumber) {
+    public Car getBynuNumber(String carNumber) {
 
         Criteria criteria=getSession().createCriteria(getPersistentClass());
         criteria.add(Restrictions.eq("carNumber",carNumber));
+        return (Car) criteria.uniqueResult();
+    }
+
+    @Override
+    public Car getByDriver(String driver) {
+        Criteria criteria=getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("driver",driver));
         return (Car) criteria.uniqueResult();
     }
 }

@@ -32,7 +32,7 @@ public class EvaluateAppService implements IEvaluateAppService {
     @Override
     @Transactional(readOnly = true)
     public Pagination<EvaluateRepresentation> pagination(ListEvaluateCommand command) {
-        if (null != command.getOrderId()) {
+        if (null != command.getOrder()) {
             command.verifyPage();
             command.verifyPageSize(20);
             Pagination<Evaluate> pagination = evaluateService.pagination(command);
