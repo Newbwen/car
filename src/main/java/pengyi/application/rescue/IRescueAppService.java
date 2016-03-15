@@ -18,7 +18,7 @@ public interface IRescueAppService {
 
     RescueRepresentation edit(EditRescueCommand command);
 
-    RescueRepresentation update(EditRescueCommand command);
+    RescueRepresentation updateStatus(EditRescueCommand command);
 
     RescueRepresentation show(String id);
 

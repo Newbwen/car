@@ -59,6 +59,10 @@ public class RescueService implements IRescueService {
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
             criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
+        if(null != command.getStatus()){
+            criteriaList.add(Restrictions.eq("status", command.getStatus()));
+
+        }
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
 

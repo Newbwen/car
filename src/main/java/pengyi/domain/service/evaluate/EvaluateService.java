@@ -45,11 +45,11 @@ public class EvaluateService implements IEvaluateService {
     @Override
     public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
         List<Criterion> criteriaList = new ArrayList();
-        if (!CoreStringUtils.isEmpty(command.getEvaluateUserId())) {
-            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUserId()));
+        if (!CoreStringUtils.isEmpty(command.getEvaluateUser())) {
+            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUser()));
         }
-        if (!CoreStringUtils.isEmpty(command.getOrderId())) {
-            criteriaList.add(Restrictions.eq("Order.id", command.getOrderId()));
+        if (!CoreStringUtils.isEmpty(command.getOrder())) {
+            criteriaList.add(Restrictions.eq("Order.id", command.getOrder()));
         }
 
         return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
@@ -60,12 +60,6 @@ public class EvaluateService implements IEvaluateService {
     public Evaluate edit(EditEvaluateCommand command) {
 
         Evaluate evaluate = this.show(command.getId());
-        if (!evaluate.getEvaluateUser().equals(command.getEvaluateUser())) {
-            if (null != this.searchByName(command.getEvaluateUser())) {
-                throw new ExistException("评价人[" + command.getEvaluateUser() + "]的记录已存在");
-
-            }
-        }
 
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
         Order order = orderService.show(command.getOrder());
@@ -96,10 +90,6 @@ public class EvaluateService implements IEvaluateService {
 
     @Override
     public Evaluate create(CreateEvaluateCommand command) {
-        if (null != this.searchByName(command.getEvaluateUser())) {
-
-            throw new ExistException("评价[" + command.getEvaluateUser() + "]的记录已存在");
-        }
 
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
         Order order = orderService.show(command.getOrder());

@@ -40,7 +40,7 @@ public class MessageService implements IMessageService {
         Message message = messageRepository.getById(messageId);
         if (null == message) {
             throw new NoFoundException("没有找到messageId=[" + messageId + "]的记录");
-        } else
+        }
         return message;
     }
 

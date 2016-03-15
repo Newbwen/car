@@ -1,5 +1,6 @@
 package pengyi.application.car.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import pengyi.domain.model.user.driver.Driver;
 
 /**
@@ -7,8 +8,13 @@ import pengyi.domain.model.user.driver.Driver;
  */
 public class CreateCarCommand {
 
+    @NotEmpty(message = "{car.name,NotEmpty,message}")
     private String name;                //车辆名称
+
+    @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
     private String carNumber;           //车牌号
+
+    @NotEmpty(message = "{car.driver,NotEmpty,message}")
     private String driver;              //司机
 
     public String getName() {
