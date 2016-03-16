@@ -15,7 +15,10 @@ public enum ResponseMessage {
     ERROR_10007(10007, "sex字段不能为空"),
     ERROR_10008(10008, "driverType字段不能为空"),
     ERROR_10009(10009, "driver字段不能为空"),
-    ERROR_10010(10010, "userName字段不能为空");
+    ERROR_10010(10010, "userName字段不能为空"),
+    ERROR_10011(10011, "password字段不能为空"),
+    ERROR_10012(10012, "status字段不能为空"),
+    ERROR_10013(10013, "email字段不能为空");
 
 
     private int code;

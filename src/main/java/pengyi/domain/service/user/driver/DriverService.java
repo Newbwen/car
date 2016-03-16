@@ -149,4 +149,37 @@ public class DriverService implements IDriverService {
 
         return driver;
     }
+
+    @Override
+    public Driver apiCompanyCreateDriver(CreateDriverCommand command) {
+        BaseUser baseUser = baseUserService.searchByUserName(command.getUserName());
+        if (null != baseUser) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+        Company company = companyService.show(command.getCompany());
+
+        Role role = roleService.searchByName("driver");
+
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        Driver driver = new Driver(command.getName(), password, salt, command.getStatus(), new BigDecimal(0),
+                new Date(), role, command.getEmail(), UserType.DRIVER, command.getName(), null, company,
+                command.getSex(), new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType());
+
+        driverRepository.save(driver);
+
+        return driver;
+    }
+
+    @Override
+    public Driver apiCompanyExpelDriver(EditStatusCommand command) {
+        Driver driver = this.show(command.getId());
+        driver.fainWhenConcurrencyViolation(command.getVersion());
+
+        driver.setCompany(null);
+
+        driverRepository.update(driver);
+        return driver;
+    }
 }

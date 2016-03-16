@@ -20,4 +20,6 @@ public interface IApiDriverAppService {
     BaseResponse companyEditStatusDriver(EditStatusCommand command);
 
     BaseResponse companyCreateDriver(CreateDriverCommand command);
+
+    BaseResponse companyExpelDriver(EditStatusCommand command);
 }

@@ -32,4 +32,8 @@ public interface IDriverService {
     Driver apiCompanyAuditingDriver(CompanyAuditingDriverCommand command);
 
     Driver apiCompanyEditStatusDriver(EditStatusCommand command);
+
+    Driver apiCompanyCreateDriver(CreateDriverCommand command);
+
+    Driver apiCompanyExpelDriver(EditStatusCommand command);
 }
