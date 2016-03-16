@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.rescue.IApiRescueAppService;
+import pengyi.application.rescue.command.CreateRescueCommand;
+import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
+import pengyi.core.exception.ConcurrencyException;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class ApiRescueController {
     private IApiRescueAppService iApiRescueAppService;
 
     /**
-     *查看救援列表
+     * (公司)查看救援列表
      */
 
     @RequestMapping(value = "/all_list")
@@ -45,22 +48,75 @@ public class ApiRescueController {
         response.setDebug_time(System.currentTimeMillis() - startTime);
         return response;
     }
+
     /**
-     * 处理救援
+     * (公司)处理救援
      */
     @RequestMapping(value = "/deal")
     @ResponseBody
-    public BaseResponse deal(){
+    public BaseResponse deal(EditRescueCommand command) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse baseResponse = null;
+        try {
+            baseResponse = iApiRescueAppService.updateRescue(command);
+            //        TODO  推送给司机
+            //......................
+        } catch (ConcurrencyException e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
+
+    }
+
+    /**
+     * (司机和用户)发起救援
+     */
+    @RequestMapping(value = "/sponsor")
+    @ResponseBody
+    public BaseResponse sponsor(CreateRescueCommand command) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse baseResponse = null;
+        try {
+            baseResponse = iApiRescueAppService.createRescue(command);
+            //        TODO  推送给公司
+            //......................
+
+        } catch (ConcurrencyException e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
+    }
+
+    /**
+     *(司机用户)取消救援
+     */
+    @RequestMapping(value = "/cancel")
+    @ResponseBody
+    public BaseResponse cancel(EditRescueCommand command){
         long startTime=System.currentTimeMillis();
         BaseResponse baseResponse=null;
         try {
+            baseResponse=iApiRescueAppService.cancelRescue(command);
 
+        }catch (ConcurrencyException e){
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
         }catch (Exception e){
-
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
-
-        return null;
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
     }
-
 
 }
