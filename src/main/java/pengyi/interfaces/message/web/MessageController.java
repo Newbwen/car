@@ -5,19 +5,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.message.IMessageAppService;
 import pengyi.application.message.command.CreateMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
+import pengyi.application.role.IRoleAppService;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
+import pengyi.interfaces.shared.web.JsonMessage;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -35,6 +34,9 @@ public class MessageController extends BaseController {
     @Autowired//注入appService
     private IMessageAppService messageAppService;
 
+    @Autowired
+    private IRoleAppService roleAppService;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(ListMessageCommand command) {
         return new ModelAndView("message/list", "command", command)
@@ -46,6 +48,19 @@ public class MessageController extends BaseController {
         return new ModelAndView("message/create", "command", command);
     }
 
+    public JsonMessage roleList() {
+        JsonMessage jsonMessage = new JsonMessage();
+        try {
+            jsonMessage.setData(roleAppService.roleList());
+            jsonMessage.setCode("0");
+            jsonMessage.setMessage("查询成功");
+        } catch (Exception e) {
+            jsonMessage.setData(null);
+            jsonMessage.setCode("1");
+            jsonMessage.setMessage("查询失败");
+        }
+        return jsonMessage;
+    }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageCommand command,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes,

@@ -2,6 +2,7 @@ package pengyi.application.message.representation;
 
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.MessageType;
+import pengyi.core.type.ShowType;
 import pengyi.domain.model.user.BaseUser;
 
 /**
@@ -16,6 +17,7 @@ public class MessageRepresentation {
     private String receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
+    private ShowType showType;
 
     public String getId() {
         return id;
@@ -81,7 +83,7 @@ public class MessageRepresentation {
         this.type = type;
     }
 
-    public MessageRepresentation(String id, Integer version, BaseUserRepresentation sendBaseUser, BaseUserRepresentation receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type) {
+    public MessageRepresentation(String id, Integer version, BaseUserRepresentation sendBaseUser, BaseUserRepresentation receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type, ShowType showType) {
         this.id = id;
         this.version = version;
         this.sendBaseUser = sendBaseUser;
@@ -90,6 +92,7 @@ public class MessageRepresentation {
         this.receiveDate = receiveDate;
         this.content = content;
         this.type = type;
+        this.showType = showType;
     }
 
     public MessageRepresentation() {
