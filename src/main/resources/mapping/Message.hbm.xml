@@ -20,7 +20,18 @@
 
         <property name="content" column="content" type="java.lang.String" />
 
-        <property name="type" column="type" type="java.lang.Integer" />
+        <property name="type" column="type" >
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.MessageType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+        <property name="showType" column="show_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.ShowType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>

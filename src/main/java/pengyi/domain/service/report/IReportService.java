@@ -16,6 +16,5 @@ public interface IReportService {
 
     Report getById(String reportId);
 
-
     Pagination<Report> pagination(ListReportCommand command);
 }

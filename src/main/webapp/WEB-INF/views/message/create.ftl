@@ -14,6 +14,39 @@
 [/@override]
 
 [@override name="subContent"]
+<script>
+
+    function initTypeDate(){
+        var typeId = $("#user-role").attr("data-id");
+        $.ajax({
+            url: "/role/all_list",
+            type: "POST",
+            dataType: "JSON",
+            success: function (result) {
+                if (typeof result == 'object') {
+                    result = result.data;
+                } else {
+                    result = JSON.parse(result.data);
+                }
+
+                $("#user-role").empty();
+                $("#user-role").append("<option value=''>请选择</option>");
+
+                var typeData = result;
+                $.each(typeData, function (index, data) {
+                    if(data.id == typeId){
+                        $("#user-role").append("<option value='"+data.id+"' selected>"+data.roleName+"</option>");
+                    }else{
+                        $("#user-role").append("<option value='"+data.id+"'>"+data.roleName+"</option>");
+                    }
+                });
+
+                $("#user-role").trigger("chosen:updated");
+            }
+        })
+    }
+    initTypeDate();
+</script>
 <div class="row">
     <div class="col-xs-12">
         [@mc.showAlert /]
@@ -27,16 +60,16 @@
                 [@spring.showErrors "content"/]
             </div>
         </div>
-
-            [@spring.bind "command.receiveBaseUser"/]
+            [@spring.bind "command.userRole"/]
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 接收人* </label>
-                <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="description" value="${command.receiveBaseUser!}"
-                           placeholder="接收人" class="col-xs-10 col-sm-5" required/>
-                    [@spring.showErrors "receiveBaseUser"/]
-                </div>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户角色* </label>
 
+                <div class="col-sm-9">
+                    <select class="col-xs-10 col-sm-5" id="user-role" name="userRole" data-id="${command.userRole!}" required>
+
+                    </select>
+                    [@spring.showErrors "userRole"/]
+                </div>
             </div>
 
             <div class="clearfix form-actions">
