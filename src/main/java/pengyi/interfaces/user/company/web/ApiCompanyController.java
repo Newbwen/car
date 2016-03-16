@@ -3,17 +3,26 @@ package pengyi.interfaces.user.company.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.user.company.IApiCompanyAppService;
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.exception.ConcurrencyException;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by YJH on 2016/3/15.
@@ -33,8 +42,7 @@ public class ApiCompanyController {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            CompanyRepresentation company = apiCompanyAppService.info(id);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, company, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            response = apiCompanyAppService.apiInfo(id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
@@ -49,7 +57,7 @@ public class ApiCompanyController {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            response = apiCompanyAppService.edit(command);
+            response = apiCompanyAppService.apiEdit(command);
         } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
@@ -67,8 +75,22 @@ public class ApiCompanyController {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            apiCompanyAppService.updateFolder(command);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            response = apiCompanyAppService.apiUpdateFolder(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
+    @RequestMapping(value = "/register")
+    @ResponseBody
+    public BaseResponse register(CreateCompanyCommand command, HttpServletRequest request) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = apiCompanyAppService.apiCreateCompany(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

@@ -97,8 +97,8 @@ public class Company extends BaseUser {
         this.level = level;
     }
 
-    public Company(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
+        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.folder = folder;
         this.registerDate = registerDate;
@@ -108,7 +108,7 @@ public class Company extends BaseUser {
         this.level = level;
     }
 
-    public Company(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

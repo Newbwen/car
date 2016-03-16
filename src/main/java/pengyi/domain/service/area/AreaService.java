@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pengyi.application.area.command.CreateAreaCommand;
 import pengyi.application.area.command.EditAreaCommand;
 import pengyi.application.area.command.ListAreaCommand;
+import pengyi.application.area.command.SearchAreaListCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.area.Area;
@@ -80,6 +81,21 @@ public class AreaService implements IAreaService {
             throw new NoFoundException("没有找到区域id=[" + id + "]的记录");
         }
         return area;
+    }
+
+    @Override
+    public List<Area> apiSearchAreaList(SearchAreaListCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        if (!CoreStringUtils.isEmpty(command.getId())) {
+            criterionList.add(Restrictions.eq("id", command.getId()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getName())) {
+            criterionList.add(Restrictions.eq("name", command.getName()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getParent())) {
+            criterionList.add(Restrictions.eq("parent.id", command.getParent()));
+        }
+        return areaRepository.list((Criterion[]) criterionList.toArray(), null);
     }
 
 }
