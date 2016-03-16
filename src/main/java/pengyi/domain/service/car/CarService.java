@@ -87,7 +87,7 @@ public class CarService implements ICarService{
 
     @Override
     public Car searchByDriver(String driver) {
-        return null;
+        return carRepository.getByDriver(driver);
     }
 
 
@@ -100,7 +100,6 @@ public class CarService implements ICarService{
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
 
         }
-
         Driver driver=driverService.show(command.getDriver());
         Car car2=new Car(command.getName(),command.getCarNumber(),driver);
         carRepository.save(car2);
