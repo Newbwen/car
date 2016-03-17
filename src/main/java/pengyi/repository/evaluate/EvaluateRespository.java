@@ -14,13 +14,6 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
  */
 @Repository("evaluateRepository")
 public class EvaluateRespository extends AbstractHibernateGenericRepository<Evaluate, String> implements IEvaluateRepository<Evaluate, String> {
-    @Override
-    public Evaluate getByName(String evaluateUser) {
-
-        Criteria criteria=getSession().createCriteria(getPersistentClass());
-        criteria.add(Restrictions.eq("evaluateUser.id",evaluateUser));
-        return (Evaluate) criteria.uniqueResult();
-    }
 
     @Override
     public Evaluate getByOrder(String order) {

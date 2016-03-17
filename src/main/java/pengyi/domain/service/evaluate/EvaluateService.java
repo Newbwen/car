@@ -82,11 +82,6 @@ public class EvaluateService implements IEvaluateService {
         return evaluate;
     }
 
-    @Override
-    public Evaluate searchByName(String evaluateUserame) {
-
-        return evaluateRepository.getByName(evaluateUserame);
-    }
 
     /**
      * 通过订单查看评价
@@ -99,12 +94,14 @@ public class EvaluateService implements IEvaluateService {
 
     /**
      * 发起评价
+     *
      */
     @Override
     public Evaluate create(CreateEvaluateCommand command) {
 
         Order order = orderService.show(command.getOrder());
-        Evaluate evaluate = new Evaluate(order.getOrderUser(), order, command.getContent(), command.getLevel(), new Date());
+        BaseUser baseUser=baseUserService.searchByUserName(command.getEvaluateUser());
+        Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
         return evaluate;
     }

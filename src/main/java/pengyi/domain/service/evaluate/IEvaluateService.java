@@ -20,8 +20,6 @@ public interface IEvaluateService {
 
     Evaluate show(String id);
 
-    Evaluate searchByName(String evaluateUserame);
-
     Evaluate searchByOrder(String order);
 
     Evaluate create(CreateEvaluateCommand command);
