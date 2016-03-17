@@ -59,6 +59,8 @@
                 <textarea id="content" name="command.content"  class="col-xs-10 col-sm-5" style="height: 200px;" maxlength="500" placeholder="在此编辑信息"></textarea>
                 [@spring.showErrors "content"/]
             </div>
+
+
         </div>
             [@spring.bind "command.userRole"/]
             <div class="form-group">

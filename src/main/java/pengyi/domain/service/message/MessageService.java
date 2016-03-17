@@ -47,7 +47,7 @@ public class MessageService implements IMessageService {
 
         BaseUser receiveUser = userService.show(command.getReceiveBaseUser());
 
-        Message message = new Message(sendUser, receiveUser, new Date(), null, command.getContent(), command.getType(),command.getShowType());
+        Message message = new Message(sendUser, receiveUser, new Date(), null, command.getContent(), command.getType(),ShowType.SHOW);
         messageRepository.save(message);
 
         return message;
