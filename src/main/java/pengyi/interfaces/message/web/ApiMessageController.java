@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pengyi.application.message.IApiMessageService;
-import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.api.BaseResponse;
@@ -57,12 +57,12 @@ public class ApiMessageController {
         return response;
     }
     @RequestMapping(value="createMessage")
-    public BaseResponse createMessage(@PathVariable CreateMessageCommand command){
+    public BaseResponse createMessage(@PathVariable CreateMessageByRoleCommand command){
         long startTime=System.currentTimeMillis();
         BaseResponse response=null;
         try{
-            MessageRepresentation representation=apiMessageService.create(command);
-            response=new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE,0,representation,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            //MessageRepresentation representation=apiMessageService.create(command);
+           // response=new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE,0,representation,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }catch (Exception e){
             logger.warn(e.getMessage());
             response=new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE,0,null,e.getMessage());

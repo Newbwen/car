@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.CreateMessageByBaseUserCommand;
+import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.mapping.IMappingService;
@@ -43,8 +44,14 @@ public class ApiMessageService implements IApiMessageService {
 
     @Override
     @Transactional(readOnly = true)
-    public MessageRepresentation create(CreateMessageCommand command) {
-        return mappingService.map(messageService.create(command),MessageRepresentation.class,false);
+    public void create(CreateMessageByRoleCommand command) {
+       // return mappingService.map(messageService.create(command),MessageRepresentation.class,false);
+        messageService.create(command);
+    }
+
+    @Override
+    public MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command) {
+        return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
     }
 
     @Override

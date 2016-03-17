@@ -151,6 +151,15 @@ public class BaseUserService implements IBaseUserService {
     }
 
     @Override
+    public List<BaseUser> searchByUserRole(String roleId) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+
+        criterionList.add(Restrictions.eq("userRole.id",roleId));
+
+        return null;
+    }
+
+    @Override
     public BaseUser updateStatus(EditStatusCommand command) {
         BaseUser baseUser = this.show(command.getId());
         baseUser.fainWhenConcurrencyViolation(command.getVersion());

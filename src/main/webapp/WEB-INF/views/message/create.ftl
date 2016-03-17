@@ -14,39 +14,6 @@
 [/@override]
 
 [@override name="subContent"]
-<script>
-
-    function initTypeDate(){
-        var typeId = $("#user-role").attr("data-id");
-        $.ajax({
-            url: "/role/all_list",
-            type: "POST",
-            dataType: "JSON",
-            success: function (result) {
-                if (typeof result == 'object') {
-                    result = result.data;
-                } else {
-                    result = JSON.parse(result.data);
-                }
-
-                $("#user-role").empty();
-                $("#user-role").append("<option value=''>请选择</option>");
-
-                var typeData = result;
-                $.each(typeData, function (index, data) {
-                    if(data.id == typeId){
-                        $("#user-role").append("<option value='"+data.id+"' selected>"+data.roleName+"</option>");
-                    }else{
-                        $("#user-role").append("<option value='"+data.id+"'>"+data.roleName+"</option>");
-                    }
-                });
-
-                $("#user-role").trigger("chosen:updated");
-            }
-        })
-    }
-    initTypeDate();
-</script>
 <div class="row">
     <div class="col-xs-12">
         [@mc.showAlert /]
@@ -95,5 +62,39 @@
     [@super /]
 
 [/@override]
+<script>
+
+    function initTypeDate(){
+        var typeId = $("#user-role").attr("data-id");
+        $.ajax({
+            url: "/role/all_list",
+            type: "POST",
+            dataType: "JSON",
+            success: function (result) {
+                if (typeof result == 'object') {
+                    result = result.data;
+                } else {
+                    result = JSON.parse(result.data);
+                }
+
+                $("#user-role").empty();
+                $("#user-role").append("<option value=''>请选择</option>");
+
+                var typeData = result;
+                $.each(typeData, function (index, data) {
+                    if(data.id == typeId){
+                        $("#user-role").append("<option value='"+data.id+"' selected>"+data.roleName+"</option>");
+                    }else{
+                        $("#user-role").append("<option value='"+data.id+"'>"+data.roleName+"</option>");
+                    }
+                });
+
+                $("#user-role").trigger("chosen:updated");
+            }
+        })
+    }
+    initTypeDate();
+</script>
+
 
 [@extends name="/decorator.ftl"/]

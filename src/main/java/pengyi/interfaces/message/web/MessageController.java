@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.message.IMessageAppService;
-import pengyi.application.message.command.CreateMessageCommand;
+import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.application.role.IRoleAppService;
@@ -44,7 +44,7 @@ public class MessageController extends BaseController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("command") CreateMessageCommand command) {
+    public ModelAndView create(@ModelAttribute("command") CreateMessageByRoleCommand command) {
         return new ModelAndView("message/create", "command", command);
     }
 
@@ -62,7 +62,7 @@ public class MessageController extends BaseController {
         return jsonMessage;
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageCommand command,
+    public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageByRoleCommand command,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes,
                                Locale locale) {
         if (bindingResult.hasErrors()) {
@@ -70,18 +70,16 @@ public class MessageController extends BaseController {
         }
         AlertMessage alertMessage = null;
 
-        MessageRepresentation representation = null;
         try {
-            representation = messageAppService.create(command);
+            messageAppService.create(command);
         } catch (Exception e) {
             logger.error(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             return new ModelAndView("/message/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
-        logger.info("创建站内信息成功id=[" + representation.getId() + "],时间[" + new Date() + "]");
+        logger.info("创建站内信息成功,时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", representation.getId());
         return new ModelAndView("redirect:/message/show/{id}");
     }
 
