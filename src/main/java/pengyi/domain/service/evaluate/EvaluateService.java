@@ -1,7 +1,6 @@
 package pengyi.domain.service.evaluate;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.application.evaluate.command.ListEvaluateCommand;
-import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.evaluate.Evaluate;
@@ -49,24 +47,26 @@ public class EvaluateService implements IEvaluateService {
             criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUser()));
         }
         if (!CoreStringUtils.isEmpty(command.getOrder())) {
-            criteriaList.add(Restrictions.eq("Order.id", command.getOrder()));
+            criteriaList.add(Restrictions.eq("order.id", command.getOrder()));
         }
 
         return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
 
-
+    /**
+     * 评价人修改评价
+     */
     @Override
     public Evaluate edit(EditEvaluateCommand command) {
-
-        Evaluate evaluate = this.show(command.getId());
-
-        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
-        Order order = orderService.show(command.getOrder());
-//        TODO  获取订单信息
-//        Order order=OrderServ
-        Evaluate evaluate1 = new Evaluate(baseUser, order,command.getContent(),command.getLevel(), new Date());
-        evaluateRepository.save(evaluate1);
+        Evaluate evaluate1=this.searchByOrder(command.getOrder());
+//        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
+//        Order order = orderService.show(command.getOrder());
+////        TODO  获取订单信息
+////        Order order=OrderSer
+        evaluate1.fainWhenConcurrencyViolation(command.getVersion());
+        evaluate1.setContent(command.getContent());
+        evaluate1.setLevel(command.getLevel());
+        evaluateRepository.update(evaluate1);
 
         return evaluate1;
 
@@ -88,14 +88,26 @@ public class EvaluateService implements IEvaluateService {
         return evaluateRepository.getByName(evaluateUserame);
     }
 
+    /**
+     * 通过订单查看评价
+     */
+    @Override
+    public Evaluate searchByOrder(String order) {
+        return evaluateRepository.getByOrder(order);
+    }
+
+
+    /**
+     * 发起评价
+     */
     @Override
     public Evaluate create(CreateEvaluateCommand command) {
 
-        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
         Order order = orderService.show(command.getOrder());
-
-        Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
+        Evaluate evaluate = new Evaluate(order.getOrderUser(), order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
         return evaluate;
     }
+
+
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pengyi.application.car.command.EditCarCommand;
 import pengyi.application.rescue.IApiRescueAppService;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
@@ -118,5 +119,21 @@ public class ApiRescueController {
         baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
         return baseResponse;
     }
+
+    /**
+     *(司机)完成救援
+     */
+    @RequestMapping(value = "/ finish")
+    @ResponseBody
+    public BaseResponse  finish(){
+        long startTime=System.currentTimeMillis();
+         BaseResponse baseResponse=null;
+        try {
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
+        return null;
+    }
+
 
 }

@@ -18,7 +18,14 @@ public class EvaluateRespository extends AbstractHibernateGenericRepository<Eval
     public Evaluate getByName(String evaluateUser) {
 
         Criteria criteria=getSession().createCriteria(getPersistentClass());
-        criteria.add(Restrictions.eq("evaluateUser",evaluateUser));
+        criteria.add(Restrictions.eq("evaluateUser.id",evaluateUser));
+        return (Evaluate) criteria.uniqueResult();
+    }
+
+    @Override
+    public Evaluate getByOrder(String order) {
+        Criteria criteria=getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("Order.id",order));
         return (Evaluate) criteria.uniqueResult();
     }
 

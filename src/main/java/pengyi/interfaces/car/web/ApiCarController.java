@@ -57,8 +57,6 @@ public class ApiCarController {
         BaseResponse baseResponse = null;
         try {
             baseResponse = apiCarAppService.apiCreate(command);
-        } catch (ConcurrencyException e) {
-            logger.warn(e.getMessage());
         } catch (ExistException e) {
             logger.warn(e.getMessage());
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, ResponseMessage.ERROR_30001, e.getMessage());

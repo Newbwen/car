@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
@@ -57,7 +60,7 @@ public class RescueService implements IRescueService {
 
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("applyuser.id", command.getApplyUser()));
+            criteriaList.add(Restrictions.eq("applyUser.id", command.getApplyUser()));
         }
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
             criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
@@ -74,7 +77,7 @@ public class RescueService implements IRescueService {
 
         BaseUser applyuser = baseUserService.show(command.getApplyUser());
         Driver driver = driverService.show(command.getDriver());
-        Rescue rescue1 = new Rescue(applyuser, new Date(), command.getType(), command.getDescription(), driver, new Date(), RescueStatus.WAIT_RESCUE, new Date());
+        Rescue rescue1 = new Rescue(applyuser, new Date(), command.getType(), command.getDescription(), driver, null, RescueStatus.WAIT_RESCUE, null);
         rescueRepository.save(rescue1);
 
         return rescue1;
@@ -82,14 +85,17 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue edit(EditRescueCommand command) {
-
-        Rescue rescue = this.show(command.getApplyUser());
-        BaseUser applyuser = baseUserService.show(command.getApplyUser());
+        Rescue rescue=this.show(command.getId());
+        BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Driver driver = driverService.show(command.getDriver());
-        Rescue rescue1 = new Rescue(applyuser, new Date(), command.getType(), command.getDescription(), driver, new Date(), command.getStatus(), new Date());
-        rescueRepository.save(rescue1);
+        rescue.setApplyUser(applyUser);
+        rescue.setStatus(command.getStatus());
+        rescue.setType(command.getType());
+        rescue.setDescription(command.getDescription());
+        rescue.setDriver(driver);
+        rescueRepository.save(rescue);
 
-        return rescue1;
+        return rescue;
     }
 
     @Override
@@ -105,11 +111,11 @@ public class RescueService implements IRescueService {
     public Rescue updateStatus(EditRescueCommand command) {
         Rescue rescue = this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());
-        if (rescue.getStatus().equals("WAIT_RESCUE")) {
-            rescue.setStatus(RescueStatus.WAIT_RESCUE);
-        } else if (rescue.getStatus().equals("IN_RESCUE")) {
-            rescue.setStatus(RescueStatus.WAIT_RESCUE);
-        } else if (rescue.getStatus().equals("SUCCESS_RESCUE")) {
+        if (rescue.getStatus().equals(RescueStatus.WAIT_RESCUE)) {
+            rescue.setStatus(RescueStatus.IN_RESCUE);
+        } else if (rescue.getStatus().equals(RescueStatus.IN_RESCUE)) {
+            rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
+        } else if (rescue.getStatus().equals(RescueStatus.SUCCESS_RESCUE)) {
             rescue.setStatus(RescueStatus.WAIT_RESCUE);
         }
         rescueRepository.update(rescue);
@@ -137,9 +143,9 @@ public class RescueService implements IRescueService {
     public Rescue apiCancelRescue(EditRescueCommand command) {
 
         Rescue rescue = this.show(command.getId());
-        ;
-        rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
-        rescueRepository.update(rescue);
+        rescue.fainWhenConcurrencyViolation(command.getVersion());
+            rescue.setStatus(RescueStatus.CANCEL_RESCUE);
+            rescueRepository.update(rescue);
         return rescue;
     }
 

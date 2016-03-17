@@ -41,10 +41,10 @@ public class ApiCarAppService implements IApiCarAppService {
             }
             CarRepresentation carRepresentation = mappingService.map(carService.create(command), CarRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
-        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
     }
-
     @Override
     public BaseResponse updateCar(EditCarCommand command) {
         if (null != command) {
