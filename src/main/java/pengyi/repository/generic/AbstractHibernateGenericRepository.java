@@ -208,14 +208,14 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> list(Criterion[] criteria, Order[] orders) {
+    public List<T> list(List<Criterion> criteria, List<Order> orders) {
 
         return list(criteria, orders, null, null, null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> list(Criterion[] criteria, Order[] orders, ProjectionList projectionList,
+    public List<T> list(List<Criterion> criteria, List<Order> orders, ProjectionList projectionList,
                            Map<String, FetchMode> fetchModeMap, Map<String, String> alias) {
 
         Criteria criteriaCount = getSession().createCriteria(getPersistentClass());

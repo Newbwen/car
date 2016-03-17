@@ -5,7 +5,7 @@ package pengyi.core.type;
  */
 public enum UserType {
 
-    TERRACR("平台", 1, Boolean.FALSE),
+    TERRACE("平台", 1, Boolean.FALSE),
     USER("用户", 2, Boolean.FALSE),
     COMPANY("公司", 3, Boolean.FALSE),
     DRIVER("司机", 4, Boolean.FALSE);

@@ -53,8 +53,8 @@ public interface IHibernateGenericRepository<T, ID extends Serializable> {
 
     List<T> findAll();
 
-    List<T> list(Criterion[] criteria, Order[] orders);
+    List<T> list(List<Criterion> criteria, List<Order> orders);
 
-    List<T> list(Criterion[] criteria, Order[] orders, ProjectionList projectionList,
+    List<T> list(List<Criterion> criteria, List<Order> orders, ProjectionList projectionList,
                  Map<String, FetchMode> fetchModeMap, Map<String, String> alias);
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.mapping.IMappingService;
+import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.IBaseUserService;
 
 /**
@@ -24,6 +25,10 @@ public class ApiBaseUserAppService implements IApiBaseUserAppService {
     @Override
     @Transactional(readOnly = true)
     public BaseUserRepresentation apiSearchByUserName(String userName) {
-        return mappingService.map(baseUserService.searchByUserName(userName), BaseUserRepresentation.class, false);
+        BaseUser baseUser = baseUserService.searchByUserName(userName);
+        if (null != baseUser) {
+            return mappingService.map(baseUser, BaseUserRepresentation.class, false);
+        }
+        return null;
     }
 }

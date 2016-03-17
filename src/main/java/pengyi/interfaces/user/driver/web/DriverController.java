@@ -37,7 +37,7 @@ public class DriverController extends BaseController {
 
     @RequestMapping(value = "/list")
     public ModelAndView list(BaseListDriverCommand command) {
-        return new ModelAndView("/user/driver/list", "command", command)
+        return new ModelAndView("/baseuser/driver/list", "command", command)
                 .addObject("pagination", driverAppService.pagination(command));
     }
 
@@ -53,7 +53,7 @@ public class DriverController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/user/driver/list");
         }
-        return new ModelAndView("/user/driver/show", "driver", driver);
+        return new ModelAndView("/baseuser/driver/show", "driver", driver);
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -73,14 +73,14 @@ public class DriverController extends BaseController {
             return new ModelAndView("redirect:/user/driver/list");
         }
 
-        return new ModelAndView("/user/driver/edit", "command", command).addObject("driver", driver);
+        return new ModelAndView("/baseuser/driver/edit", "command", command).addObject("driver", driver);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditDriverCommand command, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/driver/edit", "command", command);
+            return new ModelAndView("/baseuser/driver/edit", "command", command);
         }
 
         AlertMessage alertMessage;
@@ -98,7 +98,7 @@ public class DriverController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/driver/edit", "command", command)
+            return new ModelAndView("/baseuser/driver/edit", "command", command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 

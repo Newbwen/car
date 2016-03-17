@@ -56,6 +56,10 @@ public class CompanyService implements ICompanyService {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
+        if(!CoreStringUtils.isEmpty(command.getName())){
+            criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
+        }
+
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
@@ -67,13 +71,13 @@ public class CompanyService implements ICompanyService {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());
 
-        Area registerAddress = areaService.show(command.getRegisterAddress());
-        Area operateAddress = areaService.show(command.getOperateAddress());
+//        Area registerAddress = areaService.show(command.getRegisterAddress());
+//        Area operateAddress = areaService.show(command.getOperateAddress());
 
         company.setEmail(command.getEmail());
         company.setName(command.getName());
-        company.setRegisterAddress(registerAddress);
-        company.setOperateAddress(operateAddress);
+//        company.setRegisterAddress(registerAddress);
+//        company.setOperateAddress(operateAddress);
 
         companyRepository.update(company);
 

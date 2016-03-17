@@ -112,11 +112,3 @@
     });
 </script>
 [/#macro]
-
-[#function showArea(area)]
-    [#if area.parent]
-        [#return showArea(area.parent) + area.name]
-    [#else]
-        [#return area.name]
-    [/#if]
-[/#function]

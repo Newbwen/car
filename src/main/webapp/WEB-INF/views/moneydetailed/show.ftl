@@ -30,7 +30,7 @@
                 <div class="profile-info-name"> 资金流向</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="country">${moneyDetailed.flowType!}</span>
+                    <span class="editable editable-click" id="country">${(moneyDetailed.flowType.getName())!}</span>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                 <div class="profile-info-name"> 说明</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="age">${moneyDetailed.descriptio!}</span>
+                    <span class="editable editable-click" id="age">${moneyDetailed.description!}</span>
                 </div>
             </div>
 

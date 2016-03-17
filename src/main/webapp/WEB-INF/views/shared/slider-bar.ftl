@@ -54,43 +54,29 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="#">
+                            <a href="[@spring.url "/user/driver/list"/]">
                                 <i class="icon-calendar"></i>
                                 司机用户列表
                             </a>
                         </li>
-
-                        <li>
-                            <a href="#" class="dropdown-toggle">
-                                <i class="icon-pencil"></i>
-                                司机用户创建
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-double-angle-right"></i>
-                        公司用户管理
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#">
-                                <i class="icon-calendar"></i>
-                                公司用户列表
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="dropdown-toggle">
-                                <i class="icon-pencil"></i>
-                                公司用户创建
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                [#--<li>--]
+                    [#--<a href="#" class="dropdown-toggle">--]
+                        [#--<i class="icon-double-angle-right"></i>--]
+                        [#--公司用户管理--]
+                        [#--<b class="arrow icon-angle-down"></b>--]
+                    [#--</a>--]
+                    [#--<ul class="submenu">--]
+                        [#--<li>--]
+                            [#--<a href="[@spring.url "/user/company/list"/]">--]
+                                [#--<i class="icon-calendar"></i>--]
+                                [#--公司用户列表--]
+                            [#--</a>--]
+                        [#--</li>--]
+                    [#--</ul>--]
+                [#--</li>--]
 
                 <li>
                     <a href="#" class="dropdown-toggle">
@@ -100,16 +86,9 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="#">
+                            <a href="[@spring.url "/user/terrace/list"/]">
                                 <i class="icon-calendar"></i>
                                 平台用户列表
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="dropdown-toggle">
-                                <i class="icon-pencil"></i>
-                                平台用户创建
                             </a>
                         </li>
                     </ul>
@@ -123,16 +102,9 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="#">
+                            <a href="/user/list">
                                 <i class="icon-calendar"></i>
                                 用户（user）列表
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="dropdown-toggle">
-                                <i class="icon-pencil"></i>
-                                用户（user）创建
                             </a>
                         </li>
                     </ul>
@@ -167,7 +139,7 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="#" class="dropdown-toggle">
+                    <a href="[@spring.url "/user/company/list"/]" class="dropdown-toggle">
                         <i class="icon-calendar"></i>
                         <span class="menu-text"> 公司列表 </span>
                     </a>
