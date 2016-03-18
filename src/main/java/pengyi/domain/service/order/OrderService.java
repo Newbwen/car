@@ -1,6 +1,7 @@
 package pengyi.domain.service.order;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,20 @@ public class OrderService implements IOrderService {
 
     @Override
     public Pagination<Order> pagination(ListOrderCommand command) {
-        List<Criterion> criterions = new ArrayList<Criterion>();
+        List<Criterion> criterionList = new ArrayList<Criterion>();
 
         List<org.hibernate.criterion.Order> orders = new ArrayList<org.hibernate.criterion.Order>();
         orders.add(org.hibernate.criterion.Order.desc("createDate"));
 
-        return orderRepository.pagination(command.getPage(), command.getPageSize(), criterions, orders);
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.like("orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
+        }
+
+        if (null != command.getOrderStatus()) {
+            criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));
+        }
+
+        return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orders);
     }
 
     @Override
@@ -97,7 +106,15 @@ public class OrderService implements IOrderService {
         for (Driver item : drivers) {
             driverIds.add(item.getId());
         }
-        criterionList.add(Restrictions.in("receiveUser.id", driverIds.toArray()));
+        if (driverIds.size() > 0) {
+            criterionList.add(Restrictions.in("receiveUser.id", driverIds.toArray()));
+        } else {
+            return new Pagination<Order>(new ArrayList<Order>(), 0, command.getPage(), command.getPageSize());
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.like("orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
+        }
 
         if (null != command.getOrderStatus()) {
             criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));

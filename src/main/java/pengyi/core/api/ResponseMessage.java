@@ -22,6 +22,8 @@ public enum ResponseMessage {
     ERROR_10013(10013, "email字段不能为空"),
     ERROR_10014(10014, "registerDate字段不能为空"),
     ERROR_10015(10015, "registerDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
+    ERROR_10016(10016, "oldPassword字段不能为空"),
+    ERROR_10017(10017, "newPassword字段不能为空"),
 
     //救援
     ERROR_20000(20000,"派送救援司机不能为空"),
