@@ -18,15 +18,6 @@ public class MessageRepresentation {
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
     private ShowType showType;
-    private BaseUserRepresentation userRole;        //角色
-
-    public BaseUserRepresentation getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(BaseUserRepresentation userRole) {
-        this.userRole = userRole;
-    }
 
     public ShowType getShowType() {
         return showType;
@@ -100,7 +91,7 @@ public class MessageRepresentation {
         this.type = type;
     }
 
-    public MessageRepresentation(String id, Integer version, BaseUserRepresentation sendBaseUser, BaseUserRepresentation receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type, ShowType showType, BaseUserRepresentation userRole) {
+    public MessageRepresentation(String id, Integer version, BaseUserRepresentation sendBaseUser, BaseUserRepresentation receiveBaseUser, String sendDate, String receiveDate, String content, MessageType type, ShowType showType) {
         this.id = id;
         this.version = version;
         this.sendBaseUser = sendBaseUser;
@@ -110,7 +101,6 @@ public class MessageRepresentation {
         this.content = content;
         this.type = type;
         this.showType = showType;
-        this.userRole = userRole;
     }
 
     public MessageRepresentation() {

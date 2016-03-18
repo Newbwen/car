@@ -1,9 +1,7 @@
 package pengyi.application.message.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
-import pengyi.core.type.MessageType;
 import pengyi.core.type.ShowType;
-import pengyi.domain.model.user.BaseUser;
 
 /**
  * Created by liubowen on 2016/3/8.
