@@ -58,17 +58,18 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     public Evaluate edit(EditEvaluateCommand command) {
-        Evaluate evaluate1=this.searchByOrder(command.getOrder());
+        Evaluate evaluate=this.show(command.getId());
+//        Evaluate evaluate1=this.searchByOrder(command.getOrder());
 //        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
 //        Order order = orderService.show(command.getOrder());
 ////        TODO  获取订单信息
 ////        Order order=OrderSer
-        evaluate1.fainWhenConcurrencyViolation(command.getVersion());
-        evaluate1.setContent(command.getContent());
-        evaluate1.setLevel(command.getLevel());
-        evaluateRepository.update(evaluate1);
+        evaluate.fainWhenConcurrencyViolation(command.getVersion());
+        evaluate.setContent(command.getContent());
+        evaluate.setLevel(command.getLevel());
+        evaluateRepository.update(evaluate);
 
-        return evaluate1;
+        return evaluate;
 
     }
 

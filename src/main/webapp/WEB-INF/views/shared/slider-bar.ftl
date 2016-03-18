@@ -307,18 +307,12 @@
 
             <ul class="submenu">
                 <li>
-                    <a href="">
+                    <a href="/rescue/list">
                         <i class="icon-calendar"></i>
                         救援列表
                     </a>
                 </li>
 
-                <li>
-                    <a href="">
-                        <i class="icon-leaf"></i>
-                        救援创建
-                    </a>
-                </li>
             </ul>
         </li>
 

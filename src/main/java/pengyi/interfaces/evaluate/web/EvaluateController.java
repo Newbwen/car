@@ -97,7 +97,7 @@ public class EvaluateController extends BaseController {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            return new ModelAndView("redirect:/car/list");
+            return new ModelAndView("redirect:/evaluate/list");
         }
         return new ModelAndView("/evaluate/edit", "command", command).addObject("evaluateRepresentation", evaluateRepresentation);
     }
@@ -128,7 +128,7 @@ public class EvaluateController extends BaseController {
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 
-        logger.info("修改car成功id=[" + evaluateRepresentation.getId() + "],时间[" + new Date() + "]");
+        logger.info("修改evaluate成功id=[" + evaluateRepresentation.getId() + "],时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         redirectAttributes.addAttribute("id", evaluateRepresentation.getId());

@@ -19,30 +19,30 @@
         [@mc.showAlert /]
         <form action="/evaluate/edit" class="form-horizontal" method="post">
 
-            <input type="hidden" name="id" value="${evaluate.id!command.id}" />
-            <input type="hidden" name="version" value="${evaluate.version!command.version}" />
+            <input type="hidden" name="id" value="${evaluateRepresentation.id!command.id}" />
+            <input type="hidden" name="version" value="${evaluateRepresentation.version!command.version}" />
 
-            [@spring.bind "command.evaluateUser"/]
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 评价人* </label>
+            [#--[@spring.bind "command.evaluateUser"/]--]
+            [#--<div class="form-group">--]
+                [#--<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 评价人* </label>--]
 
-                <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="evaluateUser" value="${evaluate.evaluateUser!command.evaluateUser}"
-                           placeholder="评价人" class="col-xs-10 col-sm-5" required/>
-                    [@spring.showErrors "evaluateUser"/]
-                </div>
-            </div>
+                [#--<div class="col-sm-9">--]
+                    [#--<input type="text" id="form-field-1" name="evaluateUser" value="${evaluate.evaluateUser!command.evaluateUser}"--]
+                           [#--placeholder="评价人" class="col-xs-10 col-sm-5" required/>--]
+                    [#--[@spring.showErrors "evaluateUser"/]--]
+                [#--</div>--]
+            [#--</div>--]
 
-            [@spring.bind "command.order"/]
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 订单* </label>
+            [#--[@spring.bind "command.order"/]--]
+            [#--<div class="form-group">--]
+                [#--<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 订单* </label>--]
 
-                <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="evaluateUser" value="${evaluate.order!command.order}"
-                           placeholder="订单" class="col-xs-10 col-sm-5" required/>
-                    [@spring.showErrors "order"/]
-                </div>
-            </div>
+                [#--<div class="col-sm-9">--]
+                    [#--<input type="text" id="form-field-1" name="evaluateUser" value="${evaluate.order!command.order}"--]
+                           [#--placeholder="订单" class="col-xs-10 col-sm-5" required/>--]
+                    [#--[@spring.showErrors "order"/]--]
+                [#--</div>--]
+            [#--</div>--]
 
             [@spring.bind "command.content"/]
             <div class="form-group">
@@ -66,22 +66,22 @@
                 </div>
             </div>
 
-            <div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">  </label>
+            [#--<div>--]
+                [#--<div class="form-group">--]
+                    [#--<label class="col-sm-3 control-label no-padding-right" for="form-field-1">  </label>--]
 
-                    <div class="col-sm-9">
-                        <div class="show-evaluate">
-                            [#if evaluate.evaluateUser!]
-                                [#list evaluate.evaluateUser as evaluateUser]
-                                    <div class="check-td-info">${evaluateUser.evaluateUser!}</div>
-                                    <input type="hidden" name="permissionIds" value="${evaluateUser.id}"/>
-                                [/#list]
-                            [/#if]
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    [#--<div class="col-sm-9">--]
+                        [#--<div class="show-evaluate">--]
+                            [#--[#if evaluate.evaluateUser!]--]
+                                [#--[#list evaluate.evaluateUser as evaluateUser]--]
+                                    [#--<div class="check-td-info">${evaluateUser.evaluateUser!}</div>--]
+                                    [#--<input type="hidden" name="permissionIds" value="${evaluateUser.id}"/>--]
+                                [#--[/#list]--]
+                            [#--[/#if]--]
+                        [#--</div>--]
+                    [#--</div>--]
+                [#--</div>--]
+            [#--</div>--]
 
             <div class="clearfix form-actions">
                 <div class="col-md-offset-4">
@@ -124,38 +124,45 @@
                                     <div class="input-list">
                                         <ul>
                                             <li>
-                                                <label>评价人:</label>
-                                                    <span>
-                                                        <input type="text" class="form-control" id="evaluateUser"
-                                                               name="permissionName"
-                                                               value="${command.evaluateUser!}">
-                                                    </span>
-                                            </li>
-
-                                            <li>
-                                                <label>订单:</label>
-                                                    <span>
-                                                        <input type="text" class="form-control" id="order"
-                                                               name="permissionName"
-                                                               value="${command.order!}">
-                                                    </span>
-                                            </li>
-
-                                            [#--<li>--]
-                                                [#--<label>状态:</label>--]
+                                                [#--<label>评价人:</label>--]
                                                     [#--<span>--]
-                                                       [#--<select class="chosen-transparent form-control"--]
-                                                               [#--id="permissionStatus" name="status">--]
-                                                           [#--[#assign status = (command.status!)?default("ENABLE") /]--]
-                                                           [#--<option value="ENABLE" [@mc.selected status "ENABLE"/]>启用</option>--]
-                                                           [#--<option value="DISABLE" [@mc.selected status "DISABLE"/]>禁用</option>--]
-                                                       [#--</select>--]
+                                                        [#--<input type="text" class="form-control" id="evaluateUser"--]
+                                                               [#--name="evaluateUser"--]
+                                                               [#--value="${command.evaluateUser!}">--]
                                                     [#--</span>--]
                                             [#--</li>--]
 
+                                            [#--<li>--]
+                                                [#--<label>订单:</label>--]
+                                                    [#--<span>--]
+                                                        [#--<input type="text" class="form-control" id="order"--]
+                                                               [#--name="order"--]
+                                                               [#--value="${command.order!}">--]
+                                                    [#--</span>--]
+                                            [#--</li>--]
+
+
+                                            <li>
+                                                <label>内容:</label>
+                                                    <span>
+                                                        <input type="text" class="form-control" id="content"
+                                                               name="content"
+                                                               value="${command.content!}">
+                                                    </span>
+                                            </li>
+
+                                            <li>
+                                                <label>评级:</label>
+                                                    <span>
+                                                        <input type="text" class="form-control" id="level"
+                                                               name="level"
+                                                               value="${command.level!}">
+                                                    </span>
+                                            </li>
+
                                             <li>
                                                 <button type="button" class="btn btn-dutch margin-left-15"
-                                                        id="permissionFind">查询
+                                                        id="evaluateonFind">查询
                                                 </button>
                                             </li>
                                         </ul>
@@ -172,11 +179,11 @@
                                 <div class="tile-footer bg-transparent-black-2 rounded-bottom-corners">
                                     <div class="row">
                                         <div class="col-sm-4 text-center">
-                                            <small class="inline table-options paging-info paging-permission">
+                                            <small class="inline table-options paging-info paging-evaluate">
                                             </small>
                                         </div>
                                         <div class="col-sm-4 text-right sm-center">
-                                            <ul class="pagination pagination-xs nomargin pagination-custom pagination-permission">
+                                            <ul class="pagination pagination-xs nomargin pagination-custom pagination-evaluate">
                                             </ul>
                                         </div>
                                     </div>
@@ -209,8 +216,8 @@
 </div>
 [/@override]
 
-[#--[@override name="bottomResources"]--]
-    [#--[@super /]--]
+[@override name="bottomResources"]
+    [@super /]
 [#--<script src="[@spring.url '/resources/assets/js/modal-search-optimize.js' /]" type="text/javascript"></script>--]
 [#--<script>--]
     [#--$(document).ready(function () {--]

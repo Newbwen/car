@@ -90,7 +90,7 @@ public class CarController extends BaseController {
         }
         return new ModelAndView("/car/show","carRepresentation",carRepresentation);
     }
-    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id,@ModelAttribute("command")EditCarCommand command,
                              RedirectAttributes redirectAttributes, Locale locale){
         AlertMessage alertMessage;

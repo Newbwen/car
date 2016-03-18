@@ -62,7 +62,7 @@
         <br>
         <br>
         <div class="col-xs-12">
-            <a href="/car/list" class="btn btn-success btn-block">返回列表</a>
+            <a href="/evaluate/list" class="btn btn-success btn-block">返回列表</a>
         </div>
     </div>
 </div>
