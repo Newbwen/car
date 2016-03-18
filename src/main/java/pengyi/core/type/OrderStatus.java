@@ -7,7 +7,7 @@ public enum OrderStatus {
 
     WAIT_ORDER("待接单", 1, Boolean.FALSE),
     HAS_ORDER("已接单", 2, Boolean.FALSE),
-    START_ORDER("以开始", 3, Boolean.FALSE),
+    START_ORDER("已开始", 3, Boolean.FALSE),
     WAIT_PAY("待支付", 4, Boolean.FALSE),
     SUCCESS("完成", 5, Boolean.FALSE),
     INVALID("作废", 6, Boolean.FALSE);

@@ -8,5 +8,5 @@ import pengyi.core.api.BaseResponse;
  */
 public interface IApiOrderAppService {
 
-    BaseResponse companyOrderList(CompanyOrderListCommand command);
+    BaseResponse companyOrderPagination(CompanyOrderListCommand command);
 }

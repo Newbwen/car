@@ -18,16 +18,16 @@ public class OrderRepresentation {
 
     private String orderNumber;                         //订单号
     private BaseUserRepresentation orderUser;                         //下单人
-    private Date createDate;                          //下单时间
+    private String createDate;                          //下单时间
     private BaseUserRepresentation receiveUser;                       //接单人
-    private Date receiveDate;                         //接单时间
-    private Date subscribeDate;                       //预约时间
-    private Date beginTime;                           //开始时间
+    private String receiveDate;                         //接单时间
+    private String subscribeDate;                       //预约时间
+    private String beginTime;                           //开始时间
     private DriverType driverType;                    //类型
-    private Date endTime;                             //订单完成时间
+    private String endTime;                             //订单完成时间
     private BigDecimal shouldMoney;                     //应付
     private BigDecimal extraMoney;                      //调度费
-    private Date payTime;                             //支付时间
+    private String payTime;                             //支付时间
     private OrderStatus orderStatus;                  //订单状态
     private EvaluateStatus evaluateStatus;            //评价状态
 
@@ -63,11 +63,11 @@ public class OrderRepresentation {
         this.orderUser = orderUser;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -79,27 +79,27 @@ public class OrderRepresentation {
         this.receiveUser = receiveUser;
     }
 
-    public Date getReceiveDate() {
+    public String getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(Date receiveDate) {
+    public void setReceiveDate(String receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public Date getSubscribeDate() {
+    public String getSubscribeDate() {
         return subscribeDate;
     }
 
-    public void setSubscribeDate(Date subscribeDate) {
+    public void setSubscribeDate(String subscribeDate) {
         this.subscribeDate = subscribeDate;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
@@ -111,11 +111,11 @@ public class OrderRepresentation {
         this.driverType = driverType;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -135,11 +135,11 @@ public class OrderRepresentation {
         this.extraMoney = extraMoney;
     }
 
-    public Date getPayTime() {
+    public String getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(String payTime) {
         this.payTime = payTime;
     }
 
