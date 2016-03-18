@@ -14,13 +14,24 @@
 
         <many-to-one name="receiveBaseUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
-        <property name="sendDate" column="send_date" type="java.lang.String" length="19" />
+        <property name="sendDate" column="send_date" type="java.util.Date"/>
 
-        <property name="receiveDate" column="receive_date" type="java.lang.String" length="19" />
+        <property name="receiveDate" column="receive_date" type="java.util.Date"/>
 
         <property name="content" column="content" type="java.lang.String" />
 
-        <property name="type" column="type" type="java.lang.Integer" />
+        <property name="type" column="type" >
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.MessageType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+        <property name="showType" column="show_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.ShowType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>

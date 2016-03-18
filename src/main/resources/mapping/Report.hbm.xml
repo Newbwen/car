@@ -22,7 +22,13 @@
 
         <property name="description" column="description" type="java.lang.String"/>
 
-        <property name="status" column="status" type="java.lang.Integer"/>
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.ReportStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+        <property name="handleResult" column="handle_result" type="java.lang.String"></property>
 
     </class>
 
