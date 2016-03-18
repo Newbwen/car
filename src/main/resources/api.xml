@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<apifile>
+    <tables>
+        <table>
+            <id>796f33c4-11d3-4307-9f6a-ede0aad22213</id>
+            <name>系统配置表</name>
+            <value>cpconfiginfo</value>
+            <rows>
+                <row>
+                    <id>e63efb2f-2767-468e-bfb5-98466a7411e2</id>
+                    <name>nvarchar(2000)</name>
+                    <value>c_alipayselleremail</value>
+                    <content>支付宝帐户d</content>
+                </row>
+                <row>
+                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
+                    <name>nvarchar(2000)</name>
+                    <value>name</value>
+                    <content>支付宝</content>
+                </row>
+            </rows>
+        </table>
+        <table>
+            <id>796f33c4-11d3-4307-9f6a-ede0aad22214</id>
+            <name>系统配置表</name>
+            <value>cpconfiginfo</value>
+            <rows>
+                <row>
+                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
+                    <name>nvarchar(2000)</name>
+                    <value>c_alipayselleremail</value>
+                    <content>支付宝帐户d</content>
+                </row>
+                <row>
+                    <id>e63efb2f-2767-468e-bfb5-98466a7411e4</id>
+                    <name>nvarchar(2000)</name>
+                    <value>name</value>
+                    <content>支付宝</content>
+                </row>
+            </rows>
+        </table>
+    </tables>
+    <apis>
+        <api>
+            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f85</id>
+            <name>获取系统配置（加入缓存）</name>
+            <address>api/getconfig</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
+                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
+                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
+                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
+                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
+            </fanhuixinxi>
+        </api>
+        <api>
+            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f86</id>
+            <name>获取系统配置1（加入缓存）</name>
+            <address>api/getconfig</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
+                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
+                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
+                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
+                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
+            </fanhuixinxi>
+        </api>
+    </apis>
+</apifile>
