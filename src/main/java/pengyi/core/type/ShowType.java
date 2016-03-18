@@ -4,8 +4,8 @@ package pengyi.core.type;
  * Created by liubowen on 2016/3/15.
  */
 public enum  ShowType {
-    SHOW("显示", 1, Boolean.FALSE),
-    BLANK("不显示", 2, Boolean.FALSE);
+    SHOW("显示", 0, Boolean.FALSE),
+    BLANK("不显示", 1, Boolean.FALSE);
 
 
     private ShowType(String name, int value, Boolean onlyQuery) {

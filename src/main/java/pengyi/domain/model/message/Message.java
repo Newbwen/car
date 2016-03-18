@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * 站内信
+ * update by liubowen 2016/3/16
  * Created by pengyi on 2016/3/4.
  */
 public class Message extends Identity {
@@ -19,7 +20,7 @@ public class Message extends Identity {
     private Date receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
-    private ShowType showType;
+    private ShowType showType;                      //是否显示（0为显示，1为不显示）
 
     public ShowType getShowType() {
         return showType;

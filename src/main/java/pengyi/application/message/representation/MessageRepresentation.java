@@ -19,6 +19,14 @@ public class MessageRepresentation {
     private MessageType type;                       //类型（0为系统消息）
     private ShowType showType;
 
+    public ShowType getShowType() {
+        return showType;
+    }
+
+    public void setShowType(ShowType showType) {
+        this.showType = showType;
+    }
+
     public String getId() {
         return id;
     }

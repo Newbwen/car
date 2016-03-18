@@ -16,52 +16,56 @@ import pengyi.repository.generic.Pagination;
 import java.util.List;
 
 /**
- * Created by liubowen on 2016/3/8.
+ * Created by liubowen on 2016/3/15.
  */
-@Service("messageAppService")
+@Service("apiMessageService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-public class MessageAppService implements IMessageAppService {
+public class ApiMessageService implements IApiMessageService {
+
     @Autowired
     private IMessageService messageService;
 
     @Autowired
     private IMappingService mappingService;
 
-
-    @Override//返回paginationList并将ListMessageCommand转换成MessageRepresentation
+    @Override
     @Transactional(readOnly = true)
-    public Pagination<MessageRepresentation> pagination(ListMessageCommand command){
-        command.verifyPage();
-        command.verifyPageSize(20);
-        Pagination<Message> pagination=messageService.pagination(command);
-        List<MessageRepresentation> data=mappingService.mapAsList(pagination.getData(),MessageRepresentation.class);
-        return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
+    public MessageRepresentation show(String messageId) {
+
+        return mappingService.map(messageService.show(messageId), MessageRepresentation.class, false);
     }
-    @Override//返回发送的信息
+
+    @Override
+    @Transactional(readOnly = true)
+    public MessageRepresentation deleteByCompany(String messageId) {
+
+        return mappingService.map(messageService.delete(messageId), MessageRepresentation.class, false);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public void create(CreateMessageByRoleCommand command) {
-
+       // return mappingService.map(messageService.create(command),MessageRepresentation.class,false);
         messageService.create(command);
     }
 
-    @Override//根据id显示数据
-    @Transactional(readOnly = true)
-    public MessageRepresentation show(String id) {
-
-        return mappingService.map(messageService.show(id), MessageRepresentation.class, false);
-    }
-
     @Override
-    @Transactional(readOnly = true)
-    public MessageRepresentation delete(String messageId) {
-        return mappingService.map(messageService.delete(messageId),MessageRepresentation.class,false);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command) {
         return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
     }
 
+    @Override
+    public Pagination<MessageRepresentation> pagination(String companyId, ListMessageCommand command) {
+        command.verifyPage();
+
+        command.verifyPageSize(20);
+
+        Pagination<Message> pagination = messageService.pagination(command);
+
+        List<MessageRepresentation> date = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
+
+        return new Pagination<MessageRepresentation>(date, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+
+    }
 
 }

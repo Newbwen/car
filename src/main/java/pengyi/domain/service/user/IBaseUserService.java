@@ -28,6 +28,8 @@ public interface IBaseUserService {
 
     BaseUser login(LoginUserCommand command);
 
+    List<BaseUser> searchByUserRole(String roleId);
+
 
     /*******  以下是 api 方法    ********/
 

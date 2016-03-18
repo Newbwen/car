@@ -86,6 +86,9 @@ public class Rescue extends Identity {
         this.finishTime = finishTime;
     }
 
+    public Rescue() {
+    }
+
     public Rescue(BaseUser applyUser, Date applyTime, int type, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;

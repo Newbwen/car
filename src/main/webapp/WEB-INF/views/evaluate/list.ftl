@@ -23,9 +23,12 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>评价人<input type="text" value="${command.evaluateUser!}" name="evaluateUser" /></label>
-                                <label>订单<input type="text" value="${command.order!}" name="orderId" /></label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>评价人<input type="text" value="${command.evaluateUser!}"
+                                                 name="evaluateUser"/></label>
+                                <label>订单<input type="text" value="${command.order!}" name="orderId"/></label>
+                                <label>
+                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -35,6 +38,9 @@
                     <tr role="row">
                         <th>评价人</th>
                         <th>订单</th>
+                        <th>评价内容</th>
+                        <th>评级</th>
+                        <th>评价时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,12 +52,24 @@
                             <tr class="even">
                                 <td>${evaluate.evaluateUser!}</td>
                                 <td>${evaluate.orderId!}</td>
+                                <td>${evaluate.content!}</td>
+                                <td>${evaluate.level!}</td>
+                                <td>${evaluate.createDate!}</td>
                                 <td>
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/car/show/${evaluate.id!}'/]"
-                                           title="查看"><i class="icon-zoom-in bigger-130"></i></a>
-                                        <a class="green" href="[@spring.url '/car/edit/${evaluate.id}'/]"
-                                           title="编辑"><i class="icon-pencil bigger-130"></i></a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
+                                            操作
+                                            <i class="icon-angle-down icon-on-right"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="blue" href="[@spring.url '/evaluate/show/${evaluate.id!}'/]">查看</a>
+                                            </li>
+                                            <li>
+                                                <a class="green" href="[@spring.url '/evaluate/edit/${evaluate.id}'/]">编辑</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>

@@ -2,19 +2,18 @@ package pengyi.application.message.command;
 
 import pengyi.core.type.MessageType;
 import pengyi.core.type.ShowType;
-import pengyi.domain.model.user.BaseUser;
 
 /**
- * Created by liubowen on 2016/3/8.
+ * Created by liubowen on 2016/3/17.
  */
-public class CreateMessageCommand {
+public class CreateMessageByBaseUserCommand {
     private String sendBaseUser;                  //发送人
-    private String receiveBaseUser;               //接收人
+    private String receiveBaseUser;            //接收人
     private String sendDate;                //发送时间
     private String receiveDate;             //接收时间
     private String content;                 //内容
     private MessageType type;                       //类型（0为系统消息）
-    private ShowType showType;
+    private ShowType showType;                  //是否显示
 
     public String getSendBaseUser() {
         return sendBaseUser;
@@ -71,4 +70,5 @@ public class CreateMessageCommand {
     public void setShowType(ShowType showType) {
         this.showType = showType;
     }
+
 }

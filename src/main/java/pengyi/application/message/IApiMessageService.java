@@ -7,18 +7,14 @@ import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.repository.generic.Pagination;
 
 /**
- * Created by liubowen on 2016/3/8.
+ * Created by liubowen on 2016/3/15.
  */
-public interface IMessageAppService {
-
-    Pagination<MessageRepresentation> pagination(ListMessageCommand command);
-
+public interface IApiMessageService {
+    MessageRepresentation show(String messageId);
+    MessageRepresentation deleteByCompany(String messageId);
     void create(CreateMessageByRoleCommand command);
-
-    MessageRepresentation show(String id);
-
-    MessageRepresentation delete(String messageId);
-
     MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command);
+    Pagination<MessageRepresentation> pagination(String companyId,ListMessageCommand command);
+
 
 }

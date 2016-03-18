@@ -26,7 +26,7 @@ public class CarRepository extends AbstractHibernateGenericRepository<Car, Strin
     @Override
     public Car getByDriver(String driver) {
         Criteria criteria=getSession().createCriteria(getPersistentClass());
-        criteria.add(Restrictions.eq("driver",driver));
+        criteria.add(Restrictions.eq("driver.id",driver));
         return (Car) criteria.uniqueResult();
     }
 }

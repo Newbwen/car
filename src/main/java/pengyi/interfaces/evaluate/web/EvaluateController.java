@@ -83,10 +83,10 @@ public class EvaluateController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/evaluate/list");
         }
-        return new ModelAndView("/evaluate/show", "evaluateRepresentation", evaluateRepresentation);
+        return new ModelAndView("/evaluate/show", "evaluate", evaluateRepresentation);
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id, @ModelAttribute("command") EditEvaluateCommand command,
                              RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
@@ -97,16 +97,16 @@ public class EvaluateController extends BaseController {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            return new ModelAndView("redirect:/car/list");
+            return new ModelAndView("redirect:/evaluate/list");
         }
-        return new ModelAndView("/car/edit", "command", command).addObject("evaluateRepresentation", evaluateRepresentation);
+        return new ModelAndView("/evaluate/edit", "command", command).addObject("evaluateRepresentation", evaluateRepresentation);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditEvaluateCommand command, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/car/edit", "command", command);
+            return new ModelAndView("/evaluate/edit", "command", command);
         }
 
         AlertMessage alertMessage;
@@ -124,11 +124,11 @@ public class EvaluateController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/car/edit", "command", command)
+            return new ModelAndView("/evaluate/edit", "command", command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 
-        logger.info("修改car成功id=[" + evaluateRepresentation.getId() + "],时间[" + new Date() + "]");
+        logger.info("修改evaluate成功id=[" + evaluateRepresentation.getId() + "],时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         redirectAttributes.addAttribute("id", evaluateRepresentation.getId());

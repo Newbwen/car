@@ -5,6 +5,7 @@ package pengyi.core.api;
  */
 public enum ResponseMessage {
 
+    //注册
     ERROR_10000(10000, "id字段不能为空"),
     ERROR_10001(10001, "version字段不能为空"),
     ERROR_10002(10002, "name字段不能为空"),
@@ -22,7 +23,21 @@ public enum ResponseMessage {
     ERROR_10014(10014, "registerDate字段不能为空"),
     ERROR_10015(10015, "registerDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
     ERROR_10016(10016, "oldPassword字段不能为空"),
-    ERROR_10017(10017, "newPassword字段不能为空");
+    ERROR_10017(10017, "newPassword字段不能为空"),
+
+    //救援
+    ERROR_20000(20000,"派送救援司机不能为空"),
+    ERROR_20001(20001,"救援状态不能为空"),
+    ERROR_20002(20002,"救援申请人不能为空"),
+    ERROR_20003(20003,"救援说明不能为空"),
+    ERROR_20004(20004,"已安排救援不能取消"),
+
+    //车辆
+    ERROR_30001(30001,"车牌号已存在"),
+
+    //评价
+    ERROR_40001(40001,"评价内容不能为空");
+
 
 
     private int code;

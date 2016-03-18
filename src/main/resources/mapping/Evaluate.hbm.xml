@@ -18,7 +18,7 @@
 
         <property name="level" column="level" type="java.lang.Integer" />
 
-        <property name="createDate" column="create_date" type="java.lang.String" />
+        <property name="createDate" column="create_date" type="java.util.Date" />
     </class>
 
 </hibernate-mapping>

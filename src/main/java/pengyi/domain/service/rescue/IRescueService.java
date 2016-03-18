@@ -6,12 +6,15 @@ import pengyi.application.rescue.command.ListRescueCommand;
 import pengyi.domain.model.rescue.Rescue;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 
 /**
  * Created by lvdi on 2015/3/8.
  */
 public interface IRescueService {
 
+    List<Rescue> findAllRescue();
 
     Rescue getById(int rescueId);
 
@@ -26,5 +29,14 @@ public interface IRescueService {
     Rescue updateStatus(EditRescueCommand command);
 
     Rescue searchByName(String rescueName);
+
+    /********** api 方法    *************/
+    Rescue apiUpdateRescue(EditRescueCommand command);
+
+    Rescue apiCancelRescue(EditRescueCommand command);
+
+
+
+
 
 }

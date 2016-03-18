@@ -16,6 +16,15 @@ public class ListReportCommand extends BasicPaginationCommand {
     private String endDealTime;                 //处理完成时间
     private String description;                 //说明
     private ReportStatus status;                //状态（待处理、处理中、处理完成）
+    private String handleResult;                   //处理结果
+
+    public String getHandleResult() {
+        return handleResult;
+    }
+
+    public void setHandleResult(String handleResult) {
+        this.handleResult = handleResult;
+    }
 
     public String getReportUser() {
         return reportUser;
