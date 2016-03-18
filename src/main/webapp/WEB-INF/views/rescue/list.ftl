@@ -59,11 +59,11 @@
                         [#if pagination.data??]
                             [#list pagination.data as rescue ]
                             <tr class="even">
-                                <td>${rescue.applyUser!}</td>
+                                <td>${rescue.applyUser.userName!}</td>
                                 <td>${rescue.applyTime!}</td>
                                 <td>${rescue.type!}</td>
                                 <td>${rescue.description!}</td>
-                                <td>${rescue.driver!}</td>
+                                <td>${rescue.driver.userName!}</td>
                                 <td>${rescue.rescueTime!}</td>
                                 <td>${(rescue.status.getName())!}</td>
                                 <td>${rescue.finishTime!}</td>
