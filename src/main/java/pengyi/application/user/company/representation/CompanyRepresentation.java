@@ -13,7 +13,7 @@ public class CompanyRepresentation extends BaseUserRepresentation {
 
     private String name;            //公司名
     private String folder;          //公司资质
-    private Date registerDate;    //注册时间
+    private String registerDate;    //注册时间
     private AreaRepresentation registerAddress;   //注册地点
     private AreaRepresentation operateAddress;    //运营地点
     private BigDecimal money;       //余额
@@ -35,11 +35,11 @@ public class CompanyRepresentation extends BaseUserRepresentation {
         this.folder = folder;
     }
 
-    public Date getRegisterDate() {
+    public String getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
     }
 

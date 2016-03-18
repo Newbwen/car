@@ -104,9 +104,9 @@ public class ApiCompanyAppService implements IApiCompanyAppService {
             if (CoreStringUtils.isEmpty(command.getRegisterAddress())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10003.getMessage());
             }
-            if (CoreStringUtils.isEmpty(command.getOperateAddress())) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10004.getMessage());
-            }
+//            if (CoreStringUtils.isEmpty(command.getOperateAddress())) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10004.getMessage());
+//            }
             CompanyRepresentation company = mappingService.map(companyService.apiCreate(command), CompanyRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, company, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {

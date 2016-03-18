@@ -132,7 +132,7 @@ public class CompanyService implements ICompanyService {
         }
 
         Area registerAddress = areaService.show(command.getRegisterAddress());
-        Area operateAddress = areaService.show(command.getOperateAddress());
+//        Area operateAddress = areaService.show(command.getOperateAddress());
 
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), salt + command.getUserName());
@@ -142,7 +142,7 @@ public class CompanyService implements ICompanyService {
 
         Company company = new Company(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(),
                 role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
-                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, new BigDecimal(0), 0.0);
+                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, null, new BigDecimal(0), 0.0);
 
         companyRepository.save(company);
 

@@ -38,7 +38,7 @@ public class ApiCompanyController {
 
     @RequestMapping(value = "/info")
     @ResponseBody
-    public BaseResponse show(@PathVariable String id) {
+    public BaseResponse show(String id) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
