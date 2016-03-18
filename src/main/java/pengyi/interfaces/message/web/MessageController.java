@@ -13,12 +13,14 @@ import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.application.role.IRoleAppService;
+import pengyi.application.role.representation.RoleRepresentation;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -44,15 +46,17 @@ public class MessageController extends BaseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView create(@ModelAttribute("command") CreateMessageByRoleCommand command) {
-        return new ModelAndView("message/create", "command", command);
+        List<RoleRepresentation> roles=roleAppService.roleList();
+        return new ModelAndView("message/create", "command", command).addObject("roles", roles);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageByRoleCommand command,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes,
                                Locale locale) {
+        List<RoleRepresentation> roles=roleAppService.roleList();
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/message/create", "command", command);
+            return new ModelAndView("/message/create", "command", command).addObject("roles", roles);
         }
         AlertMessage alertMessage = null;
 
@@ -61,7 +65,7 @@ public class MessageController extends BaseController {
         } catch (Exception e) {
             logger.error(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/message/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("/message/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage).addObject("roles", roles);
         }
         logger.info("创建站内信息成功,时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
