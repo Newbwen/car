@@ -1,11 +1,9 @@
 package pengyi.domain.service.evaluate;
 
-import pengyi.application.car.command.ListCarCommand;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.application.evaluate.command.ListEvaluateCommand;
 import pengyi.domain.model.evaluate.Evaluate;
-import pengyi.domain.model.urlresources.UrlResources;
 import pengyi.repository.generic.Pagination;
 
 
@@ -22,7 +20,8 @@ public interface IEvaluateService {
 
     Evaluate show(String id);
 
-    Evaluate searchByName(String evaluateUserame);
+    Evaluate searchByOrder(String order);
 
     Evaluate create(CreateEvaluateCommand command);
+
 }

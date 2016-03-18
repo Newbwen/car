@@ -50,13 +50,21 @@
                                 <td>${car.carNumber!}</td>
                                 <td>${(car.driver.getName())!}</td>
                                 <td>
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/car/show/${car.id!}'/]"
-                                           title="查看"><i class="icon-zoom-in bigger-130"></i></a>
-                                        <a class="green" href="[@spring.url '/car/edit/${car.id}'/]"
-                                           title="编辑"><i class="icon-pencil bigger-130"></i></a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
+                                            操作
+                                            <i class="icon-angle-down icon-on-right"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="blue" href="[@spring.url '/car/show/${car.id!}'/]">查看</a>
+                                            </li>
+                                            <li>
+                                                <a class="green" href="[@spring.url '/car/edit/${car.id}'/]">编辑</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </td>
                             </tr>
                             [/#list]
                         [/#if]

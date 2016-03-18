@@ -12,7 +12,7 @@
 
         <many-to-one name="applyUser" column="apply_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
-        <property name="applyTime" column="apply_time" type="java.lang.String" length="19" />
+        <property name="applyTime" column="apply_time" type="java.util.Date" />
 
         <property name="type" column="type" type="java.lang.Integer" />
 
@@ -20,11 +20,16 @@
 
         <many-to-one name="driver" column="driver_id" class="pengyi.domain.model.user.driver.Driver" />
 
-        <property name="rescueTime" column="rescue_time" type="java.lang.String" length="19"/>
+        <property name="rescueTime" column="rescue_time" type="java.util.Date" length="19"/>
 
-        <property name="status" column="status" type="java.lang.Integer" />
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.RescueStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
-        <property name="finishTime" column="finish_time" type="java.lang.String" length="19" />
+        <property name="finishTime" column="finish_time" type="java.util.Date"  />
     </class>
 
 </hibernate-mapping>

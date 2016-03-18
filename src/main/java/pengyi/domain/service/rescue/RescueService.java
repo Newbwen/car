@@ -1,5 +1,6 @@
 package pengyi.domain.service.rescue;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
-import pengyi.core.exception.ExistException;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
@@ -22,9 +25,7 @@ import pengyi.domain.service.user.BaseUserService;
 import pengyi.domain.service.user.driver.DriverService;
 import pengyi.repository.generic.Pagination;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -45,6 +46,11 @@ public class RescueService implements IRescueService {
     private DriverService driverService;
 
     @Override
+    public List<Rescue> findAllRescue() {
+        return rescueRepository.findAll();
+    }
+
+    @Override
     public Rescue getById(int rescueId) {
         return (Rescue) rescueRepository.getById(rescueId);
     }
@@ -54,24 +60,28 @@ public class RescueService implements IRescueService {
 
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("applyuser.id", command.getApplyUser()));
+            criteriaList.add(Restrictions.like("a.userName", command.getApplyUser(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
+        if (!CoreStringUtils.isEmpty(command.getDriver())) {
+            criteriaList.add(Restrictions.like("d.userName", command.getDriver(), MatchMode.ANYWHERE));
         }
-        if(null != command.getStatus()){
+        if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
 
         }
-        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("applyUser", "a");
+        aliasMap.put("driver", "d");
+
+        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, null, null, null);
     }
 
     @Override
     public Rescue create(CreateRescueCommand command) {
 
-        BaseUser applyuser=baseUserService.show(command.getApplyUser());
-        Driver driver=driverService.show(command.getDriver());
-        Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
+        BaseUser applyuser = baseUserService.show(command.getApplyUser());
+        Driver driver = driverService.show(command.getDriver());
+        Rescue rescue1 = new Rescue(applyuser, new Date(), command.getType(), command.getDescription(), driver, null, RescueStatus.WAIT_RESCUE, null);
         rescueRepository.save(rescue1);
 
         return rescue1;
@@ -79,19 +89,22 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue edit(EditRescueCommand command) {
+        Rescue rescue=this.show(command.getId());
+        BaseUser applyUser = baseUserService.show(command.getApplyUser());
+        Driver driver = driverService.show(command.getDriver());
+        rescue.setApplyUser(applyUser);
+        rescue.setStatus(command.getStatus());
+        rescue.setType(command.getType());
+        rescue.setDescription(command.getDescription());
+        rescue.setDriver(driver);
+        rescueRepository.save(rescue);
 
-        Rescue rescue=this.show(command.getApplyUser());
-        BaseUser applyuser=baseUserService.show(command.getApplyUser());
-        Driver driver=driverService.show(command.getDriver());
-        Rescue rescue1=new Rescue(applyuser,new Date(),command.getType(),command.getDescription(),driver,new Date(),command.getStatus(),new Date());
-        rescueRepository.save(rescue1);
-
-        return rescue1;
+        return rescue;
     }
 
     @Override
     public Rescue show(String id) {
-        Rescue rescue= (Rescue) rescueRepository.getById(id);
+        Rescue rescue = (Rescue) rescueRepository.getById(id);
         if (null == rescue) {
             throw new NoFoundException("没有找到救援id=[" + id + "]的记录");
         }
@@ -100,13 +113,13 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue updateStatus(EditRescueCommand command) {
-        Rescue rescue=this.show(command.getId());
+        Rescue rescue = this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());
-        if (rescue.getStatus().equals("WAIT_RESCUE")) {
-            rescue.setStatus(RescueStatus.WAIT_RESCUE);
-        } else if(rescue.getStatus().equals("IN_RESCUE")){
-            rescue.setStatus(RescueStatus.WAIT_RESCUE);
-        }else if(rescue.getStatus().equals("SUCCESS_RESCUE")){
+        if (rescue.getStatus().equals(RescueStatus.WAIT_RESCUE)) {
+            rescue.setStatus(RescueStatus.IN_RESCUE);
+        } else if (rescue.getStatus().equals(RescueStatus.IN_RESCUE)) {
+            rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
+        } else if (rescue.getStatus().equals(RescueStatus.SUCCESS_RESCUE)) {
             rescue.setStatus(RescueStatus.WAIT_RESCUE);
         }
         rescueRepository.update(rescue);
@@ -117,4 +130,28 @@ public class RescueService implements IRescueService {
     public Rescue searchByName(String rescueName) {
         return rescueRepository.getByName(rescueName);
     }
+
+    @Override
+    public Rescue apiUpdateRescue(EditRescueCommand command) {
+
+        Rescue rescue = this.show(command.getId());
+        Driver driver = driverService.show(command.getDriver());
+        rescue.setStatus(RescueStatus.IN_RESCUE);
+        rescue.setDriver(driver);
+        rescueRepository.update(rescue);
+
+        return rescue;
+    }
+
+    @Override
+    public Rescue apiCancelRescue(EditRescueCommand command) {
+
+        Rescue rescue = this.show(command.getId());
+        rescue.fainWhenConcurrencyViolation(command.getVersion());
+            rescue.setStatus(RescueStatus.CANCEL_RESCUE);
+            rescueRepository.update(rescue);
+        return rescue;
+    }
+
+
 }

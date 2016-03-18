@@ -39,7 +39,7 @@ public class CarService implements ICarService{
             criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
         }
         if (!CoreStringUtils.isEmpty(command.getDriver())) {
-            criteriaList.add(Restrictions.eq("driverId", command.getDriver()));
+            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
         if(!CoreStringUtils.isEmpty(command.getName())){
             criteriaList.add(Restrictions.like("carName",command.getName()));
@@ -52,19 +52,11 @@ public class CarService implements ICarService{
 
     @Override
     public Car edit(EditCarCommand command) {
-        List<Criterion> criteriaList = new ArrayList();
-
-        criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
-
-
-      Car car=this.searchByNumber(command.getCarNumber());
-        car.fainWhenConcurrencyViolation(command.getVersion());
-        if(!car.getCarNumber().equals(command.getCarNumber())){
-            throw new ExistException("车牌号为[" + command.getCarNumber() + "]的记录已存在");
-
+       Car car=this.show(command.getId());
+        Car car1=this.searchByNumber(command.getCarNumber());
+        if(null!=car1){
+            throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
         }
-//       Driver driver=driverService.show(command.getDriver();
-//        car.setDriver(driver);
         car.setCarNumber(command.getCarNumber());
         car.setName(command.getName());
         carRepository.update(car);
@@ -87,7 +79,7 @@ public class CarService implements ICarService{
 
     @Override
     public Car searchByDriver(String driver) {
-        return null;
+        return carRepository.getByDriver(driver);
     }
 
 
@@ -100,7 +92,6 @@ public class CarService implements ICarService{
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
 
         }
-
         Driver driver=driverService.show(command.getDriver());
         Car car2=new Car(command.getName(),command.getCarNumber(),driver);
         carRepository.save(car2);

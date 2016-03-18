@@ -8,8 +8,6 @@ public class EditEvaluateCommand {
     private String id;
     private Integer version;
 
-    private String evaluateUser;                     //评价人
-    private String order;                            //订单
     private String content;                          //评价内容
     private Integer level;                              //评级
 
@@ -27,22 +25,6 @@ public class EditEvaluateCommand {
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
-
-    public String getEvaluateUser() {
-        return evaluateUser;
-    }
-
-    public void setEvaluateUser(String evaluateUser) {
-        this.evaluateUser = evaluateUser;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
     }
 
     public String getContent() {
