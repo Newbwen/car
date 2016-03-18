@@ -1,6 +1,8 @@
 package pengyi.domain.service.rescue;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,7 @@ import pengyi.domain.service.user.BaseUserService;
 import pengyi.domain.service.user.driver.DriverService;
 import pengyi.repository.generic.Pagination;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -60,16 +60,20 @@ public class RescueService implements IRescueService {
 
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("applyUser.id", command.getApplyUser()));
+            criteriaList.add(Restrictions.like("a.userName", command.getApplyUser(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
+        if (!CoreStringUtils.isEmpty(command.getDriver())) {
+            criteriaList.add(Restrictions.like("d.userName", command.getDriver(), MatchMode.ANYWHERE));
         }
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
 
         }
-        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("applyUser", "a");
+        aliasMap.put("driver", "d");
+
+        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, null, null, null);
     }
 
     @Override

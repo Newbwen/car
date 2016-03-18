@@ -20,7 +20,7 @@
 
         <many-to-one name="driver" column="driver_id" class="pengyi.domain.model.user.driver.Driver" />
 
-        <property name="rescueTime" column="rescue_time" type="java.lang.String" length="19"/>
+        <property name="rescueTime" column="rescue_time" type="java.util.Date" length="19"/>
 
         <property name="status" column="status">
             <type name="org.hibernate.type.EnumType">
