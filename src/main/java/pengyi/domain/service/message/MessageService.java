@@ -82,13 +82,13 @@ public class MessageService implements IMessageService {
     @Override
     public Pagination<Message> pagination(ListMessageCommand command) {
 
-        List<Criterion> criterionList = new ArrayList<Criterion>();
+        List<Criterion> criterionList = new ArrayList();
 
-//        criterionList.add(Restrictions.eq("receiveBaseUser", user));
+        if (null != command.getShowType()) {
+            criterionList.add(Restrictions.eq("showType", command.getShowType()));
+        }
 
-        criterionList.add(Restrictions.eq("showType", command.getShowType()));
-
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList();
 
         orderList.add(Order.desc("sendDate"));
 

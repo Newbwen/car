@@ -16,7 +16,6 @@ import pengyi.application.role.IRoleAppService;
 import pengyi.core.exception.ConcurrencyException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
-import pengyi.interfaces.shared.web.JsonMessage;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -48,19 +47,6 @@ public class MessageController extends BaseController {
         return new ModelAndView("message/create", "command", command);
     }
 
-    public JsonMessage roleList() {
-        JsonMessage jsonMessage = new JsonMessage();
-        try {
-            jsonMessage.setData(roleAppService.roleList());
-            jsonMessage.setCode("0");
-            jsonMessage.setMessage("查询成功");
-        } catch (Exception e) {
-            jsonMessage.setData(null);
-            jsonMessage.setCode("1");
-            jsonMessage.setMessage("查询失败");
-        }
-        return jsonMessage;
-    }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageByRoleCommand command,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes,

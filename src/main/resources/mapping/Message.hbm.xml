@@ -14,9 +14,9 @@
 
         <many-to-one name="receiveBaseUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
 
-        <property name="sendDate" column="send_date" type="java.lang.String" length="19" />
+        <property name="sendDate" column="send_date" type="java.util.Date"/>
 
-        <property name="receiveDate" column="receive_date" type="java.lang.String" length="19" />
+        <property name="receiveDate" column="receive_date" type="java.util.Date"/>
 
         <property name="content" column="content" type="java.lang.String" />
 

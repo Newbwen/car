@@ -30,19 +30,13 @@ public class MessageAppService implements IMessageAppService {
 
     @Override//返回paginationList并将ListMessageCommand转换成MessageRepresentation
     @Transactional(readOnly = true)
-    public Pagination<MessageRepresentation> pagination(ListMessageCommand command) {
-
+    public Pagination<MessageRepresentation> pagination(ListMessageCommand command){
         command.verifyPage();
-
         command.verifyPageSize(20);
-
-        Pagination<Message> pagination = messageService.pagination(command);
-
-        List<MessageRepresentation> date = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
-
-        return new Pagination<MessageRepresentation>(date, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+        Pagination<Message> pagination=messageService.pagination(command);
+        List<MessageRepresentation> data=mappingService.mapAsList(pagination.getData(),MessageRepresentation.class);
+        return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
     }
-
     @Override//返回发送的信息
     @Transactional(readOnly = true)
     public void create(CreateMessageByRoleCommand command) {
