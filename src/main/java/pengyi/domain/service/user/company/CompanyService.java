@@ -5,12 +5,14 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
+import pengyi.core.exception.IllegalOperationException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
@@ -56,7 +58,7 @@ public class CompanyService implements ICompanyService {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
-        if(!CoreStringUtils.isEmpty(command.getName())){
+        if (!CoreStringUtils.isEmpty(command.getName())) {
             criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
         }
 
@@ -104,12 +106,13 @@ public class CompanyService implements ICompanyService {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());
 
-        Area registerAddress = areaService.show(command.getRegisterAddress());
-        Area operateAddress = areaService.show(command.getOperateAddress());
+//        Area registerAddress = areaService.show(command.getRegisterAddress());
+//        Area operateAddress = areaService.show(command.getOperateAddress());
 
+        company.setEmail(command.getEmail());
         company.setName(command.getName());
-        company.setRegisterAddress(registerAddress);
-        company.setOperateAddress(operateAddress);
+//        company.setRegisterAddress(registerAddress);
+//        company.setOperateAddress(operateAddress);
 
         companyRepository.update(company);
         return company;
@@ -145,6 +148,24 @@ public class CompanyService implements ICompanyService {
                 CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, null, new BigDecimal(0), 0.0);
 
         companyRepository.save(company);
+
+        return company;
+    }
+
+    @Override
+    public Company apiUpdatePassword(UpdatePasswordCommand command) {
+        Company company = this.show(command.getId());
+        company.fainWhenConcurrencyViolation(command.getVersion());
+
+        if (!PasswordHelper.equalsPassword(company, command.getOldPassword())) {
+            throw new IllegalOperationException("旧密码错误");
+        }
+
+        String password = PasswordHelper.encryptPassword(command.getNewPassword(), company.getCredentialsSalt());
+
+        company.setPassword(password);
+
+        companyRepository.update(company);
 
         return company;
     }

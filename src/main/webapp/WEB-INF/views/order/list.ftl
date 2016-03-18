@@ -25,15 +25,15 @@
                             <div id="sample-table-2_length" class="dataTables_length">
                                 <label>订单号<input type="text" value="${command.orderNumber!}" name="orderNumber" /></label>
                                 <label>订单状态
-                                    <select name="status">
+                                    <select name="orderStatus">
                                         [#assign status = (command.orderStatus!)?default("") /]
                                         <option value="">全部</option>
-                                        <option value="WAIT_ORDER" [@mc.selected status "WAIT_ORDER"/]>启用</option>
-                                        <option value="HAS_ORDER" [@mc.selected status "HAS_ORDER"/]>禁用</option>
-                                        <option value="START_ORDER" [@mc.selected status "START_ORDER"/]>启用</option>
-                                        <option value="WAIT_PAY" [@mc.selected status "WAIT_PAY"/]>禁用</option>
-                                        <option value="SUCCESS" [@mc.selected status "SUCCESS"/]>启用</option>
-                                        <option value="INVALID" [@mc.selected status "INVALID"/]>禁用</option>
+                                        <option value="WAIT_ORDER" [@mc.selected status "WAIT_ORDER"/]>待接单</option>
+                                        <option value="HAS_ORDER" [@mc.selected status "HAS_ORDER"/]>已接单</option>
+                                        <option value="START_ORDER" [@mc.selected status "START_ORDER"/]>已开始</option>
+                                        <option value="WAIT_PAY" [@mc.selected status "WAIT_PAY"/]>待支付</option>
+                                        <option value="SUCCESS" [@mc.selected status "SUCCESS"/]>完成</option>
+                                        <option value="INVALID" [@mc.selected status "INVALID"/]>作废</option>
                                     </select>
                                 </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>

@@ -20,7 +20,9 @@ public enum ResponseMessage {
     ERROR_10012(10012, "status字段不能为空"),
     ERROR_10013(10013, "email字段不能为空"),
     ERROR_10014(10014, "registerDate字段不能为空"),
-    ERROR_10015(10015, "registerDate字段格式错误(yyyy-MM-dd hh:mm:ss)");
+    ERROR_10015(10015, "registerDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
+    ERROR_10016(10016, "oldPassword字段不能为空"),
+    ERROR_10017(10017, "newPassword字段不能为空");
 
 
     private int code;
