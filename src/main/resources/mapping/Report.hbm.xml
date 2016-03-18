@@ -14,11 +14,11 @@
 
         <many-to-one name="order" column="order_id" class="pengyi.domain.model.order.Order" fetch="join"/>
 
-        <property name="reportTime" column="report_time" type="java.lang.String" length="19"/>
+        <property name="reportTime" column="report_time" type="java.util.Date"/>
 
-        <property name="startDealTime" column="start_deal_time" type="java.lang.String" length="19"/>
+        <property name="startDealTime" column="start_deal_time" type="java.util.Date"/>
 
-        <property name="endDealTime" column="end_deal_time" type="java.lang.String" length="19"/>
+        <property name="endDealTime" column="end_deal_time" type="java.util.Date"/>
 
         <property name="description" column="description" type="java.lang.String"/>
 
@@ -28,7 +28,7 @@
                 <param name="type">4</param>
             </type>
         </property>
-        <property name="handleResult" column="handle_result" type="java.lang.String"></property>
+        <property name="handleResult" column="handle_result" type="java.lang.String"/>
 
     </class>
 
