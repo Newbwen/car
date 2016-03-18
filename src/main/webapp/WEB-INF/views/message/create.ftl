@@ -38,7 +38,7 @@
                     <select class="col-xs-10 col-sm-5" id="user-role" name="userRole" data-id="${command.userRole!}"
                             required>
                         [#list roles as role]
-                            <option value='${role.id}' [#if command.userRole==role.id]selected[/#if]>"+${role.roleName}+"</option>
+                            <option value='${role.id}' [#if command.userRole==role.id]selected[/#if]>${role.roleName}</option>
                         [/#list]
                     </select>
                     [@spring.showErrors "userRole"/]
