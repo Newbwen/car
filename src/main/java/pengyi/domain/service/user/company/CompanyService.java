@@ -5,13 +5,16 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.role.Role;
@@ -40,11 +43,21 @@ public class CompanyService implements ICompanyService {
     @Autowired
     private IAreaService areaService;
 
+    @Autowired
+    private IBaseUserService baseUserService;
+
+    @Autowired
+    private IRoleService roleService;
+
     @Override
     public Pagination<Company> pagination(BaseListCompanyCommand command) {
         List<Criterion> criteriaList = new ArrayList();
         if (!CoreStringUtils.isEmpty(command.getUserName())) {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
+        }
+
+        if(!CoreStringUtils.isEmpty(command.getName())){
+            criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
         }
 
         if (null != command.getStatus()) {
@@ -58,13 +71,13 @@ public class CompanyService implements ICompanyService {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());
 
-        Area registerAddress = areaService.show(command.getRegisterAddress());
-        Area operateAddress = areaService.show(command.getOperateAddress());
+//        Area registerAddress = areaService.show(command.getRegisterAddress());
+//        Area operateAddress = areaService.show(command.getOperateAddress());
 
         company.setEmail(command.getEmail());
         company.setName(command.getName());
-        company.setRegisterAddress(registerAddress);
-        company.setOperateAddress(operateAddress);
+//        company.setRegisterAddress(registerAddress);
+//        company.setOperateAddress(operateAddress);
 
         companyRepository.update(company);
 
@@ -109,5 +122,30 @@ public class CompanyService implements ICompanyService {
         company.setFolder(command.getFolder());
 
         companyRepository.update(company);
+    }
+
+    @Override
+    public Company apiCreate(CreateCompanyCommand command) {
+        BaseUser baseUser = baseUserService.searchByUserName(command.getUserName());
+        if (null != baseUser) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+
+        Area registerAddress = areaService.show(command.getRegisterAddress());
+        Area operateAddress = areaService.show(command.getOperateAddress());
+
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), salt + command.getUserName());
+
+
+        Role role = roleService.searchByName("company");
+
+        Company company = new Company(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(),
+                role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
+                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, new BigDecimal(0), 0.0);
+
+        companyRepository.save(company);
+
+        return company;
     }
 }

@@ -10,7 +10,7 @@
 
         <version name="version" type="java.lang.Integer" column="version"/>
 
-        <property name="userName" column="user_name" type="java.lang.String" length="11"/>
+        <property name="userName" column="user_name" type="java.lang.String"/>
 
         <property name="password" column="password" type="java.lang.String"/>
 

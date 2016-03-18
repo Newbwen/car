@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/list")
     public ModelAndView list(BaseListUserCommand command) {
-        return new ModelAndView("/user/user/list", "command", command)
+        return new ModelAndView("/baseuser/user/list", "command", command)
                 .addObject("pagination", userAppService.pagination(command));
     }
 
@@ -53,7 +53,7 @@ public class UserController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/user/list");
         }
-        return new ModelAndView("/user/user/show", "user", user);
+        return new ModelAndView("/baseuser/user/show", "user", user);
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -73,14 +73,14 @@ public class UserController extends BaseController {
             return new ModelAndView("redirect:/user/list");
         }
 
-        return new ModelAndView("/user/user/edit", "command", command).addObject("user", user);
+        return new ModelAndView("/baseuser/user/edit", "command", command).addObject("user", user);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditUserCommand command, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/user/edit", "command", command);
+            return new ModelAndView("/baseuser/user/edit", "command", command);
         }
 
         AlertMessage alertMessage;
@@ -98,7 +98,7 @@ public class UserController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/user/edit", "command", command)
+            return new ModelAndView("/baseuser/user/edit", "command", command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 

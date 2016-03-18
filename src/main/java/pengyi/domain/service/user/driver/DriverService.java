@@ -53,6 +53,10 @@ public class DriverService implements IDriverService {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
+        if(!CoreStringUtils.isEmpty(command.getName())){
+            criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
+        }
+
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
@@ -64,15 +68,15 @@ public class DriverService implements IDriverService {
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
-        Company company = companyService.show(command.getCompany());
+//        Company company = companyService.show(command.getCompany());
 
         driver.setEmail(command.getEmail());
         driver.setName(command.getName());
-        driver.setHead(command.getHead());
-        driver.setCompany(company);
+//        driver.setHead(command.getHead());
+//        driver.setCompany(company);
         driver.setSex(command.getSex());
-        driver.setLevel(command.getLevel());
-        driver.setReportCount(command.getReportCount());
+//        driver.setLevel(command.getLevel());
+//        driver.setReportCount(command.getReportCount());
         driver.setDriverType(command.getDriverType());
 
         driverRepository.update(driver);

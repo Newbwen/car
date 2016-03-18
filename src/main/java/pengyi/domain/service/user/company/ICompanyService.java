@@ -1,6 +1,7 @@
 package pengyi.domain.service.user.company;
 
 import pengyi.application.user.company.command.BaseListCompanyCommand;
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.domain.model.user.company.Company;
@@ -24,4 +25,6 @@ public interface ICompanyService {
     Company apiEdit(EditCompanyCommand command);
 
     void apiUpdateFolder(UpdateFolderCommand command);
+
+    Company apiCreate(CreateCompanyCommand command);
 }

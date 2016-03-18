@@ -41,6 +41,10 @@ public class TerraceService implements ITerraceService {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
+        if(!CoreStringUtils.isEmpty(command.getName())){
+            criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
+        }
+
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }

@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class Terrace extends BaseUser {
 
-    private String name;                        //用户名
+    private String name;                        //别名
 
     public String getName() {
         return name;

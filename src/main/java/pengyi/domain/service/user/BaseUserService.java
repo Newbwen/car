@@ -125,7 +125,7 @@ public class BaseUserService implements IBaseUserService {
                     role, command.getEmail(), command.getUserType());
             return companyService.create(company);
         } else if (role.getRoleName().equals("terrace")) {
-            command.setUserType(UserType.TERRACR);
+            command.setUserType(UserType.TERRACE);
             Terrace terrace = new Terrace(command.getUserName(), password, salt, command.getStatus(), new BigDecimal(0), new Date(),
                     role, command.getEmail(), command.getUserType());
             return terraceService.create(terrace);
