@@ -99,7 +99,7 @@ public class AreaController extends BaseController {
             return new ModelAndView("redirect:/area/list");
         }
 
-        return new ModelAndView("/area/edit", "area", command).addObject("command", command);
+        return new ModelAndView("/area/edit", "area", area).addObject("command", command);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
