@@ -82,5 +82,53 @@
             <zhuyi>carType(ECONMY(</zhuyi>
             <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
+            <name>(公司)查看救援列表</name>
+            <address>/rescue/api/edit/all_list</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>c3a16c32-1fda-466c-9391-681fc1f38896</id>
+            <name>(公司)处理救援</name>
+            <address>/rescue/api/edit/deal</address>
+            <shuoming>id,version,applyUser,type,description,driver,status</shuoming>
+            <zhuyi>status(WAIT_RESCUE(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>9794384e-bbb2-4ebf-ac35-8052e365b3f8</id>
+            <name>(司机用户)取消救援</name>
+            <address>/rescue/api/edit</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>128c0b90-e75c-4ace-9171-e2b5de9f793e</id>
+            <name>无</name>
+            <address>无</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>70719cbc-0a34-41d4-b21d-9a97f84a46e0</id>
+            <name>(司机和用户)发起评价</name>
+            <address>/evaluate/api/sponsor</address>
+            <shuoming>evaluateUser,order,content,level,createDate</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>824fa5ea-3c3a-490d-a929-a97018af494c</id>
+            <name>无</name>
+            <address>无</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
     </apis>
 </apifile>
