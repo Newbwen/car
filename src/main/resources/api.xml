@@ -7,9 +7,9 @@
             <id>34b1f61e-8139-4111-822b-9186d953dc6c</id>
             <name>用户注册</name>
             <address>api/app/user/register</address>
-            <shuoming>userName(用户名,手机号),password(密码)</shuoming>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
             <zhuyi>参数不能为空</zhuyi>
-            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{</fanhuixinxi>
         </api>
         <api>
             <id>74d9d5e8-a335-4e37-897b-1f5e3a5338ce</id>
@@ -55,9 +55,9 @@
             <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
             <name>司机注册</name>
             <address>api/app/driver/register</address>
-            <shuoming>userName(用户名,手机号),password(密码)</shuoming>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
             <zhuyi>参数不能为空</zhuyi>
-            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{</fanhuixinxi>
         </api>
         <api>
             <id>f93ea398-c30a-46f5-b1a7-c80ec76ea5f1</id>
@@ -82,6 +82,30 @@
             <shuoming>司机必须登录,headPic(头像)</shuoming>
             <zhuyi>司机必须登录,参数不能为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>fc54cbe9-3b34-45ec-95da-d7976d18923d</id>
+            <name>注册短信验证码</name>
+            <address>/api/app/sms/send_register</address>
+            <shuoming>phone(手机号)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7299,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>97862409-c678-4208-b64d-23700a450dd4</id>
+            <name>重置密码短信验证码</name>
+            <address>api/app/sms/send_reset_password</address>
+            <shuoming>phone(手机号)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":26,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>eaa74986-df71-47bd-8c2b-0fca84e50238</id>
+            <name>重置密码</name>
+            <address>api/app/reset_password</address>
+            <shuoming>userName(用户名),password(密码),verificationCode(验证码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":713,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>

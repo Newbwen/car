@@ -7,6 +7,7 @@ public class RegisterDriverCommand {
 
     private String userName;
     private String password;
+    private String verificationCode;
 
     public String getUserName() {
         return userName;
@@ -22,5 +23,13 @@ public class RegisterDriverCommand {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

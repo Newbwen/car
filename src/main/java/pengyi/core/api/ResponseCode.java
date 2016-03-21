@@ -16,7 +16,9 @@ public enum ResponseCode {
     RESPONSE_CODE_LOCK_ACCOUNT(90005, "账户被禁用"),
     RESPONSE_CODE_NOT_LOGIN(90006,"未登录"),
     RESPONSE_CODE_VERIFICATION_CODE_NOT_OVERDUE(90007,"验证码未过期"),
-    RESPONSE_CODE_ACCOUNT_EXIST(90008,"电话号码已被注册");
+    RESPONSE_CODE_ACCOUNT_EXIST(90008,"电话号码已被注册"),
+    RESPONSE_CODE_VERIFICATION_CODE_ERROR(90009,"验证码错误"),
+    RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND(90010,"未发送验证码");
 
     private int code;
     private String message;
