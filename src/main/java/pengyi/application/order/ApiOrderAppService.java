@@ -31,6 +31,7 @@ public class ApiOrderAppService implements IApiOrderAppService {
     private IMappingService mappingService;
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse companyOrderList(CompanyOrderListCommand command) {
         if (null != command) {
             if (!CoreStringUtils.isEmpty(command.getCompany())) {
