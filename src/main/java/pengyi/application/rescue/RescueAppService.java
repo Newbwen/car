@@ -51,7 +51,6 @@ public class RescueAppService implements IRescueAppService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public RescueRepresentation create(CreateRescueCommand command) {
         return mappingService.map(rescueService.create(command),RescueRepresentation.class,false);
     }

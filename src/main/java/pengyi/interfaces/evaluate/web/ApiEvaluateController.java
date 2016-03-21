@@ -48,7 +48,7 @@ public class ApiEvaluateController {
     /**
      * (司机和用户)查看评价
      */
-    @RequestMapping()
+    @RequestMapping("/examine")
     @ResponseBody
     public BaseResponse examine(String order) {
         long startTime = System.currentTimeMillis();
