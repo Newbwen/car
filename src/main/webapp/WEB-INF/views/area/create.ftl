@@ -35,36 +35,20 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 区域优先级* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="form-field-password" name="password" value="${command.priority!}"
-                           placeholder="密码" class="col-xs-10 col-sm-5" required/>
+                    <input type="text" id="form-field-password" name="priority" value="${command.priority!}"
+                           placeholder="区域优先级" class="col-xs-10 col-sm-5" required/>
                     [@spring.showErrors "priority"/]
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 父级区域* </label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 上级区域* </label>
 
-                <div class="col-sm-9">
-                    <select class="col-xs-1" id="area">
-                        <option>123123</option>
-                        <option>123123</option>
-                        <option>123123</option>
-                    </select>
-                    <select class="col-xs-1">
-                        <option>123123</option>
-                        <option>123123</option>
-                        <option>123123</option>
-                    </select>
-                    <select class="col-xs-1">
-                        <option>123123</option>
-                        <option>123123</option>
-                        <option>123123</option>
-                    </select>
-                    <select class="col-xs-1">
-                        <option>123123</option>
-                        <option>123123</option>
-                        <option>123123</option>
-                    </select>
+                <div class="col-sm-4">
+                    <div class="area_box">
+                        <select class="col-xs-3 area_data">
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -90,7 +74,7 @@
     [@super /]
 <script src="[@spring.url '/resources/assets/app/js/area.js'/]"></script>
 <script>
-    $("#area").areaCascade();
+    $(".area_box").areaCascade("parent");
 </script>
 [/@override]
 
