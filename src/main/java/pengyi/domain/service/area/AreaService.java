@@ -37,7 +37,7 @@ public class AreaService implements IAreaService {
         }
 
         List<Order> orderList = new ArrayList<Order>();
-        orderList.add(Order.desc("priority"));
+        orderList.add(Order.asc("priority"));
 
         return areaRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
     }
@@ -81,6 +81,20 @@ public class AreaService implements IAreaService {
             throw new NoFoundException("没有找到区域id=[" + id + "]的记录");
         }
         return area;
+    }
+
+    @Override
+    public List<Area> searchByParent(String parentId) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        if (!CoreStringUtils.isEmpty(parentId)) {
+            criterionList.add(Restrictions.eq("parent.id", parentId));
+        } else {
+            criterionList.add(Restrictions.isNull("parent"));
+        }
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("priority"));
+        return areaRepository.list(criterionList, orderList);
     }
 
     @Override
