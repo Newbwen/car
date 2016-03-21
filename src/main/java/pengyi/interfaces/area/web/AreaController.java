@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.area.IAreaAppService;
@@ -20,8 +17,10 @@ import pengyi.core.exception.ConcurrencyException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
+import pengyi.interfaces.shared.web.JsonMessage;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -39,7 +38,8 @@ public class AreaController extends BaseController {
 
     @RequestMapping(value = "/list")
     public ModelAndView pagination(ListAreaCommand command) {
-        return new ModelAndView("/area/list", "pagination", areaAppService.pagination(command));
+        return new ModelAndView("/area/list", "pagination", areaAppService.pagination(command))
+                .addObject("command", command);
     }
 
     @RequestMapping(value = "/show/{id}")
@@ -119,7 +119,7 @@ public class AreaController extends BaseController {
             redirectAttributes.addAttribute("id", command.getId());
 
             return new ModelAndView("redirect:/area/edit/{id}");
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             return new ModelAndView("/area/edit", "command", command)
@@ -131,6 +131,24 @@ public class AreaController extends BaseController {
         redirectAttributes.addAttribute("id", area.getId());
 
         return new ModelAndView("redirect:/area/show/{id}");
+    }
+
+    @RequestMapping(value = "/search_by_parent")
+    @ResponseBody
+    public JsonMessage searchByParent(String parentId) {
+        JsonMessage jsonMessage = new JsonMessage();
+        try {
+            List<AreaRepresentation> data = areaAppService.searchByParent(parentId);
+            jsonMessage.setData(data);
+            jsonMessage.setMessage("请求成功");
+            jsonMessage.setCode("0");
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            jsonMessage.setData(null);
+            jsonMessage.setCode("1");
+            jsonMessage.setMessage("请求失败");
+        }
+        return jsonMessage;
     }
 
 }

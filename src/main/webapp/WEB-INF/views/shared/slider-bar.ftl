@@ -307,13 +307,13 @@
 
                     <ul class="submenu">
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/area/list'/]">
                                 <i class="icon-calendar"></i>
                                 区域列表
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="[@spring.url '/area/create'/]">
                                 <i class="icon-pencil"></i>
                                 区域创建
                             </a>
