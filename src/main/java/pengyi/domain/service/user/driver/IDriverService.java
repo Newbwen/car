@@ -1,5 +1,6 @@
 package pengyi.domain.service.user.driver;
 
+import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.driver.command.*;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.BaseUser;
@@ -36,4 +37,10 @@ public interface IDriverService {
     Driver apiCompanyCreateDriver(CreateDriverCommand command);
 
     Driver apiCompanyExpelDriver(EditStatusCommand command);
+
+    Driver apiRegister(RegisterDriverCommand command);
+
+    Driver apiEdit(EditDriverCommand command);
+
+    Driver apiUpdateHeadPic(UpdateHeadPicCommand command);
 }

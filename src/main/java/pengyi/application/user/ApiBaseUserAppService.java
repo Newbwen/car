@@ -4,8 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.IBaseUserService;
 
@@ -31,4 +36,6 @@ public class ApiBaseUserAppService implements IApiBaseUserAppService {
         }
         return null;
     }
+
+
 }

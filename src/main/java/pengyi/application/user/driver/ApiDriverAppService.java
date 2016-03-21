@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.user.driver.command.CompanyAuditingDriverCommand;
-import pengyi.application.user.driver.command.CompanyDriverEditCommand;
-import pengyi.application.user.driver.command.CompanyDriverListCommand;
-import pengyi.application.user.driver.command.CreateDriverCommand;
+import pengyi.application.user.command.UpdateHeadPicCommand;
+import pengyi.application.user.driver.command.*;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -155,6 +153,69 @@ public class ApiDriverAppService implements IApiDriverAppService {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
             driverService.apiCompanyExpelDriver(command);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse register(RegisterDriverCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getUserName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getPassword())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10011.getMessage());
+            }
+            DriverRepresentation driver = mappingService.map(driverService.apiRegister(command), DriverRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse show(String userId) {
+        if (CoreStringUtils.isEmpty(userId)) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+        }
+        DriverRepresentation data = mappingService.map(driverService.show(userId), DriverRepresentation.class, false);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
+    public BaseResponse edit(EditDriverCommand command) {
+        if (null != command) {
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getEmail())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10013.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
+            }
+            if (null == command.getSex()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10007.getMessage());
+            }
+            if (null == command.getDriverType()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());
+            }
+            DriverRepresentation driver = mappingService.map(driverService.apiEdit(command), DriverRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse updateHeadPic(UpdateHeadPicCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getHeadPic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10018.getMessage());
+            }
+            DriverRepresentation driver = mappingService.map(driverService.apiUpdateHeadPic(command), DriverRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
