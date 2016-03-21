@@ -22,7 +22,9 @@ public interface IAreaService {
 
     Area show(String id);
 
+    List<Area> searchByParent(String parentId);
 
     /***********Api 方法 **************/
     List<Area> apiSearchAreaList(SearchAreaListCommand command);
+
 }

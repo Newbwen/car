@@ -32,7 +32,7 @@ public class AreaAppService implements IAreaAppService {
     @Transactional(readOnly = true)
     public Pagination<AreaRepresentation> pagination(ListAreaCommand command) {
         command.verifyPage();
-        command.verifyPageSize(20);
+        command.verifyPageSize(12);
         Pagination<Area> pagination = areaService.pagination(command);
         List<AreaRepresentation> data = mappingService.mapAsList(pagination.getData(), AreaRepresentation.class);
         return new Pagination<AreaRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
@@ -52,6 +52,12 @@ public class AreaAppService implements IAreaAppService {
     @Override
     public AreaRepresentation edit(EditAreaCommand command) {
         return mappingService.map(areaService.edit(command), AreaRepresentation.class, false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AreaRepresentation> searchByParent(String parentId) {
+        return mappingService.mapAsList(areaService.searchByParent(parentId), AreaRepresentation.class);
     }
 
 }

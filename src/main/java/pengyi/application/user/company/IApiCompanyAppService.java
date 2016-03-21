@@ -4,7 +4,6 @@ import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
-import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.api.BaseResponse;
 
 /**
