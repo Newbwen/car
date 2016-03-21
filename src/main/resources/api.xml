@@ -60,7 +60,7 @@
         </api>
         <api>
             <id>c7025051-aae8-4bdd-b6be-029e28da3aef</id>
-            <name>无</name>
+            <name>司机查看车辆信息</name>
             <address>/car/api/check</address>
             <shuoming>driver(司机id)</shuoming>
             <zhuyi>无</zhuyi>
@@ -68,11 +68,19 @@
         </api>
         <api>
             <id>08d93b00-056a-436b-86aa-7da1216c07c3</id>
-            <name>无</name>
-            <address>无</address>
-            <shuoming>无</shuoming>
-            <zhuyi>无</zhuyi>
-            <fanhuixinxi>无</fanhuixinxi>
+            <name>(司机)创建车辆信息</name>
+            <address>/car/api/create</address>
+            <shuoming>name(车名),carNumber(车牌号),driver(司机id),carType(类型),</shuoming>
+            <zhuyi>carType(ECONMY(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>f12f1a86-e949-4ee8-90ab-25393e69f83a</id>
+            <name>(司机)修改车信息</name>
+            <address>/car/api/edit</address>
+            <shuoming>id,version,name,carNumber,carType()</shuoming>
+            <zhuyi>carType(ECONMY(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>
