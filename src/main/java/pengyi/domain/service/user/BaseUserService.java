@@ -156,7 +156,7 @@ public class BaseUserService implements IBaseUserService {
 
         criterionList.add(Restrictions.eq("userRole.id",roleId));
 
-        return null;
+        return baseUserRepository.list(criterionList, null);
     }
 
     @Override

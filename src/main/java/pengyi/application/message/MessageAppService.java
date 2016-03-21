@@ -39,10 +39,9 @@ public class MessageAppService implements IMessageAppService {
         return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
     }
     @Override//返回发送的信息
-    @Transactional(readOnly = true)
-    public void create(CreateMessageByRoleCommand command) {
+    public MessageRepresentation create(CreateMessageByRoleCommand command) {
 
-        messageService.create(command);
+        return mappingService.map(messageService.create(command), MessageRepresentation.class, false);
     }
 
     @Override//根据id显示数据
@@ -53,13 +52,11 @@ public class MessageAppService implements IMessageAppService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public MessageRepresentation delete(String messageId) {
         return mappingService.map(messageService.delete(messageId),MessageRepresentation.class,false);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command) {
         return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
     }

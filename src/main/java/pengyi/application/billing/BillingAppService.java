@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by YJH on 2016/3/21.
  */
-@Service("billingService")
+@Service("billingAppService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 public class BillingAppService implements IBillingAppService {
 

@@ -53,7 +53,7 @@ public class MessageService implements IMessageService {
     @Override
     //发送给角色
     /*添加的时候将发送时间设置为当前时间，接收时间为Null*/
-    public void create(CreateMessageByRoleCommand command) {
+    public Message create(CreateMessageByRoleCommand command) {
         //从service中获取用户
         BaseUser sendUser = baseUserService.show(command.getSendBaseUser());
 
@@ -65,8 +65,10 @@ public class MessageService implements IMessageService {
         for (BaseUser item : baseUsers) {
             Message message = new Message(sendUser, item, new Date(), null, command.getContent(), command.getType(), ShowType.SHOW);
             messageRepository.save(message);
+            return message;
         }
 
+        return null;
 //        Message message = new Message(sendUser, receiveUser, new Date(), null, command.getContent(), command.getType(),ShowType.SHOW);
 
 

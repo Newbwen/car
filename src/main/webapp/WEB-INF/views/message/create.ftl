@@ -23,7 +23,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 信息内容* </label>
 
                 <div class="col-sm-9">
-                    <textarea id="content" name="command.content" class="col-xs-10 col-sm-5" style="height: 200px;"
+                    <textarea id="content" name="content" class="col-xs-10 col-sm-5" style="height: 200px;"
                               maxlength="500" placeholder="在此编辑信息"></textarea>
                     [@spring.showErrors "content"/]
                 </div>

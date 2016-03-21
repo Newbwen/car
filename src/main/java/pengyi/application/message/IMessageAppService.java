@@ -14,7 +14,7 @@ public interface IMessageAppService {
 
     Pagination<MessageRepresentation> pagination(ListMessageCommand command);
 
-    void create(CreateMessageByRoleCommand command);
+    MessageRepresentation create(CreateMessageByRoleCommand command);
 
     MessageRepresentation show(String id);
 

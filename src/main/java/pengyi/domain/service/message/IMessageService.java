@@ -11,7 +11,7 @@ public interface IMessageService {
 
     Message show(String messageId);
 
-    void create(CreateMessageByRoleCommand command);
+    Message create(CreateMessageByRoleCommand command);
 
     Message createByBaseUser(CreateMessageByBaseUserCommand command);
 
