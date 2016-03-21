@@ -10,7 +10,7 @@
 
         <version name="version" type="java.lang.Integer" column="version"/>
 
-        <property name="userName" column="user_name" type="java.lang.String" length="11"/>
+        <property name="userName" column="user_name" type="java.lang.String"/>
 
         <property name="password" column="password" type="java.lang.String"/>
 
@@ -25,7 +25,7 @@
 
         <property name="balance" column="balance" type="java.math.BigDecimal" scale="2"/>
 
-        <property name="createDate" column="create_date" type="java.util.Date" length="19"/>
+        <property name="createDate" column="create_date" type="java.util.Date"/>
 
         <many-to-one name="userRole" column="role_id" class="pengyi.domain.model.role.Role" cascade="none"
                      fetch="join"/>

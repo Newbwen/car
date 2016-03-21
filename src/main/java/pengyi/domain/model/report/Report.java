@@ -11,6 +11,7 @@ import java.util.Date;
  * 举报
  * Created by pengyi on 2016/3/4.
  * update by liubowen on 2016/3/7 添加开始处理时间，处理完成时间，举报时间
+ * update by liubowen on 2016/3/16 添加处理结果。
  */
 public class Report extends Identity {
 
@@ -21,6 +22,7 @@ public class Report extends Identity {
     private Date endDealTime;                 //处理完成时间
     private String description;                 //说明
     private ReportStatus status;                  //状态（待处理、处理中、处理完成）
+    private String handleResult;                   //处理结果
 
     public BaseUser getReportUser() {
         return reportUser;
@@ -78,11 +80,19 @@ public class Report extends Identity {
         this.status = status;
     }
 
+    public String getHandleResult() {
+        return handleResult;
+    }
+
+    public void setHandleResult(String handleResult) {
+        this.handleResult = handleResult;
+    }
+
     public Report() {
         super();
     }
 
-    public Report(BaseUser reportUser, Order order, Date reportTime, Date startDealTime, Date endDealTime, String description, ReportStatus status) {
+    public Report(BaseUser reportUser, Order order, Date reportTime, Date startDealTime, Date endDealTime, String description, ReportStatus status,String handleResult) {
         this.reportUser = reportUser;
         this.order = order;
         this.reportTime = reportTime;
@@ -90,5 +100,6 @@ public class Report extends Identity {
         this.endDealTime = endDealTime;
         this.description = description;
         this.status = status;
+        this.handleResult=handleResult;
     }
 }

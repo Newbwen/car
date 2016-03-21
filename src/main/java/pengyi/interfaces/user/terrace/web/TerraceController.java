@@ -37,7 +37,7 @@ public class TerraceController extends BaseController {
 
     @RequestMapping(value = "/list")
     public ModelAndView list(BaseListTerraceCommand command) {
-        return new ModelAndView("/user/terrace/list", "command", command)
+        return new ModelAndView("/baseuser/terrace/list", "command", command)
                 .addObject("pagination", terraceAppService.pagination(command));
     }
 
@@ -53,7 +53,7 @@ public class TerraceController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/user/terrace/list");
         }
-        return new ModelAndView("/user/terrace/show", "terrace", terrace);
+        return new ModelAndView("/baseuser/terrace/show", "terrace", terrace);
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -73,14 +73,14 @@ public class TerraceController extends BaseController {
             return new ModelAndView("redirect:/user/terrace/list");
         }
 
-        return new ModelAndView("/user/terrace/edit", "command", command).addObject("terrace", terrace);
+        return new ModelAndView("/baseuser/terrace/edit", "command", command).addObject("terrace", terrace);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditTerraceCommand command, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/terrace/edit", "command", command);
+            return new ModelAndView("/baseuser/terrace/edit", "command", command);
         }
 
         AlertMessage alertMessage;
@@ -98,7 +98,7 @@ public class TerraceController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/terrace/edit", "command", command)
+            return new ModelAndView("/baseuser/terrace/edit", "command", command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 

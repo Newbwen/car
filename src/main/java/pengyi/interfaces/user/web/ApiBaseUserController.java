@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.user.IApiBaseUserAppService;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
@@ -24,7 +25,8 @@ public class ApiBaseUserController {
     private IApiBaseUserAppService apiBaseUserAppService;
 
     @RequestMapping(value = "/search_by_user_name")
-    public BaseResponse searchByUserName(@PathVariable String userName) {
+    @ResponseBody
+    public BaseResponse searchByUserName(String userName) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {

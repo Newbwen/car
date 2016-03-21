@@ -9,6 +9,15 @@ public class EditReportCommand {
     private String id;
     private Integer version;
     private String status;                  //状态（待处理、处理中、处理完成）
+    private String handleResult;                   //处理结果
+
+    public String getHandleResult() {
+        return handleResult;
+    }
+
+    public void setHandleResult(String handleResult) {
+        this.handleResult = handleResult;
+    }
 
     public String getId() {
         return id;

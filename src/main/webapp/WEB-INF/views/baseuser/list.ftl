@@ -23,7 +23,7 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>用户名<input type="text" value="${command.userName!}" name="roleName" /></label>
+                                <label>用户名<input type="text" value="${command.userName!}" name="userName" /></label>
                                 <label>用户状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -99,7 +99,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/role/list?roleName=${command.roleName!}&status=${command.status!}' /]
+                    [@mc.showPagination '/role/list?userName=${command.userName!}&status=${command.status!}' /]
                 [/#if]
 
             </div>

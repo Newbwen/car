@@ -38,7 +38,7 @@ public class CompanyController extends BaseController {
 
     @RequestMapping(value = "/list")
     public ModelAndView list(BaseListCompanyCommand command) {
-        return new ModelAndView("/user/company/list", "command", command)
+        return new ModelAndView("/baseuser/company/list", "command", command)
                 .addObject("pagination", companyAppService.pagination(command));
     }
 
@@ -54,7 +54,7 @@ public class CompanyController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/user/company/list");
         }
-        return new ModelAndView("/user/company/show", "company", company);
+        return new ModelAndView("/baseuser/company/show", "company", company);
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -74,14 +74,14 @@ public class CompanyController extends BaseController {
             return new ModelAndView("redirect:/user/company/list");
         }
 
-        return new ModelAndView("/user/company/edit", "command", command).addObject("company", company);
+        return new ModelAndView("/baseuser/company/edit", "command", command).addObject("company", company);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditCompanyCommand command, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/user/company/edit", "command", command);
+            return new ModelAndView("/baseuser/company/edit", "command", command);
         }
 
         AlertMessage alertMessage;
@@ -99,7 +99,7 @@ public class CompanyController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/user/company/edit", "command", command)
+            return new ModelAndView("/baseuser/company/edit", "command", command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 

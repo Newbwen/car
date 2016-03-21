@@ -43,7 +43,7 @@ public class ReportService implements IReportService {
 
         Order order = orderService.show(command.getOrder());
 
-        Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING);
+        Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING,null);
 
         return report;
     }
@@ -56,11 +56,13 @@ public class ReportService implements IReportService {
         Report report = this.getById(command.getId());
 
         report.fainWhenConcurrencyViolation(command.getVersion());
+
         /* PENDING("待处理",1,Boolean.FALSE),
         IN_PROCESS("正在处理",2,Boolean.FALSE),
         FIGURE_OUT("处理完成",3,Boolean.FALSE);*/
         if (report.getStatus().equals("PENDING")) {
             report.setStatus(ReportStatus.IN_PROCESS);
+            report.setHandleResult(command.getHandleResult());
         } else if (report.getStatus().equals("IN_PROCESS")) {
             report.setStatus(ReportStatus.FIGURE_OUT);
         }

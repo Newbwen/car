@@ -1,5 +1,6 @@
 package pengyi.domain.service.user.company;
 
+import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
@@ -27,4 +28,6 @@ public interface ICompanyService {
     void apiUpdateFolder(UpdateFolderCommand command);
 
     Company apiCreate(CreateCompanyCommand command);
+
+    Company apiUpdatePassword(UpdatePasswordCommand command);
 }

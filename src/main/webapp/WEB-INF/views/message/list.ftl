@@ -32,7 +32,7 @@
                         [#if pagination.data??]
                             [#list pagination.data as message ]
                             <tr class="even">
-                                <td>${message.sendBaseUser!}</td>
+                                <td>${message.sendBaseUser.name!}</td>
                                 <td>${message.content!}</td>
                                 <td>${message.sendDate!}</td>
                                 <td>

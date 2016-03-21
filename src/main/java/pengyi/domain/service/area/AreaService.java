@@ -94,8 +94,10 @@ public class AreaService implements IAreaService {
         }
         if (!CoreStringUtils.isEmpty(command.getParent())) {
             criterionList.add(Restrictions.eq("parent.id", command.getParent()));
+        } else {
+            criterionList.add(Restrictions.isNull("parent"));
         }
-        return areaRepository.list((Criterion[]) criterionList.toArray(), null);
+        return areaRepository.list(criterionList, null);
     }
 
 }

@@ -1,5 +1,6 @@
 package pengyi.application.user.company;
 
+import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
@@ -16,4 +17,6 @@ public interface IApiCompanyAppService {
     BaseResponse apiUpdateFolder(UpdateFolderCommand command);
 
     BaseResponse apiCreateCompany(CreateCompanyCommand command);
+
+    BaseResponse apiUpdatePassword(UpdatePasswordCommand command);
 }

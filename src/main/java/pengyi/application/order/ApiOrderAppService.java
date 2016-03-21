@@ -32,13 +32,14 @@ public class ApiOrderAppService implements IApiOrderAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public BaseResponse companyOrderList(CompanyOrderListCommand command) {
+    public BaseResponse companyOrderPagination(CompanyOrderListCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getCompany())) {
+            if (CoreStringUtils.isEmpty(command.getCompany())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10006.getMessage());
             }
             Pagination<Order> pagination = orderService.apiPagination(command);
             List<OrderRepresentation> data = mappingService.mapAsList(pagination.getData(), OrderRepresentation.class);
+
             Pagination<OrderRepresentation> result = new Pagination<OrderRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, result, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
