@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.message.command.CompanyCreateMessageCommand;
 import pengyi.application.message.command.CreateMessageByBaseUserCommand;
 import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
@@ -61,6 +62,12 @@ public class MessageAppService implements IMessageAppService {
     @Transactional(readOnly = true)
     public MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command) {
         return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
+    }
+
+    @Override
+    public void companyCreateMessageByRole(CompanyCreateMessageCommand command) {
+
+        messageService.companyCreate(command);
     }
 
 

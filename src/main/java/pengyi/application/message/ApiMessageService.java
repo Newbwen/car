@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.message.command.CompanyListMessageCommand;
 import pengyi.application.message.command.CreateMessageByBaseUserCommand;
 import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
@@ -71,16 +72,15 @@ public class ApiMessageService implements IApiMessageService {
 
     @Override//2
     @Transactional(readOnly = true)
-    public BaseResponse companyMessageList(ListMessageCommand command) {
+    public BaseResponse companyMessageList(CompanyListMessageCommand command) {
         if (null != command) {
             Pagination<Message> pagination = messageService.pagination(command);
             List<MessageRepresentation> data = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
             Pagination<MessageRepresentation> result = new Pagination<MessageRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, result, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
     }
-
 
 }

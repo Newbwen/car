@@ -6,9 +6,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pengyi.application.message.command.CreateMessageByBaseUserCommand;
-import pengyi.application.message.command.CreateMessageByRoleCommand;
-import pengyi.application.message.command.ListMessageCommand;
+import pengyi.application.message.command.*;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ShowType;
 import pengyi.core.util.CoreStringUtils;
@@ -16,8 +14,10 @@ import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.company.Company;
 import pengyi.domain.service.role.IRoleService;
 import pengyi.domain.service.user.IBaseUserService;
+import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.repository.generic.Pagination;
 
 import java.util.ArrayList;
@@ -38,6 +38,8 @@ public class MessageService implements IMessageService {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private ICompanyService companyService;
 
     @Override
     public Message show(String messageId) {
@@ -85,6 +87,12 @@ public class MessageService implements IMessageService {
 
         List<Criterion> criterionList = new ArrayList();
 
+        if(!CoreStringUtils.isEmpty(command.getCompany())) {
+            List<Company> companies = companyService.apiByName(command.getCompany());
+            if(null !=companies){
+                criterionList.add(Restrictions.in("sendBaseUser", companies));
+            }
+        }
         if(!CoreStringUtils.isEmpty(command.getContent())){
             criterionList.add(Restrictions.like("content",command.getContent(), MatchMode.ANYWHERE));
         }
@@ -106,6 +114,40 @@ public class MessageService implements IMessageService {
         message.setShowType(ShowType.BLANK);
         messageRepository.update(message);
         return message;
+    }
+
+    @Override
+    public void companyCreate(CompanyCreateMessageCommand command) {
+        //获取公司
+        Company company=companyService.show(command.getCompany());
+        //获取角色
+        Role role = roleService.show(command.getUserRole());
+
+        List<BaseUser> baseUsers = baseUserService.searchByUserRole(role.getId());
+
+        for (BaseUser item : baseUsers) {
+            Message message = new Message(company, item, new Date(), null, command.getContent(), command.getType(), ShowType.SHOW);
+            messageRepository.save(message);
+        }
+    }
+
+    @Override
+    public Pagination<Message> pagination(CompanyListMessageCommand command) {
+        List<Criterion> criterionList = new ArrayList();
+
+        if(!CoreStringUtils.isEmpty(command.getCompany())){
+            criterionList.add(Restrictions.like("content",command.getCompany(), MatchMode.ANYWHERE));
+        }
+        if (null != command.getShowType()) {
+            criterionList.add(Restrictions.eq("showType", command.getShowType()));
+        }
+
+        List<Order> orderList = new ArrayList();
+
+        orderList.add(Order.desc("sendDate"));
+
+        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+
     }
 
 

@@ -1,5 +1,6 @@
 package pengyi.application.message;
 
+import pengyi.application.message.command.CompanyListMessageCommand;
 import pengyi.application.message.command.CreateMessageByBaseUserCommand;
 import pengyi.application.message.command.CreateMessageByRoleCommand;
 import pengyi.application.message.command.ListMessageCommand;
@@ -15,6 +16,6 @@ public interface IApiMessageService {
     MessageRepresentation deleteByCompany(String messageId);
     BaseResponse apiCreateMessage(CreateMessageByBaseUserCommand command);
     BaseResponse apiCreateMessage(CreateMessageByRoleCommand command);
-    BaseResponse companyMessageList(ListMessageCommand command);
+    BaseResponse companyMessageList(CompanyListMessageCommand command);
 
 }

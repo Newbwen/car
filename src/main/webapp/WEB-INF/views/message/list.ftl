@@ -29,6 +29,7 @@
                                 <label>
                                     发送时间<input type="text" value="${command.permissionName!}" name="permissionName" />
                                 </label>
+                                <label><input type="text" value="${command.company}"/></label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
