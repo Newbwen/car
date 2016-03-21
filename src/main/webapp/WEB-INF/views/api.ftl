@@ -27,23 +27,23 @@
             <div class="mingcheng">
                 <div class="sjk_name" onclick="changethistxt(this)"><span>${api.name!}</span><input
                         type="text" placeholder="输入表接口名称" value="${api.name!}" name="nametxt"
-                        style="display:none;" onblur="updateapi('${api.id!}',this)"/>
+                        style="display:none;" onchange="updateapi('${api.id!}',this)"/>
                 </div>
                 <div class="mc">
                     <span>提交地址：</span>
                     <p onclick="changethistxt(this)"><span>${api.address!}</span><input
                             type="text" placeholder="输入请求地址" value="${api.address!}"
-                            style="display:none;" name="addresstxt" onblur="updateapi('${api.id!}',this)"/></p>
+                            style="display:none;" name="addresstxt" onchange="updateapi('${api.id!}',this)"/></p>
                 </div>
                 <div class="mc">
                     <span>提交参数说明：</span><span><a onclick="changethistxt(this)"><span>${api.shuoming!}</span><input
                         type="text" placeholder="输入请求的参数说明" value="${api.shuoming!}"
-                        name="shuomingtxt" style="display:none;" onblur="updateapi('${api.id!}',this)"/></a></span>
+                        name="shuomingtxt" style="display:none;" onchange="updateapi('${api.id!}',this)"/></a></span>
                 </div>
                 <div class="mc">
                     <span>注意：</span><span><a onclick="changethistxt(this)"><span>${api.zhuyi!}</span><input
                         type="text" placeholder="输入注意事项" value="${api.zhuyi!}" style="display:none;"
-                        name="zhuyitxt" onblur="updateapi('${api.id!}',this)"/></a></span>
+                        name="zhuyitxt" onchange="updateapi('${api.id!}',this)"/></a></span>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -51,8 +51,8 @@
                 <div class="mc">
                     <span>返回信息：</span>
                     <p onclick="changethistxt(this)"><span>${api.fanhuixinxi!}</span><input
-                            type="text" placeholder="输入表返回的信息" value="${api.fanhuixinxi!}"
-                            style="display:none;" name="fanhuixinxitxt" onblur="updateapi('${api.id!}',this)"/></p>
+                            type="text" placeholder="输入表返回的信息" value='${api.fanhuixinxi!}'
+                            style="display:none;" name="fanhuixinxitxt" onchange="updateapi('${api.id!}',this)"/></p>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -84,10 +84,10 @@
             <div class="l_div_i" id="${table.value!}">
                 <div class="sjk_name">
                     <input type="text" class="sjk_name" name="tableinputname" attr-id="${table.id!}"
-                           placeholder="输入表名字“用户表”" onblur="updatetable('${table.id!}',this)"
+                           placeholder="输入表名字“用户表”" onchange="updatetable('${table.id!}',this)"
                            value="${table.name!}">
                     <input type="text" name="tableinputvalue" class="sjk_name" attr-id="${table.id!}"
-                           placeholder="输入表“userinfo”" onblur="updatetable('${table.id!}',this)"
+                           placeholder="输入表“userinfo”" onchange="updatetable('${table.id!}',this)"
                            value="${table.value!}">
                 </div>
                 <table class="table2" data-id="${table.id!}">
@@ -105,20 +105,20 @@
                                     type="text"
                                     name="xiugaivalue"
                                     style="display: none;"
-                                    value="${row.value!}" onblur="updaterow('${row.id!}',this)"/>
+                                    value="${row.value!}" onchange="updaterow('${row.id!}',this)"/>
                             </td>
                             <td onclick="xiugaiziduan(this)"><span>${row.name!}</span>
                                 <input type="text"
                                        name="xiugainame"
                                        style="display: none;"
                                        value="${row.name!}"
-                                       onblur="updaterow('${row.id!}',this)"/>
+                                       onchange="updaterow('${row.id!}',this)"/>
                             </td>
                             <td onclick="xiugaiziduan(this)"><span>${row.content!}</span><input
                                     type="text"
                                     name="xiugaicontent"
                                     style="display: none;"
-                                    value="${row.content!}" onblur="updaterow('${row.id!}',this)"/>
+                                    value="${row.content!}" onchange="updaterow('${row.id!}',this)"/>
                             </td>
                             <td><a href="javascript:void(0)" style="text-align: center; color: red;"
                                    onclick="delrow('${row.id!}',this)">删除</a></td>
