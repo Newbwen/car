@@ -70,7 +70,7 @@
         <api>
             <id>d99a5c43-897b-42a6-9542-e2c7ae4fed20</id>
             <name>修改司机信息</name>
-            <address>api/app/deiver/edit</address>
+            <address>api/app/driver/edit</address>
             <shuoming>version(数据version),email(邮箱),name(昵称),sex(性别),driverType(司机类型)</shuoming>
             <zhuyi>司机必须登录,sex(MAN,WOMAN),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
@@ -78,7 +78,7 @@
         <api>
             <id>d99a5c43-897b-42a6-9542-e2c7ae4fe123</id>
             <name>修改司机头像</name>
-            <address>api/app/deiver/update_head_pic</address>
+            <address>api/app/driver/update_head_pic</address>
             <shuoming>司机必须登录,headPic(头像)</shuoming>
             <zhuyi>司机必须登录,参数不能为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
