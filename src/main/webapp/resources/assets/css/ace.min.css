@@ -9897,7 +9897,8 @@ li.item-default {
 .profile-info-value {
     padding: 6px 4px 6px 6px;
     margin-left: 120px;
-    border-top: 1px dotted #d5e4f1
+    border-top: 1px dotted #d5e4f1;
+    height: 34px
 }
 
 .profile-info-value > span + span:before {

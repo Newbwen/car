@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>申请人<input type="text" value="${rescue.applyUser!}" name="applyUser" /></label>
-                                <label>救援司机<input type="text" value="${rescue.driver!}" name="driver" /></label>
+                                <label>申请人<input type="text" value="${command.applyUser!}" name="applyUser" /></label>
+                                <label>救援司机<input type="text" value="${command.driver!}" name="driver" /></label>
                                 <label>救援状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
