@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import pengyi.application.car.representation.CarRepresentation;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.type.CarType;
 import pengyi.domain.model.car.Car;
 
 /**
@@ -24,6 +25,6 @@ public class CarRepresentationMapper extends CustomMapper<Car, CarRepresentation
             representation.setDriver(driver);
         }
 
-
     }
+
 }

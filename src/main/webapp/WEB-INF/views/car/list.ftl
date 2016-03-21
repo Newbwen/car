@@ -23,9 +23,20 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>车辆名称<input type="text" value="${command.carName!}" name="carName" /></label>
+                                <label>车辆名称<input type="text" value="${command.name!}" name="name" /></label>
                                 <label>车牌号<input type="text" value="${command.carNumber!}" name="carNumber" /></label>
                                 <label>司机<input type="text" value="${command.driver!}" name="driver" /></label>
+                                <label>救援状态
+                                    <select name="carType">
+                                        [#assign status = (command.carType!)?default("") /]
+                                        <option value="">全部</option>
+
+                                        <option value="ECONMY" [@mc.selected carType "ECONMY"/]>经济型</option>
+                                        <option value="COMFORT" [@mc.selected carType "COMFORT"/]>舒适型</option>
+                                        <option value="BUSINESS" [@mc.selected carType "BUSINESS"/]>商务型</option>
+                                        <option value="LUXURY" [@mc.selected carType "LUXURY"/]>豪华型</option>
+                                    </select>
+                                </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
@@ -37,6 +48,7 @@
                         <th>车辆名称</th>
                         <th>车牌号</th>
                         <th>司机</th>
+                        <th>类型</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,9 +58,10 @@
                         [#if pagination.data??]
                             [#list pagination.data as car ]
                             <tr class="even">
-                                <td>${car.carName!}</td>
+                                <td>${car.name!}</td>
                                 <td>${car.carNumber!}</td>
                                 <td>${(car.driver.getName())!}</td>
+                                <td>${(car.carType.getName())!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -72,7 +85,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/car/list?carName=${command.carName!}&carNumber=${command.carNumber!}&driver=${car.driver}' /]
+                    [@mc.showPagination '/car/list?name=${command.name!}&carNumber=${command.carNumber!}&driver=${car.driver}&carType=${command.carType!}' /]
                 [/#if]
 
             </div>
