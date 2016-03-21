@@ -1,6 +1,7 @@
 package pengyi.domain.service.message;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,9 @@ public class MessageService implements IMessageService {
 
         List<Criterion> criterionList = new ArrayList();
 
+        if(!CoreStringUtils.isEmpty(command.getContent())){
+            criterionList.add(Restrictions.like("content",command.getContent(), MatchMode.ANYWHERE));
+        }
         if (null != command.getShowType()) {
             criterionList.add(Restrictions.eq("showType", command.getShowType()));
         }

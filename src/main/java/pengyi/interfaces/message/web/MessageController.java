@@ -40,15 +40,15 @@ public class MessageController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(ListMessageCommand command) {
-        return new ModelAndView("message/list", "command", command)
+        return new ModelAndView("/message/list", "command", command)
                 .addObject("pagination", messageAppService.pagination(command));
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView create(@ModelAttribute("command") CreateMessageByRoleCommand command) {
         List<RoleRepresentation> roles=roleAppService.roleList();
-        return new ModelAndView("message/create", "command", command).addObject("roles", roles);
-    }
+        return new ModelAndView("/message/create", "command", command).addObject("roles", roles);
+}
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid @ModelAttribute("command") CreateMessageByRoleCommand command,
