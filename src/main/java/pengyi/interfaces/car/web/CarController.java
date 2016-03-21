@@ -69,7 +69,7 @@ public class CarController extends BaseController {
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         redirectAttributes.addAttribute("id", carRepresentation.getDriver());
 
-        return new ModelAndView("redirect:/car/show/{id}");
+        return new ModelAndView("redirect:/car/show/"+carRepresentation.getId());
 
 
     }
@@ -123,7 +123,7 @@ public class CarController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             redirectAttributes.addAttribute("id", command.getId());
 
-            return new ModelAndView("redirect:/permission/edit/{id}");
+            return new ModelAndView("redirect:/car/edit/{id}");
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());

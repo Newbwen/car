@@ -45,7 +45,7 @@ public class CarService implements ICarService{
             criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
         if(!CoreStringUtils.isEmpty(command.getName())){
-            criteriaList.add(Restrictions.like("carName",command.getName()));
+            criteriaList.add(Restrictions.like("name",command.getName()));
         }
         return carRepository.pagination(command.getPage(),command.getPageSize(),criteriaList,null);
     }

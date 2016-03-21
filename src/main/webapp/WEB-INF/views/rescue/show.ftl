@@ -80,7 +80,7 @@
                 <div class="profile-info-value">
                     <span class="editable editable-click" id="finishTime">${rescue.finishTime!}</span>
                 </div>
-            </div
+            </div>
         </div>
         <br>
         <br>

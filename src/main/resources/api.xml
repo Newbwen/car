@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <apifile>
     <tables>
         <table>
@@ -47,12 +48,7 @@
             <address>api/getconfig</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo': '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords': '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription': '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '', 'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }</fanhuixinxi>
         </api>
         <api>
             <id>9ee5ed81-a7fd-4951-ae2b-261463c14f86</id>
@@ -60,12 +56,23 @@
             <address>api/getconfig</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo': '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords': '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription': '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '', 'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }</fanhuixinxi>
+        </api>
+        <api>
+            <id>c7025051-aae8-4bdd-b6be-029e28da3aef</id>
+            <name>无</name>
+            <address>/car/api/check</address>
+            <shuoming>driver(司机id)</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"carNumber":"151515","carType":"COMFORT","driver":{"balance":0.00,"company":null,"createDate":"2016-03-18 16:01:52.0","driverType":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportCount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"ENABLE","userName":"2858585858","userRole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"roleName":"driver","status":"ENABLE","version":0},"userType":"DRIVER","version":0},"id":"1","name":"奔驰","version":1},"debug_time":605,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>08d93b00-056a-436b-86aa-7da1216c07c3</id>
+            <name>无</name>
+            <address>无</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
         </api>
     </apis>
 </apifile>
