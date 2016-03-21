@@ -169,4 +169,14 @@ public class CompanyService implements ICompanyService {
 
         return company;
     }
+
+    @Override
+    public List<Company> apiByName(String name) {
+        List<Criterion> criteriaList = new ArrayList();
+        if (!CoreStringUtils.isEmpty(name)) {
+            criteriaList.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        }
+
+        return companyRepository.list(criteriaList, null);
+    }
 }
