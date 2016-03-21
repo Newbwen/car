@@ -17,9 +17,7 @@ import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.repository.generic.Pagination;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by YJH on 2016/3/9.
@@ -44,7 +42,10 @@ public class MoneyDetailedService implements IMoneyDetailedService {
         List<Order> orders = new ArrayList<Order>();
         orders.add(Order.desc("createDate"));
 
-        return moneyDetailedRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orders);
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("baseUser", "baseUser");
+
+        return moneyDetailedRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orders, null, null);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     @Override
     public MoneyDetailed show(String id) {
         MoneyDetailed moneyDetailed = moneyDetailedRepository.getById(id);
-        if(null == moneyDetailed){
+        if (null == moneyDetailed) {
             throw new NoFoundException("没有找到资金流向id=[" + id + "]的记录");
         }
         return moneyDetailed;

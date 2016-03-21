@@ -13,7 +13,6 @@ public class EditRescueCommand {
     private String description;                 //救援说明
     private String driver;                      //救援司机
     private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
-    private String rescueTime;                  //救援时间
 
     public RescueStatus getStatus() {
         return status;
@@ -71,11 +70,5 @@ public class EditRescueCommand {
         this.driver = driver;
     }
 
-    public String getRescueTime() {
-        return rescueTime;
-    }
 
-    public void setRescueTime(String rescueTime) {
-        this.rescueTime = rescueTime;
-    }
 }

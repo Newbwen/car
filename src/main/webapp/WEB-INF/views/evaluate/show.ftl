@@ -26,32 +26,29 @@
                 </div>
             </div>
 
-            <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> 订单</div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 订单</div>
 
-                    <div class="profile-info-value">
-                        <span class="editable editable-click" id="order">${evaluate.order!}</span>
-                    </div>
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="order">${evaluate.order!}</span>
                 </div>
+            </div>
 
-                <div class="profile-user-info profile-user-info-striped">
-                    <div class="profile-info-row">
-                        <div class="profile-info-name"> 评价内容</div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 评价内容</div>
 
-                        <div class="profile-info-value">
-                            <span class="editable editable-click" id="content">${evaluate.content!}</span>
-                        </div>
-                    </div>
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="content">${evaluate.content!}</span>
+                </div>
+            </div>
 
-                    <div class="profile-user-info profile-user-info-striped">
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> 评级</div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 评级</div>
 
-                            <div class="profile-info-value">
-                                <span class="editable editable-click" id="level">${evaluate.level!}</span>
-                            </div>
-                        </div>
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="level">${evaluate.level!}</span>
+                </div>
+            </div>
 
             <div class="profile-info-row">
                 <div class="profile-info-name"> 时间</div>
@@ -65,7 +62,7 @@
         <br>
         <br>
         <div class="col-xs-12">
-            <a href="/car/list" class="btn btn-success btn-block">返回列表</a>
+            <a href="/evaluate/list" class="btn btn-success btn-block">返回列表</a>
         </div>
     </div>
 </div>

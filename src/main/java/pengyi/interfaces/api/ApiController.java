@@ -41,20 +41,16 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/apicommand/{id}")
-    public ModelAndView apicommand(@PathVariable String id, HttpServletRequest request) {
+    public void apicommand(@PathVariable String id, HttpServletRequest request) {
         try {
             apiService.command(id, request);
-            return new ModelAndView("/api", "doc", freemarker.ext.dom.NodeModel.parse(new File(getClass().getResource("/").getPath() + "api.xml")));
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-        return new ModelAndView("/api");
     }
 
 

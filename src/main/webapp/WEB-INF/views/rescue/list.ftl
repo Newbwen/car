@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>申请人<input type="text" value="${rescue.applyUser!}" name="applyUser" /></label>
-                                <label>救援司机<input type="text" value="${rescue.driver!}" name="driver" /></label>
+                                <label>申请人<input type="text" value="${command.applyUser!}" name="applyUser" /></label>
+                                <label>救援司机<input type="text" value="${command.driver!}" name="driver" /></label>
                                 <label>救援状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -43,8 +43,14 @@
                     <thead>
                     <tr role="row">
                         <th>申请人</th>
+                        <th>申请时间</th>
+                        <th>救援类型</th>
+                        <th>救援说明</th>
                         <th>救援司机</th>
+                        <th>救援时间</th>
                         <th>救援状态</th>
+                        <th>救援完成时间</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
 
@@ -53,15 +59,26 @@
                         [#if pagination.data??]
                             [#list pagination.data as rescue ]
                             <tr class="even">
-                                <td>${rescue.applyUser!}</td>
-                                <td>${rescue.driver!}</td>
+                                <td>${rescue.applyUser.userName!}</td>
+                                <td>${rescue.applyTime!}</td>
+                                <td>${rescue.type!}</td>
+                                <td>${rescue.description!}</td>
+                                <td>${rescue.driver.userName!}</td>
+                                <td>${rescue.rescueTime!}</td>
                                 <td>${(rescue.status.getName())!}</td>
+                                <td>${rescue.finishTime!}</td>
                                 <td>
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/rescue/show/${rescue.id!}'/]"
-                                           title="查看"><i class="icon-zoom-in bigger-130"></i></a>
-                                        <a class="green" href="[@spring.url '/rescue/edit/${rescue.id}'/]"
-                                           title="编辑"><i class="icon-pencil bigger-130"></i></a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
+                                            操作
+                                            <i class="icon-angle-down icon-on-right"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="blue" href="[@spring.url '/rescue/show/${rescue.id!}'/]">查看</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>
@@ -71,7 +88,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/rescue/list?applyUser=${command.applyUser!}&driver=${command.driver!}&status=${command.status!}' /]
+                    [@mc.showPagination '/rescue/list?applyUser=${command.applyUser!}&applyTime=${command.applyTime!}&type=${command.type!}&description=${command.description!}&driver=${command.driver!}&rescueTime=${command.rescueTime!}&status=${command.status!}&finishTime=${command.finishTime!}' /]
                 [/#if]
 
             </div>

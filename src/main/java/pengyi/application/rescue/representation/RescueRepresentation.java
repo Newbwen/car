@@ -2,6 +2,7 @@ package pengyi.application.rescue.representation;
 
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.core.type.RescueStatus;
 
 /**
  * Created by LvDi on 2016/3/9.
@@ -16,7 +17,7 @@ public class RescueRepresentation {
     private String description;                 //救援说明
     private DriverRepresentation driver;                      //救援司机
     private String rescueTime;                  //救援时间
-    private int status;                         //救援状态（1待救援、2救援中、3已救援）
+    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
     private String finishTime;                  //救援完成时间
 
     public String getId() {
@@ -59,6 +60,14 @@ public class RescueRepresentation {
         this.type = type;
     }
 
+    public RescueStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RescueStatus status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -81,14 +90,6 @@ public class RescueRepresentation {
 
     public void setRescueTime(String rescueTime) {
         this.rescueTime = rescueTime;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public String getFinishTime() {

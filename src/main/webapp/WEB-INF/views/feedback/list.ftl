@@ -23,11 +23,11 @@
                     <form>
                         <div class="col-sm-8">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>邮箱<input type="text" value="${command.email!}" name="userName" /></label>
+                                <label>邮箱<input type="text" value="${command.email!}" name="email" /></label>
 
-                                <label>电话<input type="text" value="${command.phone!}" name="userName" /></label>
+                                <label>电话<input type="text" value="${command.phone!}" name="phone" /></label>
 
-                                <label>QQ<input type="text" value="${command.qq!}" name="userName" /></label>
+                                <label>QQ<input type="text" value="${command.qq!}" name="qq" /></label>
 
                                 <label>处理状态
                                     <select name="status">

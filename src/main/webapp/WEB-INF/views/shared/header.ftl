@@ -4,7 +4,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
-                    ACE后台管理系统
+                    西瓜行后台管理系统
                 </small>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
