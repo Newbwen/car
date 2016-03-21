@@ -1,71 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <apifile>
-    <tables>
-        <table>
-            <id>796f33c4-11d3-4307-9f6a-ede0aad22213</id>
-            <name>系统配置表</name>
-            <value>cpconfiginfo</value>
-            <rows>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e2</id>
-                    <name>nvarchar(2000)</name>
-                    <value>c_alipayselleremail</value>
-                    <content>支付宝帐户d</content>
-                </row>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
-                    <name>nvarchar(2000)</name>
-                    <value>name</value>
-                    <content>支付宝</content>
-                </row>
-            </rows>
-        </table>
-        <table>
-            <id>796f33c4-11d3-4307-9f6a-ede0aad22214</id>
-            <name>系统配置表</name>
-            <value>cpconfiginfo</value>
-            <rows>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
-                    <name>nvarchar(2000)</name>
-                    <value>c_alipayselleremail</value>
-                    <content>支付宝帐户d</content>
-                </row>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e4</id>
-                    <name>nvarchar(2000)</name>
-                    <value>name</value>
-                    <content>支付宝</content>
-                </row>
-            </rows>
-        </table>
-    </tables>
+    <tables/>
     <apis>
         <api>
-            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f85</id>
-            <name>获取系统配置（加入缓存）</name>
-            <address>api/getconfig</address>
-            <shuoming>无</shuoming>
-            <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <id>34b1f61e-8139-4111-822b-9186d953dc6c</id>
+            <name>用户注册</name>
+            <address>api/app/user/register</address>
+            <shuoming>userName(用户名,手机号),password(密码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
-            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f86</id>
-            <name>获取系统配置1（加入缓存）</name>
-            <address>api/getconfig</address>
+            <id>74d9d5e8-a335-4e37-897b-1f5e3a5338ce</id>
+            <name>登录</name>
+            <address>api/app/login</address>
+            <shuoming>username(用户名),password(密码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"balance":0.00,"createDate":"2016-03-17 16:56:33","credentialsSalt":"user_test_257dbe9a08203a60bb1077486fa7535c6","email":"user_test_2@bulian.com","head":null,"id":"402881e95383bd49015383ca693b0002","integral":10,"money":0.00,"name":"二号user用户","password":"ed5d62bd2a7f380743d590d03917b95d","reportCount":20,"salt":"57dbe9a08203a60bb1077486fa7535c6","sex":"MAN","status":"ENABLE","userName":"user_test_2","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":0},"debug_time":55,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>dd67789f-1651-43f0-96d9-113a51552ab8</id>
+            <name>注销</name>
+            <address>api/app/logout</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>3d146f2b-f9b0-44ab-ad17-b260ddca5eab</id>
+            <name>获取用户信息</name>
+            <address>api/app/user/show</address>
+            <shuoming>无</shuoming>
+            <zhuyi>用户之前必须登录</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>b6845a96-ba49-41df-b774-ba0c6ccf1f8f</id>
+            <name>修改用户信息</name>
+            <address>api/app/user/edit</address>
+            <shuoming>name(昵称),email(邮箱),sex(性别),version(数据version)</shuoming>
+            <zhuyi>sex(MAN男,WOMAN女),参数不能为空,用户之前必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>9c8464a2-6dac-43cb-8ecb-93f391b1cd35</id>
+            <name>修改用户头像</name>
+            <address>api/app/user/update_head_pic</address>
+            <shuoming>headPic(头像地址)</shuoming>
+            <zhuyi>用户之前必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
+            <name>司机注册</name>
+            <address>api/app/driver/register</address>
+            <shuoming>userName(用户名,手机号),password(密码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>f93ea398-c30a-46f5-b1a7-c80ec76ea5f1</id>
+            <name>获取司机信息</name>
+            <address>api/app/driver/show</address>
+            <shuoming>无</shuoming>
+            <zhuyi>司机必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"balance":0.00,"company":null,"createDate":"2016-03-21 17:46:03.0","driverType":null,"email":null,"head":null,"id":"402881e9539890a00153989129840000","latitude":0,"level":0,"longitude":0,"money":0.00,"name":null,"online":false,"password":"9932b24f6fd28892d6ec36a888933f6c","reportCount":0,"salt":"af965c659d0af6c3b7a797948c858290","sex":null,"status":"ENABLE","userName":"15823634843","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":1},"debug_time":25,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>d99a5c43-897b-42a6-9542-e2c7ae4fed20</id>
+            <name>修改司机信息</name>
+            <address>api/app/driver/edit</address>
+            <shuoming>version(数据version),email(邮箱),name(昵称),sex(性别),driverType(司机类型)</shuoming>
+            <zhuyi>司机必须登录,sex(MAN,WOMAN),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>d99a5c43-897b-42a6-9542-e2c7ae4fe123</id>
+            <name>修改司机头像</name>
+            <address>api/app/driver/update_head_pic</address>
+            <shuoming>司机必须登录,headPic(头像)</shuoming>
+            <zhuyi>司机必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>

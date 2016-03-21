@@ -1,9 +1,7 @@
 package pengyi.application.user.driver;
 
-import pengyi.application.user.driver.command.CompanyAuditingDriverCommand;
-import pengyi.application.user.driver.command.CompanyDriverEditCommand;
-import pengyi.application.user.driver.command.CompanyDriverListCommand;
-import pengyi.application.user.driver.command.CreateDriverCommand;
+import pengyi.application.user.command.UpdateHeadPicCommand;
+import pengyi.application.user.driver.command.*;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.commons.command.EditStatusCommand;
 
@@ -22,4 +20,12 @@ public interface IApiDriverAppService {
     BaseResponse companyCreateDriver(CreateDriverCommand command);
 
     BaseResponse companyExpelDriver(EditStatusCommand command);
+
+    BaseResponse register(RegisterDriverCommand command);
+
+    BaseResponse show(String userId);
+
+    BaseResponse edit(EditDriverCommand command);
+
+    BaseResponse updateHeadPic(UpdateHeadPicCommand command);
 }

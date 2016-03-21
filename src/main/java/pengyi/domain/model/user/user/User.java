@@ -88,8 +88,8 @@ public class User extends BaseUser {
         this.reportCount = reportCount;
     }
 
-    public User(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Sex sex, Integer integral, BigDecimal money, Integer reportCount) {
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Sex sex, Integer integral, BigDecimal money, Integer reportCount) {
+        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
         this.sex = sex;
@@ -98,7 +98,7 @@ public class User extends BaseUser {
         this.reportCount = reportCount;
     }
 
-    public User(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }
