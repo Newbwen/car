@@ -35,6 +35,9 @@ public class CarService implements ICarService{
     @Override
     public Pagination<Car> pagination(ListCarCommand command) {
         List<Criterion> criteriaList = new ArrayList();
+        if(null!=command.getCarType()){
+            criteriaList.add(Restrictions.eq("carType",command.getCarType()));
+        }
         if (!CoreStringUtils.isEmpty(command.getCarNumber())) {
             criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
         }
@@ -53,10 +56,13 @@ public class CarService implements ICarService{
     @Override
     public Car edit(EditCarCommand command) {
        Car car=this.show(command.getId());
+        car.fainWhenConcurrencyViolation(car.getVersion());
         Car car1=this.searchByNumber(command.getCarNumber());
         if(null!=car1){
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
         }
+
+        car.setCarType(command.getCarType());
         car.setCarNumber(command.getCarNumber());
         car.setName(command.getName());
         carRepository.update(car);
@@ -93,7 +99,7 @@ public class CarService implements ICarService{
 
         }
         Driver driver=driverService.show(command.getDriver());
-        Car car2=new Car(command.getName(),command.getCarNumber(),driver);
+        Car car2=new Car(command.getName(),command.getCarNumber(),driver,command.getCarType());
         carRepository.save(car2);
         return car2;
     }

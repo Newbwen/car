@@ -1,6 +1,8 @@
 package pengyi.application.car.representation;
 
 import pengyi.application.user.driver.representation.DriverRepresentation;
+import pengyi.core.type.CarType;
+
 /**
  * Created by lvdi on 2016/3/8.
  */
@@ -12,6 +14,16 @@ public class CarRepresentation {
     private String name;                //车辆名称
     private String carNumber;           //车牌号
     private DriverRepresentation driver;              //司机
+
+    private CarType carType;                      //类型
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
 
     public String getId() { return id; }
 
