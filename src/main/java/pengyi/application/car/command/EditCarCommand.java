@@ -1,6 +1,9 @@
 package pengyi.application.car.command;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import pengyi.core.type.CarType;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by lvdi on 2016/3/8.
@@ -15,6 +18,17 @@ public class EditCarCommand {
 
     @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
     private String carNumber;           //车牌号
+
+    @NotNull(message = "{car.carType,NotEmpty,message}")
+    private CarType carType;             //车辆类型
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
 
     public String getId() {
         return id;

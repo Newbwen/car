@@ -22,7 +22,7 @@
                 <div class="profile-info-name"> 车辆名称</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username">${car.carName!}</span>
+                    <span class="editable editable-click" id="name">${car.name!}</span>
                 </div>
             </div>
 
@@ -38,7 +38,15 @@
                 <div class="profile-info-name"> 司机</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="age">${(car.driver)!}</span>
+                    <span class="editable editable-click" id="age">${(car.driver.getName())!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 类型</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age">${(car.carType.getName())!}</span>
                 </div>
             </div>
         </div>
