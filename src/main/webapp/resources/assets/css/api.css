@@ -106,17 +106,45 @@
             }
 
                 .mingcheng .mc span {
+                    width: 100%;
                     font-size: 12px;
                     font-weight: bold;
                     padding: 0 5px 0 0;
-                    float: left;
                     display: block;
                     line-height: 20px;
                 }
 
+     .mingcheng .mc p span {
+         font-size: 12px;
+         font-weight: bold;
+         padding: 0 5px 0 0;
+         display: block;
+         line-height: 20px;
+         /*overflow: auto;*/
+         /*word-break:normal;*/
+         /*white-space:pre-wrap;*/
+         word-wrap : break-word ;
+     }
+
+     .mingcheng .mc p textarea {
+         width: 98%;
+         font-size: 12px;
+         height: 120px;
+         display: none;
+     }
+
+     .mingcheng .mc p input{
+         width: 98%;
+         font-size: 12px;
+     }
+     .mingcheng .mc a input{
+         width: 98%;
+         font-size: 12px;
+     }
+
                 .mingcheng .mc p {
                     color: #666;
-                    width: 487px;
+                    width: 100%;
                     float: left;
                     line-height: 20px;
                 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.xml.sax.SAXException;
 import pengyi.domain.service.api.IApiService;
@@ -41,7 +42,8 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/apicommand/{id}")
-    public void apicommand(@PathVariable String id, HttpServletRequest request) {
+    @ResponseBody
+    public String apicommand(@PathVariable String id, HttpServletRequest request) {
         try {
             apiService.command(id, request);
         } catch (SAXException e) {
@@ -51,6 +53,7 @@ public class ApiController {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+        return "";
     }
 
 
