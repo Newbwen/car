@@ -1,9 +1,6 @@
 package pengyi.application.message;
 
-import pengyi.application.message.command.CompanyCreateMessageCommand;
-import pengyi.application.message.command.CreateMessageByBaseUserCommand;
-import pengyi.application.message.command.CreateMessageByRoleCommand;
-import pengyi.application.message.command.ListMessageCommand;
+import pengyi.application.message.command.*;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.repository.generic.Pagination;
 
@@ -14,7 +11,7 @@ public interface IMessageAppService {
 
     Pagination<MessageRepresentation> pagination(ListMessageCommand command);
 
-    MessageRepresentation create(CreateMessageByRoleCommand command);
+    void create(CreateMessageByRoleCommand command);
 
     MessageRepresentation show(String id);
 
@@ -23,5 +20,7 @@ public interface IMessageAppService {
     MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command);
 
     void companyCreateMessageByRole(CompanyCreateMessageCommand command);
+
+    MessageRepresentation edit(String messageId);
 
 }

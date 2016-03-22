@@ -11,7 +11,7 @@ public interface IMessageService {
 
     Message show(String messageId);
 
-    Message create(CreateMessageByRoleCommand command);
+    void create(CreateMessageByRoleCommand command);
 
     Message createByBaseUser(CreateMessageByBaseUserCommand command);
 
@@ -24,4 +24,5 @@ public interface IMessageService {
     Pagination<Message> pagination(CompanyListMessageCommand command);
 
 
+    Message edit(String messageId);
 }
