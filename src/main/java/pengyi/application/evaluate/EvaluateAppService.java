@@ -49,14 +49,14 @@ public class EvaluateAppService implements IEvaluateAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public EvaluateRepresentation create(CreateEvaluateCommand command) {
-        return mappingService.map(evaluateService.create(command),EvaluateRepresentation.class,false);
+    public void create(CreateEvaluateCommand command) {
+        evaluateService.create(command);
     }
 
     @Override
     @Transactional(readOnly = false)
-    public EvaluateRepresentation edit(EditEvaluateCommand command) {
-        return mappingService.map(evaluateService.edit(command), EvaluateRepresentation.class, false);
+    public void edit(EditEvaluateCommand command) {
+        evaluateService.edit(command);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class EvaluateService implements IEvaluateService {
      * 评价人修改评价
      */
     @Override
-    public Evaluate edit(EditEvaluateCommand command) {
+    public void edit(EditEvaluateCommand command) {
         Evaluate evaluate=this.show(command.getId());
 //        Evaluate evaluate1=this.searchByOrder(command.getOrder());
 //        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
@@ -71,7 +71,6 @@ public class EvaluateService implements IEvaluateService {
         evaluate.setLevel(command.getLevel());
         evaluateRepository.update(evaluate);
 
-        return evaluate;
 
     }
 
@@ -100,13 +99,12 @@ public class EvaluateService implements IEvaluateService {
      *
      */
     @Override
-    public Evaluate create(CreateEvaluateCommand command) {
+    public void create(CreateEvaluateCommand command) {
 
         pengyi.domain.model.order.Order order = orderService.show(command.getOrder());
         BaseUser baseUser=baseUserService.searchByUserName(command.getEvaluateUser());
         Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
-        return evaluate;
     }
 
 

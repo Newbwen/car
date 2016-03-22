@@ -128,7 +128,7 @@
             <address>/evaluate/api/examine</address>
             <shuoming>orderId</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>无</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"content":"asdohkiflash","createDate":"2016-03-22 14:12:47.0","evaluateUser":null,"id":"402881f0539cf2fa01539cf445a00000","level":1111,"order":{"beginTime":null,"createDate":"2016-03-06 14:06:14.0","driverType":null,"endTime":null,"evaluateStatus":null,"extraMoney":null,"id":"1","orderNumber":"156151","orderStatus":null,"orderUser":{"balance":null,"createDate":null,"email":null,"id":"1","password":null,"salt":null,"status":null,"userName":"李四","userRole":null,"userType":null,"version":21},"payTime":null,"receiveDate":null,"receiveUser":{"balance":0.00,"createDate":"2016-03-18 16:01:20.0","email":"admin1@admin1.com","id":"402881f75388b735015388be35d10003","password":"6815d4e73d4470663c0ed0958263cb25","salt":"aa592c3553dc5ccabd550682dc80a91a","status":"ENABLE","userName":"15922856223","userRole":{"description":"测试","id":"402881f75388b735015388bc56720000","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":0},"shouldMoney":null,"subscribeDate":null,"version":2},"version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>4af60d49-ea72-492c-907c-36397abd04ca</id>
@@ -136,7 +136,7 @@
             <address>/evaluate/api/update</address>
             <shuoming>id,version,content,level</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>无</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>
