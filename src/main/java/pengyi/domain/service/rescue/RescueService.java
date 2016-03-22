@@ -1,8 +1,8 @@
 package pengyi.domain.service.rescue;
 
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
-import pengyi.core.api.BaseResponse;
-import pengyi.core.api.ResponseCode;
-import pengyi.core.api.ResponseMessage;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
@@ -69,11 +66,13 @@ public class RescueService implements IRescueService {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
 
         }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("applyTime"));
         Map<String, String> aliasMap = new HashMap<String, String>();
         aliasMap.put("applyUser", "a");
         aliasMap.put("driver", "d");
 
-        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, null, null, null);
+        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
     }
 
     @Override
@@ -150,6 +149,16 @@ public class RescueService implements IRescueService {
         rescue.fainWhenConcurrencyViolation(command.getVersion());
             rescue.setStatus(RescueStatus.CANCEL_RESCUE);
             rescueRepository.update(rescue);
+        return rescue;
+    }
+
+    @Override
+    public Rescue apifinishRescue(EditRescueCommand command) {
+
+        Rescue rescue=this.show(command.getId());
+        rescue.fainWhenConcurrencyViolation(command.getVersion());
+        rescue.setStatus(RescueStatus.CANCEL_RESCUE);
+        rescueRepository.update(rescue);
         return rescue;
     }
 

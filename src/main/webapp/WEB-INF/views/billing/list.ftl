@@ -1,15 +1,15 @@
-[@override name="title"]评价管理-评价列表[/@override]
+[@override name="title"]计费-计费列表[/@override]
 
 [@override name="topResources"]
     [@super /]
 [/@override]
 
 [@override name="breadcrumbTitle"]
-<li class="active">评价管理</a></li>
+<li class="active">计费管理</a></li>
 [/@override]
 
 [@override name="pageHeaderTitle"]
-评价信息列表
+计费信息列表
 [/@override]
 
 [@override name="subContent"]
@@ -23,12 +23,10 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>评价人<input type="text" value="${command.evaluateUser!}"
-                                                 name="evaluateUser"/></label>
-                                <label>订单<input type="text" value="${command.order!}" name="orderId"/></label>
-                                <label>
-                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
-                                </label>
+                                <label>根据公里计费<input type="text" value="${command.KMBilling!}" name="KMBilling" /></label>
+                                <label>根据分钟计费<input type="text" value="${command.minuteBilling!}" name="minuteBilling" /></label>
+                                <label>区域<input type="text" value="${command.area!}" name="area" /></label>
+                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
                     </form>
@@ -36,11 +34,9 @@
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
                     <thead>
                     <tr role="row">
-                        <th>评价人</th>
-                        <th>订单</th>
-                        <th>评价内容</th>
-                        <th>评级</th>
-                        <th>评价时间</th>
+                        <th>根据公里计费</th>
+                        <th>根据分钟计费</th>
+                        <th>区域</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -48,13 +44,11 @@
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                         [#if pagination.data??]
-                            [#list pagination.data as evaluate ]
+                            [#list pagination.data as billing ]
                             <tr class="even">
-                                <td>${evaluate.evaluateUser.userName!}</td>
-                                <td>${evaluate.order.id!}</td>
-                                <td>${evaluate.content!}</td>
-                                <td>${evaluate.level!}</td>
-                                <td>${evaluate.createDate!}</td>
+                                <td>${billing.KMBilling!}</td>
+                                <td>${billing.minuteBilling!}</td>
+                                <td>${(billing.area.getName())!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -64,14 +58,13 @@
 
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="blue" href="[@spring.url '/evaluate/show/${evaluate.id!}'/]">查看</a>
+                                                <a class="blue" href="[@spring.url '/billing/show/${billing.id!}'/]">查看</a>
                                             </li>
                                             <li>
-                                                <a class="green" href="[@spring.url '/evaluate/edit/${evaluate.id}'/]">编辑</a>
+                                                <a class="green" href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>
                                             </li>
                                         </ul>
                                     </div>
-                                </td>
                             </tr>
                             [/#list]
                         [/#if]
@@ -79,7 +72,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/evaluate/list?evaluateUserId=${command.evaluateUser!}&orderId=${command.order!}' /]
+                    [@mc.showPagination '/billing/list?KMBilling=${command.KMBilling!}&minuteBilling=${command.minuteBilling!}&area=${car.area}' /]
                 [/#if]
 
             </div>

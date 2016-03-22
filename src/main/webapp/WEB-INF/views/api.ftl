@@ -50,9 +50,11 @@
             <div class="mingcheng">
                 <div class="mc">
                     <span>返回信息：</span>
-                    <p onclick="changethistxt(this)"><span>${api.fanhuixinxi!}</span><input
-                            type="text" placeholder="输入表返回的信息" value='${api.fanhuixinxi!}'
-                            style="display:none;" name="fanhuixinxitxt" onchange="updateapi('${api.id!}',this)"/></p>
+                    <p onclick="changethistxt(this)"><span>${api.fanhuixinxi!}</span>
+                        [#--<input type="text" placeholder="输入表返回的信息" value='${api.fanhuixinxi!}'--]
+                               [#--style="display:none;" name="fanhuixinxitxt" onchange="updateapi('${api.id!}',this)"/>--]
+                        <textarea  placeholder="输入表返回的信息" name="fanhuixinxitxt" onchange="updateapi('${api.id!}',this)">${api.fanhuixinxi!}</textarea>
+                    </p>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -265,6 +267,7 @@
     function changethistxt(result) {
         $(result).find("span").hide();
         $(result).find("input").show().focus();
+        $(result).find("textarea").show().focus();
     }
     function addapi() {
         $.ajax({

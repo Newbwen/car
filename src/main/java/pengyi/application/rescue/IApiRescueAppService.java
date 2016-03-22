@@ -19,6 +19,8 @@ public interface IApiRescueAppService {
 
     BaseResponse cancelRescue(EditRescueCommand command);
 
+    BaseResponse finishRescue(EditRescueCommand command);
+
 
 
 

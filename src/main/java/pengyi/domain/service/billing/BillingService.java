@@ -65,7 +65,7 @@ public class BillingService implements IBillingService {
 
         Area area = areaService.show(command.getArea());
 
-        billing.setKMBilling(command.getKMBilling());
+        billing.setKmBilling(command.getKMBilling());
         billing.setMinuteBilling(command.getMinuteBilling());
         billing.setArea(area);
 

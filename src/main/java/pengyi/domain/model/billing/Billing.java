@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 public class Billing extends Identity {
 
-    private BigDecimal KMBilling;   //根据公里计费
+    private BigDecimal kmBilling;   //根据公里计费
 
     private BigDecimal minuteBilling; //根据分钟计费
 
@@ -20,18 +20,18 @@ public class Billing extends Identity {
         super();
     }
 
-    public Billing(BigDecimal KMBilling, BigDecimal minuteBilling, Area area) {
-        this.KMBilling = KMBilling;
+    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Area area) {
+        this.kmBilling = kmBilling;
         this.minuteBilling = minuteBilling;
         this.area = area;
     }
 
-    public BigDecimal getKMBilling() {
-        return KMBilling;
+    public BigDecimal getKmBilling() {
+        return kmBilling;
     }
 
-    public void setKMBilling(BigDecimal KMBilling) {
-        this.KMBilling = KMBilling;
+    public void setKmBilling(BigDecimal kmBilling) {
+        this.kmBilling = kmBilling;
     }
 
     public BigDecimal getMinuteBilling() {
