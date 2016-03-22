@@ -1,6 +1,7 @@
 package pengyi.domain.service.evaluate;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,7 @@ import pengyi.domain.service.order.OrderService;
 import pengyi.domain.service.user.BaseUserService;
 import pengyi.repository.generic.Pagination;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by lvdi on 2016/3/8.
@@ -43,16 +42,16 @@ public class EvaluateService implements IEvaluateService {
     @Override
     public Pagination<Evaluate> pagination(ListEvaluateCommand command) {
         List<Criterion> criteriaList = new ArrayList();
-        if (!CoreStringUtils.isEmpty(command.getEvaluateUser())) {
-            criteriaList.add(Restrictions.eq("evaluateUser.id", command.getEvaluateUser()));
-        }
         if (!CoreStringUtils.isEmpty(command.getOrder())) {
-            criteriaList.add(Restrictions.eq("order.id", command.getOrder()));
+            criteriaList.add(Restrictions.like("order.orderNumber", command.getOrder(),MatchMode.ANYWHERE));
         }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(Order.desc("createDate"));
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("order", "order");
 
-        return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
+
+        return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList,aliasMap, orderList,null,null);
     }
 
     /**
