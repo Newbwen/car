@@ -39,10 +39,10 @@ public class CarService implements ICarService{
             criteriaList.add(Restrictions.eq("carType",command.getCarType()));
         }
         if (!CoreStringUtils.isEmpty(command.getCarNumber())) {
-            criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
+            criteriaList.add(Restrictions.like("carNumber", command.getCarNumber()));
         }
         if (!CoreStringUtils.isEmpty(command.getDriver())) {
-            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
+            criteriaList.add(Restrictions.like("driver.id", command.getDriver()));
         }
         if(!CoreStringUtils.isEmpty(command.getName())){
             criteriaList.add(Restrictions.like("name",command.getName()));
