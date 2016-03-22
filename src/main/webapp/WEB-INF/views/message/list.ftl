@@ -50,9 +50,9 @@
                         [#if pagination.data??]
                             [#list pagination.data as message ]
                             <tr class="even">
-                                <td>${message!}</td>
-                                <td>${message!}</td>
-                                <td>${(message.status.getName())!}</td>
+                                <td>${message.sendBaseUser.userName!}</td>
+                                <td>${message.content!}</td>
+                                <td>${message.sendDate!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -66,6 +66,9 @@
                                             </li>
                                             <li>
                                                 <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">删除</a>
+                                            </li>
+                                            <li>
+                                                <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">已读</a>
                                             </li>
                                         </ul>
                                     </div>

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pengyi.application.report.IApiReportService;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pengyi.application.report.IApiReportAppService;
+import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.application.report.representation.ReportRepresentation;
 import pengyi.core.api.BaseResponse;
@@ -17,44 +19,60 @@ import pengyi.repository.generic.Pagination;
  * Created by liubowen on 2016/3/16.
  */
 @Controller
-@RequestMapping("/report_show/api")
+@RequestMapping("/report/api")
 public class ApiReportController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IApiReportService apiReportService;
+    private IApiReportAppService apiReportService;
 
-    @RequestMapping(value = "showAll_by_company")
-    public BaseResponse searchByCompany(@PathVariable String companyId, ListReportCommand command) {
+    @RequestMapping(value = "show")
+    @ResponseBody
+    public BaseResponse searchByCompany(ListReportCommand command) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            Pagination<ReportRepresentation> representation = apiReportService.showByCompany(companyId, command);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, representation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            response = apiReportService.list(command);
 
 
         } catch (Exception e) {
 
             logger.warn(e.getMessage());
-            response=new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE,0,null,e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
-        response.setDebug_time(System.currentTimeMillis()-startTime);
+        response.setDebug_time(System.currentTimeMillis() - startTime);
         return response;
     }
+
     @RequestMapping(value = "show_by_reportId")
-    public BaseResponse showByReportId(@PathVariable String reportId){
+    @ResponseBody
+    public BaseResponse showByReportId(String reportId) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            ReportRepresentation representation=apiReportService.show(reportId);
+            response= new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,representation,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+    @RequestMapping(value="/create")
+    @ResponseBody
+    public BaseResponse create(CreateReportCommand command){
         long startTime=System.currentTimeMillis();
         BaseResponse response=null;
         try{
-            ReportRepresentation representation=apiReportService.show(reportId);
-            response=new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR,0,representation,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
-
+            response=apiReportService.create(command);
         }catch (Exception e){
             logger.warn(e.getMessage());
-            response=new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE,0,null,e.getMessage());
-
+            response=new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
         response.setDebug_time(System.currentTimeMillis()-startTime);
-        return  response;
+        return response;
     }
 }

@@ -49,28 +49,6 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    @SuppressWarnings("unchecked")//修改举报订单状态
-    //状态1待处理.2处理中.3处理完成
-    public Report updateState(EditReportCommand command) {
-
-        Report report = this.getById(command.getId());
-
-        report.fainWhenConcurrencyViolation(command.getVersion());
-
-        /* PENDING("待处理",1,Boolean.FALSE),
-        IN_PROCESS("正在处理",2,Boolean.FALSE),
-        FIGURE_OUT("处理完成",3,Boolean.FALSE);*/
-        if (report.getStatus().equals("PENDING")) {
-            report.setStatus(ReportStatus.IN_PROCESS);
-            report.setHandleResult(command.getHandleResult());
-        } else if (report.getStatus().equals("IN_PROCESS")) {
-            report.setStatus(ReportStatus.FIGURE_OUT);
-        }
-        reportRepository.update(report);
-        return report;
-    }
-
-    @Override
     public Report getById(String reportId) {
         Report report = reportRepository.getById(reportId);
         if (report == null) {

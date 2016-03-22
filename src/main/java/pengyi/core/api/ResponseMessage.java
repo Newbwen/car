@@ -43,14 +43,11 @@ public enum ResponseMessage {
 
     //评价
     ERROR_40001(40001,"评价内容不能为空"),
-<<<<<<< .merge_file_a00956
-=======
 
     //站内信
     ERROR_50001(50001,"接收人sendBaseUser字段不能为空"),
     ERROR_50002(50002,"类容content字段不能为空"),
     ERROR_50003(50003,"类型type字段不能为空");
->>>>>>> .merge_file_a11840
 
     //站内信
     ERROR_50001(50001,"接收人sendBaseUser字段不能为空"),

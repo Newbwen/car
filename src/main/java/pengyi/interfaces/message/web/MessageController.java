@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.message.IMessageAppService;
 import pengyi.application.message.command.CreateMessageByRoleCommand;
+import pengyi.application.message.command.DeleteMessageCommand;
+import pengyi.application.message.command.EditMessageCommand;
 import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.application.role.IRoleAppService;
@@ -42,7 +44,9 @@ public class MessageController extends BaseController {
     private IRoleAppService roleAppService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView list(ListMessageCommand command) {
+    public ModelAndView list(ListMessageCommand command,HttpSession session) {
+        BaseUser user = (BaseUser) session.getAttribute(Constants.SESSION_USER);
+        command.setSendBaseUser(user.getId());
         return new ModelAndView("/message/list", "command", command)
                 .addObject("pagination", messageAppService.pagination(command));
     }
@@ -58,7 +62,6 @@ public class MessageController extends BaseController {
                                BindingResult bindingResult, RedirectAttributes redirectAttributes,
                                Locale locale, HttpSession session) {
         BaseUser user = (BaseUser) session.getAttribute(Constants.SESSION_USER);
-        MessageRepresentation message = null;
         command.setSendBaseUser(user.getId());
         List<RoleRepresentation> roles = roleAppService.roleList();
         if (bindingResult.hasErrors()) {
@@ -67,7 +70,7 @@ public class MessageController extends BaseController {
         AlertMessage alertMessage = null;
 
         try {
-            message = messageAppService.create(command);
+            messageAppService.create(command);
         } catch (Exception e) {
             logger.error(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
@@ -76,7 +79,7 @@ public class MessageController extends BaseController {
         logger.info("创建站内信息成功,时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        return new ModelAndView("redirect:/message/show/" + message.getId());
+        return new ModelAndView("redirect:/message/list");
     }
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
@@ -95,33 +98,40 @@ public class MessageController extends BaseController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView delete(@Valid @ModelAttribute("command") String id,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("message/list");
-        }
+    public ModelAndView delete(@PathVariable String messageId, @ModelAttribute("command") DeleteMessageCommand command, RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
-        MessageRepresentation representation = null;
-        try {
-            representation = messageAppService.delete(id);
-        } catch (ConcurrencyException e) {
-            logger.warn(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            redirectAttributes.addAttribute("id", id);
-            return new ModelAndView("redirect:/message/list");
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("/message/list")
-                    .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        }
-        logger.info("id=[" + id + "],时间[" + new Date() + "]");
-        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, null));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", id);
 
-        return new ModelAndView("redirect:/message/list");
+        MessageRepresentation message=null;
+
+        try{
+            message=messageAppService.delete(messageId);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            redirectAttributes.addAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
+            logger.info("将messageId=["+message.getId()+"]标记不显示，时间["+new Date()+"]");
+            return  new ModelAndView("redirect:/message/list");
+        }
+        return new ModelAndView("/message/list","command",command).addObject("message",message);
+
+
+    }
+    @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
+    public ModelAndView edit(@PathVariable String messageId, @ModelAttribute("command") EditMessageCommand command, RedirectAttributes redirectAttributes, Locale locale){
+        AlertMessage alertMessage;
+
+        MessageRepresentation message=null;
+
+        try{
+            message=messageAppService.edit(messageId);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
+            redirectAttributes.addAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
+            logger.info("将messageId=["+message.getId()+"]标记已读，时间["+new Date()+"]");
+            return  new ModelAndView("redirect:/message/list");
+        }
+        return new ModelAndView("/message/list","command",command).addObject("message",message);
 
     }
 
