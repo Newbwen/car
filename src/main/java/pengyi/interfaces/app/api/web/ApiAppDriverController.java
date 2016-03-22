@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.driver.IApiDriverAppService;
 import pengyi.application.user.driver.command.*;
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
@@ -50,7 +51,7 @@ public class ApiAppDriverController {
     @ResponseBody
     public BaseResponse show(HttpSession session) {
         long startTime = System.currentTimeMillis();
-        BaseUser baseUser = (BaseUser) session.getAttribute(Constants.SESSION_USER);
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
         if (null == baseUser) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
@@ -71,7 +72,7 @@ public class ApiAppDriverController {
     @ResponseBody
     public BaseResponse edit(EditDriverCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
-        BaseUser baseUser = (BaseUser) session.getAttribute(Constants.SESSION_USER);
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
         if (null == baseUser) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
@@ -92,7 +93,7 @@ public class ApiAppDriverController {
     @ResponseBody
     public BaseResponse updateHeadPic(UpdateHeadPicCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
-        BaseUser baseUser = (BaseUser) session.getAttribute(Constants.SESSION_USER);
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
         if (null == baseUser) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());

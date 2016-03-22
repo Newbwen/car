@@ -15,6 +15,7 @@ import pengyi.application.user.IApiBaseUserAppService;
 import pengyi.application.user.IBaseUserAppService;
 import pengyi.application.user.command.LoginUserCommand;
 import pengyi.application.user.command.ResetPasswordCommand;
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
@@ -41,7 +42,7 @@ public class ApiAppAuthController {
     public BaseResponse login(LoginUserCommand command, HttpServletRequest request, HttpSession session) {
         long statusTime = System.currentTimeMillis();
         BaseResponse response = null;
-        BaseUser user = null;
+        BaseUserRepresentation user = null;
         try {
             user = apiBaseUserAppService.login(command);
 

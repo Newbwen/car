@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.order.command.CompanyOrderListCommand;
-import pengyi.application.order.command.CreateOrderCommand;
+import pengyi.application.order.command.*;
 import pengyi.application.order.representation.OrderRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -40,7 +39,7 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getCompany())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10006.getMessage());
             }
-            Pagination<Order> pagination = orderService.apiPagination(command);
+            Pagination<Order> pagination = orderService.apiCompanyOrderPagination(command);
             List<OrderRepresentation> data = mappingService.mapAsList(pagination.getData(), OrderRepresentation.class);
 
             Pagination<OrderRepresentation> result = new Pagination<OrderRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
@@ -57,7 +56,7 @@ public class ApiOrderAppService implements IApiOrderAppService {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10020.getMessage());
             }
             if (!CoreStringUtils.isEmpty(command.getSubscribeDate())) {
-                if (null == CoreDateUtils.parseDate(command.getSubscribeDate(),CoreDateUtils.DATETIME)) {
+                if (null == CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME)) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10022.getMessage());
                 }
             } else {
@@ -68,6 +67,120 @@ public class ApiOrderAppService implements IApiOrderAppService {
             }
             OrderRepresentation order = mappingService.map(orderService.apiCreateOrder(command), OrderRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse receiveOrder(ReceiveOrderCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getReceiveUser())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10023.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.apiReceiverOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse startOrder(UpDateOrderStatusCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.apiStartOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse show(String orderId) {
+        if (CoreStringUtils.isEmpty(orderId)) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+        }
+        OrderRepresentation order = mappingService.map(orderService.show(orderId), OrderRepresentation.class, false);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, order, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
+    public BaseResponse waitPayOrder(UpDateOrderStatusCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.apiWaitPayOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse payOrder(UpDateOrderStatusCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.apiPayOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse cancelOrder(UpDateOrderStatusCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.apiCancelOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse pagination(ListOrderCommand command) {
+        if (null != command) {
+            command.verifyPage();
+            command.verifyPageSize(10);
+            Pagination<Order> pagination = orderService.apiPagination(command);
+            List<OrderRepresentation> data = mappingService.mapAsList(pagination.getData(), OrderRepresentation.class);
+
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0,
+                    new Pagination<OrderRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize()),
+                    ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
                     ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());

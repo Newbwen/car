@@ -20,7 +20,7 @@ import pengyi.core.util.CoreStringUtils;
  */
 @Controller
 @RequestMapping("/api/app/sms")
-public class ApiAppSms {
+public class ApiAppSmsController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
