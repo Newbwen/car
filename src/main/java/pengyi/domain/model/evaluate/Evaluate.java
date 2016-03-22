@@ -15,7 +15,7 @@ public class Evaluate extends Identity {
     private BaseUser evaluateUser;                  //评价人
     private Order order;                            //订单
     private String content;                         //评价内容
-    private Integer level;                              //评级
+    private Integer level;                              //评级（12345，星）
     private Date createDate;                      //评价时间
 
     public BaseUser getEvaluateUser() {

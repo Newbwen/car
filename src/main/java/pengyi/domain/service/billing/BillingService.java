@@ -11,7 +11,9 @@ import pengyi.core.exception.NoFoundException;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.billing.IBillingRepository;
+import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.area.IAreaService;
+import pengyi.domain.service.user.driver.IDriverService;
 import pengyi.repository.generic.Pagination;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class BillingService implements IBillingService {
 
     @Autowired
     private IAreaService areaService;
+
+    @Autowired
+    private IDriverService driverService;
 
     @Override
     public Pagination<Billing> pagination(ListBillingCommand command) {
@@ -70,6 +75,13 @@ public class BillingService implements IBillingService {
         billing.setArea(area);
 
         billingRepository.update(billing);
+        return billing;
+    }
+
+    @Override
+    public Billing apiSearchByArea(String driverId) {
+        Driver driver = driverService.show(driverId);
+        Billing billing = billingRepository.searchByArea(driver.getCompany().getOperateAddress().getId());
         return billing;
     }
 

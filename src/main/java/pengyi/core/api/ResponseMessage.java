@@ -29,8 +29,8 @@ public enum ResponseMessage {
     ERROR_10020(10020, "orderUser字段不能为空"),
     ERROR_10021(10021, "subscribeDate字段不能为空"),
     ERROR_10022(10022, "subscribeDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
-    ERROR_10023(10023,"receiveUser字段不能为空"),
-    ERROR_10024(10024,"orderId字段不能为空"),
+    ERROR_10023(10023, "receiveUser字段不能为空"),
+    ERROR_10024(10024, "orderId字段不能为空"),
 
 
     //救援
@@ -44,12 +44,13 @@ public enum ResponseMessage {
     ERROR_30001(30001, "车牌号已存在"),
 
     //评价
-    ERROR_40001(40001,"评价内容不能为空"),
+    ERROR_40001(40001, "content字段不能为空"),
+    ERROR_40002(40002, "level字段不能为空"),
 
     //站内信
-    ERROR_50001(50001,"接收人sendBaseUser字段不能为空"),
-    ERROR_50002(50002,"类容content字段不能为空"),
-    ERROR_50003(50003,"类型type字段不能为空");
+    ERROR_50001(50001, "接收人sendBaseUser字段不能为空"),
+    ERROR_50002(50002, "类容content字段不能为空"),
+    ERROR_50003(50003, "类型type字段不能为空");
 
 
     private int code;

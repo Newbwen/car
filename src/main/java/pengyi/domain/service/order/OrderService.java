@@ -72,6 +72,21 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<Order> searchByDriver(String driverId) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("receiveUser.id", driverId));
+        return orderRepository.list(criterionList, null);
+    }
+
+    @Override
+    public Order updateEvaluate(String orderId, EvaluateStatus evaluateStatus) {
+        Order order = this.show(orderId);
+        order.setEvaluateStatus(evaluateStatus);
+        orderRepository.update(order);
+        return order;
+    }
+
+    @Override
     public Pagination<Order> apiCompanyOrderPagination(CompanyOrderListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         List<Driver> drivers = driverService.searchByCompany(command.getCompany());
