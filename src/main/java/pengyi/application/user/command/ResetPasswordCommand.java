@@ -7,8 +7,10 @@ public class ResetPasswordCommand {
 
     private String id;
     private Integer version;
+    private String userName;
     private String password;
     private String confirmPassword;
+    private String verificationCode;
 
     public String getId() {
         return id;
@@ -34,11 +36,27 @@ public class ResetPasswordCommand {
         this.password = password;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

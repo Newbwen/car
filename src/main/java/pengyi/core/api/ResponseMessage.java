@@ -25,6 +25,7 @@ public enum ResponseMessage {
     ERROR_10016(10016, "oldPassword字段不能为空"),
     ERROR_10017(10017, "newPassword字段不能为空"),
     ERROR_10018(10018, "headPic字段不能为空"),
+    ERROR_10019(10019, "verificationCode字段不能为空"),
 
 
     //救援

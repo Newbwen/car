@@ -12,6 +12,7 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.redis.RedisService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.service.user.user.IUserService;
 
@@ -27,6 +28,9 @@ public class ApiUserAppService implements IApiUserAppService {
 
     @Autowired
     private IMappingService mappingService;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public BaseResponse show(String id) {
@@ -81,7 +85,20 @@ public class ApiUserAppService implements IApiUserAppService {
             if (CoreStringUtils.isEmpty(command.getPassword())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10011.getMessage());
             }
+            if (CoreStringUtils.isEmpty(command.getVerificationCode())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10019.getMessage());
+            }
+            if (redisService.exists(command.getUserName())) {
+                if (!redisService.getCache(command.getUserName()).equals(command.getVerificationCode())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR, 0, null,
+                            ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR.getMessage());
+                }
+            } else {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND, 0, null,
+                        ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND.getMessage());
+            }
             UserRepresentation user = mappingService.map(userService.apiRegister(command), UserRepresentation.class, false);
+            redisService.delete(command.getUserName());
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
