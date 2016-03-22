@@ -14,7 +14,6 @@ import pengyi.application.car.representation.CarRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
-import pengyi.core.exception.ConcurrencyException;
 import pengyi.core.exception.ExistException;
 
 /**
@@ -81,9 +80,6 @@ public class ApiCarController {
         }
         return baseResponse;
     }
-    /**
-     *(公司)查看车辆信息
-     */
 
 
 

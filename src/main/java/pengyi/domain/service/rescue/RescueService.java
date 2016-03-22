@@ -118,8 +118,6 @@ public class RescueService implements IRescueService {
             rescue.setStatus(RescueStatus.IN_RESCUE);
         } else if (rescue.getStatus().equals(RescueStatus.IN_RESCUE)) {
             rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
-        } else if (rescue.getStatus().equals(RescueStatus.SUCCESS_RESCUE)) {
-            rescue.setStatus(RescueStatus.WAIT_RESCUE);
         }
         rescueRepository.update(rescue);
         return rescue;
@@ -157,7 +155,7 @@ public class RescueService implements IRescueService {
 
         Rescue rescue=this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());
-        rescue.setStatus(RescueStatus.CANCEL_RESCUE);
+        rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
         rescueRepository.update(rescue);
         return rescue;
     }

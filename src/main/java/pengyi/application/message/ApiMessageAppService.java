@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CompanyListMessageCommand;
 import pengyi.application.message.command.CreateMessageByBaseUserCommand;
 import pengyi.application.message.command.CreateMessageByRoleCommand;
-import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.message.Message;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Service("apiMessageService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-public class ApiMessageService implements IApiMessageService {
+public class ApiMessageAppService implements IApiMessageAppService {
 
     @Autowired
     private IMessageService messageService;
@@ -54,6 +54,15 @@ public class ApiMessageService implements IApiMessageService {
     @Transactional(readOnly = true)
     public BaseResponse apiCreateMessage(CreateMessageByBaseUserCommand command) {
         if (null != command) {
+            if(CoreStringUtils.isEmpty(command.getReceiveBaseUser())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseMessage.ERROR_50001.getMessage());
+            }
+            if(CoreStringUtils.isEmpty(command.getContent())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseMessage.ERROR_50002.getMessage());
+            }
+            if(CoreStringUtils.isEmpty(command.getType().getName())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR,0,null,ResponseMessage.ERROR_50003.getMessage());
+            }
             MessageRepresentation representation = mappingService.map(messageService.createByBaseUser(command), MessageRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, representation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
@@ -61,7 +70,6 @@ public class ApiMessageService implements IApiMessageService {
     }
 
     @Override//4
-    @Transactional(readOnly = true)
     public BaseResponse apiCreateMessage(CreateMessageByRoleCommand command) {
         if (null != command) {
             messageService.create(command);
@@ -74,6 +82,9 @@ public class ApiMessageService implements IApiMessageService {
     @Transactional(readOnly = true)
     public BaseResponse companyMessageList(CompanyListMessageCommand command) {
         if (null != command) {
+           /* if(CoreStringUtils.isEmpty(command.getCompany())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null, ResponseMessage.ERROR_10006.getMessage());
+            }*/
             Pagination<Message> pagination = messageService.pagination(command);
             List<MessageRepresentation> data = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
             Pagination<MessageRepresentation> result = new Pagination<MessageRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());

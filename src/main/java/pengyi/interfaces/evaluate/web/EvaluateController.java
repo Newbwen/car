@@ -53,7 +53,7 @@ public class EvaluateController extends BaseController {
         AlertMessage alertMessage = null;
         EvaluateRepresentation evaluateRepresentation = null;
         try {
-            evaluateRepresentation = evaluateAppService.create(command);
+             evaluateAppService.create(command);
         } catch (Exception e) {
             logger.error(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
@@ -113,7 +113,7 @@ public class EvaluateController extends BaseController {
         EvaluateRepresentation evaluateRepresentation = null;
 
         try {
-            evaluateRepresentation = evaluateAppService.edit(command);
+            evaluateAppService.edit(command);
         } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());

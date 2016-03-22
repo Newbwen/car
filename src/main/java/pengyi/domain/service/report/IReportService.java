@@ -12,8 +12,6 @@ import pengyi.repository.generic.Pagination;
 public interface IReportService {
     Report createReport(CreateReportCommand command);
 
-    Report updateState(EditReportCommand command);
-
     Report getById(String reportId);
 
     Pagination<Report> pagination(ListReportCommand command);

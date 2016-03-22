@@ -1,7 +1,6 @@
 package pengyi.domain.service.car;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import java.util.List;
  * Created lvdi on 2016/3/8.
  */
 @Service("carService")
-public class CarService implements ICarService{
+public class CarService implements ICarService {
 
     @Autowired
     private ICarRepository carRepository;
@@ -35,32 +34,30 @@ public class CarService implements ICarService{
     @Override
     public Pagination<Car> pagination(ListCarCommand command) {
         List<Criterion> criteriaList = new ArrayList();
-        if(null!=command.getCarType()){
-            criteriaList.add(Restrictions.eq("carType",command.getCarType()));
+        if (null != command.getCarType()) {
+            criteriaList.add(Restrictions.eq("carType", command.getCarType()));
         }
         if (!CoreStringUtils.isEmpty(command.getCarNumber())) {
-            criteriaList.add(Restrictions.eq("carNumber", command.getCarNumber()));
+            criteriaList.add(Restrictions.like("carNumber", command.getCarNumber()));
         }
         if (!CoreStringUtils.isEmpty(command.getDriver())) {
-            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
+            criteriaList.add(Restrictions.like("driver.id", command.getDriver()));
         }
-        if(!CoreStringUtils.isEmpty(command.getName())){
-            criteriaList.add(Restrictions.like("name",command.getName()));
+        if (!CoreStringUtils.isEmpty(command.getName())) {
+            criteriaList.add(Restrictions.like("name", command.getName()));
         }
 //        List<Order> orderList=new ArrayList<Order>();
 //        orderList.add(Order.desc("createDate"));
-        return carRepository.pagination(command.getPage(),command.getPageSize(),criteriaList,null);
+        return carRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
     }
-
-
 
 
     @Override
     public Car edit(EditCarCommand command) {
-       Car car=this.show(command.getId());
+        Car car = this.show(command.getId());
         car.fainWhenConcurrencyViolation(car.getVersion());
-        Car car1=this.searchByNumber(command.getCarNumber());
-        if(null!=car1){
+        Car car1 = this.searchByNumber(command.getCarNumber());
+        if (null != car1) {
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
         }
 
@@ -72,8 +69,8 @@ public class CarService implements ICarService{
     }
 
     @Override
-        public Car show(String id) {
-        Car car= (Car) carRepository.getById(id);
+    public Car show(String id) {
+        Car car = (Car) carRepository.getById(id);
         if (null == car) {
             throw new NoFoundException("没有找到车辆id=[" + id + "]的记录");
         }
@@ -82,7 +79,7 @@ public class CarService implements ICarService{
 
     @Override
     public Car searchByNumber(String carNumber) {
-        return carRepository.getBynuNumber(carNumber);
+        return carRepository.getByNumber(carNumber);
     }
 
     @Override
@@ -95,13 +92,17 @@ public class CarService implements ICarService{
     public Car create(CreateCarCommand command) {
 
         Car car = this.searchByNumber(command.getCarNumber());
-        if(null!=car){
+        Car car1 = this.searchByDriver(command.getDriver());
+        if (null != car) {
 
             throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
 
         }
-        Driver driver=driverService.show(command.getDriver());
-        Car car2=new Car(command.getName(),command.getCarNumber(),driver,command.getCarType());
+        if (null != car1) {
+            throw new ExistException("车辆[" + command.getDriver() + "]的记录已存在");
+        }
+        Driver driver = driverService.show(command.getDriver());
+        Car car2 = new Car(command.getName(), command.getCarNumber(), driver, command.getCarType());
         carRepository.save(car2);
         return car2;
     }

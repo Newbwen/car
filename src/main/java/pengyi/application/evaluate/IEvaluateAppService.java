@@ -13,9 +13,9 @@ public interface IEvaluateAppService {
 
     Pagination<EvaluateRepresentation> pagination(ListEvaluateCommand command);
 
-    EvaluateRepresentation create(CreateEvaluateCommand command);
+    void create(CreateEvaluateCommand command);
 
-    EvaluateRepresentation edit(EditEvaluateCommand command);
+    void edit(EditEvaluateCommand command);
 
     EvaluateRepresentation show(String id);
 
