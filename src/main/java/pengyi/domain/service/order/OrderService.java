@@ -9,6 +9,7 @@ import pengyi.application.order.command.CompanyOrderListCommand;
 import pengyi.application.order.command.CreateOrderCommand;
 import pengyi.application.order.command.ListOrderCommand;
 import pengyi.application.order.command.UpDateOrderStatusCommand;
+import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
@@ -42,6 +43,9 @@ public class OrderService implements IOrderService {
     @Autowired
     private IDriverService driverService;
 
+    @Autowired
+    private IdFactory idFactory;
+
     @Override
     public Pagination<Order> pagination(ListOrderCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
@@ -60,21 +64,7 @@ public class OrderService implements IOrderService {
         return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orders);
     }
 
-    @Override
-    public Order create(CreateOrderCommand command) {
 
-        String orderNumber = UUID.randomUUID().toString();//TODO 订单号生成
-        BaseUser orderUser = baseUserService.show(command.getOrderUser());
-        BaseUser receiveUser = baseUserService.show(command.getReceiveUser());
-
-        Order order = new Order(orderNumber, orderUser, new Date(), receiveUser, null, command.getSubscribeDate(),
-                null, command.getDriverType(), null, command.getShouldMoney(), null, null, OrderStatus.WAIT_ORDER,
-                EvaluateStatus.NOT_EVALUATE);
-
-        orderRepository.save(order);
-
-        return order;
-    }
 
     @Override
     public Order updateOrderStatus(UpDateOrderStatusCommand command) {
@@ -131,5 +121,18 @@ public class OrderService implements IOrderService {
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
 
         return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+    }
+
+    @Override
+    public Order apiCreateOrder(CreateOrderCommand command) {
+        BaseUser baseUser = baseUserService.show(command.getOrderUser());
+
+        String orderNo = idFactory.getNextId();
+
+        Order order = new Order(orderNo,baseUser,new Date(),null,null,CoreDateUtils.parseDate(command.getSubscribeDate()),null,command.getDriverType(),null,null,command.getExtraMoney(),null,OrderStatus.WAIT_ORDER,EvaluateStatus.NOT_EVALUATE);
+
+        orderRepository.save(order);
+
+        return order;
     }
 }

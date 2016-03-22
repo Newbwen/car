@@ -14,11 +14,12 @@ public interface IOrderService {
 
     Pagination<Order> pagination(ListOrderCommand command);
 
-    Order create(CreateOrderCommand command);
-
     Order updateOrderStatus(UpDateOrderStatusCommand command);
 
     Order show(String id);
 
+    /********  api 方法 ***********/
     Pagination<Order> apiPagination(CompanyOrderListCommand command);
+
+    Order apiCreateOrder(CreateOrderCommand command);
 }

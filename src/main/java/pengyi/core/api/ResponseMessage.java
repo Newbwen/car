@@ -26,6 +26,9 @@ public enum ResponseMessage {
     ERROR_10017(10017, "newPassword字段不能为空"),
     ERROR_10018(10018, "headPic字段不能为空"),
     ERROR_10019(10019, "verificationCode字段不能为空"),
+    ERROR_10020(10020, "orderUser字段不能为空"),
+    ERROR_10021(10021, "subscribeDate字段不能为空"),
+    ERROR_10022(10022, "subscribeDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
 
 
     //救援

@@ -9,7 +9,7 @@
             <address>api/app/user/register</address>
             <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
             <zhuyi>参数不能为空</zhuyi>
-            <fanhuixinxi>{</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>74d9d5e8-a335-4e37-897b-1f5e3a5338ce</id>
@@ -33,7 +33,7 @@
             <address>api/app/user/show</address>
             <shuoming>无</shuoming>
             <zhuyi>用户之前必须登录</zhuyi>
-            <fanhuixinxi>{</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"balance":0.00,"createDate":"2016-03-21 16:46:36","credentialsSalt":"158236348447ea19d580359fb4f175b705f868059d0","email":null,"head":null,"id":"402881e9539857710153985abd160000","integral":0,"money":0.00,"name":null,"password":"89d682b5bd7f8b0926ee82f179dad542","reportCount":0,"salt":"7ea19d580359fb4f175b705f868059d0","sex":null,"status":"ENABLE","userName":"15823634844","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":2},"debug_time":17671,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>b6845a96-ba49-41df-b774-ba0c6ccf1f8f</id>
@@ -57,7 +57,7 @@
             <address>api/app/driver/register</address>
             <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
             <zhuyi>参数不能为空</zhuyi>
-            <fanhuixinxi>{</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>f93ea398-c30a-46f5-b1a7-c80ec76ea5f1</id>

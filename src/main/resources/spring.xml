@@ -33,4 +33,10 @@
     <bean id="threadContainer" class="pengyi.socketserver.ThreadContainer" init-method="start" destroy-method="stop">
     </bean>
 
+    <bean id="idFactory" class="pengyi.core.commons.id.IdFactory">
+        <property name="prefix" value="${idFactory.prefix}"/>
+        <property name="suffixLength" value="${idFactory.suffixLength}"/>
+        <property name="sequenceAppService" ref="sequenceAppService"/>
+    </bean>
+
 </beans>
