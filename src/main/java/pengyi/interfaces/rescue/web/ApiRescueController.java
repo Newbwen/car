@@ -125,14 +125,20 @@ public class ApiRescueController {
      */
     @RequestMapping(value = "/ finish")
     @ResponseBody
-    public BaseResponse  finish(){
+    public BaseResponse  finish(EditRescueCommand command){
         long startTime=System.currentTimeMillis();
          BaseResponse baseResponse=null;
         try {
+            baseResponse=iApiRescueAppService.finishRescue(command);
+        }catch (ConcurrencyException e){
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
         }catch (Exception e){
             logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
-        return null;
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
     }
 
 

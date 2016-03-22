@@ -44,13 +44,14 @@ public class ApiCarController {
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
         baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+
         return baseResponse;
     }
 
     /**
      * (司机)创建车辆信息
      */
-    @RequestMapping("create")
+    @RequestMapping("/create")
     @ResponseBody
     public BaseResponse create(CreateCarCommand command) {
         long startTime = System.currentTimeMillis();

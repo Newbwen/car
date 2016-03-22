@@ -1,7 +1,7 @@
 package pengyi.domain.service.car;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,8 +45,10 @@ public class CarService implements ICarService{
             criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
         if(!CoreStringUtils.isEmpty(command.getName())){
-            criteriaList.add(Restrictions.like("carName",command.getName()));
+            criteriaList.add(Restrictions.like("name",command.getName()));
         }
+//        List<Order> orderList=new ArrayList<Order>();
+//        orderList.add(Order.desc("createDate"));
         return carRepository.pagination(command.getPage(),command.getPageSize(),criteriaList,null);
     }
 

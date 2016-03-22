@@ -20,7 +20,7 @@ public class CreateCarCommand {
     @NotEmpty(message = "{car.driver,NotEmpty,message}")
     private String driver;              //司机
 
-    @NotNull(message = "{car.carType,NotEmpty,message}")
+  //  @NotNull(message = "{car.carType,NotEmpty,message}")
     private CarType carType;             //车辆类型
 
     public CarType getCarType() {
