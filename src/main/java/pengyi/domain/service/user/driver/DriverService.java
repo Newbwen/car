@@ -5,6 +5,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.driver.command.*;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
@@ -53,7 +54,7 @@ public class DriverService implements IDriverService {
             criteriaList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
-        if(!CoreStringUtils.isEmpty(command.getName())){
+        if (!CoreStringUtils.isEmpty(command.getName())) {
             criteriaList.add(Restrictions.like("name", command.getName(), MatchMode.ANYWHERE));
         }
 
@@ -183,6 +184,46 @@ public class DriverService implements IDriverService {
 
         driver.setCompany(null);
 
+        driverRepository.update(driver);
+        return driver;
+    }
+
+    @Override
+    public Driver apiRegister(RegisterDriverCommand command) {
+        BaseUser baseUser = baseUserService.searchByUserName(command.getUserName());
+        if (null != baseUser) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        Role role = roleService.searchByName("driver");
+        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                null, null, null, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null);
+
+        driverRepository.save(driver);
+        return driver;
+    }
+
+    @Override
+    public Driver apiEdit(EditDriverCommand command) {
+        Driver driver = this.show(command.getId());
+        driver.fainWhenConcurrencyViolation(command.getVersion());
+
+        driver.setEmail(command.getEmail());
+        driver.setName(command.getName());
+        driver.setSex(command.getSex());
+        driver.setDriverType(command.getDriverType());
+
+        driverRepository.update(driver);
+
+        return driver;
+    }
+
+    @Override
+    public Driver apiUpdateHeadPic(UpdateHeadPicCommand command) {
+        Driver driver = this.show(command.getId());
+        driver.setHead(command.getHeadPic());
         driverRepository.update(driver);
         return driver;
     }

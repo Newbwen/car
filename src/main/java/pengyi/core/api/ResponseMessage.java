@@ -24,20 +24,25 @@ public enum ResponseMessage {
     ERROR_10015(10015, "registerDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
     ERROR_10016(10016, "oldPassword字段不能为空"),
     ERROR_10017(10017, "newPassword字段不能为空"),
+    ERROR_10018(10018, "headPic字段不能为空"),
+    ERROR_10019(10019, "verificationCode字段不能为空"),
+    ERROR_10020(10020, "orderUser字段不能为空"),
+    ERROR_10021(10021, "subscribeDate字段不能为空"),
+    ERROR_10022(10022, "subscribeDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
+
 
     //救援
-    ERROR_20000(20000,"派送救援司机不能为空"),
-    ERROR_20001(20001,"救援状态不能为空"),
-    ERROR_20002(20002,"救援申请人不能为空"),
-    ERROR_20003(20003,"救援说明不能为空"),
-    ERROR_20004(20004,"已安排救援不能取消"),
+    ERROR_20000(20000, "派送救援司机不能为空"),
+    ERROR_20001(20001, "救援状态不能为空"),
+    ERROR_20002(20002, "救援申请人不能为空"),
+    ERROR_20003(20003, "救援说明不能为空"),
+    ERROR_20004(20004, "已安排救援不能取消"),
 
     //车辆
-    ERROR_30001(30001,"车牌号已存在"),
+    ERROR_30001(30001, "车牌号已存在"),
 
     //评价
-    ERROR_40001(40001,"评价内容不能为空");
-
+    ERROR_40001(40001, "评价内容不能为空");
 
 
     private int code;

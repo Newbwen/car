@@ -36,11 +36,12 @@ public class CoreStringUtils {
 
     /**
      * 字符串拼接
+     *
      * @param delimiter 拼接分割符
      * @param objects   拼接字符串数组
      * @return
      */
-    public static String join(String delimiter, Object...objects) {
+    public static String join(String delimiter, Object... objects) {
         StringBuilder buffer = new StringBuilder();
         boolean hasDelimiter = !isEmpty(delimiter);
         for (int i = 0, length = objects.length; i < length; i++) {
@@ -54,6 +55,7 @@ public class CoreStringUtils {
 
     /**
      * url编码
+     *
      * @param src     编码内容
      * @param charset 字符集
      * @return
@@ -65,11 +67,12 @@ public class CoreStringUtils {
         } catch (UnsupportedEncodingException e) {
             log.error(e.getMessage(), e);
         }
-        return  encoded;
+        return encoded;
     }
 
     /**
      * url解码
+     *
      * @param src     编码内容
      * @param charset 字符集
      * @return
@@ -83,7 +86,7 @@ public class CoreStringUtils {
                 log.error(e.getMessage(), e);
             }
         }
-        return  encoded;
+        return encoded;
     }
 
     public static String unicodeToString(String str) {
@@ -103,7 +106,7 @@ public class CoreStringUtils {
                     if (c != '\\') {
                         break;
                     } else {
-                        unicodeBufferIndex ++;
+                        unicodeBufferIndex++;
                         unicodeBuffer[unicodeBufferIndex] = c;
                         continue;
                     }
@@ -111,7 +114,7 @@ public class CoreStringUtils {
                     if (c != 'u') {
                         break;
                     } else {
-                        unicodeBufferIndex ++;
+                        unicodeBufferIndex++;
                         unicodeBuffer[unicodeBufferIndex] = c;
                         continue;
                     }
@@ -121,7 +124,7 @@ public class CoreStringUtils {
                 case 4:
                     // 判断16进制字符
                     if ((c >= 48 && c <= 57) || (c >= 97 && c <= 102)) {
-                        unicodeBufferIndex ++;
+                        unicodeBufferIndex++;
                         unicodeBuffer[unicodeBufferIndex] = c;
 
                         if (unicodeBufferIndex == 5) {
@@ -130,7 +133,7 @@ public class CoreStringUtils {
                             for (int i = 2; i <= unicodeBufferIndex; i++) {
                                 chBuffer.append(unicodeBuffer[i]);
                             }
-                            char ch = (char)Integer.parseInt(chBuffer.toString(), 16);
+                            char ch = (char) Integer.parseInt(chBuffer.toString(), 16);
                             des.append(ch);
 
                             unicodeBufferIndex = -1;
@@ -144,7 +147,7 @@ public class CoreStringUtils {
             }
 
             // 匹配的都已经continue了，这里处理匹配失败的
-            for (int i = 0; i <= unicodeBufferIndex; i ++) {
+            for (int i = 0; i <= unicodeBufferIndex; i++) {
                 des.append(unicodeBuffer[i]);
             }
             des.append(c);
@@ -159,13 +162,14 @@ public class CoreStringUtils {
 
     /**
      * Hash crc32校验
+     *
      * @param src
      * @return
      */
     public static String hashCRC32(String src) {
-         CRC32 crc32 = new CRC32();
-         crc32.update(src.getBytes());
-         return Long.toHexString(crc32.getValue());
+        CRC32 crc32 = new CRC32();
+        crc32.update(src.getBytes());
+        return Long.toHexString(crc32.getValue());
     }
 
     public final static String md5(String src, int length, boolean upCase, String charset) {
@@ -203,6 +207,7 @@ public class CoreStringUtils {
     /**
      * 对src进行左补src.length() - length 个零操作
      * 如果src.length <＝ length 直接返回
+     *
      * @param src
      * @param length
      * @return
@@ -214,12 +219,13 @@ public class CoreStringUtils {
             return String.valueOf(src);
         }
 
-        return String.format("%0" +  length + "d", src);
+        return String.format("%0" + length + "d", src);
     }
 
     /**
      * 对src进行左补src.length() - length 个长度的随机数操作
      * 如果src.length <＝ length 直接返回
+     *
      * @param src
      * @param length
      * @return
@@ -240,5 +246,19 @@ public class CoreStringUtils {
         return src + String.valueOf(time).substring(timeStrLen - diffLen, timeStrLen);
     }
 
-
+    /**
+     * 随机数
+     *
+     * @param size 随机数长度
+     * @return
+     */
+    public final static String randomNum(int size) {
+        String chars = "0123456789";
+        String rands = "";
+        for (int i = 0; i < size; i++) {
+            int rand = (int) (Math.random() * 10);
+            rands += chars.charAt(rand);
+        }
+        return rands.trim();
+    }
 }

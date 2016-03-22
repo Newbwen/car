@@ -8,6 +8,8 @@ import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.domain.model.user.company.Company;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -30,4 +32,6 @@ public interface ICompanyService {
     Company apiCreate(CreateCompanyCommand command);
 
     Company apiUpdatePassword(UpdatePasswordCommand command);
+
+    List<Company> apiByName(String name);
 }

@@ -1,7 +1,9 @@
 package pengyi.domain.service.user.user;
 
+import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.user.command.BaseListUserCommand;
 import pengyi.application.user.user.command.EditUserCommand;
+import pengyi.application.user.user.command.RegisterUserCommand;
 import pengyi.domain.model.user.user.User;
 import pengyi.repository.generic.Pagination;
 
@@ -17,4 +19,11 @@ public interface IUserService {
     User show(String id);
 
     User create(User user);
+
+
+
+    /******** api 方法  ***********/
+    User apiUpdateHeadPic(UpdateHeadPicCommand command);
+
+    User apiRegister(RegisterUserCommand command);
 }

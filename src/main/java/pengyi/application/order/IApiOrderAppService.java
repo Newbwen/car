@@ -1,6 +1,7 @@
 package pengyi.application.order;
 
 import pengyi.application.order.command.CompanyOrderListCommand;
+import pengyi.application.order.command.CreateOrderCommand;
 import pengyi.core.api.BaseResponse;
 
 /**
@@ -9,4 +10,6 @@ import pengyi.core.api.BaseResponse;
 public interface IApiOrderAppService {
 
     BaseResponse companyOrderPagination(CompanyOrderListCommand command);
+
+    BaseResponse createOrder(CreateOrderCommand command);
 }

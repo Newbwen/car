@@ -7,10 +7,19 @@ import pengyi.core.type.ShowType;
  * Created by liubowen on 2016/3/8.
  */
 public class ListMessageCommand extends BasicPaginationCommand {
+    private String company;
     private String sendBaseUser;             //发送人
     private String sendDate;                //发送时间
     private String content;                 //内容
     private ShowType showType;              //是否显示
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getSendBaseUser() {
         return sendBaseUser;

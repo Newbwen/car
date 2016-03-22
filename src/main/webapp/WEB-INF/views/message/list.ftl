@@ -1,11 +1,11 @@
-[@override name="title"]站内信息管理-信息列表[/@override]
+[@override name="title"]站内信息-信息列表[/@override]
 
 [@override name="topResources"]
     [@super /]
 [/@override]
 
 [@override name="breadcrumbTitle"]
-<li class="active">信息管理</a></li>
+<li class="active">站内信息管理</a></li>
 [/@override]
 
 [@override name="pageHeaderTitle"]
@@ -15,15 +15,33 @@
 [@override name="subContent"]
 <div class="row">
     <div class="col-xs-12">
+        [@mc.showAlert /]
         <div class="table-responsive">
             <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
+                <!-- 查询条件 -->
+                <div class="row">
+                    <form>
+                        <div class="col-sm-6">
+                            <div id="sample-table-2_length" class="dataTables_length">
+                                <label>
+                                    发送时间<input type="text" value="${command.permissionName!}" name="permissionName" />
+                                </label>
+                                <label>
+                                    发送时间<input type="text" value="${command.permissionName!}" name="permissionName" />
+                                </label>
+                                <label><input type="text" value="${command.company}"/></label>
+                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
                     <thead>
                     <tr role="row">
-                        <th>发送人</th>
-                        <th>信息内容</th>
+                        <th>发件人</th>
+                        <th>内容</th>
                         <th>发送时间</th>
-                        <td>操作</td>
+                        <th>操作</th>
                     </tr>
                     </thead>
 
@@ -32,13 +50,24 @@
                         [#if pagination.data??]
                             [#list pagination.data as message ]
                             <tr class="even">
-                                <td>${message.sendBaseUser.name!}</td>
-                                <td>${message.content!}</td>
-                                <td>${message.sendDate!}</td>
+                                <td>${message!}</td>
+                                <td>${message!}</td>
+                                <td>${(message.status.getName())!}</td>
                                 <td>
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="green" href="[@spring.url '/permission/delete/${message.id}'/]"
-                                           title="删除"><i class="icon-pencil bigger-130"></i></a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
+                                            操作
+                                            <i class="icon-angle-down icon-on-right"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="blue" href="[@spring.url '/message/show/${message.id!}'/]">查看</a>
+                                            </li>
+                                            <li>
+                                                <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">删除</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>
@@ -48,8 +77,9 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/message/list' /]
+                    [@mc.showPagination '/message/list?permissionName=${command.permissionName!}&status=${command.status!}' /]
                 [/#if]
+
             </div>
         </div>
     </div>

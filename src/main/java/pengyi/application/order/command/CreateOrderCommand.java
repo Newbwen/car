@@ -12,23 +12,10 @@ import java.util.Date;
  */
 public class CreateOrderCommand {
 
-    private String orderNumber;                         //订单号
     private String orderUser;                         //下单人
-    private String createDate;                          //下单时间
-    private String receiveUser;                       //接单人
-    private Date receiveDate;                         //接单时间
-    private Date subscribeDate;                       //预约时间
-    private DriverType driverType;                    //类型
-    private BigDecimal shouldMoney;                     //应付
+    private String subscribeDate;                       //预约时间
+    private DriverType driverType;                    //接单司机类型类型
     private BigDecimal extraMoney;                      //调度费
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
     public String getOrderUser() {
         return orderUser;
@@ -38,35 +25,11 @@ public class CreateOrderCommand {
         this.orderUser = orderUser;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getReceiveUser() {
-        return receiveUser;
-    }
-
-    public void setReceiveUser(String receiveUser) {
-        this.receiveUser = receiveUser;
-    }
-
-    public Date getReceiveDate() {
-        return receiveDate;
-    }
-
-    public void setReceiveDate(Date receiveDate) {
-        this.receiveDate = receiveDate;
-    }
-
-    public Date getSubscribeDate() {
+    public String getSubscribeDate() {
         return subscribeDate;
     }
 
-    public void setSubscribeDate(Date subscribeDate) {
+    public void setSubscribeDate(String subscribeDate) {
         this.subscribeDate = subscribeDate;
     }
 
@@ -76,14 +39,6 @@ public class CreateOrderCommand {
 
     public void setDriverType(DriverType driverType) {
         this.driverType = driverType;
-    }
-
-    public BigDecimal getShouldMoney() {
-        return shouldMoney;
-    }
-
-    public void setShouldMoney(BigDecimal shouldMoney) {
-        this.shouldMoney = shouldMoney;
     }
 
     public BigDecimal getExtraMoney() {
