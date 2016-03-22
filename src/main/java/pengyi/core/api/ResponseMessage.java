@@ -51,11 +51,6 @@ public enum ResponseMessage {
     ERROR_50002(50002,"类容content字段不能为空"),
     ERROR_50003(50003,"类型type字段不能为空");
 
-    //站内信
-    ERROR_50001(50001,"接收人sendBaseUser字段不能为空"),
-    ERROR_50002(50002,"类容content字段不能为空"),
-    ERROR_50003(50003,"类型type字段不能为空");
-
 
     private int code;
     private String message;
