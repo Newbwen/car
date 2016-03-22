@@ -1,9 +1,6 @@
 package pengyi.domain.service.order;
 
-import pengyi.application.order.command.CompanyOrderListCommand;
-import pengyi.application.order.command.CreateOrderCommand;
-import pengyi.application.order.command.ListOrderCommand;
-import pengyi.application.order.command.UpDateOrderStatusCommand;
+import pengyi.application.order.command.*;
 import pengyi.domain.model.order.Order;
 import pengyi.repository.generic.Pagination;
 
@@ -14,12 +11,24 @@ public interface IOrderService {
 
     Pagination<Order> pagination(ListOrderCommand command);
 
-    Order updateOrderStatus(UpDateOrderStatusCommand command);
-
     Order show(String id);
 
-    /********  api 方法 ***********/
-    Pagination<Order> apiPagination(CompanyOrderListCommand command);
+    /********
+     * api 方法
+     ***********/
+    Pagination<Order> apiCompanyOrderPagination(CompanyOrderListCommand command);
 
     Order apiCreateOrder(CreateOrderCommand command);
+
+    Order apiReceiverOrder(ReceiveOrderCommand command);
+
+    Order apiStartOrder(UpDateOrderStatusCommand command);
+
+    Order apiWaitPayOrder(UpDateOrderStatusCommand command);
+
+    Order apiPayOrder(UpDateOrderStatusCommand command);
+
+    Order apiCancelOrder(UpDateOrderStatusCommand command);
+
+    Pagination<Order> apiPagination(ListOrderCommand command);
 }

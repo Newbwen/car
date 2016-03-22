@@ -29,6 +29,8 @@ public enum ResponseMessage {
     ERROR_10020(10020, "orderUser字段不能为空"),
     ERROR_10021(10021, "subscribeDate字段不能为空"),
     ERROR_10022(10022, "subscribeDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
+    ERROR_10023(10023,"receiveUser字段不能为空"),
+    ERROR_10024(10024,"orderId字段不能为空"),
 
 
     //救援

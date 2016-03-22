@@ -107,5 +107,77 @@
             <zhuyi>参数不能为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":713,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>f0799840-48fd-49e8-850e-742eabde69ec</id>
+            <name>创建订单</name>
+            <address>api/app/order/create_order</address>
+            <shuoming>subscribeDate(预约时间),driverType(接单司机类型),extraMoney(调度费)</shuoming>
+            <zhuyi>用户之前必须登录,subscribeDate(格式:yyyyMMdd hh:mm:ss),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车),extraMoney(格式:0.00)</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":145,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>9a34b446-3326-4222-9b7d-e91476ea5cca</id>
+            <name>司机接单</name>
+            <address>api/app/order/receive_order</address>
+            <shuoming>orderId(订单id),version(订单数据version)</shuoming>
+            <zhuyi>司机之前必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":145,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>8cb3a19f-7fbf-44e9-b8f9-2cacfa385b0e</id>
+            <name>司机开始订单</name>
+            <address>api/app/order/start_order</address>
+            <shuoming>orderId(订单id),version(数据version)</shuoming>
+            <zhuyi>司机之前必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>190e9615-e35a-47c1-8a3c-ab9aecb56522</id>
+            <name>更改订单为待支付</name>
+            <address>api/app/order/wait_pay_order</address>
+            <shuoming>orderId(订单id),version(数据version)</shuoming>
+            <zhuyi>司机之前必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>4b941955-95e7-49ed-a55f-dd4d8aef9161</id>
+            <name>用户支付订单</name>
+            <address>api/app/order/pay_order</address>
+            <shuoming>orderId(订单id),version(数据version)</shuoming>
+            <zhuyi>用户之前必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>cab3ea11-4354-4042-a5b3-f5dd1e49d049</id>
+            <name>用户取消订单</name>
+            <address>api/app/order/cancel_order</address>
+            <shuoming>orderId(订单id),version(数据version)</shuoming>
+            <zhuyi>用户之前必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>a4cc3081-29d5-4861-b558-601eca4425a2</id>
+            <name>查看订单详情</name>
+            <address>api/app/order/show</address>
+            <shuoming>orderId(订单id)</shuoming>
+            <zhuyi>必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"beginTime":null,"createDate":"2016-03-22 14:29:15.0","driverType":"LIMOUSINE","endTime":null,"evaluateStatus":"NOT_EVALUATE","extraMoney":20.00,"id":"402881e9539d02da01539d0358ab0000","orderNumber":"egg20160322142847225000007834","orderStatus":"HAS_ORDER","orderUser":{"balance":0.00,"createDate":"2016-03-21 16:46:36.0","email":null,"head":null,"id":"402881e9539857710153985abd160000","integral":0,"money":0.00,"name":null,"password":"89d682b5bd7f8b0926ee82f179dad542","reportCount":0,"salt":"7ea19d580359fb4f175b705f868059d0","sex":null,"status":"ENABLE","userName":"15823634844","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":2},"payTime":null,"receiveDate":"2016-03-22 14:56:40.0","receiveUser":{"balance":0.00,"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"createDate":"2016-03-17 15:59:57.0","driverType":"TAXI","email":"driver_test_1@bulian.com","head":null,"id":"402881e953837f770153839697750003","latitude":null,"level":1,"longitude":null,"money":0.00,"name":"一号司机","online":true,"password":"232d68230d2013f16712de79ead16482","reportCount":0,"salt":"2068a8706a5c71652d0ce2c97883e139","sex":"WOMAN","status":"ENABLE","userName":"driver_test_1","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":3},"shouldMoney":null,"subscribeDate":null,"version":4},"debug_time":2044,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>477eacbe-27b3-4179-8f07-5abf46a7cac7</id>
+            <name>查看订单分页</name>
+            <address>api/app/order/pagination</address>
+            <shuoming>orderNumber(订单号),orderStatus(订单状态)</shuoming>
+            <zhuyi>必须登录,参数为条件,可有可无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"count":2,"data":[{"beginTime":"2016-03-22 15:34:30.0","createDate":"2016-03-22 14:33:21.0","driverType":"LIMOUSINE","endTime":null,"evaluateStatus":"NOT_EVALUATE","extraMoney":20.00,"id":"402881e9539d02da01539d07176f0001","orderNumber":"egg20160322142847225000007835","orderStatus":"SUCCESS","orderUser":{"balance":0.00,"createDate":"2016-03-21 16:46:36.0","email":null,"head":null,"id":"402881e9539857710153985abd160000","integral":0,"money":0.00,"name":null,"password":"89d682b5bd7f8b0926ee82f179dad542","reportCount":0,"salt":"7ea19d580359fb4f175b705f868059d0","sex":null,"status":"ENABLE","userName":"15823634844","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":2},"payTime":null,"receiveDate":"2016-03-22 15:33:51.0","receiveUser":{"balance":0.00,"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"createDate":"2016-03-17 15:59:57.0","driverType":"TAXI","email":"driver_test_1@bulian.com","head":null,"id":"402881e953837f770153839697750003","latitude":null,"level":1,"longitude":null,"money":0.00,"name":"一号司机","online":true,"password":"232d68230d2013f16712de79ead16482","reportCount":0,"salt":"2068a8706a5c71652d0ce2c97883e139","sex":"WOMAN","status":"ENABLE","userName":"driver_test_1","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":3},"shouldMoney":null,"subscribeDate":null,"version":4},{"beginTime":null,"createDate":"2016-03-22 14:29:15.0","driverType":"LIMOUSINE","endTime":null,"evaluateStatus":"NOT_EVALUATE","extraMoney":20.00,"id":"402881e9539d02da01539d0358ab0000","orderNumber":"egg20160322142847225000007834","orderStatus":"HAS_ORDER","orderUser":{"balance":0.00,"createDate":"2016-03-21 16:46:36.0","email":null,"head":null,"id":"402881e9539857710153985abd160000","integral":0,"money":0.00,"name":null,"password":"89d682b5bd7f8b0926ee82f179dad542","reportCount":0,"salt":"7ea19d580359fb4f175b705f868059d0","sex":null,"status":"ENABLE","userName":"15823634844","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":2},"payTime":null,"receiveDate":"2016-03-22 14:56:40.0","receiveUser":{"balance":0.00,"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"createDate":"2016-03-17 15:59:57.0","driverType":"TAXI","email":"driver_test_1@bulian.com","head":null,"id":"402881e953837f770153839697750003","latitude":null,"level":1,"longitude":null,"money":0.00,"name":"一号司机","online":true,"password":"232d68230d2013f16712de79ead16482","reportCount":0,"salt":"2068a8706a5c71652d0ce2c97883e139","sex":"WOMAN","status":"ENABLE","userName":"driver_test_1","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":3},"shouldMoney":null,"subscribeDate":null,"version":4}],"page":1,"pageSize":10},"debug_time":154,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>082cb72a-407f-47e0-85d4-fe0347504ecf</id>
+            <name>区域查询</name>
+            <address>api/app/area/search</address>
+            <shuoming>id(区域id),name(区域名称),parent(父级区域id)</shuoming>
+            <zhuyi>参数为条件</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":[{"id":"0ad9da9d424849258a223cd4a3f502f4","name":"天津市","parent":null,"priority":"12","version":0},{"id":"10225b8829304fa5af95439f28bae147","name":"内蒙古自治区","parent":null,"priority":"15","version":0},{"id":"1150c070f9df48dd8268e3e6ee12112f","name":"北京市","parent":null,"priority":"11","version":2},{"id":"1cdc41f4585d47388353c93459f6e778","name":"湖北省","parent":null,"priority":"42","version":0},{"id":"220a73dc881e453d94970e2e2d3ec646","name":"台湾省","parent":null,"priority":"71","version":0},{"id":"245fc95637cc478fbdc41c1bc9e15456","name":"辽宁省","parent":null,"priority":"21","version":0},{"id":"2bda7a4df11a4658a65c7f75e4a135ff","name":"福建省","parent":null,"priority":"35","version":0},{"id":"316fe58e0b69490faf3a53cd42adf6cb","name":"广东省","parent":null,"priority":"44","version":0},{"id":"3d7883326bc9424ebf1366bca00b66ef","name":"甘肃省","parent":null,"priority":"62","version":0},{"id":"566e24f87eea41389ad82fa0360ca42d","name":"浙江省","parent":null,"priority":"33","version":0},{"id":"58d609c7f5f144208ea34bef52bf66bc","name":"四川省","parent":null,"priority":"51","version":0},{"id":"663e9a39713441dcb262be52b36d9a5f","name":"江西省","parent":null,"priority":"36","version":0},{"id":"67b1cc65a6db44b98ba5ef27b36b45be","name":"陕西省","parent":null,"priority":"61","version":0},{"id":"6fe327a00e4c4ac6895bcd6718721b37","name":"西藏自治区","parent":null,"priority":"54","version":0},{"id":"718f102a572e4e57800cf4c8b20695a3","name":"安徽省","parent":null,"priority":"34","version":0},{"id":"86e49f3101ba41cc96ea330c3247866d","name":"山东省","parent":null,"priority":"37","version":0},{"id":"8e6725a731db46ff9986a464ed1cf712","name":"山西","parent":null,"priority":"14","version":0},{"id":"940473937de64d4b9a35ec3f60bad3d5","name":"湖南省","parent":null,"priority":"43","version":0},{"id":"9b289ece6c5d4bc9a441333dc91d872c","name":"香港特别行政区","parent":null,"priority":"81","version":0},{"id":"9c3ccb87bf02487f82288c86e46bc3b6","name":"黑龙江省","parent":null,"priority":"23","version":0},{"id":"b69b12f414e341beab7a7a4b9976391b","name":"贵州省","parent":null,"priority":"52","version":0},{"id":"baff86cd984446dd9c98dc98dca86253","name":"上海市","parent":null,"priority":"31","version":0},{"id":"bcbbc22fd5f646759162922d1d09d3a0","name":"澳门特别行政区","parent":null,"priority":"82","version":0},{"id":"c184973edb6c4f4bad65f8caccc6e0e4","name":"云南省","parent":null,"priority":"53","version":0},{"id":"c2254a3237424cd5a21d63dc7f86f555","name":"江苏省","parent":null,"priority":"32","version":0},{"id":"c26cf9545ba24efc983546b6bc58fd0c","name":"青海省","parent":null,"priority":"63","version":0},{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},{"id":"cb92f713d7124732aa79d9442fca40f4","name":"河南省","parent":null,"priority":"41","version":0},{"id":"ccbf8687a1ea483d876609def58b442b","name":"新疆维吾尔自治区","parent":null,"priority":"65","version":0},{"id":"d66f19a3f9144bca9f1a26bd34e760cc","name":"广西壮族自治区","parent":null,"priority":"45","version":0},{"id":"d921b5eed86e4edbb8f04fe2f5fa3791","name":"海南省","parent":null,"priority":"46","version":0},{"id":"e25e829e22ef43efa30c7bcb9ccd7f0c","name":"宁夏回族自治区","parent":null,"priority":"64","version":0},{"id":"e4cd573ccbca4ae7b6c841ef50826940","name":"吉林省","parent":null,"priority":"22","version":0},{"id":"ed71235adc90461d892158a983114b77","name":"河北省","parent":null,"priority":"13","version":0}],"debug_time":68,"message":"成功"}</fanhuixinxi>
+        </api>
     </apis>
 </apifile>
