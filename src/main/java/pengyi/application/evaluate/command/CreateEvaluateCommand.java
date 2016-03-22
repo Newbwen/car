@@ -20,9 +20,6 @@ public class CreateEvaluateCommand {
     @NotEmpty(message = "{evaluate.level,NotEmpty,message}")
     private int level;                                //评级
 
-    @NotEmpty(message = "{evaluate.createDate,NotEmpty,message}")
-    private String createDate;                       //评价时间
-
 
     public String getEvaluateUser() {
         return evaluateUser;
@@ -56,11 +53,4 @@ public class CreateEvaluateCommand {
         this.level = level;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
 }
