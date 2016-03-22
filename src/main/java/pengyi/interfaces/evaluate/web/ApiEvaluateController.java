@@ -19,7 +19,7 @@ import pengyi.core.exception.ConcurrencyException;
  * Created by LvDi on 2016/3/17.
  */
 @Controller
-@RequestMapping("/evaluate")
+@RequestMapping("/api/evaluate")
 public class ApiEvaluateController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -42,7 +42,7 @@ public class ApiEvaluateController {
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, e.getMessage());
 
         }
-        return null;
+        return baseResponse;
     }
 
     /**

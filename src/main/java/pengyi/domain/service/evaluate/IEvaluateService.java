@@ -16,12 +16,12 @@ public interface IEvaluateService {
     Pagination<Evaluate> pagination(ListEvaluateCommand command);
 
 
-    Evaluate edit(EditEvaluateCommand command);
+    void edit(EditEvaluateCommand command);
 
     Evaluate show(String id);
 
     Evaluate searchByOrder(String order);
 
-    Evaluate create(CreateEvaluateCommand command);
+    void create(CreateEvaluateCommand command);
 
 }
