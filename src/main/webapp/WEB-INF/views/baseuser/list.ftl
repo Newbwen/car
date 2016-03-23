@@ -32,6 +32,16 @@
                                         <option value="DISABLE" [@mc.selected status "DISABLE"/]>禁用</option>
                                     </select>
                                 </label>
+                                <label>用户类型
+                                    <select name="userType">
+                                        [#assign status = (command.userType!)?default("") /]
+                                        <option value="">全部</option>
+                                        <option value="TERRACE" [@mc.selected status "TERRACE"/]>平台</option>
+                                        <option value="USER" [@mc.selected status "USER"/]>用户</option>
+                                        <option value="COMPANY" [@mc.selected status "COMPANY"/]>公司</option>
+                                        <option value="DRIVER" [@mc.selected status "DRIVER"/]>司机</option>
+                                    </select>
+                                </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
@@ -99,7 +109,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/role/list?userName=${command.userName!}&status=${command.status!}' /]
+                    [@mc.showPagination '/base_user/list?userName=${command.userName!}&status=${command.status!}' /]
                 [/#if]
 
             </div>

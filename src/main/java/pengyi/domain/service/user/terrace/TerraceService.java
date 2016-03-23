@@ -2,6 +2,7 @@ package pengyi.domain.service.user.terrace;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,10 @@ public class TerraceService implements ITerraceService {
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
-        return terraceRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+        return terraceRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     @Override

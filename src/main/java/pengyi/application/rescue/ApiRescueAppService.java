@@ -63,7 +63,10 @@ public class ApiRescueAppService implements IApiRescueAppService {
     public BaseResponse createRescue(CreateRescueCommand command) {
         if (null != command) {
             if (null == command.getApplyUser()) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20005.getMessage());
+            }
+            if(null == command.getRescueType()){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20006.getMessage());
             }
             if (null == command.getDescription()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20003.getMessage());

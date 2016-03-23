@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.service.user.company.ICompanyService;
@@ -44,5 +45,10 @@ public class CompanyAppService implements ICompanyAppService {
     @Override
     public CompanyRepresentation show(String id) {
         return mappingService.map(companyService.show(id), CompanyRepresentation.class, false);
+    }
+
+    @Override
+    public CompanyRepresentation updateStatus(EditStatusCommand command) {
+        return mappingService.map(companyService.updateStatus(command),CompanyRepresentation.class,false);
     }
 }

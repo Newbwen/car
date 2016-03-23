@@ -14,7 +14,12 @@
 
         <property name="applyTime" column="apply_time" type="java.util.Date" />
 
-        <property name="type" column="type" type="java.lang.Integer" />
+        <property name="rescueType" column="rescue_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.RescueType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
 
         <property name="description" column="description" type="java.lang.String" />
 

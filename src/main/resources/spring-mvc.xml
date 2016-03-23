@@ -65,6 +65,8 @@
     <mvc:resources mapping="/favicon.ico" location="/resources/assets/images/favicon.ico" order="0"/>
     <!-- 对静态资源文件的访问 -->
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>
+    <mvc:resources mapping="/img/**" location="/img/" />
+    <mvc:resources mapping="/img_tmp/**" location="/img_tmp/" />
 
     <!--<bean id="multipartResolver"-->
           <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver"-->

@@ -1,6 +1,7 @@
 package pengyi.domain.model.rescue;
 
 import pengyi.core.type.RescueStatus;
+import pengyi.core.type.RescueType;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.driver.Driver;
@@ -15,7 +16,7 @@ public class Rescue extends Identity {
 
     private BaseUser applyUser;                 //申请人
     private Date applyTime;                   //申请时间
-    private int type;                           //救援类型
+    private RescueType rescueType;                           //救援类型
     private String description;                 //救援说明
     private Driver driver;                      //救援司机
     private Date rescueTime;                  //救援时间
@@ -38,12 +39,12 @@ public class Rescue extends Identity {
         this.applyTime = applyTime;
     }
 
-    public int getType() {
-        return type;
+    public RescueType getRescueType() {
+        return rescueType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setRescueType(RescueType rescueType) {
+        this.rescueType = rescueType;
     }
 
     public String getDescription() {
@@ -87,12 +88,13 @@ public class Rescue extends Identity {
     }
 
     public Rescue() {
+        super();
     }
 
-    public Rescue(BaseUser applyUser, Date applyTime, int type, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime) {
+    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;
-        this.type = type;
+        this.rescueType = rescueType;
         this.description = description;
         this.driver = driver;
         this.rescueTime = rescueTime;

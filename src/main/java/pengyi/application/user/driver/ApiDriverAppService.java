@@ -139,6 +139,12 @@ public class ApiDriverAppService implements IApiDriverAppService {
             if (null != command.getDriverType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());
             }
+            if (CoreStringUtils.isEmpty(command.getIdentityCardPic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10025.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getDrivingLicencePic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10026.getMessage());
+            }
 
             driverService.apiCompanyCreateDriver(command);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
@@ -171,6 +177,12 @@ public class ApiDriverAppService implements IApiDriverAppService {
             }
             if (CoreStringUtils.isEmpty(command.getPassword())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10011.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getIdentityCardPic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10025.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getDrivingLicencePic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10026.getMessage());
             }
             if (CoreStringUtils.isEmpty(command.getVerificationCode())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10019.getMessage());

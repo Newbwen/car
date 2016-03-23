@@ -127,7 +127,10 @@ public class OrderService implements IOrderService {
 
         String orderNo = idFactory.getNextId();
 
-        Order order = new Order(orderNo, orderUser, new Date(), null, null, CoreDateUtils.parseDate(command.getSubscribeDate()), null, command.getDriverType(), null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE);
+        Order order = new Order(orderNo, orderUser, new Date(), null, null,
+                CoreDateUtils.parseDate(command.getSubscribeDate()), null, command.getDriverType(),
+                null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE,
+                command.getStartAddress(),command.getEndAddress());
 
         orderRepository.save(order);
 
