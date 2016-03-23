@@ -251,7 +251,7 @@
         var addresstxt = $(currentdiv).find("input[name=addresstxt]").val();
         var shuomingtxt = $(currentdiv).find("input[name=shuomingtxt]").val();
         var zhuyitxt = $(currentdiv).find("input[name=zhuyitxt]").val();
-        var fanhuixinxitxt = $(currentdiv).find("input[name=fanhuixinxitxt]").val();
+        var fanhuixinxitxt = $(currentdiv).find("textarea[name=fanhuixinxitxt]").val();
         $.ajax({
             type: "post",
             url: "/api/apicommand/updateapi",

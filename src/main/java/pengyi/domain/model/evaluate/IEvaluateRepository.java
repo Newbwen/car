@@ -14,5 +14,5 @@ public interface IEvaluateRepository<T, ID extends Serializable> extends IHibern
     Evaluate getByOrder(String order);
 
 
-
+    Double reckonDriverLevel(String driverId);
 }

@@ -22,7 +22,7 @@
                 <div class="profile-info-name"> 发件人</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username">${message.sendBaseUser!}</span>
+                    <span class="editable editable-click" id="username">${message.sendBaseUser.userName!}</span>
                 </div>
             </div>
 
@@ -39,6 +39,14 @@
 
                 <div class="profile-info-value">
                     <span class="editable editable-click" id="age">${message.sendDate!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name">接收人</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age">${message.receiveBaseUser.userName!}</span>
                 </div>
             </div>
         </div>

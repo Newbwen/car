@@ -50,17 +50,9 @@ public class ReportAppService implements IReportAppService {
     }
 
     @Override
-    public ReportRepresentation edit(EditReportCommand command) {
-        return mappingService.map(reportService.updateState(command),ReportRepresentation.class,false);
-    }
-
-    @Override
     public ReportRepresentation show(String reportId) {
         return mappingService.map(reportService.getById(reportId),ReportRepresentation.class,false);
     }
 
-    @Override
-    public ReportRepresentation updateStatus(EditReportCommand command) {
-        return mappingService.map(reportService.updateState(command),ReportRepresentation.class,false);
-    }
+
 }

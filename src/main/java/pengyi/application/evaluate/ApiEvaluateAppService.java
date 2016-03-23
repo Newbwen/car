@@ -30,10 +30,16 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     @Override
     public BaseResponse createEvaluate(CreateEvaluateCommand command) {
         if (null != command) {
-            if (null == command.getContent()) {
+            if (CoreStringUtils.isEmpty(command.getContent())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_40001.getMessage());
             }
-            evaluateService.create(command);
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getLevel()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            evaluateService.apiCreateEvaluate(command);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());

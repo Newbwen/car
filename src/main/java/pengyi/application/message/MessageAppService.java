@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.message.command.CompanyCreateMessageCommand;
-import pengyi.application.message.command.CreateMessageByBaseUserCommand;
-import pengyi.application.message.command.CreateMessageByRoleCommand;
-import pengyi.application.message.command.ListMessageCommand;
+import pengyi.application.message.command.*;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.message.Message;
@@ -39,9 +36,8 @@ public class MessageAppService implements IMessageAppService {
         return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
     }
     @Override//返回发送的信息
-    public MessageRepresentation create(CreateMessageByRoleCommand command) {
-
-        return mappingService.map(messageService.create(command), MessageRepresentation.class, false);
+    public void create(CreateMessageByRoleCommand command) {
+        messageService.create(command);
     }
 
     @Override//根据id显示数据
@@ -65,6 +61,12 @@ public class MessageAppService implements IMessageAppService {
     public void companyCreateMessageByRole(CompanyCreateMessageCommand command) {
 
         messageService.companyCreate(command);
+    }
+
+    @Override
+    public MessageRepresentation edit(String messageId) {
+
+        return mappingService.map(messageService.edit(messageId),MessageRepresentation.class,false);
     }
 
 

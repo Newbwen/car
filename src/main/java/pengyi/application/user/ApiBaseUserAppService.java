@@ -45,8 +45,8 @@ public class ApiBaseUserAppService implements IApiBaseUserAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public BaseUser login(LoginUserCommand command) {
-        return baseUserService.login(command);
+    public BaseUserRepresentation login(LoginUserCommand command) {
+        return mappingService.map(baseUserService.login(command), BaseUserRepresentation.class, false);
     }
 
     @Override

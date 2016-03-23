@@ -11,11 +11,15 @@ import pengyi.repository.generic.Pagination;
 /**
  * Created by liubowen on 2016/3/15.
  */
-public interface IApiMessageService {
+public interface IApiMessageAppService {
     MessageRepresentation show(String messageId);
+
     MessageRepresentation deleteByCompany(String messageId);
+
     BaseResponse apiCreateMessage(CreateMessageByBaseUserCommand command);
+
     BaseResponse apiCreateMessage(CreateMessageByRoleCommand command);
+
     BaseResponse companyMessageList(CompanyListMessageCommand command);
 
 }

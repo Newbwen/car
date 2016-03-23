@@ -30,7 +30,7 @@ public class IdFactory {
 
     private void setNextDay() {
         Date now = new Date();
-        this.currentDay = CoreDateUtils.formatDate(now, "yyyyMMddHHmmss");
+        this.currentDay = CoreDateUtils.formatDate(now, "yyyyMMddHHmmssSSS");
         this.nextDay = CoreDateUtils.addDay(now, 1);
     }
 

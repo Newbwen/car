@@ -15,10 +15,9 @@ public interface IReportAppService {
 
     ReportRepresentation create(CreateReportCommand command);
 
-    ReportRepresentation edit(EditReportCommand command);
 
     ReportRepresentation show(String reportId);
 
-    ReportRepresentation updateStatus(EditReportCommand command);
+
 
 }

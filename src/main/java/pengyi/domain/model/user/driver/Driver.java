@@ -25,7 +25,7 @@ public class Driver extends BaseUser {
     private Company company;                //公司
     private Sex sex;                        //性别（0为男，1为女）
     private BigDecimal money;               //余额
-    private Double level;                   //等级
+    private Double level;                   //评级（12345）
     private Double longitude;               //经度
     private Double latitude;                //纬度
     private Integer reportCount;                //举报次数

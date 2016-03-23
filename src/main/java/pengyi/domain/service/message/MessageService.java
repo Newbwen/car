@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.message.command.*;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.MessageType;
 import pengyi.core.type.ShowType;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.message.IMessageRepository;
@@ -53,7 +54,7 @@ public class MessageService implements IMessageService {
     @Override
     //发送给角色
     /*添加的时候将发送时间设置为当前时间，接收时间为Null*/
-    public Message create(CreateMessageByRoleCommand command) {
+    public void create(CreateMessageByRoleCommand command) {
         //从service中获取用户
         BaseUser sendUser = baseUserService.show(command.getSendBaseUser());
 
@@ -63,18 +64,12 @@ public class MessageService implements IMessageService {
         List<BaseUser> baseUsers = baseUserService.searchByUserRole(role.getId());
 
         for (BaseUser item : baseUsers) {
-            Message message = new Message(sendUser, item, new Date(), null, command.getContent(), command.getType(), ShowType.SHOW);
+            Message message = new Message(sendUser, item, new Date(), null, command.getContent(), MessageType.SYSTEM_MESSAGE, ShowType.SHOW);
             messageRepository.save(message);
-            return message;
         }
-
-        return null;
-//        Message message = new Message(sendUser, receiveUser, new Date(), null, command.getContent(), command.getType(),ShowType.SHOW);
-
-
-//        return message;
     }
-//发送给用户
+
+    //发送给用户
     @Override
     public Message createByBaseUser(CreateMessageByBaseUserCommand command) {
         BaseUser sendUser = baseUserService.show(command.getSendBaseUser());
@@ -89,14 +84,14 @@ public class MessageService implements IMessageService {
 
         List<Criterion> criterionList = new ArrayList();
 
-        if(!CoreStringUtils.isEmpty(command.getCompany())) {
+        if (!CoreStringUtils.isEmpty(command.getCompany())) {
             List<Company> companies = companyService.apiByName(command.getCompany());
-            if(null !=companies){
+            if (null != companies) {
                 criterionList.add(Restrictions.in("sendBaseUser", companies));
             }
         }
-        if(!CoreStringUtils.isEmpty(command.getContent())){
-            criterionList.add(Restrictions.like("content",command.getContent(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getContent())) {
+            criterionList.add(Restrictions.like("content", command.getContent(), MatchMode.ANYWHERE));
         }
         if (null != command.getShowType()) {
             criterionList.add(Restrictions.eq("showType", command.getShowType()));
@@ -121,7 +116,7 @@ public class MessageService implements IMessageService {
     @Override
     public void companyCreate(CompanyCreateMessageCommand command) {
         //获取公司
-        Company company=companyService.show(command.getCompany());
+        Company company = companyService.show(command.getCompany());
         //获取角色
         Role role = roleService.show(command.getUserRole());
 
@@ -137,10 +132,15 @@ public class MessageService implements IMessageService {
     public Pagination<Message> pagination(CompanyListMessageCommand command) {
         List<Criterion> criterionList = new ArrayList();
 
-        if(!CoreStringUtils.isEmpty(command.getCompany())){
-            criterionList.add(Restrictions.like("content",command.getCompany(), MatchMode.ANYWHERE));
+
+        if (!CoreStringUtils.isEmpty(command.getCompany())) {
+            criterionList.add(Restrictions.eq("sendBaseUser.id", command.getCompany()));
         }
-        if (null != command.getShowType()) {
+
+        if (!CoreStringUtils.isEmpty(command.getCompany())) {
+            criterionList.add(Restrictions.like("content", command.getCompany(), MatchMode.ANYWHERE));
+        }
+        if (ShowType.BLANK != command.getShowType()) {
             criterionList.add(Restrictions.eq("showType", command.getShowType()));
         }
 
@@ -150,6 +150,17 @@ public class MessageService implements IMessageService {
 
         return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
 
+    }
+
+    @Override
+    public Message edit(String messageId) {
+        Message message=this.show(messageId);
+        if(messageId!=null){
+            message.setReceiveDate(new Date());
+            messageRepository.update(message);
+            return message;
+        }
+        return null;
     }
 
 

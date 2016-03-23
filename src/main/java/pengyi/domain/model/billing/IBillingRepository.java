@@ -8,4 +8,5 @@ import java.io.Serializable;
  * Created by YJH on 2016/3/21.
  */
 public interface IBillingRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
+    Billing searchByArea(String areaId);
 }
