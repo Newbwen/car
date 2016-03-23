@@ -6,14 +6,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
+import pengyi.application.rescue.command.ListRescueCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
-import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.rescue.IRescueService;
+import pengyi.repository.generic.Pagination;
 
 import java.util.List;
 
@@ -32,8 +35,10 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
 
     @Override
-    public List<RescueRepresentation> allList() {
-        return mappingService.mapAsList(rescueService.findAllRescue(), RescueRepresentation.class);
+    public Pagination<RescueRepresentation> search(ListRescueCommand command) {
+        Pagination<RescueRepresentation> pagination = rescueService.pagination(command);
+            List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
+        return new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
     @Override

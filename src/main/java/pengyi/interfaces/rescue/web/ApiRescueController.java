@@ -10,10 +10,12 @@ import pengyi.application.car.command.EditCarCommand;
 import pengyi.application.rescue.IApiRescueAppService;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
+import pengyi.application.rescue.command.ListRescueCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.repository.generic.Pagination;
 
 import java.util.List;
 
@@ -33,13 +35,13 @@ public class ApiRescueController {
      * (公司)查看救援列表
      */
 
-    @RequestMapping(value = "/all_list")
+    @RequestMapping(value = "/list")
     @ResponseBody
-    public BaseResponse allList() {
+    public BaseResponse allList(ListRescueCommand command) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            List<RescueRepresentation> representation = iApiRescueAppService.allList();
+            Pagination<RescueRepresentation> representation = iApiRescueAppService.search(command);
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, representation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } catch (Exception e) {
             logger.warn(e.getMessage());

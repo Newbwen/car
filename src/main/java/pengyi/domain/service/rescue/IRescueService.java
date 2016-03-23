@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IRescueService {
 
-    List<Rescue> findAllRescue();
+//    List<Rescue> findAllRescue();
 
     Rescue getById(int rescueId);
 
@@ -36,6 +36,8 @@ public interface IRescueService {
     Rescue apiCancelRescue(EditRescueCommand command);
 
     Rescue apifinishRescue(EditRescueCommand command);
+
+    Pagination searchRescue(ListRescueCommand command);
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
@@ -42,10 +43,10 @@ public class RescueService implements IRescueService {
     @Autowired
     private DriverService driverService;
 
-    @Override
-    public List<Rescue> findAllRescue() {
-        return rescueRepository.findAll();
-    }
+//    @Override
+//    public List<Rescue> findAllRescue() {
+//        return rescueRepository.findAll();
+//    }
 
     @Override
     public Rescue getById(int rescueId) {
@@ -133,9 +134,14 @@ public class RescueService implements IRescueService {
 
         Rescue rescue = this.show(command.getId());
         Driver driver = driverService.show(command.getDriver());
-        rescue.setStatus(RescueStatus.IN_RESCUE);
-        rescue.setDriver(driver);
-        rescueRepository.update(rescue);
+        if(command.getStatus()==RescueStatus.WAIT_RESCUE){
+            rescue.setStatus(RescueStatus.IN_RESCUE);
+            rescue.setDriver(driver);
+            rescueRepository.update(rescue);
+        }else {
+            throw new ExistException("没有找到救援id=[" + RescueStatus.WAIT_RESCUE + "]不能救援");
+        }
+
 
         return rescue;
     }
@@ -158,6 +164,21 @@ public class RescueService implements IRescueService {
         rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
         rescueRepository.update(rescue);
         return rescue;
+    }
+
+    @Override
+    public Pagination searchRescue(ListRescueCommand command) {
+        List<Criterion> criteriaList = new ArrayList();
+        if (null != command.getStatus()) {
+            criteriaList.add(Restrictions.eq("status.WAIT_RESCUE", command.getStatus()));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("applyTime"));
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("applyUser", "a");
+        aliasMap.put("driver", "d");
+
+        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
     }
 
 
