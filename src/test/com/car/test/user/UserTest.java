@@ -9,11 +9,12 @@ public class UserTest {
 
     @Test
     public void test(){
-        Boolean result = true;
-        if(!result){
-            System.out.println("是真");
-        }else{
-            System.out.println("不是真");
+        String chars = "0123456789";
+        String rands = "";
+        for (int i = 0; i < 6; i++) {
+            int rand = (int) (Math.random() * 10);
+            rands += chars.charAt(rand);
         }
+        System.out.println(rands.trim().toString());
     }
 }

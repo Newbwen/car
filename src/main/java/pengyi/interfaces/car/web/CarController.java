@@ -69,7 +69,7 @@ public class CarController extends BaseController {
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         redirectAttributes.addAttribute("id", carRepresentation.getDriver());
 
-        return new ModelAndView("redirect:/car/show/{id}");
+        return new ModelAndView("redirect:/car/show/"+carRepresentation.getId());
 
 
     }
@@ -88,7 +88,7 @@ public class CarController extends BaseController {
             return new ModelAndView("redirect:/car/list");
 
         }
-        return new ModelAndView("/car/show","carRepresentation",carRepresentation);
+        return new ModelAndView("/car/show","car",carRepresentation);
     }
     @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id,@ModelAttribute("command")EditCarCommand command,
@@ -96,14 +96,14 @@ public class CarController extends BaseController {
         AlertMessage alertMessage;
         CarRepresentation carRepresentation=null;
         try {
-            carRepresentation=carAppService.show(id);
+                carRepresentation=carAppService.show(id);
         }catch (Exception e){
             logger.warn(e.getMessage());
             alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
             return new ModelAndView("redirect:/car/list");
         }
-        return new ModelAndView("/car/edit","command",command).addObject("carRpresentation",carRepresentation);
+        return new ModelAndView("/car/edit","command",command).addObject("car",carRepresentation);
     }
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@Valid @ModelAttribute("command") EditCarCommand command, BindingResult bindingResult,
@@ -123,7 +123,7 @@ public class CarController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             redirectAttributes.addAttribute("id", command.getId());
 
-            return new ModelAndView("redirect:/permission/edit/{id}");
+            return new ModelAndView("redirect:/car/edit/{id}");
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());

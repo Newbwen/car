@@ -3,12 +3,16 @@ package pengyi.application.message.command;
 import pengyi.core.commons.command.BasicPaginationCommand;
 import pengyi.core.type.ShowType;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 /**
  * Created by liubowen on 2016/3/21.
  */
 public class CompanyListMessageCommand extends BasicPaginationCommand {
     private String receiveBaseUser;             //接收人
-    private String sendDate;                //发送时间
+    private Date beginTime;
+    private Date endTime;
     private String content;                 //内容
     private ShowType showType;              //是否显示
     private String company;
@@ -21,12 +25,20 @@ public class CompanyListMessageCommand extends BasicPaginationCommand {
         this.company = company;
     }
 
-    public String getSendDate() {
-        return sendDate;
+    public Date getBeginTime() {
+        return beginTime;
     }
 
-    public void setSendDate(String sendDate) {
-        this.sendDate = sendDate;
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public String getContent() {

@@ -154,10 +154,11 @@ public class BaseUserService implements IBaseUserService {
     public List<BaseUser> searchByUserRole(String roleId) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
-        criterionList.add(Restrictions.eq("userRole.id",roleId));
+        criterionList.add(Restrictions.eq("userRole.id", roleId));
 
         return baseUserRepository.list(criterionList, null);
     }
+
 
     @Override
     public BaseUser updateStatus(EditStatusCommand command) {
@@ -186,6 +187,17 @@ public class BaseUserService implements IBaseUserService {
         } else {
             baseUser.setUserRole(null);
         }
+
+        baseUserRepository.update(baseUser);
+        return baseUser;
+    }
+
+    @Override
+    public BaseUser apiResetPassword(ResetPasswordCommand command) {
+        BaseUser baseUser = this.searchByUserName(command.getUserName());
+        String newPassword = PasswordHelper.encryptPassword(command.getPassword(), baseUser.getCredentialsSalt());
+
+        baseUser.setPassword(newPassword);
 
         baseUserRepository.update(baseUser);
         return baseUser;

@@ -1,71 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 <apifile>
-    <tables>
-        <table>
-            <id>796f33c4-11d3-4307-9f6a-ede0aad22213</id>
-            <name>系统配置表</name>
-            <value>cpconfiginfo</value>
-            <rows>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e2</id>
-                    <name>nvarchar(2000)</name>
-                    <value>c_alipayselleremail</value>
-                    <content>支付宝帐户d</content>
-                </row>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
-                    <name>nvarchar(2000)</name>
-                    <value>name</value>
-                    <content>支付宝</content>
-                </row>
-            </rows>
-        </table>
-        <table>
-            <id>796f33c4-11d3-4307-9f6a-ede0aad22214</id>
-            <name>系统配置表</name>
-            <value>cpconfiginfo</value>
-            <rows>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e3</id>
-                    <name>nvarchar(2000)</name>
-                    <value>c_alipayselleremail</value>
-                    <content>支付宝帐户d</content>
-                </row>
-                <row>
-                    <id>e63efb2f-2767-468e-bfb5-98466a7411e4</id>
-                    <name>nvarchar(2000)</name>
-                    <value>name</value>
-                    <content>支付宝</content>
-                </row>
-            </rows>
-        </table>
-    </tables>
+    <tables/>
     <apis>
         <api>
-            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f85</id>
-            <name>获取系统配置（加入缓存）</name>
-            <address>api/getconfig</address>
-            <shuoming>无</shuoming>
-            <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <id>34b1f61e-8139-4111-822b-9186d953dc6c</id>
+            <name>用户注册</name>
+            <address>api/app/user/register</address>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
         </api>
         <api>
-            <id>9ee5ed81-a7fd-4951-ae2b-261463c14f86</id>
-            <name>获取系统配置1（加入缓存）</name>
-            <address>api/getconfig</address>
+            <id>74d9d5e8-a335-4e37-897b-1f5e3a5338ce</id>
+            <name>登录</name>
+            <address>api/app/login</address>
+            <shuoming>username(用户名),password(密码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"balance":0.00,"createDate":"2016-03-17 16:56:33","credentialsSalt":"user_test_257dbe9a08203a60bb1077486fa7535c6","email":"user_test_2@bulian.com","head":null,"id":"402881e95383bd49015383ca693b0002","integral":10,"money":0.00,"name":"二号user用户","password":"ed5d62bd2a7f380743d590d03917b95d","reportCount":20,"salt":"57dbe9a08203a60bb1077486fa7535c6","sex":"MAN","status":"ENABLE","userName":"user_test_2","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":0},"debug_time":55,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>dd67789f-1651-43f0-96d9-113a51552ab8</id>
+            <name>注销</name>
+            <address>api/app/logout</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{ 'state': true, 'message': '', 'ob': { 'name': '艾贝诗', 'url': 'http://abs.bulian.cn', 'logo':
-                '/model1_source/pc/picture/nlogo.gif', 'copyright': '', 'seokeywords':
-                '母婴商城,进口母婴,纸尿裤,奶粉,辅食,母婴用品,儿童玩具,童装,童鞋,母婴特卖', 'seodescription':
-                '专业进口母婴特卖商城，为亿万中国妈妈提供进口奶粉、纸尿裤、儿童玩具、服饰等品牌母婴用品。100%正品，安全放心，让您享受轻松愉悦的 网上购物体验！', 'register': '', 'qq': '',
-                'aboutus': '', 'mobileurl': '', 'imgurl': '', 'kfphone': '', 'orderexpirationtime': 120 } }
-            </fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>3d146f2b-f9b0-44ab-ad17-b260ddca5eab</id>
+            <name>获取用户信息</name>
+            <address>api/app/user/show</address>
+            <shuoming>无</shuoming>
+            <zhuyi>用户之前必须登录</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>b6845a96-ba49-41df-b774-ba0c6ccf1f8f</id>
+            <name>修改用户信息</name>
+            <address>api/app/user/edit</address>
+            <shuoming>name(昵称),email(邮箱),sex(性别),version(数据version)</shuoming>
+            <zhuyi>sex(MAN男,WOMAN女),参数不能为空,用户之前必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>9c8464a2-6dac-43cb-8ecb-93f391b1cd35</id>
+            <name>修改用户头像</name>
+            <address>api/app/user/update_head_pic</address>
+            <shuoming>headPic(头像地址)</shuoming>
+            <zhuyi>用户之前必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":543,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
+            <name>司机注册</name>
+            <address>api/app/driver/register</address>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>f93ea398-c30a-46f5-b1a7-c80ec76ea5f1</id>
+            <name>获取司机信息</name>
+            <address>api/app/driver/show</address>
+            <shuoming>无</shuoming>
+            <zhuyi>司机必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"balance":0.00,"company":null,"createDate":"2016-03-21 17:46:03.0","driverType":null,"email":null,"head":null,"id":"402881e9539890a00153989129840000","latitude":0,"level":0,"longitude":0,"money":0.00,"name":null,"online":false,"password":"9932b24f6fd28892d6ec36a888933f6c","reportCount":0,"salt":"af965c659d0af6c3b7a797948c858290","sex":null,"status":"ENABLE","userName":"15823634843","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":1},"debug_time":25,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>d99a5c43-897b-42a6-9542-e2c7ae4fed20</id>
+            <name>修改司机信息</name>
+            <address>api/app/driver/edit</address>
+            <shuoming>version(数据version),email(邮箱),name(昵称),sex(性别),driverType(司机类型)</shuoming>
+            <zhuyi>司机必须登录,sex(MAN,WOMAN),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>d99a5c43-897b-42a6-9542-e2c7ae4fe123</id>
+            <name>修改司机头像</name>
+            <address>api/app/driver/update_head_pic</address>
+            <shuoming>司机必须登录,headPic(头像)</shuoming>
+            <zhuyi>司机必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>fc54cbe9-3b34-45ec-95da-d7976d18923d</id>
+            <name>注册短信验证码</name>
+            <address>/api/app/sms/send_register</address>
+            <shuoming>phone(手机号)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7299,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>97862409-c678-4208-b64d-23700a450dd4</id>
+            <name>重置密码短信验证码</name>
+            <address>api/app/sms/send_reset_password</address>
+            <shuoming>phone(手机号)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":26,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>eaa74986-df71-47bd-8c2b-0fca84e50238</id>
+            <name>重置密码</name>
+            <address>api/app/reset_password</address>
+            <shuoming>userName(用户名),password(密码),verificationCode(验证码)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":713,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>c7025051-aae8-4bdd-b6be-029e28da3aef</id>
+            <name>司机查看车辆信息</name>
+            <address>/car/api/check</address>
+            <shuoming>driver(司机id)</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"carNumber":"151515","carType":"COMFORT","driver":{"balance":0.00,"company":null,"createDate":"2016-03-18 16:01:52.0","driverType":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportCount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"ENABLE","userName":"2858585858","userRole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"roleName":"driver","status":"ENABLE","version":0},"userType":"DRIVER","version":0},"id":"1","name":"奔驰","version":1},"debug_time":605,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>08d93b00-056a-436b-86aa-7da1216c07c3</id>
+            <name>(司机)创建车辆信息</name>
+            <address>/car/api/create</address>
+            <shuoming>name(车名),carNumber(车牌号),driver(司机id),carType(类型),</shuoming>
+            <zhuyi>carType(ECONMY(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>f12f1a86-e949-4ee8-90ab-25393e69f83a</id>
+            <name>(司机)修改车信息</name>
+            <address>/car/api/edit</address>
+            <shuoming>id,version,name,carNumber,carType()</shuoming>
+            <zhuyi>carType(ECONMY(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
+            <name>(公司)查看救援列表</name>
+            <address>/rescue/api/edit/all_list</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>c3a16c32-1fda-466c-9391-681fc1f38896</id>
+            <name>(公司)处理救援</name>
+            <address>/rescue/api/edit/deal</address>
+            <shuoming>id,version,applyUser,type,description,driver,status</shuoming>
+            <zhuyi>status(WAIT_RESCUE(</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>9794384e-bbb2-4ebf-ac35-8052e365b3f8</id>
+            <name>(司机用户)取消救援</name>
+            <address>/rescue/api/edit</address>
+            <shuoming>id,version,status</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{</fanhuixinxi>
+        </api>
+        <api>
+            <id>128c0b90-e75c-4ace-9171-e2b5de9f793e</id>
+            <name>司机)完成救援</name>
+            <address>/rescue/api/finish</address>
+            <shuoming>id,version,status</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>70719cbc-0a34-41d4-b21d-9a97f84a46e0</id>
+            <name>(司机和用户)发起评价</name>
+            <address>/evaluate/api/sponsor</address>
+            <shuoming>evaluateUser,order,content,level,createDate</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>824fa5ea-3c3a-490d-a929-a97018af494c</id>
+            <name>(司机和用户)查看评价</name>
+            <address>/evaluate/api/examine</address>
+            <shuoming>orderId</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>4af60d49-ea72-492c-907c-36397abd04ca</id>
+            <name>(司机和用户)修改自己发起的评价</name>
+            <address>/evaluate/api/update</address>
+            <shuoming>id,version,content,level</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
         </api>
     </apis>
 </apifile>

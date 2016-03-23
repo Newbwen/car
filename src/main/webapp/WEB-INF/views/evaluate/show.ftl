@@ -22,7 +22,7 @@
                 <div class="profile-info-name"> 评价人</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="evaluateUser">${evaluate.evaluateUser!}</span>
+                    <span class="editable editable-click" id="evaluateUser">${evaluate.evaluateUser.userName!}</span>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="profile-info-name"> 订单</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="order">${evaluate.order!}</span>
+                    <span class="editable editable-click" id="order">${evaluate.order.id!}</span>
                 </div>
             </div>
 

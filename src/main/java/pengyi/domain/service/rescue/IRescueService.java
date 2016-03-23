@@ -35,6 +35,8 @@ public interface IRescueService {
 
     Rescue apiCancelRescue(EditRescueCommand command);
 
+    Rescue apifinishRescue(EditRescueCommand command);
+
 
 
 

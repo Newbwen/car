@@ -5,11 +5,14 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.user.command.EditUserCommand;
 import pengyi.application.user.user.command.BaseListUserCommand;
+import pengyi.application.user.user.command.RegisterUserCommand;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
@@ -59,7 +62,6 @@ public class UserService implements IUserService {
         user.fainWhenConcurrencyViolation(command.getVersion());
 
         user.setEmail(command.getEmail());
-        user.setHead(command.getHead());
         user.setSex(command.getSex());
         user.setName(command.getName());
 
@@ -78,6 +80,31 @@ public class UserService implements IUserService {
 
     @Override
     public User create(User user) {
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User apiUpdateHeadPic(UpdateHeadPicCommand command) {
+        User user = this.show(command.getId());
+        user.setHead(command.getHeadPic());
+        userRepository.update(user);
+        return user;
+    }
+
+    @Override
+    public User apiRegister(RegisterUserCommand command) {
+        BaseUser baseUser = baseUserService.searchByUserName(command.getUserName());
+        if (null != baseUser) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        Role role = roleService.searchByName("user");
+        User user = new User(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.USER,
+                null, null, null, 0, new BigDecimal(0), 0);
+
         userRepository.save(user);
         return user;
     }

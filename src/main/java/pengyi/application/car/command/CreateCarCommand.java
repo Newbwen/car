@@ -1,7 +1,10 @@
 package pengyi.application.car.command;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import pengyi.core.type.CarType;
 import pengyi.domain.model.user.driver.Driver;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by lvdi on 2016/3/8.
@@ -16,6 +19,17 @@ public class CreateCarCommand {
 
     @NotEmpty(message = "{car.driver,NotEmpty,message}")
     private String driver;              //司机
+
+  //  @NotNull(message = "{car.carType,NotEmpty,message}")
+    private CarType carType;             //车辆类型
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
 
     public String getName() {
         return name;

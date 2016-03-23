@@ -10,9 +10,9 @@
 
         <version name="version" type="java.lang.Integer" column="version" />
 
-        <property name="KMBilling" column="km_billing" type="java.lang.String" />
+        <property name="kmBilling" column="km_billing" type="java.math.BigDecimal" />
 
-        <property name="minuteBilling" column="minute_billing" type="java.lang.String" />
+        <property name="minuteBilling" column="minute_billing" type="java.math.BigDecimal" />
 
         <many-to-one name="area" column="area_id" class="pengyi.domain.model.area.Area"/>
     </class>

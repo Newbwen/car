@@ -50,8 +50,8 @@
                         [#if pagination.data??]
                             [#list pagination.data as evaluate ]
                             <tr class="even">
-                                <td>${evaluate.evaluateUser!}</td>
-                                <td>${evaluate.orderId!}</td>
+                                <td>${evaluate.evaluateUser.userName!}</td>
+                                <td>${evaluate.order.id!}</td>
                                 <td>${evaluate.content!}</td>
                                 <td>${evaluate.level!}</td>
                                 <td>${evaluate.createDate!}</td>

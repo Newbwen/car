@@ -93,5 +93,19 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
     }
 
+    @Override
+    public BaseResponse finishRescue(EditRescueCommand command) {
+        if(null!=command){
+            if (!CoreStringUtils.isEmpty(command.getId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            RescueRepresentation rescueRepresentation=mappingService.map(rescueService.apifinishRescue(command),RescueRepresentation.class,false);
+        }
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+    }
+
 
 }

@@ -27,6 +27,7 @@
     <import resource="spring-service.xml"/>
     <import resource="spring-sms.xml" />
     <import resource="spring-upload.xml"/>
+    <import resource="spring-redis.xml"/>
 
     <bean id="tcpService" class="pengyi.socketserver.TcpService"/>
     <bean id="threadContainer" class="pengyi.socketserver.ThreadContainer" init-method="start" destroy-method="stop">

@@ -2,6 +2,7 @@ package pengyi.domain.service.evaluate;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,7 +14,6 @@ import pengyi.core.exception.NoFoundException;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.evaluate.IEvaluateRepository;
-import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.OrderService;
 import pengyi.domain.service.user.BaseUserService;
@@ -49,8 +49,10 @@ public class EvaluateService implements IEvaluateService {
         if (!CoreStringUtils.isEmpty(command.getOrder())) {
             criteriaList.add(Restrictions.eq("order.id", command.getOrder()));
         }
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(Order.desc("createDate"));
 
-        return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+        return evaluateRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     /**
@@ -100,7 +102,7 @@ public class EvaluateService implements IEvaluateService {
     @Override
     public Evaluate create(CreateEvaluateCommand command) {
 
-        Order order = orderService.show(command.getOrder());
+        pengyi.domain.model.order.Order order = orderService.show(command.getOrder());
         BaseUser baseUser=baseUserService.searchByUserName(command.getEvaluateUser());
         Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
