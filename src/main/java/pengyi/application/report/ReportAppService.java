@@ -44,10 +44,6 @@ public class ReportAppService implements IReportAppService {
         return new Pagination<ReportRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
-    @Override
-    public ReportRepresentation create(CreateReportCommand command) {
-        return mappingService.map(reportService.createReport(command),ReportRepresentation.class,false);
-    }
 
     @Override
     public ReportRepresentation show(String reportId) {

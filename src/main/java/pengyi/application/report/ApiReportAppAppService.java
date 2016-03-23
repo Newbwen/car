@@ -59,8 +59,8 @@ public class ApiReportAppAppService implements IApiReportAppService {
     @Override
     public BaseResponse create(CreateReportCommand command) {
         if(null !=command){
-            ReportRepresentation representation=mappingService.map(reportService.createReport(command),ReportRepresentation.class,false);
-            return  new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,representation,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            reportService.createReport(command);
+            return  new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,null,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
     }

@@ -93,6 +93,8 @@ public class MessageService implements IMessageService {
             criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
         }
 
+        criterionList.add(Restrictions.eq("showType",ShowType.SHOW));
+
         Map<String, String> aliasMap = new HashMap<String, String>();
         aliasMap.put("sendBaseUser", "sendBaseUser");
 

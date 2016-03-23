@@ -13,8 +13,6 @@ public interface IReportAppService {
 
     Pagination<ReportRepresentation> pagination(ListReportCommand command);
 
-    ReportRepresentation create(CreateReportCommand command);
-
 
     ReportRepresentation show(String reportId);
 

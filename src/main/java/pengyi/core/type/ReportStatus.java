@@ -5,9 +5,9 @@ package pengyi.core.type;
  */
 public enum ReportStatus {
 
-    PENDING("待处理",1,Boolean.FALSE),
-    IN_PROCESS("正在处理",2,Boolean.FALSE),
-    FIGURE_OUT("处理完成",3,Boolean.FALSE);
+    PENDING("待处理",0,Boolean.FALSE),
+    IN_PROCESS("正在处理",1,Boolean.FALSE),
+    FIGURE_OUT("处理完成",2,Boolean.FALSE);
     private String name;
     private int value;
     private Boolean onlyQuery;
