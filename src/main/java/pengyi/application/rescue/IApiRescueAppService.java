@@ -13,6 +13,8 @@ import java.util.List;
  * Created by lv on 2016/3/15.
  */
 public interface IApiRescueAppService {
+    BaseResponse apiInfo(String id);
+
     Pagination<RescueRepresentation> search(ListRescueCommand command);
 
     BaseResponse updateRescue(EditRescueCommand command);

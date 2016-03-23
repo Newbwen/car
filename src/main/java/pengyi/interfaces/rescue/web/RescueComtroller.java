@@ -96,7 +96,7 @@ public class RescueComtroller extends BaseController {
         RescueRepresentation rescueRepresentation=null;
 
         try {
-           rescueRepresentation= rescueAppService.edit(command);
+           rescueRepresentation= rescueAppService.show(command.getId());
         }catch (Exception e){
             logger.warn(e.getMessage());
             alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());

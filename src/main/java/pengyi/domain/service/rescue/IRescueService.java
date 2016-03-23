@@ -31,6 +31,7 @@ public interface IRescueService {
     Rescue searchByName(String rescueName);
 
     /********** api 方法    *************/
+
     Rescue apiUpdateRescue(EditRescueCommand command);
 
     Rescue apiCancelRescue(EditRescueCommand command);

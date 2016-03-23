@@ -32,6 +32,24 @@ public class ApiRescueController {
     private IApiRescueAppService iApiRescueAppService;
 
     /**
+     * 根据id查看救援
+     */
+    @RequestMapping(value = "/info")
+    @ResponseBody
+    public BaseResponse show(String id) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = iApiRescueAppService.apiInfo(id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
+    /**
      * (公司)查看救援列表
      */
 

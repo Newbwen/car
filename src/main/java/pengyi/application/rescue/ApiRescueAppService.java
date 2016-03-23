@@ -35,6 +35,12 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
 
     @Override
+    public BaseResponse apiInfo(String id) {
+        RescueRepresentation rescueRepresentation = mappingService.map(rescueService.show(id), RescueRepresentation.class, false);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
     public Pagination<RescueRepresentation> search(ListRescueCommand command) {
         Pagination<RescueRepresentation> pagination = rescueService.pagination(command);
             List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
