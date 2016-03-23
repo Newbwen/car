@@ -10,7 +10,7 @@ import pengyi.repository.generic.Pagination;
  * Created by liubowen on 2016/3/7.
  */
 public interface IReportService {
-    Report createReport(CreateReportCommand command);
+    void createReport(CreateReportCommand command);
 
     Report getById(String reportId);
 
