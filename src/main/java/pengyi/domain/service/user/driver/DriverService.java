@@ -106,6 +106,13 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public void updateDriverLevel(String driverId, Double level) {
+        Driver driver = this.show(driverId);
+        driver.setLevel(level);
+        driverRepository.update(driver);
+    }
+
+    @Override
     public Pagination<Driver> apiPagination(CompanyDriverListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("company.id", command.getCompany()));

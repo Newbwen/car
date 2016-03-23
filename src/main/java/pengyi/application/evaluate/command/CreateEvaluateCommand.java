@@ -12,16 +12,13 @@ public class CreateEvaluateCommand {
     private String evaluateUser;                      //评价人
 
     @NotEmpty(message = "{evaluate.order,NotEmpty,message}")
-    private String order;                             //订单
+    private String orderId;                             //订单
 
     @NotEmpty(message = "{evaluate.content,NotEmpty,message}")
     private String content;                           //评价内容
 
     @NotEmpty(message = "{evaluate.level,NotEmpty,message}")
-    private int level;                                //评级
-
-    @NotEmpty(message = "{evaluate.createDate,NotEmpty,message}")
-    private String createDate;                       //评价时间
+    private Integer level;                                //评级
 
 
     public String getEvaluateUser() {
@@ -32,12 +29,12 @@ public class CreateEvaluateCommand {
         this.evaluateUser = evaluateUser;
     }
 
-    public String getOrder() {
-        return order;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getContent() {
@@ -48,19 +45,11 @@ public class CreateEvaluateCommand {
         this.content = content;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 }

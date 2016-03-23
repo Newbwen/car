@@ -1,6 +1,6 @@
 package pengyi.application.order;
 
-import pengyi.application.order.command.CompanyOrderListCommand;
+import pengyi.application.order.command.*;
 import pengyi.core.api.BaseResponse;
 
 /**
@@ -9,4 +9,20 @@ import pengyi.core.api.BaseResponse;
 public interface IApiOrderAppService {
 
     BaseResponse companyOrderPagination(CompanyOrderListCommand command);
+
+    BaseResponse createOrder(CreateOrderCommand command);
+
+    BaseResponse receiveOrder(ReceiveOrderCommand command);
+
+    BaseResponse startOrder(UpDateOrderStatusCommand command);
+
+    BaseResponse show(String orderId);
+
+    BaseResponse waitPayOrder(UpDateOrderStatusCommand command);
+
+    BaseResponse payOrder(UpDateOrderStatusCommand command);
+
+    BaseResponse cancelOrder(UpDateOrderStatusCommand command);
+
+    BaseResponse pagination(ListOrderCommand command);
 }

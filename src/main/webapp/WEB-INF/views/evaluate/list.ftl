@@ -23,9 +23,7 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>评价人<input type="text" value="${command.evaluateUser!}"
-                                                 name="evaluateUser"/></label>
-                                <label>订单<input type="text" value="${command.order!}" name="orderId"/></label>
+                                <label>订单<input type="text" value="${command.order!}" name="order"/></label>
                                 <label>
                                     <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
                                 </label>
@@ -51,7 +49,7 @@
                             [#list pagination.data as evaluate ]
                             <tr class="even">
                                 <td>${evaluate.evaluateUser.userName!}</td>
-                                <td>${evaluate.order.id!}</td>
+                                <td>${evaluate.order.orderNumber!}</td>
                                 <td>${evaluate.content!}</td>
                                 <td>${evaluate.level!}</td>
                                 <td>${evaluate.createDate!}</td>

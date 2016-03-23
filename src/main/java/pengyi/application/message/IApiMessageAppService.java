@@ -1,9 +1,6 @@
 package pengyi.application.message;
 
-import pengyi.application.message.command.CompanyListMessageCommand;
-import pengyi.application.message.command.CreateMessageByBaseUserCommand;
-import pengyi.application.message.command.CreateMessageByRoleCommand;
-import pengyi.application.message.command.ListMessageCommand;
+import pengyi.application.message.command.*;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.repository.generic.Pagination;
@@ -16,10 +13,8 @@ public interface IApiMessageAppService {
 
     MessageRepresentation deleteByCompany(String messageId);
 
-    BaseResponse apiCreateMessage(CreateMessageByBaseUserCommand command);
+    BaseResponse apiCreateMessage(CompanyCreateMessageCommand command);
 
-    BaseResponse apiCreateMessage(CreateMessageByRoleCommand command);
-
-    BaseResponse companyMessageList(CompanyListMessageCommand command);
+    Pagination<MessageRepresentation> companyMessageList(CompanyListMessageCommand command);
 
 }

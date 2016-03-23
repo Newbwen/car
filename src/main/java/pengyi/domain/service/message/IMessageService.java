@@ -19,10 +19,11 @@ public interface IMessageService {
 
     Message delete(String messageId);
 
-    void companyCreate(CompanyCreateMessageCommand command);
-
-    Pagination<Message> pagination(CompanyListMessageCommand command);
-
-
     Message edit(String messageId);
+
+    //以下是api方法
+    Message apiCreate(CompanyCreateMessageCommand command);
+
+    Pagination<Message> apiPagination(CompanyListMessageCommand command);
+
 }

@@ -24,8 +24,11 @@ public interface IDriverService {
 
     List<Driver> searchByCompany(String company);
 
+    void updateDriverLevel(String driverId, Double level);
 
-    /***********  api 方法 **************/
+    /***********
+     * api 方法
+     **************/
     Pagination<Driver> apiPagination(CompanyDriverListCommand command);
 
     Driver apiCompanyEditDriver(CompanyDriverEditCommand command);

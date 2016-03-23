@@ -12,7 +12,7 @@ import pengyi.domain.model.user.BaseUser;
 public interface IApiBaseUserAppService {
     BaseUserRepresentation apiSearchByUserName(String userName);
 
-    BaseUser login(LoginUserCommand command);
+    BaseUserRepresentation login(LoginUserCommand command);
 
     BaseResponse resetPassword(ResetPasswordCommand command);
 }
