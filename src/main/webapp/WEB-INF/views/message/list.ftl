@@ -24,12 +24,12 @@
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
                                 <label>
-                                    发送时间<input type="text" value="${command.permissionName!}" name="permissionName" />
+                                    开始<input type="date" value="${command.beginTime!}" name="beginTime" />
                                 </label>
                                 <label>
-                                    发送时间<input type="text" value="${command.permissionName!}" name="permissionName" />
+                                    结束<input type="date" value="${command.endTime!}" name="endTime" />
                                 </label>
-                                <label><input type="text" value="${command.company}"/></label>
+                                <label>发送人<input type="text" value="${command.sendBaseUser!}" name="sendBaseUser"/></label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
                     <thead>
                     <tr role="row">
-                        <th>发件人</th>
+                        <th>发送人</th>
                         <th>内容</th>
                         <th>发送时间</th>
                         <th>操作</th>
@@ -68,7 +68,7 @@
                                                 <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">删除</a>
                                             </li>
                                             <li>
-                                                <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">已读</a>
+                                                <a class="green" href="[@spring.url '/message/edit/${message.id}'/]">已读</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -80,7 +80,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/message/list?permissionName=${command.permissionName!}&status=${command.status!}' /]
+                    [@mc.showPagination '/message/list?beginTime=${command.beginTime!}&endTime=${command.endTime!}&sendBaseUser=${command.sendBaseUser!}' /]
                 [/#if]
 
             </div>

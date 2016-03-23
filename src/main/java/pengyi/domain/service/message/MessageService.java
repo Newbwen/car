@@ -10,6 +10,7 @@ import pengyi.application.message.command.*;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.MessageType;
 import pengyi.core.type.ShowType;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.message.IMessageRepository;
 import pengyi.domain.model.message.Message;
@@ -21,9 +22,7 @@ import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.repository.generic.Pagination;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by liubowen on 2016/3/7.
@@ -84,83 +83,85 @@ public class MessageService implements IMessageService {
 
         List<Criterion> criterionList = new ArrayList();
 
-        if (!CoreStringUtils.isEmpty(command.getCompany())) {
-            List<Company> companies = companyService.apiByName(command.getCompany());
-            if (null != companies) {
-                criterionList.add(Restrictions.in("sendBaseUser", companies));
-            }
+        if (!CoreStringUtils.isEmpty(command.getSendBaseUser())) {
+            criterionList.add(Restrictions.like("sendBaseUser.userName", command.getSendBaseUser(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getContent())) {
-            criterionList.add(Restrictions.like("content", command.getContent(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
+            criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime())));
         }
-        if (null != command.getShowType()) {
-            criterionList.add(Restrictions.eq("showType", command.getShowType()));
+        if (!CoreStringUtils.isEmpty(command.getEndTime())) {
+            criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
         }
+
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        aliasMap.put("sendBaseUser", "sendBaseUser");
 
         List<Order> orderList = new ArrayList();
 
         orderList.add(Order.desc("sendDate"));
 
-        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
 
     }
 
     @Override
     public Message delete(String messageId) {
-        Message message = messageRepository.getById(messageId);
+        Message message = this.show(messageId);
         message.setShowType(ShowType.BLANK);
         messageRepository.update(message);
         return message;
     }
 
-    @Override
-    public void companyCreate(CompanyCreateMessageCommand command) {
-        //获取公司
-        Company company = companyService.show(command.getCompany());
-        //获取角色
-        Role role = roleService.show(command.getUserRole());
-
-        List<BaseUser> baseUsers = baseUserService.searchByUserRole(role.getId());
-
-        for (BaseUser item : baseUsers) {
-            Message message = new Message(company, item, new Date(), null, command.getContent(), command.getType(), ShowType.SHOW);
-            messageRepository.save(message);
-        }
-    }
 
     @Override
-    public Pagination<Message> pagination(CompanyListMessageCommand command) {
+    public Pagination<Message> apiPagination(CompanyListMessageCommand command) {
+        Map<String, String> aliasMap = new HashMap<String, String>();
         List<Criterion> criterionList = new ArrayList();
+        if (null != command) {
+            if (!CoreStringUtils.isEmpty(command.getCompany())) {
+                aliasMap.put("company", "company");
+                criterionList.add(Restrictions.like("company.id", command.getCompany(), MatchMode.ANYWHERE));
+            }
+            if (null != command.getBeginTime() && null != command.getEndTime()) {
+                criterionList.add(Restrictions.between("sendTime", command.getBeginTime(), command.getEndTime()));
 
+            }
+            List<Order> orderList = new ArrayList();
 
-        if (!CoreStringUtils.isEmpty(command.getCompany())) {
-            criterionList.add(Restrictions.eq("sendBaseUser.id", command.getCompany()));
+            orderList.add(Order.desc("sendDate"));
+
+            return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+
         }
-
-        if (!CoreStringUtils.isEmpty(command.getCompany())) {
-            criterionList.add(Restrictions.like("content", command.getCompany(), MatchMode.ANYWHERE));
-        }
-        if (ShowType.BLANK != command.getShowType()) {
-            criterionList.add(Restrictions.eq("showType", command.getShowType()));
-        }
-
-        List<Order> orderList = new ArrayList();
-
-        orderList.add(Order.desc("sendDate"));
-
-        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+        return null;
 
     }
 
     @Override
     public Message edit(String messageId) {
-        Message message=this.show(messageId);
-        if(messageId!=null){
+
+        Message message = this.show(messageId);
+
+        if (null !=messageId) {
             message.setReceiveDate(new Date());
             messageRepository.update(message);
             return message;
         }
         return null;
+    }
+
+    @Override
+    public Message apiCreate(CompanyCreateMessageCommand command) {
+
+        BaseUser sendUser = baseUserService.show(command.getCompany());
+
+        BaseUser receiveBaseUser = baseUserService.show(command.getReceiveBaseUser());
+
+        Message message = new Message(sendUser, receiveBaseUser, new Date(), null, command.getContent(), MessageType.OTHER_MESSAGE, ShowType.SHOW);
+
+        messageRepository.save(message);
+
+        return message;
     }
 
 

@@ -20,6 +20,7 @@ public class ReportRepresentation {
     private String endDealTime;                 //处理完成时间
     private String description;                 //说明
     private ReportStatus status;                //状态（待处理、处理中、处理完成）
+    private String handleResult;                //处理结果
 
     public Integer getVersion() {
         return version;
@@ -91,5 +92,13 @@ public class ReportRepresentation {
 
     public void setStatus(ReportStatus status) {
         this.status = status;
+    }
+
+    public String getHandleResult() {
+        return handleResult;
+    }
+
+    public void setHandleResult(String handleResult) {
+        this.handleResult = handleResult;
     }
 }

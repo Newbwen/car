@@ -7,6 +7,7 @@ public class EditMessageCommand {
 
     private String id;
     private Integer version;
+    private String receiveDate;
 
     public String getId() {
         return id;
@@ -14,6 +15,14 @@ public class EditMessageCommand {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getReceiveDate() {
+        return receiveDate;
+    }
+
+    public void setReceiveDate(String receiveDate) {
+        this.receiveDate = receiveDate;
     }
 
     public Integer getVersion() {

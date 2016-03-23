@@ -30,7 +30,7 @@ public class MessageAppService implements IMessageAppService {
     @Transactional(readOnly = true)
     public Pagination<MessageRepresentation> pagination(ListMessageCommand command){
         command.verifyPage();
-        command.verifyPageSize(20);
+        command.verifyPageSize(12);
         Pagination<Message> pagination=messageService.pagination(command);
         List<MessageRepresentation> data=mappingService.mapAsList(pagination.getData(),MessageRepresentation.class);
         return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
@@ -57,11 +57,6 @@ public class MessageAppService implements IMessageAppService {
         return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
     }
 
-    @Override
-    public void companyCreateMessageByRole(CompanyCreateMessageCommand command) {
-
-        messageService.companyCreate(command);
-    }
 
     @Override
     public MessageRepresentation edit(String messageId) {

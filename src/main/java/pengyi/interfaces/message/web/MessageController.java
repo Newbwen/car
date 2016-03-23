@@ -43,10 +43,8 @@ public class MessageController extends BaseController {
     @Autowired
     private IRoleAppService roleAppService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView list(ListMessageCommand command,HttpSession session) {
-        BaseUser user = (BaseUser) session.getAttribute(Constants.SESSION_USER);
-        command.setSendBaseUser(user.getId());
+    @RequestMapping(value = "/list")
+    public ModelAndView list(ListMessageCommand command) {
         return new ModelAndView("/message/list", "command", command)
                 .addObject("pagination", messageAppService.pagination(command));
     }
@@ -97,10 +95,10 @@ public class MessageController extends BaseController {
         return new ModelAndView("/message/show", "message", representation);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable String messageId, @ModelAttribute("command") DeleteMessageCommand command, RedirectAttributes redirectAttributes, Locale locale) {
+    @RequestMapping(value = "/delete/{id}")
+    public ModelAndView delete(@Valid @PathVariable String messageId, @ModelAttribute("command") DeleteMessageCommand command,
+                                RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
-
         MessageRepresentation message=null;
 
         try{
@@ -109,10 +107,10 @@ public class MessageController extends BaseController {
             logger.warn(e.getMessage());
             alertMessage=new AlertMessage(AlertMessage.MessageType.WARNING,e.getMessage());
             redirectAttributes.addAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
-            logger.info("将messageId=["+message.getId()+"]标记不显示，时间["+new Date()+"]");
-            return  new ModelAndView("redirect:/message/list");
+            return  new ModelAndView("/message/list");
         }
-        return new ModelAndView("/message/list","command",command).addObject("message",message);
+        logger.info("将messageId=["+message.getId()+"]标记不显示，时间["+new Date()+"]");
+        return new ModelAndView("/message/list").addObject("message",message);
 
 
     }
@@ -131,7 +129,7 @@ public class MessageController extends BaseController {
             logger.info("将messageId=["+message.getId()+"]标记已读，时间["+new Date()+"]");
             return  new ModelAndView("redirect:/message/list");
         }
-        return new ModelAndView("/message/list","command",command).addObject("message",message);
+        return new ModelAndView("/message/list").addObject("message",message);
 
     }
 

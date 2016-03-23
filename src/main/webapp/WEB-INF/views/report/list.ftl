@@ -23,7 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>举报时间<input type="text" value="${command.reportUser!}" name="reportTime" /></label>
+                                <label>开始<input type="date" value="${command.beginTime!}" name="beginTime" /></label>
+                                <label>结束<input type="date" value="${command.endTime!}" name="endTime" /></label>
                                 <label>处理状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -44,7 +45,6 @@
                         <th>举报人</th>
                         <th>举报订单</th>
                         <th>举报时间</th>
-                        <th>说明</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
@@ -55,14 +55,13 @@
                         [#if pagination.data??]
                             [#list pagination.data as report ]
                             <tr class="even">
-                                <td>${permission.reportUser!}</td>
-                                <td>${permission.order!}</td>
-                                <td>${permission.reportTime!}</td>
-                                <td>${permission.description!}</td>
-                                <td>${(permission.status.getName())!}</td>
+                                <td>${report.reportUser.userName!}</td>
+                                <td>${report.order!}</td>
+                                <td>${report.reportTime!}</td>
+                                <td>${(report.status.getName())!}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="[@spring.url '/permission/show/${report.id!}'/]"
+                                        <a class="blue" href="[@spring.url '/report/show/${report.id!}'/]"
                                            title="查看"><i class="icon-zoom-in bigger-130"></i></a>
                                     </div>
                                 </td>
@@ -73,7 +72,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/report/list?reportUser=${command.reportUser!}&status=${command.status!}' /]
+                    [@mc.showPagination '/report/list?beginTime=${command.beginTime!}&endTime=${command.endTime}&status=${command.status!}' /]
                 [/#if]
 
             </div>
