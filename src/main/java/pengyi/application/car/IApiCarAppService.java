@@ -11,7 +11,7 @@ import pengyi.core.api.BaseResponse;
  */
 public interface IApiCarAppService {
 
-    CarRepresentation getBydriver(String driver);
+    BaseResponse getByDriver(String driver);
 
     BaseResponse apiCreate(CreateCarCommand command);
 

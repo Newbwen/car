@@ -5,22 +5,22 @@ package pengyi.application.user.driver.command;
  */
 public class CompanyAuditingDriverCommand {
 
-    private String company;
-    private String driver;
+    private String id;
+    private Integer version;
 
-    public String getCompany() {
-        return company;
+    public String getId() {
+        return id;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDriver() {
-        return driver;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setDriver(String driver) {
-        this.driver = driver;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

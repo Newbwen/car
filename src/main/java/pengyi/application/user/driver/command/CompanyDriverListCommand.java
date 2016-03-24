@@ -12,7 +12,7 @@ public class CompanyDriverListCommand extends BasicPaginationCommand {
 
     private EnableStatus status;
 
-    private String driverName;
+    private String userName;
 
     public EnableStatus getStatus() {
         return status;
@@ -30,11 +30,11 @@ public class CompanyDriverListCommand extends BasicPaginationCommand {
         this.company = company;
     }
 
-    public String getDriverName() {
-        return driverName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

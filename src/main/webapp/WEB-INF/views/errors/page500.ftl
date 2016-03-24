@@ -79,7 +79,7 @@
 
                             <hr/>
                             <h3 class="lighter smaller">
-                                But we are working
+                                [@mc.showAlert /]
                                 <i class="icon-wrench icon-animated-wrench bigger-125"></i>
                                 on it!
                             </h3>

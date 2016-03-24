@@ -12,6 +12,7 @@ import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.car.Car;
 import pengyi.domain.service.car.ICarService;
 
 /**
@@ -29,8 +30,17 @@ public class ApiCarAppService implements IApiCarAppService {
     private IMappingService mappingService;
 
     @Override
-    public CarRepresentation getBydriver(String driver) {
-        return mappingService.map(carService.searchByDriver(driver), CarRepresentation.class, false);
+    public BaseResponse getByDriver(String id) {
+        if (CoreStringUtils.isEmpty(id)) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+        }
+        Car car = carService.searchByDriver(id);
+        CarRepresentation data = null;
+        if (null != car) {
+            data = mappingService.map(car, CarRepresentation.class, false);
+        }
+
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
     @Override
@@ -45,6 +55,7 @@ public class ApiCarAppService implements IApiCarAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
     }
+
     @Override
     public BaseResponse updateCar(EditCarCommand command) {
         if (null != command) {

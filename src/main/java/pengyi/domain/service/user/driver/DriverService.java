@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.user.command.UpdateHeadPicCommand;
 import pengyi.application.user.driver.command.*;
+import pengyi.core.api.BaseResponse;
 import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
@@ -125,8 +126,8 @@ public class DriverService implements IDriverService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("company.id", command.getCompany()));
 
-        if (!CoreStringUtils.isEmpty(command.getDriverName())) {
-            criterionList.add(Restrictions.like("userName", command.getDriverName()));
+        if (!CoreStringUtils.isEmpty(command.getUserName())) {
+            criterionList.add(Restrictions.like("userName", command.getUserName(),MatchMode.ANYWHERE));
         }
 
         if (null != command.getStatus()) {
@@ -138,11 +139,21 @@ public class DriverService implements IDriverService {
 
     @Override
     public Driver apiCompanyEditDriver(CompanyDriverEditCommand command) {
+
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
-        driver.setName(command.getName());
-        driver.setSex(command.getSex());
+        if (!command.getUserName().equals(driver.getUserName())) {
+            if (null != baseUserService.searchByUserName(command.getUserName())) {
+                throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+            }
+        }
+
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        driver.setUserName(command.getUserName());
+        driver.setPassword(password);
         driver.setDriverType(command.getDriverType());
 
         driverRepository.update(driver);
@@ -151,9 +162,11 @@ public class DriverService implements IDriverService {
 
     @Override
     public Driver apiCompanyAuditingDriver(CompanyAuditingDriverCommand command) {
-        Company company = companyService.show(command.getCompany());
-        Driver driver = this.show(command.getDriver());
-        driver.setCompany(company);
+        Driver driver = this.show(command.getId());
+        driver.fainWhenConcurrencyViolation(command.getVersion());
+
+        driver.setStatus(EnableStatus.ENABLE);
+
         driverRepository.update(driver);
         return driver;
     }
@@ -187,10 +200,10 @@ public class DriverService implements IDriverService {
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
-        Driver driver = new Driver(command.getName(), password, salt, command.getStatus(), new BigDecimal(0),
-                new Date(), role, command.getEmail(), UserType.DRIVER, command.getName(), null, company,
-                command.getSex(), new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
-                command.getIdentityCardPic(), command.getDrivingLicencePic());
+        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0),
+                new Date(), role, null, UserType.DRIVER, null, null, company,
+                null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
+                null, null);
 
         driverRepository.save(driver);
 
@@ -214,14 +227,22 @@ public class DriverService implements IDriverService {
         if (null != baseUser) {
             throw new ExistException("用户名[" + command.getUserName() + "]已存在");
         }
+
+        Company company = companyService.show(command.getCompany());
+
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
+        String identityCarPic = command.getIdentityCardPic().replaceAll("img_tmp", "img");
+        String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
+
         Role role = roleService.searchByName("driver");
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, null, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null, command.getIdentityCardPic(), command.getDrivingLicencePic());
+                null, null, company, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null, identityCarPic, drivingLicencePic);
 
         driverRepository.save(driver);
+        fileUploadService.move(identityCarPic.substring(identityCarPic.indexOf("/") + 1));
+        fileUploadService.move(drivingLicencePic.substring(drivingLicencePic.indexOf("/") + 1));
         return driver;
     }
 
@@ -248,10 +269,8 @@ public class DriverService implements IDriverService {
         String oldHeadPic = driver.getHead();
         driver.setHead(headPic);
 
-        fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
-
         driverRepository.update(driver);
-
+        fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
         fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
         return driver;
     }

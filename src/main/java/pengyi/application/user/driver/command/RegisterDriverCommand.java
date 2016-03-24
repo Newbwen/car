@@ -10,6 +10,7 @@ public class RegisterDriverCommand {
     private String verificationCode;
     private String identityCardPic;
     private String drivingLicencePic;
+    private String company;
 
     public String getUserName() {
         return userName;
@@ -49,5 +50,13 @@ public class RegisterDriverCommand {
 
     public void setDrivingLicencePic(String drivingLicencePic) {
         this.drivingLicencePic = drivingLicencePic;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

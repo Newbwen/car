@@ -44,6 +44,23 @@ public class ApiDriverController {
         return response;
     }
 
+    @RequestMapping(value = "/show")
+    @ResponseBody
+    public BaseResponse show(String id) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+
+        try {
+            response = apiDriverAppService.show(id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
     @RequestMapping(value = "/company_driver/edit")
     @ResponseBody
     public BaseResponse companyEditDriver(CompanyDriverEditCommand command) {

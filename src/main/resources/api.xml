@@ -55,7 +55,7 @@
             <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
             <name>司机注册</name>
             <address>api/app/driver/register</address>
-            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码)</shuoming>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id))</shuoming>
             <zhuyi>参数不能为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>

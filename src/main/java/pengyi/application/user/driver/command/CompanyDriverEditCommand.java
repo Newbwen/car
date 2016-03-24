@@ -9,24 +9,24 @@ import pengyi.core.type.Sex;
  */
 public class CompanyDriverEditCommand extends BaseEditBaseUserCommand {
 
-    private String name;                    //姓名
-    private Sex sex;                        //性别（0为男，1为女）
-    private DriverType driverType;                       //类型
+    private String userName;
+    private String password;
+    private DriverType driverType;
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Sex getSex() {
-        return sex;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public DriverType getDriverType() {

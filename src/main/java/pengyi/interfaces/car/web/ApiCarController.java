@@ -28,26 +28,6 @@ public class ApiCarController {
     private IApiCarAppService apiCarAppService;
 
     /**
-     * 司机查看车辆信息
-     */
-    @RequestMapping(value = "/check")
-    @ResponseBody
-    public BaseResponse getBydriver(ListCarCommand command) {
-        long startTime = System.currentTimeMillis();
-        BaseResponse baseResponse = null;
-        try {
-            CarRepresentation carRepresentation = apiCarAppService.getBydriver(command.getDriver());
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
-        }
-        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
-
-        return baseResponse;
-    }
-
-    /**
      * (司机)创建车辆信息
      */
     @RequestMapping("/create")
@@ -61,6 +41,7 @@ public class ApiCarController {
             logger.warn(e.getMessage());
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, ResponseMessage.ERROR_30001, e.getMessage());
         }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
         return baseResponse;
     }
 
@@ -73,14 +54,31 @@ public class ApiCarController {
         long startTime = System.currentTimeMillis();
         BaseResponse baseResponse = null;
         try {
-            baseResponse=apiCarAppService.updateCar(command);
-        }catch (ExistException e){
+            baseResponse = apiCarAppService.updateCar(command);
+        } catch (ExistException e) {
             logger.warn(e.getMessage());
-            baseResponse=new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR,0,ResponseMessage.ERROR_30001,e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, ResponseMessage.ERROR_30001, e.getMessage());
         }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
         return baseResponse;
     }
 
-
+    /**
+     * 司机查看车辆信息
+     */
+    @RequestMapping(value = "/show")
+    @ResponseBody
+    public BaseResponse show(String id) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse baseResponse = null;
+        try {
+            baseResponse = apiCarAppService.getByDriver(id);
+        } catch (ExistException e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, ResponseMessage.ERROR_30001, e.getMessage());
+        }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
+    }
 
 }
