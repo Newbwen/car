@@ -56,7 +56,7 @@
                             [#list pagination.data as report ]
                             <tr class="even">
                                 <td>${report.reportUser.userName!}</td>
-                                <td>${report.order!}</td>
+                                <td>${report.order.orderNumber!}</td>
                                 <td>${report.reportTime!}</td>
                                 <td>${(report.status.getName())!}</td>
                                 <td>

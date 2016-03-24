@@ -12389,3 +12389,18 @@ a.submit:hover {
     float: none;
     vertical-align: top;
 }
+
+.large-dialog {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    position: relative;
+}
+
+.dialog-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: 0px;
+}
