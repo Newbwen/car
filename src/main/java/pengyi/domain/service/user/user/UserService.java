@@ -2,6 +2,7 @@ package pengyi.domain.service.user.user;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
+import pengyi.core.upload.IFileUploadService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
@@ -43,6 +45,9 @@ public class UserService implements IUserService {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private IFileUploadService fileUploadService;
+
     @Override
     public Pagination<User> pagination(BaseListUserCommand command) {
         List<Criterion> criteriaList = new ArrayList();
@@ -53,7 +58,10 @@ public class UserService implements IUserService {
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
-        return userRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+        return userRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     @Override
@@ -87,8 +95,14 @@ public class UserService implements IUserService {
     @Override
     public User apiUpdateHeadPic(UpdateHeadPicCommand command) {
         User user = this.show(command.getId());
-        user.setHead(command.getHeadPic());
+        String headPic = command.getHeadPic().replaceAll("img_tmp", "img");
+        String oldHeadPic = user.getHead();
+        user.setHead(headPic);
+
+        fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
+
         userRepository.update(user);
+        fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
         return user;
     }
 

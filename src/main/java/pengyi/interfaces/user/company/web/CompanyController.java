@@ -16,7 +16,9 @@ import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.api.BaseResponse;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.type.EnableStatus;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
 
@@ -39,6 +41,13 @@ public class CompanyController extends BaseController {
     @RequestMapping(value = "/list")
     public ModelAndView list(BaseListCompanyCommand command) {
         return new ModelAndView("/baseuser/company/list", "command", command)
+                .addObject("pagination", companyAppService.pagination(command));
+    }
+
+    @RequestMapping(value = "/auth_list")
+    public ModelAndView auth_list(BaseListCompanyCommand command) {
+        command.setStatus(EnableStatus.DISABLE);
+        return new ModelAndView("/baseuser/company/authlist", "command", command)
                 .addObject("pagination", companyAppService.pagination(command));
     }
 
@@ -109,5 +118,24 @@ public class CompanyController extends BaseController {
         redirectAttributes.addAttribute("id", company.getId());
 
         return new ModelAndView("redirect:/user/company/show/{id}");
+    }
+
+    @RequestMapping(value = "/update_status")
+    public ModelAndView updateStatus(EditStatusCommand command,
+                                     RedirectAttributes redirectAttributes, Locale locale) {
+        AlertMessage alertMessage;
+        CompanyRepresentation company = null;
+        try {
+            company = companyAppService.updateStatus(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            return new ModelAndView("redirect:/user/company/auth_list");
+        }
+
+        logger.info("修改用户状态成功id=[" + company.getId() + "],时间[" + new Date() + "]");
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/user/company/auth_list");
     }
 }

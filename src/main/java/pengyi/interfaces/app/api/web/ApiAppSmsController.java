@@ -89,4 +89,27 @@ public class ApiAppSmsController {
         return response;
     }
 
+    @RequestMapping(value = "/send_rescue")
+    @ResponseBody
+    public BaseResponse sendRescue(String phone) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            if (redisService.exists(phone)) {
+                response = new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_OVERDUE, 0, null,
+                        ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_OVERDUE.getMessage());
+            } else {
+                String code = CoreStringUtils.randomNum(6);
+                smsSender.send(phone, code, SmsTemplate.AUTHENTICATION);
+                redisService.addCache(phone, code);
+                response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            }
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
 }

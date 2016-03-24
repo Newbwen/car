@@ -8,21 +8,22 @@
             <generator class="uuid"/>
         </id>
 
-        <version name="version" type="java.lang.Integer" column="version" />
+        <version name="version" type="java.lang.Integer" column="version"/>
 
-        <property name="orderNumber" column="order_number" type="java.lang.String" />
+        <property name="orderNumber" column="order_number" type="java.lang.String"/>
 
-        <many-to-one name="orderUser" column="order_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+        <many-to-one name="orderUser" column="order_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join"/>
 
         <property name="createDate" column="create_date" type="java.util.Date"/>
 
-        <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser" fetch="join" />
+        <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser"
+                     fetch="join"/>
 
         <property name="receiveDate" column="receive_date" type="java.util.Date"/>
 
-        <property name="subscribeDate" column="subscribe_date" type="java.util.Date" />
+        <property name="subscribeDate" column="subscribe_date" type="java.util.Date"/>
 
-        <property name="beginTime" column="begin_time" type="java.util.Date" />
+        <property name="beginTime" column="begin_time" type="java.util.Date"/>
 
         <property name="driverType" column="driver_type">
             <type name="org.hibernate.type.EnumType">
@@ -33,9 +34,9 @@
 
         <property name="endTime" column="end_time" type="java.util.Date"/>
 
-        <property name="shouldMoney" column="should_money" type="java.math.BigDecimal" />
+        <property name="shouldMoney" column="should_money" type="java.math.BigDecimal"/>
 
-        <property name="extraMoney" column="extra_money" type="java.math.BigDecimal" />
+        <property name="extraMoney" column="extra_money" type="java.math.BigDecimal"/>
 
         <property name="payTime" column="pay_time" type="java.util.Date"/>
 
@@ -52,6 +53,9 @@
                 <param name="type">4</param>
             </type>
         </property>
+
+        <property name="startAddress" column="start_address" type="java.lang.String"/>
+        <property name="endAddress" column="end_address" type="java.lang.String"/>
 
     </class>
 

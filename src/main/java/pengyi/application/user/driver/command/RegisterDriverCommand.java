@@ -8,6 +8,8 @@ public class RegisterDriverCommand {
     private String userName;
     private String password;
     private String verificationCode;
+    private String identityCardPic;
+    private String drivingLicencePic;
 
     public String getUserName() {
         return userName;
@@ -31,5 +33,21 @@ public class RegisterDriverCommand {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public String getIdentityCardPic() {
+        return identityCardPic;
+    }
+
+    public void setIdentityCardPic(String identityCardPic) {
+        this.identityCardPic = identityCardPic;
+    }
+
+    public String getDrivingLicencePic() {
+        return drivingLicencePic;
+    }
+
+    public void setDrivingLicencePic(String drivingLicencePic) {
+        this.drivingLicencePic = drivingLicencePic;
     }
 }

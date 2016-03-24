@@ -31,7 +31,10 @@ public enum ResponseMessage {
     ERROR_10022(10022, "subscribeDate字段格式错误(yyyy-MM-dd hh:mm:ss)"),
     ERROR_10023(10023, "receiveUser字段不能为空"),
     ERROR_10024(10024, "orderId字段不能为空"),
-
+    ERROR_10025(10025, "identityCardPic字段不能为空"),
+    ERROR_10026(10026, "drivingLicencePic字段不能为空"),
+    ERROR_10027(10027, "startAddress字段不能为空"),
+    ERROR_10028(10028, "endAddress字段不能为空"),
 
     //救援
     ERROR_20000(20000, "派送救援司机不能为空"),
@@ -39,6 +42,9 @@ public enum ResponseMessage {
     ERROR_20002(20002, "救援申请人不能为空"),
     ERROR_20003(20003, "救援说明不能为空"),
     ERROR_20004(20004, "已安排救援不能取消"),
+    ERROR_20005(20005, "applyUser字段不能为空"),
+    ERROR_20006(20006, "rescueType字段不能为空"),
+    ERROR_20007(20007, "description字段不能为空"),
 
     //车辆
     ERROR_30001(30001, "车牌号已存在"),

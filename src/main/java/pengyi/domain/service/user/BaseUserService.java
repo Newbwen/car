@@ -6,6 +6,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,13 @@ public class BaseUserService implements IBaseUserService {
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
-        return baseUserRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+
+        if(null != command.getUserType()){
+            criteriaList.add(Restrictions.eq("userType", command.getUserType()));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+        return baseUserRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     @Override

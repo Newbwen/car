@@ -79,9 +79,9 @@ public class RescueService implements IRescueService {
     @Override
     public Rescue create(CreateRescueCommand command) {
 
-        BaseUser applyuser = baseUserService.show(command.getApplyUser());
-        Driver driver = driverService.show(command.getDriver());
-        Rescue rescue1 = new Rescue(applyuser, new Date(), command.getType(), command.getDescription(), driver, null, RescueStatus.WAIT_RESCUE, null);
+        BaseUser applyUser = baseUserService.show(command.getApplyUser());
+        Rescue rescue1 = new Rescue(applyUser, new Date(), command.getRescueType(),
+                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null);
         rescueRepository.save(rescue1);
 
         return rescue1;
@@ -89,12 +89,12 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue edit(EditRescueCommand command) {
-        Rescue rescue=this.show(command.getId());
+        Rescue rescue = this.show(command.getId());
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Driver driver = driverService.show(command.getDriver());
         rescue.setApplyUser(applyUser);
         rescue.setStatus(command.getStatus());
-        rescue.setType(command.getType());
+//        rescue.setType(command.getType());
         rescue.setDescription(command.getDescription());
         rescue.setDriver(driver);
         rescueRepository.save(rescue);
@@ -151,15 +151,15 @@ public class RescueService implements IRescueService {
 
         Rescue rescue = this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());
-            rescue.setStatus(RescueStatus.CANCEL_RESCUE);
-            rescueRepository.update(rescue);
+        rescue.setStatus(RescueStatus.CANCEL_RESCUE);
+        rescueRepository.update(rescue);
         return rescue;
     }
 
     @Override
     public Rescue apifinishRescue(EditRescueCommand command) {
 
-        Rescue rescue=this.show(command.getId());
+        Rescue rescue = this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());
         rescue.setStatus(RescueStatus.SUCCESS_RESCUE);
         rescueRepository.update(rescue);

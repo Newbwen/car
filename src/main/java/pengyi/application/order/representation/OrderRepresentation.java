@@ -30,6 +30,8 @@ public class OrderRepresentation {
     private String payTime;                             //支付时间
     private OrderStatus orderStatus;                  //订单状态
     private EvaluateStatus evaluateStatus;            //评价状态
+    private String startAddress;                        //开始地址
+    private String endAddress;                        //结束地址
 
     public String getId() {
         return id;
@@ -157,5 +159,21 @@ public class OrderRepresentation {
 
     public void setEvaluateStatus(EvaluateStatus evaluateStatus) {
         this.evaluateStatus = evaluateStatus;
+    }
+
+    public String getStartAddress() {
+        return startAddress;
+    }
+
+    public void setStartAddress(String startAddress) {
+        this.startAddress = startAddress;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
+    }
+
+    public void setEndAddress(String endAddress) {
+        this.endAddress = endAddress;
     }
 }

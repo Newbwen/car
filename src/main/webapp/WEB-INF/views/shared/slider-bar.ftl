@@ -146,6 +146,13 @@
                 </li>
 
                 <li>
+                    <a href="[@spring.url "/user/company/auth_list"/]" class="dropdown-toggle">
+                        <i class="icon-calendar"></i>
+                        <span class="menu-text"> 待审核公司列表 </span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-edit"></i>
                         <span class="menu-text"> 车辆管理 </span>

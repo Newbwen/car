@@ -23,6 +23,8 @@ public class DriverRepresentation extends BaseUserRepresentation {
     private Integer reportCount;                //举报次数
     private Boolean online;                 //是否在线
     private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
+    private String identityCardPic;                   //身份证照片
+    private String drivingLicencePic;          //驾驶证照片
 
     public String getName() {
         return name;
@@ -110,5 +112,21 @@ public class DriverRepresentation extends BaseUserRepresentation {
 
     public void setDriverType(DriverType driverType) {
         this.driverType = driverType;
+    }
+
+    public String getIdentityCardPic() {
+        return identityCardPic;
+    }
+
+    public void setIdentityCardPic(String identityCardPic) {
+        this.identityCardPic = identityCardPic;
+    }
+
+    public String getDrivingLicencePic() {
+        return drivingLicencePic;
+    }
+
+    public void setDrivingLicencePic(String drivingLicencePic) {
+        this.drivingLicencePic = drivingLicencePic;
     }
 }
