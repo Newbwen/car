@@ -14,7 +14,7 @@ import java.util.Date;
  * 订单
  * Created by pengyi on 2016/3/4.
  */
-public class Order extends Identity{
+public class Order extends Identity {
 
     private String orderNumber;                         //订单号
     private BaseUser orderUser;                         //下单人
@@ -30,6 +30,8 @@ public class Order extends Identity{
     private Date payTime;                             //支付时间
     private OrderStatus orderStatus;                  //订单状态
     private EvaluateStatus evaluateStatus;            //评价状态
+    private String startAddress;                        //开始地址
+    private String endAddress;                        //结束地址
 
     public String getOrderNumber() {
         return orderNumber;
@@ -143,11 +145,27 @@ public class Order extends Identity{
         this.evaluateStatus = evaluateStatus;
     }
 
+    public String getStartAddress() {
+        return startAddress;
+    }
+
+    public void setStartAddress(String startAddress) {
+        this.startAddress = startAddress;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
+    }
+
+    public void setEndAddress(String endAddress) {
+        this.endAddress = endAddress;
+    }
+
     public Order() {
         super();
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus) {
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -162,5 +180,7 @@ public class Order extends Identity{
         this.payTime = payTime;
         this.orderStatus = orderStatus;
         this.evaluateStatus = evaluateStatus;
+        this.startAddress = startAddress;
+        this.endAddress = endAddress;
     }
 }

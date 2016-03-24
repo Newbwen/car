@@ -16,6 +16,8 @@ public class CreateOrderCommand {
     private String subscribeDate;                       //预约时间
     private DriverType driverType;                    //接单司机类型类型
     private BigDecimal extraMoney;                      //调度费
+    private String startAddress;                        //开始地址
+    private String endAddress;                          //结束地址
 
     public String getOrderUser() {
         return orderUser;
@@ -47,5 +49,21 @@ public class CreateOrderCommand {
 
     public void setExtraMoney(BigDecimal extraMoney) {
         this.extraMoney = extraMoney;
+    }
+
+    public String getStartAddress() {
+        return startAddress;
+    }
+
+    public void setStartAddress(String startAddress) {
+        this.startAddress = startAddress;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
+    }
+
+    public void setEndAddress(String endAddress) {
+        this.endAddress = endAddress;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
@@ -106,9 +107,9 @@ public class ApiCompanyAppService implements IApiCompanyAppService {
             if (CoreStringUtils.isEmpty(command.getRegisterAddress())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10003.getMessage());
             }
-//            if (CoreStringUtils.isEmpty(command.getOperateAddress())) {
-//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10004.getMessage());
-//            }
+            if (CoreStringUtils.isEmpty(command.getOperateAddress())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10004.getMessage());
+            }
             CompanyRepresentation company = mappingService.map(companyService.apiCreate(command), CompanyRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, company, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
@@ -132,6 +133,22 @@ public class ApiCompanyAppService implements IApiCompanyAppService {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10017.getMessage());
             }
             Company company = companyService.apiUpdatePassword(command);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse apiResetPassword(ResetPasswordCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getUserName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getPassword())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10011.getMessage());
+            }
+            Company company = companyService.apiResetPassword(command);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());

@@ -1,10 +1,12 @@
 package pengyi.domain.service.user.company;
 
+import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.command.UpdatePasswordCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.company.Company;
 import pengyi.repository.generic.Pagination;
 
@@ -23,6 +25,7 @@ public interface ICompanyService {
 
     Company create(Company company);
 
+    Company updateStatus(EditStatusCommand command);
 
     /********** api 方法    *************/
     Company apiEdit(EditCompanyCommand command);
@@ -34,4 +37,7 @@ public interface ICompanyService {
     Company apiUpdatePassword(UpdatePasswordCommand command);
 
     List<Company> apiByName(String name);
+
+    Company apiResetPassword(ResetPasswordCommand command);
+
 }

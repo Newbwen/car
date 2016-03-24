@@ -36,7 +36,7 @@ public class ReportController extends BaseController {
     @Autowired
     private IReportAppService reportAppService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list")
     public ModelAndView list(ListReportCommand command) {
         return new ModelAndView("/report/list", "command", command)
                 .addObject("pagination",reportAppService.pagination(command));

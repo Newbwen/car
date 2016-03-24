@@ -19,8 +19,6 @@ public interface IMessageAppService {
 
     MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command);
 
-    void companyCreateMessageByRole(CompanyCreateMessageCommand command);
-
     MessageRepresentation edit(String messageId);
 
 }

@@ -37,7 +37,7 @@ public class BaseUserAppService implements IBaseUserAppService {
     @Transactional(readOnly = true)
     public Pagination<BaseUserRepresentation> pagination(BaseListBaseUserCommand command) {
         command.verifyPage();
-        command.verifyPageSize(20);
+        command.verifyPageSize(10);
         Pagination<BaseUser> pagination = baseUserService.pagination(command);
         List<BaseUserRepresentation> data = mappingService.mapAsList(pagination.getData(), BaseUserRepresentation.class);
         return new Pagination<BaseUserRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());

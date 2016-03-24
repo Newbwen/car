@@ -2,15 +2,18 @@ package pengyi.domain.service.user.company;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.command.UpdatePasswordCommand;
+import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
-import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
 import pengyi.core.commons.PasswordHelper;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.IllegalOperationException;
 import pengyi.core.exception.NoFoundException;
@@ -65,7 +68,10 @@ public class CompanyService implements ICompanyService {
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
-        return companyRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+        return companyRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     @Override
@@ -98,6 +104,18 @@ public class CompanyService implements ICompanyService {
     @Override
     public Company create(Company company) {
         companyRepository.save(company);
+        return company;
+    }
+
+    @Override
+    public Company updateStatus(EditStatusCommand command) {
+        Company company = this.show(command.getId());
+        company.fainWhenConcurrencyViolation(command.getVersion());
+
+        company.setStatus(EnableStatus.ENABLE);
+
+        companyRepository.update(company);
+
         return company;
     }
 
@@ -135,17 +153,17 @@ public class CompanyService implements ICompanyService {
         }
 
         Area registerAddress = areaService.show(command.getRegisterAddress());
-//        Area operateAddress = areaService.show(command.getOperateAddress());
+        Area operateAddress = areaService.show(command.getOperateAddress());
 
         String salt = PasswordHelper.getSalt();
-        String password = PasswordHelper.encryptPassword(command.getPassword(), salt + command.getUserName());
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
 
         Role role = roleService.searchByName("company");
 
-        Company company = new Company(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(),
+        Company company = new Company(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(),
                 role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
-                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, null, new BigDecimal(0), 0.0);
+                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, new BigDecimal(0), 0.0);
 
         companyRepository.save(company);
 
@@ -178,5 +196,16 @@ public class CompanyService implements ICompanyService {
         }
 
         return companyRepository.list(criteriaList, null);
+    }
+
+    @Override
+    public Company apiResetPassword(ResetPasswordCommand command) {
+        Company company = (Company) baseUserService.searchByUserName(command.getUserName());
+
+        String password = PasswordHelper.encryptPassword(command.getPassword(), company.getCredentialsSalt());
+        command.setPassword(password);
+
+        companyRepository.update(company);
+        return company;
     }
 }

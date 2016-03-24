@@ -47,16 +47,16 @@ public class BaseUserController extends BaseController {
     public ModelAndView updateStatus(EditStatusCommand command,
                                      RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
-        BaseUserRepresentation role = null;
+        BaseUserRepresentation baseUser = null;
         try {
-            role = baseUserAppService.updateStatus(command);
+            baseUser = baseUserAppService.updateStatus(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             return new ModelAndView("redirect:/base_user/list");
         }
 
-        logger.info("修改用户状态成功id=[" + role.getId() + "],时间[" + new Date() + "]");
+        logger.info("修改用户状态成功id=[" + baseUser.getId() + "],时间[" + new Date() + "]");
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         return new ModelAndView("redirect:/base_user/list");

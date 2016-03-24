@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * update by yjh
- * <p>
+ * <p/>
  * 司机
  * Created by pengyi on 2016/3/4.
  */
@@ -31,6 +31,8 @@ public class Driver extends BaseUser {
     private Integer reportCount;                //举报次数
     private Boolean online;                 //是否在线
     private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
+    private String identityCardPic;                   //身份证照片
+    private String drivingLicencePic;          //驾驶证照片
 
     public String getName() {
         return name;
@@ -120,25 +122,27 @@ public class Driver extends BaseUser {
         this.driverType = driverType;
     }
 
+    public String getIdentityCardPic() {
+        return identityCardPic;
+    }
+
+    public void setIdentityCardPic(String identityCardPic) {
+        this.identityCardPic = identityCardPic;
+    }
+
+    public String getDrivingLicencePic() {
+        return drivingLicencePic;
+    }
+
+    public void setDrivingLicencePic(String drivingLicencePic) {
+        this.drivingLicencePic = drivingLicencePic;
+    }
+
     public Driver() {
         super();
     }
 
-    public Driver(String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType) {
-        this.name = name;
-        this.head = head;
-        this.company = company;
-        this.sex = sex;
-        this.money = money;
-        this.level = level;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.reportCount = reportCount;
-        this.online = online;
-        this.driverType = driverType;
-    }
-
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType) {
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
@@ -151,9 +155,11 @@ public class Driver extends BaseUser {
         this.reportCount = reportCount;
         this.online = online;
         this.driverType = driverType;
+        this.identityCardPic = identityCardPic;
+        this.drivingLicencePic = drivingLicencePic;
     }
 
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

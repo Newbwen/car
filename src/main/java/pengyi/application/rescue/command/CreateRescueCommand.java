@@ -2,6 +2,10 @@ package pengyi.application.rescue.command;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import pengyi.core.type.RescueStatus;
+import pengyi.core.type.RescueType;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by LvDi on 2016/3/9.
  */
@@ -10,27 +14,11 @@ public class CreateRescueCommand {
     @NotEmpty(message = "{rescue.applyUser,NotEmpty,message}")
     private String applyUser;                   //申请人
 
-    @NotEmpty(message = "{rescue.applyTime,NotEmpty,message}")
-    private String applyTime;                   //申请时间
-
-    @NotEmpty(message = "{rescue.type,NotEmpty,message}")
-    private int type;                           //救援类型
+    @NotNull(message = "{rescue.type,Notnull,message}")
+    private RescueType rescueType;                           //救援类型
 
     @NotEmpty(message = "{rescue.description,NotEmpty,message}")
     private String description;                 //救援说明
-
-    @NotEmpty(message = "{rescue.driver,NotEmpty,message}")
-    private String driver;                      //救援司机
-
-    @NotEmpty(message = "{rescue.rescueTime,NotEmpty,message}")
-    private String rescueTime;                  //救援时间
-
-    @NotEmpty(message = "{rescue.status,NotEmpty,message}")
-    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
-
-
-    @NotEmpty(message = "{rescue.finishTime,NotEmpty,message}")
-    private String finishTime;                  //救援完成时间
 
     public String getApplyUser() {
         return applyUser;
@@ -40,20 +28,12 @@ public class CreateRescueCommand {
         this.applyUser = applyUser;
     }
 
-    public String getApplyTime() {
-        return applyTime;
+    public RescueType getRescueType() {
+        return rescueType;
     }
 
-    public void setApplyTime(String applyTime) {
-        this.applyTime = applyTime;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setRescueType(RescueType rescueType) {
+        this.rescueType = rescueType;
     }
 
     public String getDescription() {
@@ -64,35 +44,4 @@ public class CreateRescueCommand {
         this.description = description;
     }
 
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
-    public String getRescueTime() {
-        return rescueTime;
-    }
-
-    public void setRescueTime(String rescueTime) {
-        this.rescueTime = rescueTime;
-    }
-
-    public RescueStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(RescueStatus status) {
-        this.status = status;
-    }
-
-    public String getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(String finishTime) {
-        this.finishTime = finishTime;
-    }
 }

@@ -2,6 +2,7 @@ package pengyi.domain.service.user.driver;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
+import pengyi.core.upload.IFileUploadService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
@@ -47,6 +49,9 @@ public class DriverService implements IDriverService {
     @Autowired
     private ICompanyService companyService;
 
+    @Autowired
+    private IFileUploadService fileUploadService;
+
     @Override
     public Pagination<Driver> pagination(BaseListDriverCommand command) {
         List<Criterion> criteriaList = new ArrayList();
@@ -61,7 +66,10 @@ public class DriverService implements IDriverService {
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
-        return driverRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, null);
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+        return driverRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, orderList);
     }
 
     @Override
@@ -121,6 +129,10 @@ public class DriverService implements IDriverService {
             criterionList.add(Restrictions.like("userName", command.getDriverName()));
         }
 
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
+        }
+
         return driverRepository.pagination(command.getPage(), command.getPageSize(), criterionList, null);
     }
 
@@ -177,7 +189,8 @@ public class DriverService implements IDriverService {
 
         Driver driver = new Driver(command.getName(), password, salt, command.getStatus(), new BigDecimal(0),
                 new Date(), role, command.getEmail(), UserType.DRIVER, command.getName(), null, company,
-                command.getSex(), new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType());
+                command.getSex(), new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
+                command.getIdentityCardPic(), command.getDrivingLicencePic());
 
         driverRepository.save(driver);
 
@@ -205,8 +218,8 @@ public class DriverService implements IDriverService {
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
         Role role = roleService.searchByName("driver");
-        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, null, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null);
+        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                null, null, null, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null, command.getIdentityCardPic(), command.getDrivingLicencePic());
 
         driverRepository.save(driver);
         return driver;
@@ -230,8 +243,16 @@ public class DriverService implements IDriverService {
     @Override
     public Driver apiUpdateHeadPic(UpdateHeadPicCommand command) {
         Driver driver = this.show(command.getId());
-        driver.setHead(command.getHeadPic());
+
+        String headPic = command.getHeadPic().replaceAll("img_tmp", "img");
+        String oldHeadPic = driver.getHead();
+        driver.setHead(headPic);
+
+        fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
+
         driverRepository.update(driver);
+
+        fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
         return driver;
     }
 }

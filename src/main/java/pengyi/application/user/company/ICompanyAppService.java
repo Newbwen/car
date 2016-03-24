@@ -3,6 +3,7 @@ package pengyi.application.user.company;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.repository.generic.Pagination;
 
 /**
@@ -15,4 +16,6 @@ public interface ICompanyAppService {
     CompanyRepresentation edit(EditCompanyCommand command);
 
     CompanyRepresentation show(String id);
+
+    CompanyRepresentation updateStatus(EditStatusCommand command);
 }
