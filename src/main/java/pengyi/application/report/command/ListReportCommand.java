@@ -12,22 +12,22 @@ public class ListReportCommand extends BasicPaginationCommand {
     private String reportUser;      //举报人
     private String order;          //举报订单
     private ReportStatus status;   //状态（待处理、处理中、处理完成）
-    private Data beginTime;
-    private Data endTime;
+    private String beginTime;
+    private String endTime;
 
-    public Data getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Data beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Data getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Data endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

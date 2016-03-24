@@ -86,6 +86,7 @@
 
 <div class="modal fade alert-add" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="new-event" aria-hidden="true">
     <div class="large-dialog">
+        <span class="dialog-close btn btn-success modal-search-hide-modal">关闭</span>
         <div class="change-bg">
             <div class="modal-header">
                 <p class="modal-title thin">权限列表--勾选添加到已选权限列表

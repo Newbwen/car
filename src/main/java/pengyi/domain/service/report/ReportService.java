@@ -10,6 +10,7 @@ import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ReportStatus;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.Report;
@@ -37,7 +38,7 @@ public class ReportService implements IReportService {
     private IOrderService orderService;
 
     @Override
-    public Report createReport(CreateReportCommand command) {
+    public void createReport(CreateReportCommand command) {
 
         BaseUser baseUser = baseUserService.show(command.getReportUser());
 
@@ -45,7 +46,7 @@ public class ReportService implements IReportService {
 
         Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING, null);
 
-        return report;
+        reportRepository.save(report);
     }
 
     @Override
@@ -61,15 +62,24 @@ public class ReportService implements IReportService {
     public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         Map<String, String> aliasMap = new HashMap<String, String>();
-        if (!CoreStringUtils.isEmpty(command.getReportUser())) {
+        /*if (!CoreStringUtils.isEmpty(command.getReportUser())) {
             criterionList.add(Restrictions.like("reportUser", command.getReportUser(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getOrder())) {
+          if (!CoreStringUtils.isEmpty(command.getOrder())) {
             aliasMap.put("order", "order");
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
+        }*/
+        /*if (null !=command.getBeginTime() && null !=command.getEndTime()) {
+            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getBeginTime()),CoreDateUtils.parseDate(command.getEndTime())));
+        }*/
+        if(!CoreStringUtils.isEmpty(command.getBeginTime())){
+            criterionList.add(Restrictions.ge("reportTime",CoreDateUtils.parseDate(command.getBeginTime())));
         }
-        if (null !=command.getBeginTime() && null !=command.getEndTime()) {
-            criterionList.add(Restrictions.between("reportTime",command.getBeginTime(),command.getEndTime()));
+        if(!CoreStringUtils.isEmpty(command.getEndTime())){
+            criterionList.add(Restrictions.le("reportTime",CoreDateUtils.parseDate(command.getEndTime())));
+        }
+        if(null !=command.getStatus()){
+            criterionList.add(Restrictions.eq("status",command.getStatus()));
         }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
