@@ -12,14 +12,14 @@ public class EditRescueCommand {
     private int type;                           //救援类型
     private String description;                 //救援说明
     private String driver;                      //救援司机
-    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
+    private RescueStatus rescueStatus;                         //救援状态（1待救援、2救援中、3已救援）
 
-    public RescueStatus getStatus() {
-        return status;
+    public RescueStatus getRescueStatus() {
+        return rescueStatus;
     }
 
-    public void setStatus(RescueStatus status) {
-        this.status = status;
+    public void setRescueStatus(RescueStatus rescueStatus) {
+        this.rescueStatus = rescueStatus;
     }
 
     public String getId() {

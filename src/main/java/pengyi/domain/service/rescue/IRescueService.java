@@ -18,7 +18,7 @@ public interface IRescueService {
 
     Rescue getById(int rescueId);
 
-    Pagination pagination(ListRescueCommand command);
+    Pagination<Rescue> pagination(ListRescueCommand command);
 
     Rescue create(CreateRescueCommand command);
 

@@ -14,6 +14,10 @@ public class CreateRescueCommand {
     @NotEmpty(message = "{rescue.applyUser,NotEmpty,message}")
     private String applyUser;                   //申请人
 
+    private String userName;
+
+    private String verificationCode;
+
     @NotNull(message = "{rescue.type,Notnull,message}")
     private RescueType rescueType;                           //救援类型
 
@@ -44,4 +48,19 @@ public class CreateRescueCommand {
         this.description = description;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

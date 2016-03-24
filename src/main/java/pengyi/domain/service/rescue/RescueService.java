@@ -31,7 +31,6 @@ import java.util.*;
  */
 
 @Service("rescueService")
-@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 public class RescueService implements IRescueService {
 
     @Autowired
@@ -57,11 +56,14 @@ public class RescueService implements IRescueService {
     public Pagination<Rescue> pagination(ListRescueCommand command) {
 
         List<Criterion> criteriaList = new ArrayList();
+        Map<String, String> aliasMap = new HashMap<String, String>();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
-            criteriaList.add(Restrictions.like("a.userName", command.getApplyUser(), MatchMode.ANYWHERE));
+            aliasMap.put("applyUser", "applyUser");
+            criteriaList.add(Restrictions.like("applyUser.userName", command.getApplyUser(), MatchMode.ANYWHERE));
         }
         if (!CoreStringUtils.isEmpty(command.getDriver())) {
-            criteriaList.add(Restrictions.like("d.userName", command.getDriver(), MatchMode.ANYWHERE));
+            aliasMap.put("driver", "driver");
+            criteriaList.add(Restrictions.like("driver.userName", command.getDriver(), MatchMode.ANYWHERE));
         }
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
@@ -69,9 +71,6 @@ public class RescueService implements IRescueService {
         }
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("applyTime"));
-        Map<String, String> aliasMap = new HashMap<String, String>();
-        aliasMap.put("applyUser", "a");
-        aliasMap.put("driver", "d");
 
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
     }
@@ -93,7 +92,7 @@ public class RescueService implements IRescueService {
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Driver driver = driverService.show(command.getDriver());
         rescue.setApplyUser(applyUser);
-        rescue.setStatus(command.getStatus());
+        rescue.setStatus(command.getRescueStatus());
 //        rescue.setType(command.getType());
         rescue.setDescription(command.getDescription());
         rescue.setDriver(driver);
@@ -131,18 +130,11 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue apiUpdateRescue(EditRescueCommand command) {
-
         Rescue rescue = this.show(command.getId());
+        rescue.fainWhenConcurrencyViolation(command.getVersion());
         Driver driver = driverService.show(command.getDriver());
-        if(command.getStatus()==RescueStatus.WAIT_RESCUE){
-            rescue.setStatus(RescueStatus.IN_RESCUE);
-            rescue.setDriver(driver);
-            rescueRepository.update(rescue);
-        }else {
-            throw new ExistException("没有找到救援id=[" + RescueStatus.WAIT_RESCUE + "]不能救援");
-        }
-
-
+        rescue.setStatus(command.getRescueStatus());
+        rescue.setDriver(driver);
         return rescue;
     }
 

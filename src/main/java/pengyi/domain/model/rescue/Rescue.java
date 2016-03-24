@@ -55,6 +55,7 @@ public class Rescue extends Identity {
         this.description = description;
     }
 
+
     public Driver getDriver() {
         return driver;
     }

@@ -19,6 +19,7 @@ import pengyi.core.exception.IllegalOperationException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
+import pengyi.core.upload.IFileUploadService;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.area.Area;
@@ -53,6 +54,9 @@ public class CompanyService implements ICompanyService {
 
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private IFileUploadService fileUploadService;
 
     @Override
     public Pagination<Company> pagination(BaseListCompanyCommand command) {
@@ -158,14 +162,17 @@ public class CompanyService implements ICompanyService {
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
+        String folder = command.getFolder().replaceAll("img_tmp", "img");
 
         Role role = roleService.searchByName("company");
 
         Company company = new Company(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(),
-                role, command.getEmail(), UserType.COMPANY, command.getName(), command.getFolder(),
+                role, command.getEmail(), UserType.COMPANY, command.getName(), folder,
                 CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, new BigDecimal(0), 0.0);
 
         companyRepository.save(company);
+
+        fileUploadService.move(folder.substring(folder.lastIndexOf("/") + 1));
 
         return company;
     }

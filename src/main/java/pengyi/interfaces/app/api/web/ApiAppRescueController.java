@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.rescue.IApiRescueAppService;
 import pengyi.application.rescue.command.CreateRescueCommand;
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
@@ -31,12 +32,13 @@ public class ApiAppRescueController {
     @ResponseBody
     public BaseResponse create(CreateRescueCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
-        BaseUser baseUser = (BaseUser) session.getAttribute(Constants.SESSION_USER);
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
         if (null == baseUser) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
         }
         command.setApplyUser(baseUser.getId());
+        command.setUserName(baseUser.getUserName());
         BaseResponse response = null;
 
         try {

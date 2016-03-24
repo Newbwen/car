@@ -13,7 +13,9 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.redis.RedisService;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.rescue.Rescue;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.rescue.IRescueService;
 import pengyi.repository.generic.Pagination;
@@ -33,6 +35,9 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Autowired
     private IMappingService mappingService;
 
+    @Autowired
+    private RedisService redisService;
+
 
     @Override
     public BaseResponse apiInfo(String id) {
@@ -42,7 +47,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
     @Override
     public Pagination<RescueRepresentation> search(ListRescueCommand command) {
-        Pagination<RescueRepresentation> pagination = rescueService.pagination(command);
+        Pagination<Rescue> pagination = rescueService.pagination(command);
             List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
         return new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
@@ -50,7 +55,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Override
     public BaseResponse updateRescue(EditRescueCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getId())) {
+            if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
@@ -59,7 +64,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
             if (null == command.getDriver()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20000.getMessage());
             }
-            if (null == command.getStatus()) {
+            if (null == command.getRescueStatus()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20001.getMessage());
             }
             RescueRepresentation rescueRepresentation = mappingService.map(rescueService.apiUpdateRescue(command), RescueRepresentation.class, false);
@@ -81,6 +86,15 @@ public class ApiRescueAppService implements IApiRescueAppService {
             }
             if (null == command.getDescription()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20003.getMessage());
+            }
+            if (redisService.exists(command.getUserName())) {
+                if (!redisService.getCache(command.getUserName()).equals(command.getVerificationCode())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR, 0, null,
+                            ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR.getMessage());
+                }
+            } else {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND, 0, null,
+                        ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND.getMessage());
             }
             RescueRepresentation rescueRepresentation = mappingService.map(rescueService.create(command), RescueRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());

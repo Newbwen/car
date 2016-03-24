@@ -279,7 +279,7 @@
             <id>42ba59c6-7f46-45ed-a4f4-1ebf380bb3c8</id>
             <name>创建救援</name>
             <address>api/app/rescue/create</address>
-            <shuoming>rescueType(救援类型),description(救援说明)</shuoming>
+            <shuoming>rescueType(救援类型),description(救援说明),verificationCode(验证码)</shuoming>
             <zhuyi>必须登录,rescueType(CHILDREN:留守儿童,OLD_MAN:老人,OTHER:其他)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
         </api>
