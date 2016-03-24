@@ -28,13 +28,14 @@ public class MessageAppService implements IMessageAppService {
 
     @Override//返回paginationList并将ListMessageCommand转换成MessageRepresentation
     @Transactional(readOnly = true)
-    public Pagination<MessageRepresentation> pagination(ListMessageCommand command){
+    public Pagination<MessageRepresentation> pagination(ListMessageCommand command) {
         command.verifyPage();
         command.verifyPageSize(12);
-        Pagination<Message> pagination=messageService.pagination(command);
-        List<MessageRepresentation> data=mappingService.mapAsList(pagination.getData(),MessageRepresentation.class);
-        return new Pagination<MessageRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
+        Pagination<Message> pagination = messageService.pagination(command);
+        List<MessageRepresentation> data = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
+        return new Pagination<MessageRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
+
     @Override//返回发送的信息
     public void create(CreateMessageByRoleCommand command) {
         messageService.create(command);
@@ -49,19 +50,19 @@ public class MessageAppService implements IMessageAppService {
 
     @Override
     public MessageRepresentation delete(String messageId) {
-        return mappingService.map(messageService.delete(messageId),MessageRepresentation.class,false);
+        return mappingService.map(messageService.delete(messageId), MessageRepresentation.class, false);
     }
 
     @Override
     public MessageRepresentation createByBaseUser(CreateMessageByBaseUserCommand command) {
-        return mappingService.map(messageService.createByBaseUser(command),MessageRepresentation.class,false);
+        return mappingService.map(messageService.createByBaseUser(command), MessageRepresentation.class, false);
     }
 
 
     @Override
     public MessageRepresentation edit(String messageId) {
 
-        return mappingService.map(messageService.edit(messageId),MessageRepresentation.class,false);
+        return mappingService.map(messageService.edit(messageId), MessageRepresentation.class, false);
     }
 
 
