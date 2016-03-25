@@ -1,35 +1,37 @@
 package pengyi.socketserver.model;
 
+import pengyi.core.type.UserType;
+
 /**
  * 接收客户端
  * Created by pengyi on 2016/3/10.
  */
 public class ReceiveObj {
 
-    private int type;               //1为连接服务器，2为下单，3为接单
-    private String content;         //类容
+    private UserType type;                  //用户类型
+    private String phone;                 //userId
 
-    public int getType() {
+    public UserType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(UserType type) {
         this.type = type;
     }
 
-    public String getContent() {
-        return content;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public ReceiveObj() {
     }
 
-    public ReceiveObj(int type, String content) {
+    public ReceiveObj(UserType type, String phone) {
         this.type = type;
-        this.content = content;
+        this.phone = phone;
     }
 }

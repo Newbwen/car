@@ -1,5 +1,6 @@
 package pengyi.domain.service.order;
 
+import com.alibaba.fastjson.JSON;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -20,6 +21,7 @@ import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.driver.IDriverService;
 import pengyi.repository.generic.Pagination;
+import pengyi.socketserver.TcpService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -130,7 +132,7 @@ public class OrderService implements IOrderService {
         Order order = new Order(orderNo, orderUser, new Date(), null, null,
                 CoreDateUtils.parseDate(command.getSubscribeDate()), null, command.getDriverType(),
                 null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE,
-                command.getStartAddress(),command.getEndAddress());
+                command.getStartAddress(), command.getEndAddress());
 
         orderRepository.save(order);
 
@@ -148,6 +150,11 @@ public class OrderService implements IOrderService {
         order.setOrderStatus(OrderStatus.HAS_ORDER);
 
         orderRepository.update(order);
+
+        String phone = order.getOrderUser().getUserName();
+        if (TcpService.userClients.containsKey(phone)) {
+            TcpService.userClients.get(phone).send(order.getOrderNumber());
+        }
         return order;
     }
 

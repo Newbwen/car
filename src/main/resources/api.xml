@@ -284,6 +284,22 @@
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
+            <id>d03380fa-8846-4dd5-85ec-f967b215c745</id>
+            <name>连接到推送服务器</name>
+            <address>无</address>
+            <shuoming>type（用户类型），phone（用户名）</shuoming>
+            <zhuyi>协议：tcp，参数用json</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>6ab05204-bf54-4071-824e-a3063be69700</id>
+            <name>司机接单推送用户</name>
+            <address>无</address>
+            <shuoming>无</shuoming>
+            <zhuyi>返回信息为订单号</zhuyi>
+            <fanhuixinxi>egg20160325121212222222222</fanhuixinxi>
+        </api>
+        <api>
             <id>ec97cd7b-d73f-4656-9fc0-c288c37dafa6</id>
             <name>创建车辆</name>
             <address>api/app/car/create</address>
