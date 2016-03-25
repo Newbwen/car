@@ -33,11 +33,11 @@ public class ApiReportController {
      */
     @RequestMapping(value = "deal_report")
     @ResponseBody
-    public BaseResponse edit(EditReportCommand command){
+    public BaseResponse edit(String id){
         long startTime = System.currentTimeMillis();
         BaseResponse response=null;
         try {
-            response = apiReportService.updateReport(command);
+            response = apiReportService.updateReport(id);
 
         } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());

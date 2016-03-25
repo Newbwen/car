@@ -34,7 +34,7 @@ import java.util.*;
 public class RescueService implements IRescueService {
 
     @Autowired
-    private IRescueRepository rescueRepository;
+    private IRescueRepository<Rescue,String> rescueRepository;
 
     @Autowired
     private BaseUserService baseUserService;
@@ -48,7 +48,7 @@ public class RescueService implements IRescueService {
 //    }
 
     @Override
-    public Rescue getById(int rescueId) {
+    public Rescue getById(String rescueId) {
         return (Rescue) rescueRepository.getById(rescueId);
     }
 

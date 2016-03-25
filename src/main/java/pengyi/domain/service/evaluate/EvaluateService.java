@@ -32,7 +32,7 @@ import java.util.*;
 public class EvaluateService implements IEvaluateService {
 
     @Autowired
-    private IEvaluateRepository evaluateRepository;
+    private IEvaluateRepository<Evaluate,String> evaluateRepository;
 
     @Autowired
     private BaseUserService baseUserService;

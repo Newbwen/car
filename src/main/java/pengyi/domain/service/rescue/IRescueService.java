@@ -16,7 +16,7 @@ public interface IRescueService {
 
 //    List<Rescue> findAllRescue();
 
-    Rescue getById(int rescueId);
+    Rescue getById(String rescueId);
 
     Pagination<Rescue> pagination(ListRescueCommand command);
 
