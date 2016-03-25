@@ -31,13 +31,13 @@ public class ApiReportController {
     /**
      * 处理举报
      */
-    @RequestMapping(value = "deal_report")
+    @RequestMapping(value = "/deal_report")
     @ResponseBody
-    public BaseResponse edit(String id){
+    public BaseResponse edit(EditReportCommand command){
         long startTime = System.currentTimeMillis();
         BaseResponse response=null;
         try {
-            response = apiReportService.updateReport(id);
+            response = apiReportService.updateReport(command);
 
         } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());
@@ -50,7 +50,7 @@ public class ApiReportController {
         return response;
 
    }
-    @RequestMapping(value = "finish_report")
+    @RequestMapping(value = "/finish_report")
     @ResponseBody
     public BaseResponse finishReport(EditReportCommand command){
         long startTime = System.currentTimeMillis();
@@ -87,7 +87,7 @@ public class ApiReportController {
         return response;
     }
 
-    @RequestMapping(value = "show_by_reportId")
+    @RequestMapping(value = "/show_by_reportId")
     @ResponseBody
     public BaseResponse showByReportId(String id) {
         long startTime = System.currentTimeMillis();

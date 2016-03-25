@@ -15,7 +15,7 @@ public interface IApiReportAppService {
     BaseResponse list(ListReportCommand command);
     BaseResponse create(CreateReportCommand command);
 
-    BaseResponse updateReport(String id);
+    BaseResponse updateReport(EditReportCommand command);
 
     BaseResponse finishReport(EditReportCommand command);
 }

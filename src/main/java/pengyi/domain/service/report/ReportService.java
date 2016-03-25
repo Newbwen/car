@@ -100,8 +100,8 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    public void apiUpdateReport(String id) {
-        Report report=this.getById(id);
+    public void apiUpdateReport(EditReportCommand command) {
+        Report report=this.getById(command.getId());
         if(report.getStatus()==ReportStatus.PENDING){
             report.setStatus(ReportStatus.IN_PROCESS);
             report.setStartDealTime(new Date());

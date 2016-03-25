@@ -68,12 +68,18 @@ public class ApiReportAppAppService implements IApiReportAppService {
     }
 
     @Override
-    public BaseResponse updateReport(String id) {
-        if(null!=id){
-            reportService.apiUpdateReport(id);
+    public BaseResponse updateReport(EditReportCommand command) {
+        if(null!=command){
+            if (CoreStringUtils.isEmpty(command.getId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            reportService.apiUpdateReport(command);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }else {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
         }
     }
