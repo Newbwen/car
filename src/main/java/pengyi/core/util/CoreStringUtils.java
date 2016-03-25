@@ -1,10 +1,17 @@
 package pengyi.core.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
 
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -260,5 +267,100 @@ public class CoreStringUtils {
             rands += chars.charAt(rand);
         }
         return rands.trim();
+    }
+
+    public static BaseResponse urlConnection(String url, String pa) {
+
+        String result = null;
+        BaseResponse response = null;
+//        url = config.getUrl() + url;
+        try {
+//            logger.info(url, "http发送请求-----" + pa + "-----" + new Date());
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+
+            // Send data
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(conn.getOutputStream(), CharsetConstant.UTF8_STRING));
+            // pa为请求的参数
+            pw.print(pa);
+            pw.flush();
+            pw.close();
+
+            // Get the api!
+            int httpResponseCode = conn.getResponseCode();
+            if (httpResponseCode != HttpURLConnection.HTTP_OK) {
+                throw new Exception("HTTP api code: " + httpResponseCode +
+                        "\nurl:" + url);
+            }
+
+            InputStream inputStream = conn.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetConstant.UTF8_STRING));
+            StringBuilder builder = new StringBuilder();
+            String readLine;
+            while (null != (readLine = br.readLine())) {
+                builder.append(readLine);
+            }
+            inputStream.close();
+            result = builder.toString();
+//            logger.info(url, "http返回-----" + response + "-----" + new Date());
+
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            response = JSON.parseObject(result, BaseResponse.class);
+//            logger.info("Api请求成功, code: [{}]", response.getCode().getCode());
+//            logger.info("响应结果: [{}]", CoreStringUtils.urlDecode(result, CharsetConstant.UTF8_STRING));
+        } catch (JSONException e) {
+//            logger.warn("API调用返回结果格式不正确", e);
+//            logger.info("响应结果: [{}]", CoreStringUtils.urlDecode(result, CharsetConstant.UTF8_STRING));
+//            throw new ApiRemoteCallFailedException("API响应结果Json转换出错", BaseResponse.DEFAULT_FAILED);
+        }
+
+        if (response.getCode() != ResponseCode.RESPONSE_CODE_SUCCESS) {
+//            throw new ApiRemoteCallFailedException("API请求失败,返回内容: code[" + response.getCode() + "] message[" + response.getMessage() + "]", response);
+        }
+
+        return response;
+    }
+
+    public static String assemblingParameters(Object o) {
+        return assemblingParameters(o, o.getClass(), new StringBuilder());
+    }
+
+    public static String assemblingParameters(Object o, Class _class, StringBuilder sb) {
+        if (_class == null) {
+            return sb.toString();
+        } else {
+            Method[] methods = _class.getDeclaredMethods();// 获得类的方法集合
+            try {
+                // 遍历方法集合
+                for (int i = 0; i < methods.length; i++) {
+                    // 获取所有getXX()的返回值
+                    if (methods[i].getName().startsWith("get")) {// 方法返回方法名
+                        methods[i].setAccessible(true);//允许private被访问(以避免private getXX())
+                        Object object;
+                        object = methods[i].invoke(o, null);
+                        String name = methods[i].getName();
+                        name = name.replaceAll("get", "");
+                        name = name.substring(0, 1).toLowerCase() + name.substring(1, name.length());
+                        Object value = object;
+                        if (!name.equals("class")) {
+                            if(null != object){
+                                sb.append(name + "=" + value + "&");
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("参数组装失败!");
+                return null;
+            }
+
+            return assemblingParameters(o, _class.getSuperclass(), sb);
+        }
     }
 }

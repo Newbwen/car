@@ -33,7 +33,7 @@ public class PermissionAppService implements IPermissionAppService {
     @Transactional(readOnly = true)
     public Pagination<PermissionRepresentation> pagination(ListPermissionCommand command) {
         command.verifyPage();
-        command.verifyPageSize(20);
+        command.verifyPageSize(10);
         Pagination<Permission> pagination = permissionService.pagination(command);
         List<PermissionRepresentation> data = mappingService.mapAsList(pagination.getData(), PermissionRepresentation.class);
         return new Pagination<PermissionRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());

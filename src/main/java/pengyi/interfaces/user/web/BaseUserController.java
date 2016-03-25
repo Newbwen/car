@@ -147,7 +147,7 @@ public class BaseUserController extends BaseController {
         }
 
         logger.info("修改用户id=[" + baseUser.getId() + "]角色成功,时间[" + new Date() + "]");
-        alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.edit.success.message", null, locale));
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         return new ModelAndView("redirect:/base_user/list");
     }

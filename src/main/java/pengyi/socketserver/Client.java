@@ -19,7 +19,6 @@ import java.util.Locale;
 /**
  * Created by pengyi on 2016/3/25.
  */
-@Component
 public class Client implements Runnable {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

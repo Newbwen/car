@@ -28,7 +28,7 @@ import java.util.Locale;
  * Created by YJH on 2016/3/21.
  */
 @Controller
-@RequestMapping("billing")
+@RequestMapping("/billing")
 public class BillingController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

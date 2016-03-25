@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.user.company.IApiCompanyAppService;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -22,12 +23,13 @@ public class ApiAppCompanyController {
     private IApiCompanyAppService apiCompanyAppService;
 
     @RequestMapping(value = "/list")
+    @ResponseBody
     public BaseResponse apiList() {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
 
         try {
-            apiCompanyAppService.apiList();
+            response = apiCompanyAppService.apiList();
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

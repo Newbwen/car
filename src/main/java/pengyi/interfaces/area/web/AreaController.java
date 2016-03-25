@@ -26,7 +26,6 @@ import java.util.Locale;
 /**
  * Created by Administrator on 2016/3/20 0020.
  */
-@SuppressWarnings("ALL")
 @Controller
 @RequestMapping("/area")
 public class AreaController extends BaseController {

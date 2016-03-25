@@ -209,8 +209,8 @@
             url: "/permission/permission_list",
             pageSize : 6,
             isSingle : true,
-            header :['权限编号','权限名称','权限描述'],
-            rowData :["id", "permissionName", "description"],
+            header :['权限名称','权限描述'],
+            rowData :["permissionName", "description"],
             selectorData : ["permissionName"],
             hideModalHandler : function(jsonDataArr){
                 showTdPermission.empty();

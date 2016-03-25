@@ -317,11 +317,11 @@
         </api>
         <api>
             <id>c2c4bf2c-2937-41bf-9187-5f02649bc740</id>
-            <name>无</name>
-            <address>无</address>
+            <name>获取公司列表</name>
+            <address>api/app/company/list</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>无</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":[{"id":"402881e953837f7701538380ab250001","name":"哈哈哈公司"},{"id":"402881e953837f770153838d77510002","name":"嘻嘻嘻公司"},{"id":"402881e9538749db0153879c817a0000","name":"前台注册公司啦啦啦"},{"id":"402881e95396f5580153978b35e40005","name":" werewrwrewrew"},{"id":"402881e953a255660153a26dc03a0001","name":"15823634840公司"},{"id":"402881e953a255660153a26ee5850002","name":"15823634841公司"},{"id":"402881e953a7d6c60153a7da32d00000","name":"15823634800公司"}],"debug_time":678,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>

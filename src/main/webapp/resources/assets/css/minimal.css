@@ -4894,7 +4894,7 @@ body {
 html {
     padding-top: 45px;
     padding-bottom: 0;
-    overflow: hidden;
+    overflow-z: hidden;
 }
 html.mm-opened #wrap > .row #content {
     position: fixed;

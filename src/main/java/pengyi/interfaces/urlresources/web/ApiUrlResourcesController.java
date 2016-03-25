@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.urlresources.IApiUrlResourcesAppService;
+import pengyi.application.urlresources.IUrlResourcesAppService;
+import pengyi.application.urlresources.command.CreateUrlResourcesCommand;
 import pengyi.application.urlresources.representation.UrlResourcesRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;

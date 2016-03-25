@@ -62,6 +62,7 @@
         <br>
         <br>
         <div class="col-xs-12">
+            <a href="/url_resources/create" class="btn btn-success btn-block">在创建一个</a>
             <a href="/url_resources/list" class="btn btn-success btn-block">返回列表</a>
         </div>
     </div>

@@ -10,6 +10,7 @@ import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
+import pengyi.application.user.company.representation.ApiAppCommpanyRepresentaction;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -162,7 +163,7 @@ public class ApiCompanyAppService implements IApiCompanyAppService {
     public BaseResponse apiList() {
         BaseListCompanyCommand companyCommand = new BaseListCompanyCommand();
         companyCommand.setStatus(EnableStatus.ENABLE);
-        List<CompanyRepresentation> company = mappingService.mapAsList(companyService.list(companyCommand), CompanyRepresentation.class);
+        List<ApiAppCommpanyRepresentaction> company = mappingService.mapAsList(companyService.list(companyCommand), ApiAppCommpanyRepresentaction.class);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, company, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }
