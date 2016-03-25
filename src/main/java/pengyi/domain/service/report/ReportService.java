@@ -86,4 +86,26 @@ public class ReportService implements IReportService {
         return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList,aliasMap, orderList,null,null);
     }
 
+    @Override
+    public void apiFinishReport(EditReportCommand command) {
+        Report report=this.getById(command.getId());
+        if(report.getStatus()==ReportStatus.PENDING){
+            report.setDescription(command.getDescription());
+            report.setStatus(ReportStatus.IN_PROCESS);
+            report.setEndDealTime(new Date());
+            reportRepository.update(report);
+        }
+
+    }
+
+    @Override
+    public void apiUpdateReport(EditReportCommand command) {
+        Report report=this.getById(command.getId());
+        if(report.getStatus()==ReportStatus.IN_PROCESS){
+            report.setStatus(ReportStatus.FIGURE_OUT);
+            report.setStartDealTime(new Date());
+            reportRepository.update(report);
+        }
+    }
+
 }

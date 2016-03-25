@@ -10,6 +10,15 @@ public class EditReportCommand {
     private Integer version;
     private String status;                  //状态（待处理、处理中、处理完成）
     private String handleResult;                   //处理结果
+    private String description;                 //说明
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getHandleResult() {
         return handleResult;

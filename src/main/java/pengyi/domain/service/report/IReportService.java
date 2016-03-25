@@ -15,4 +15,8 @@ public interface IReportService {
     Report getById(String reportId);
 
     Pagination<Report> pagination(ListReportCommand command);
+
+    void apiFinishReport(EditReportCommand command);
+
+    void apiUpdateReport(EditReportCommand command);
 }

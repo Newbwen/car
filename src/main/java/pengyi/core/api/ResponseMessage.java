@@ -58,7 +58,10 @@ public enum ResponseMessage {
     ERROR_50001(50001, "接收人sendBaseUser字段不能为空"),
     ERROR_50002(50002, "类容content字段不能为空"),
     ERROR_50003(50003, "类型type字段不能为空"),
-    ERROR_50004(50004,"字段messageId不能为空");
+    ERROR_50004(50004,"字段messageId不能为空"),
+    //举报
+    ERROR_60001(60001, "handleResult字段不能为空");
+
 
 
     private int code;
