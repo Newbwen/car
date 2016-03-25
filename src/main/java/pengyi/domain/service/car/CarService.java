@@ -26,7 +26,7 @@ import java.util.List;
 public class CarService implements ICarService {
 
     @Autowired
-    private ICarRepository carRepository;
+    private ICarRepository<Car, String> carRepository;
     @Autowired
     private IDriverService driverService;
 
@@ -58,7 +58,7 @@ public class CarService implements ICarService {
         car.fainWhenConcurrencyViolation(car.getVersion());
         Car car1 = this.searchByNumber(command.getCarNumber());
         if (null != car1) {
-            throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
+            throw new ExistException("车牌号[" + command.getCarNumber() + "]的记录已存在");
         }
 
         car.setCarType(command.getCarType());
@@ -95,11 +95,11 @@ public class CarService implements ICarService {
         Car car1 = this.searchByDriver(command.getDriver());
         if (null != car) {
 
-            throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
+            throw new ExistException("车牌号[" + command.getCarNumber() + "]的记录已存在");
 
         }
         if (null != car1) {
-            throw new ExistException("车辆[" + command.getDriver() + "]的记录已存在");
+            throw new ExistException("司机[" + command.getDriver() + "]的记录已存在");
         }
         Driver driver = driverService.show(command.getDriver());
         Car car2 = new Car(command.getName(), command.getCarNumber(), driver, command.getCarType());

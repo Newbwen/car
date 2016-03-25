@@ -18,5 +18,5 @@ public interface IReportService {
 
     void apiFinishReport(EditReportCommand command);
 
-    void apiUpdateReport(EditReportCommand command);
+    void apiUpdateReport(String id);
 }

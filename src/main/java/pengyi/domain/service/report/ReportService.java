@@ -13,6 +13,7 @@ import pengyi.core.type.ReportStatus;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
+import pengyi.domain.model.report.IReportRepository;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.IOrderService;
@@ -29,7 +30,7 @@ import java.util.*;
 public class ReportService implements IReportService {
 
     @Autowired
-    private ReportRepository reportRepository;
+    private IReportRepository<Report, String> reportRepository;
 
     @Autowired
     private IBaseUserService baseUserService;
@@ -89,9 +90,9 @@ public class ReportService implements IReportService {
     @Override
     public void apiFinishReport(EditReportCommand command) {
         Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.PENDING){
+        if(report.getStatus()==ReportStatus.IN_PROCESS){
             report.setDescription(command.getDescription());
-            report.setStatus(ReportStatus.IN_PROCESS);
+            report.setStatus(ReportStatus.FIGURE_OUT);
             report.setEndDealTime(new Date());
             reportRepository.update(report);
         }
@@ -99,10 +100,10 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    public void apiUpdateReport(EditReportCommand command) {
-        Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.IN_PROCESS){
-            report.setStatus(ReportStatus.FIGURE_OUT);
+    public void apiUpdateReport(String id) {
+        Report report=this.getById(id);
+        if(report.getStatus()==ReportStatus.PENDING){
+            report.setStatus(ReportStatus.IN_PROCESS);
             report.setStartDealTime(new Date());
             reportRepository.update(report);
         }
