@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Service("apiReportService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-public class ApiReportAppAppService implements IApiReportAppService {
+public class ApiReportAppService implements IApiReportAppService {
 
     @Autowired
     private IReportService reportService;
@@ -87,7 +87,7 @@ public class ApiReportAppAppService implements IApiReportAppService {
     @Override
     public BaseResponse finishReport(EditReportCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getId())) {
+            if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
@@ -97,8 +97,7 @@ public class ApiReportAppAppService implements IApiReportAppService {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_60001.getMessage());
             }
             reportService.apiFinishReport(command);
-            ReportRepresentation rescueRepresentation = mappingService.map(null, ReportRepresentation.class, false);
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
