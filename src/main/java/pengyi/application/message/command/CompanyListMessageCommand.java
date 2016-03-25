@@ -11,8 +11,8 @@ import java.util.Date;
  */
 public class CompanyListMessageCommand extends BasicPaginationCommand {
     private String receiveBaseUser;             //接收人
-    private Date beginTime;
-    private Date endTime;
+    private String beginTime;
+    private String endTime;
     private String content;                 //内容
     private ShowType showType;              //是否显示
     private String company;
@@ -25,19 +25,19 @@ public class CompanyListMessageCommand extends BasicPaginationCommand {
         this.company = company;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

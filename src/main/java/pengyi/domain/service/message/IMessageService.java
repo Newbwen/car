@@ -22,8 +22,10 @@ public interface IMessageService {
     Message edit(String messageId);
 
     //以下是api方法
-    Message apiCreate(CompanyCreateMessageCommand command);
+    void apiCreate(CompanyCreateMessageCommand command);
 
     Pagination<Message> apiPagination(CompanyListMessageCommand command);
+
+    Message apiShow(String messageId);
 
 }

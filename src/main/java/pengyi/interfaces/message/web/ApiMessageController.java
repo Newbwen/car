@@ -32,8 +32,8 @@ public class ApiMessageController {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-             Pagination<MessageRepresentation> pagination= apiMessageService.companyMessageList(command);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, pagination, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+
+            response = apiMessageService.companyMessageList(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
@@ -77,13 +77,12 @@ public class ApiMessageController {
 
     @RequestMapping(value = "/show_by_messageId")
     @ResponseBody
-    public BaseResponse showByMessageId(String messageId) {
+    public BaseResponse showByMessageId(String id) {
 
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-            MessageRepresentation message = apiMessageService.show(messageId);
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, message, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            response = apiMessageService.show(id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
