@@ -10,7 +10,9 @@ import pengyi.application.report.command.ListReportCommand;
 import pengyi.application.report.representation.ReportRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.message.Message;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.service.report.IReportService;
@@ -63,6 +65,45 @@ public class ApiReportAppAppService implements IApiReportAppService {
             return  new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,null,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+    }
+
+    @Override
+    public BaseResponse updateReport(EditReportCommand command) {
+        if(null!=command){
+            if (!CoreStringUtils.isEmpty(command.getId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            if(null==command.getHandleResult()){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_60001.getMessage());
+            }
+            reportService.apiUpdateReport(command);
+            ReportRepresentation rescueRepresentation = mappingService.map(null,ReportRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        }else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+
+        }
+    }
+
+    @Override
+    public BaseResponse finishReport(EditReportCommand command) {
+        if (null != command) {
+            if (!CoreStringUtils.isEmpty(command.getId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            reportService.apiFinishReport(command);
+            ReportRepresentation rescueRepresentation = mappingService.map(null, ReportRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+
+        }
     }
 }
 
