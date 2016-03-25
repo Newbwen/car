@@ -91,7 +91,7 @@ public class ReportService implements IReportService {
     public void apiFinishReport(EditReportCommand command) {
         Report report=this.getById(command.getId());
         if(report.getStatus()==ReportStatus.IN_PROCESS){
-            report.setDescription(command.getDescription());
+            report.setHandleResult(command.getHandleResult());
             report.setStatus(ReportStatus.FIGURE_OUT);
             report.setEndDealTime(new Date());
             reportRepository.update(report);
