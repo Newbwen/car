@@ -27,10 +27,26 @@ public class Test {
             lineTxt1 = bufferedReader2.readLine();
 //            lineTxt = lineTxt.replaceAll("/", ":");
 //            lineTxt = lineTxt.substring(1, lineTxt.length());
-            lineTxt1 = lineTxt1.substring(0,lineTxt1.length()-2);
+            lineTxt1 = lineTxt1.substring(0, lineTxt1.length() - 2);
 //            map.add(lineTxt);
-            System.out.println(lineTxt+lineTxt1);
+            System.out.println(lineTxt + lineTxt1);
         }
     }
 
+    @org.testng.annotations.Test
+    public void test_1() throws IOException {
+        File file = new File("C:\\Users\\YJH\\Desktop\\123123.txt");
+        FileInputStream in = null;
+        FileOutputStream out = new FileOutputStream("C:\\Users\\YJH\\Desktop\\123123123.txt");
+        in = new FileInputStream(file);
+        byte[] buffer = new byte[1024];
+        int len = in.read(buffer);
+        while (len != -1) {
+            out.write(buffer);
+            in.read(buffer);
+        }
+
+
+        in.close();
+    }
 }

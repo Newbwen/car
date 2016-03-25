@@ -1,6 +1,7 @@
 package pengyi.application.billing.representation;
 
-import pengyi.application.area.representation.AreaRepresentation;
+import pengyi.application.user.company.representation.CompanyRepresentation;
+import pengyi.repository.user.company.CompanyRepository;
 
 import java.math.BigDecimal;
 
@@ -12,11 +13,11 @@ public class BillingRepresentation {
     private String id;
     private Integer version;
 
-    private BigDecimal KMBilling;   //根据公里计费
+    private BigDecimal kmBilling;   //根据公里计费
 
     private BigDecimal minuteBilling; //根据分钟计费
 
-    private AreaRepresentation area;  //区域
+    private CompanyRepresentation company;  //公司
 
     public String getId() {
         return id;
@@ -34,12 +35,12 @@ public class BillingRepresentation {
         this.version = version;
     }
 
-    public BigDecimal getKMBilling() {
-        return KMBilling;
+    public BigDecimal getKmBilling() {
+        return kmBilling;
     }
 
-    public void setKMBilling(BigDecimal KMBilling) {
-        this.KMBilling = KMBilling;
+    public void setKmBilling(BigDecimal kmBilling) {
+        this.kmBilling = kmBilling;
     }
 
     public BigDecimal getMinuteBilling() {
@@ -50,11 +51,11 @@ public class BillingRepresentation {
         this.minuteBilling = minuteBilling;
     }
 
-    public AreaRepresentation getArea() {
-        return area;
+    public CompanyRepresentation getCompany() {
+        return company;
     }
 
-    public void setArea(AreaRepresentation area) {
-        this.area = area;
+    public void setCompany(CompanyRepresentation company) {
+        this.company = company;
     }
 }

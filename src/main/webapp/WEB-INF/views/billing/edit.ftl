@@ -49,9 +49,8 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 区域* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="carNumber" value="${billing.area!command.area}"
-                           placeholder="区域" class="col-xs-10 col-sm-5" required/>
-                    [@spring.showErrors "area"/]
+                    <select class="col-xs-3 area_data">
+                    </select>
                 </div>
             </div>
             <div class="clearfix form-actions">
@@ -181,34 +180,6 @@
 
 [@override name="bottomResources"]
     [@super /]
-[#--<script src="[@spring.url '/resources/assets/js/modal-search-optimize.js' /]" type="text/javascript"></script>--]
-[#--<script>--]
-[#--$(document).ready(function () {--]
-[#--var showTdPermission = $(".show-permission");--]
-[#--$("#role-app-key").on("change", function () {--]
-[#--$("#permission-app-key").val("");--]
-[#--var appKey = $(this).val();--]
-[#--if (appKey != "") {--]
-[#--$("#permission-app-key").val(appKey);--]
-[#--}--]
-[#--});--]
-[#--var modalSearch = new ModalSearch({--]
-[#--url: "/permission/permission_list",--]
-[#--pageSize : 6,--]
-[#--isSingle : true,--]
-[#--header :['权限编号','权限名称','权限描述'],--]
-[#--rowData :["id", "permissionName", "description"],--]
-[#--selectorData : ["permissionName"],--]
-[#--hideModalHandler : function(jsonDataArr){--]
-[#--showTdPermission.empty();--]
-[#--for (var key in jsonDataArr) {--]
-[#--showTdPermission.append("<div class=\"check-td-info\">" + jsonDataArr[key].permissionName + "</div>");--]
-[#--showTdPermission.append("<input type=\"hidden\" name=\"urlPermission\" value=\"" + jsonDataArr[key].id + "\" />")--]
-[#--}--]
-[#--}--]
-[#--});--]
-[#--})--]
-[#--</script>--]
 [/@override]
 
 [@extends name="/decorator.ftl"/]

@@ -10,9 +10,9 @@ public class EditBillingCommand {
     private String id;
     private Integer version;
 
-    private BigDecimal KMBilling;
+    private BigDecimal kmBilling;
     private BigDecimal MinuteBilling;
-    private String area;
+    private String company;
 
     public String getId() {
         return id;
@@ -30,12 +30,20 @@ public class EditBillingCommand {
         this.version = version;
     }
 
-    public BigDecimal getKMBilling() {
-        return KMBilling;
+    public BigDecimal getKmBilling() {
+        return kmBilling;
     }
 
-    public void setKMBilling(BigDecimal KMBilling) {
-        this.KMBilling = KMBilling;
+    public void setKmBilling(BigDecimal kmBilling) {
+        this.kmBilling = kmBilling;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public BigDecimal getMinuteBilling() {
@@ -44,13 +52,5 @@ public class EditBillingCommand {
 
     public void setMinuteBilling(BigDecimal minuteBilling) {
         MinuteBilling = minuteBilling;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
     }
 }

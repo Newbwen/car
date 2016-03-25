@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pengyi.application.area.representation.AreaRepresentation;
 import pengyi.application.billing.representation.BillingRepresentation;
+import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.billing.Billing;
 
@@ -19,9 +20,9 @@ public class BillingRepresentationMapper extends CustomMapper<Billing, BillingRe
     private IMappingService mappingService;
 
     public void mapAtoB(Billing billing, BillingRepresentation representation, MappingContext context) {
-        if (null != billing.getArea()) {
-            AreaRepresentation data = mappingService.map(billing.getArea(), AreaRepresentation.class, false);
-            representation.setArea(data);
+        if (null != billing.getCompany()) {
+            CompanyRepresentation data = mappingService.map(billing.getCompany(), CompanyRepresentation.class, false);
+            representation.setCompany(data);
         }
     }
 

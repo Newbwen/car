@@ -20,23 +20,23 @@
             <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                 <!-- 查询条件 -->
                 <div class="row">
-                    <form>
-                        <div class="col-sm-6">
-                            <div id="sample-table-2_length" class="dataTables_length">
-                                <label>根据公里计费<input type="text" value="${command.KMBilling!}" name="KMBilling" /></label>
-                                <label>根据分钟计费<input type="text" value="${command.minuteBilling!}" name="minuteBilling" /></label>
-                                <label>区域<input type="text" value="${command.area!}" name="area" /></label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
-                            </div>
-                        </div>
-                    </form>
+                    [#--<form>--]
+                        [#--<div class="col-sm-6">--]
+                            [#--<div id="sample-table-2_length" class="dataTables_length">--]
+                                [#--<label>根据公里计费<input type="text" value="${command.kmBilling!}" name="kmBilling" /></label>--]
+                                [#--<label>根据分钟计费<input type="text" value="${command.minuteBilling!}" name="minuteBilling" /></label>--]
+                                [#--<label>区域<input type="text" value="${command.area!}" name="area" /></label>--]
+                                [#--<label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>--]
+                            [#--</div>--]
+                        [#--</div>--]
+                    [#--</form>--]
                 </div>
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
                     <thead>
                     <tr role="row">
                         <th>根据公里计费</th>
                         <th>根据分钟计费</th>
-                        <th>区域</th>
+                        <th>公司</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,9 +46,9 @@
                         [#if pagination.data??]
                             [#list pagination.data as billing ]
                             <tr class="even">
-                                <td>${billing.KMBilling!}</td>
+                                <td>${billing.kmBilling!}</td>
                                 <td>${billing.minuteBilling!}</td>
-                                <td>${(billing.area.getName())!}</td>
+                                <td>${billing.company.name!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">

@@ -11,8 +11,10 @@ import pengyi.core.exception.NoFoundException;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.billing.IBillingRepository;
+import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.area.IAreaService;
+import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.domain.service.user.driver.IDriverService;
 import pengyi.repository.generic.Pagination;
 
@@ -29,10 +31,7 @@ public class BillingService implements IBillingService {
     private IBillingRepository<Billing, String> billingRepository;
 
     @Autowired
-    private IAreaService areaService;
-
-    @Autowired
-    private IDriverService driverService;
+    private ICompanyService companyService;
 
     @Override
     public Pagination<Billing> pagination(ListBillingCommand command) {
@@ -55,9 +54,9 @@ public class BillingService implements IBillingService {
 
     @Override
     public Billing create(CreateBillingCommand command) {
-        Area area = areaService.show(command.getArea());
+        Company company = companyService.show(command.getCompany());
 
-        Billing billing = new Billing(command.getKMBilling(), command.getMinuteBilling(), area);
+        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), company);
 
         billingRepository.save(billing);
 
@@ -67,22 +66,17 @@ public class BillingService implements IBillingService {
     @Override
     public Billing edit(EditBillingCommand command) {
         Billing billing = this.show(command.getId());
-
-        Area area = areaService.show(command.getArea());
-
-        billing.setKmBilling(command.getKMBilling());
+        billing.fainWhenConcurrencyViolation(command.getVersion());
+        billing.setKmBilling(command.getKmBilling());
         billing.setMinuteBilling(command.getMinuteBilling());
-        billing.setArea(area);
 
         billingRepository.update(billing);
         return billing;
     }
 
     @Override
-    public Billing apiSearchByArea(String driverId) {
-        Driver driver = driverService.show(driverId);
-        Billing billing = billingRepository.searchByArea(driver.getCompany().getOperateAddress().getId());
-        return billing;
+    public Billing searchByCompany(String id) {
+        return billingRepository.searchByCompany(id);
     }
 
 }

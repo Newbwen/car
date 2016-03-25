@@ -13,9 +13,12 @@ public interface ICompanyAppService {
 
     Pagination<CompanyRepresentation> pagination(BaseListCompanyCommand command);
 
+    Pagination<CompanyRepresentation> paginationList(BaseListCompanyCommand command);
+
     CompanyRepresentation edit(EditCompanyCommand command);
 
     CompanyRepresentation show(String id);
 
     CompanyRepresentation updateStatus(EditStatusCommand command);
+
 }

@@ -38,6 +38,14 @@ public class CompanyAppService implements ICompanyAppService {
     }
 
     @Override
+    public Pagination<CompanyRepresentation> paginationList(BaseListCompanyCommand command) {
+        command.verifyPage();
+        Pagination<Company> pagination = companyService.pagination(command);
+        List<CompanyRepresentation> data = mappingService.mapAsList(pagination.getData(), CompanyRepresentation.class);
+        return new Pagination<CompanyRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+    }
+
+    @Override
     public CompanyRepresentation edit(EditCompanyCommand command) {
         return mappingService.map(companyService.edit(command), CompanyRepresentation.class, false);
     }
@@ -49,6 +57,6 @@ public class CompanyAppService implements ICompanyAppService {
 
     @Override
     public CompanyRepresentation updateStatus(EditStatusCommand command) {
-        return mappingService.map(companyService.updateStatus(command),CompanyRepresentation.class,false);
+        return mappingService.map(companyService.updateStatus(command), CompanyRepresentation.class, false);
     }
 }

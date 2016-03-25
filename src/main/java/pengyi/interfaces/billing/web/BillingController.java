@@ -62,12 +62,12 @@ public class BillingController extends BaseController {
             return new ModelAndView("/billing/create","command",command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
         }
-        logger.info("创建计费成功KMBilling=[" + billing.getKMBilling() + "],时间[" + new Date() + "]");
+        logger.info("创建计费成功KMBilling=[" + billing.getKmBilling() + "],时间[" + new Date() + "]");
 
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
 
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        redirectAttributes.addAttribute("id", billing.getKMBilling());
+        redirectAttributes.addAttribute("id", billing.getId());
 
         return new ModelAndView("redirect:/billing/show/{id}");
     }

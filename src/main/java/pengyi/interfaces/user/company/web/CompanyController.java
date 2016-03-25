@@ -5,12 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pengyi.application.permission.command.ListPermissionCommand;
+import pengyi.application.permission.representation.PermissionRepresentation;
 import pengyi.application.user.company.ICompanyAppService;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
@@ -21,6 +20,7 @@ import pengyi.core.exception.ConcurrencyException;
 import pengyi.core.type.EnableStatus;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
+import pengyi.repository.generic.Pagination;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -137,5 +137,11 @@ public class CompanyController extends BaseController {
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         return new ModelAndView("redirect:/user/company/auth_list");
+    }
+
+    @RequestMapping(value = "/company_list")
+    @ResponseBody
+    public Pagination<CompanyRepresentation> permissionList(@RequestBody BaseListCompanyCommand command){
+        return companyAppService.paginationList(command);
     }
 }

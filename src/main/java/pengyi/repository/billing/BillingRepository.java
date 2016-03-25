@@ -14,9 +14,9 @@ import pengyi.repository.generic.AbstractHibernateGenericRepository;
 public class BillingRepository extends AbstractHibernateGenericRepository<Billing, String>
         implements IBillingRepository<Billing, String> {
     @Override
-    public Billing searchByArea(String areaId) {
+    public Billing searchByCompany(String id) {
         Criteria criteria = getSession().createCriteria(getPersistentClass());
-        criteria.add(Restrictions.eq("area.id", areaId));
+        criteria.add(Restrictions.eq("company.id", id));
         return (Billing) criteria.uniqueResult();
     }
 }

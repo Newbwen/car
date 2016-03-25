@@ -8,13 +8,13 @@
             <generator class="uuid"/>
         </id>
 
-        <version name="version" type="java.lang.Integer" column="version" />
+        <version name="version" type="java.lang.Integer" column="version"/>
 
-        <property name="kmBilling" column="km_billing" type="java.math.BigDecimal" />
+        <property name="kmBilling" column="km_billing" type="java.math.BigDecimal"/>
 
-        <property name="minuteBilling" column="minute_billing" type="java.math.BigDecimal" />
+        <property name="minuteBilling" column="minute_billing" type="java.math.BigDecimal"/>
 
-        <many-to-one name="area" column="area_id" class="pengyi.domain.model.area.Area"/>
+        <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
     </class>
 
 </hibernate-mapping>

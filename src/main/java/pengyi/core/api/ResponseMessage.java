@@ -35,6 +35,8 @@ public enum ResponseMessage {
     ERROR_10026(10026, "drivingLicencePic字段不能为空"),
     ERROR_10027(10027, "startAddress字段不能为空"),
     ERROR_10028(10028, "endAddress字段不能为空"),
+    ERROR_10029(10029, "kmBilling字段不能为空"),
+    ERROR_10030(10030, "minuteBilling字段不能为空"),
 
     //救援
     ERROR_20000(20000, "派送救援司机不能为空"),

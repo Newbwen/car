@@ -18,8 +18,5 @@ public interface IBillingService {
 
     Billing edit(EditBillingCommand command);
 
-    /**********
-     * api 方法
-     ************/
-    Billing apiSearchByArea(String driverId);
+    Billing searchByCompany(String id);
 }

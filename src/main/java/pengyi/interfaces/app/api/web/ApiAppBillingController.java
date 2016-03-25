@@ -28,23 +28,4 @@ public class ApiAppBillingController {
     @Autowired
     private IApiBillingAppService apiBillingAppService;
 
-    @RequestMapping(value = "/show")
-    @ResponseBody
-    public BaseResponse show(HttpSession session) {
-        long startTime = System.currentTimeMillis();
-        BaseUser baseUser = (BaseUser) session.getAttribute(Constants.SESSION_USER);
-        if (null == baseUser || baseUser.getUserType() != UserType.DRIVER) {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
-                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
-        }
-        BaseResponse response = null;
-        try {
-            response = apiBillingAppService.searchByArea(baseUser.getId());
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
-        }
-        response.setDebug_time(System.currentTimeMillis() - startTime);
-        return response;
-    }
 }

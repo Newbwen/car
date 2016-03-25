@@ -1,7 +1,7 @@
 package pengyi.domain.model.billing;
 
-import pengyi.domain.model.area.Area;
 import pengyi.domain.model.base.Identity;
+import pengyi.domain.model.user.company.Company;
 
 import java.math.BigDecimal;
 
@@ -14,16 +14,16 @@ public class Billing extends Identity {
 
     private BigDecimal minuteBilling; //根据分钟计费
 
-    private Area area;  //区域
+    private Company company;  //区域
 
     public Billing() {
         super();
     }
 
-    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Area area) {
+    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Company company) {
         this.kmBilling = kmBilling;
         this.minuteBilling = minuteBilling;
-        this.area = area;
+        this.company = company;
     }
 
     public BigDecimal getKmBilling() {
@@ -42,11 +42,11 @@ public class Billing extends Identity {
         this.minuteBilling = minuteBilling;
     }
 
-    public Area getArea() {
-        return area;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setArea(Area area) {
-        this.area = area;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

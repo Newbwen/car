@@ -7,16 +7,16 @@ import java.math.BigDecimal;
  */
 public class CreateBillingCommand {
 
-    private BigDecimal KMBilling;
+    private BigDecimal kmBilling;
     private BigDecimal minuteBilling;
-    private String area;
+    private String company;  //公司
 
-    public BigDecimal getKMBilling() {
-        return KMBilling;
+    public BigDecimal getKmBilling() {
+        return kmBilling;
     }
 
-    public void setKMBilling(BigDecimal KMBilling) {
-        this.KMBilling = KMBilling;
+    public void setKmBilling(BigDecimal kmBilling) {
+        this.kmBilling = kmBilling;
     }
 
     public BigDecimal getMinuteBilling() {
@@ -27,11 +27,11 @@ public class CreateBillingCommand {
         this.minuteBilling = minuteBilling;
     }
 
-    public String getArea() {
-        return area;
+    public String getCompany() {
+        return company;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

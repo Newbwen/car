@@ -22,7 +22,7 @@
                 <div class="profile-info-name"> 根据公里计费</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="name">${billing.KMBilling!}</span>
+                    <span class="editable editable-click" id="name">${billing.kmBilling!}</span>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 <div class="profile-info-name"> 区域</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="age">${(billing.area.getName())!}</span>
+                    <span class="editable editable-click" id="age">${billing.company.name!}</span>
                 </div>
             </div>
         </div>

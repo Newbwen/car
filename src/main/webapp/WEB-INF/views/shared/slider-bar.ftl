@@ -199,6 +199,30 @@
 
         <li>
             <a href="#" class="dropdown-toggle">
+                <i class="icon-exchange"></i>
+                <span class="menu-text"> 计费模板管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url '/billing/list'/]">
+                        <i class="icon-calendar"></i>
+                        计费模板列表
+                    </a>
+                </li>
+                <li>
+                    <a href="[@spring.url '/billing/create'/]">
+                        <i class="icon-leaf"></i>
+                        创建计费模板
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
                 <i class="icon-heart"></i>
                 <span class="menu-text"> 意见反馈管理 </span>
 
