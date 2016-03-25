@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.command.UpdatePasswordCommand;
+import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.UpdateFolderCommand;
@@ -14,12 +15,14 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.type.EnableStatus;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.service.user.company.ICompanyService;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by YJH on 2016/3/15.
@@ -153,5 +156,13 @@ public class ApiCompanyAppService implements IApiCompanyAppService {
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
+    }
+
+    @Override
+    public BaseResponse apiList() {
+        BaseListCompanyCommand companyCommand = new BaseListCompanyCommand();
+        companyCommand.setStatus(EnableStatus.ENABLE);
+        List<CompanyRepresentation> company = mappingService.mapAsList(companyService.list(companyCommand), CompanyRepresentation.class);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, company, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }

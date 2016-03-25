@@ -130,16 +130,14 @@ public class MessageService implements IMessageService {
             criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
         }
         if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
-            criterionList.add(Restrictions.eq("receiveBaseUser.id", command.getReceiveBaseUser()));
+            criterionList.add(Restrictions.like("receiveBaseUser.userName", command.getReceiveBaseUser(),MatchMode.ANYWHERE));
+            aliasMap.put("receiveBaseUser", "receiveBaseUser");
         }
 
         List<Order> orderList = new ArrayList();
 
         orderList.add(Order.desc("sendDate"));
-        messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
-        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
-
-
+        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
     }
 
     @Override
@@ -166,12 +164,13 @@ public class MessageService implements IMessageService {
 
         BaseUser sendUser = baseUserService.show(command.getCompany());
 
-        BaseUser receiveBaseUser = baseUserService.show(command.getReceiveBaseUser());
-
-        Message message = new Message(sendUser, receiveBaseUser, new Date(), null, command.getContent(), MessageType.OTHER_MESSAGE, ShowType.SHOW);
-
-        messageRepository.save(message);
-
+        for (String item : command.getReceiveBaseUser()) {
+            item = item.replaceAll("\\[", "");
+            item = item.replaceAll("]", "");
+            BaseUser receiveBaseUser = baseUserService.show(item);
+            Message message = new Message(sendUser, receiveBaseUser, new Date(), null, command.getContent(), MessageType.OTHER_MESSAGE, ShowType.SHOW);
+            messageRepository.save(message);
+        }
     }
 
 

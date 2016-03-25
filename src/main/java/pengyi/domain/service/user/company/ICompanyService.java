@@ -27,6 +27,8 @@ public interface ICompanyService {
 
     Company updateStatus(EditStatusCommand command);
 
+    List<Company> list(BaseListCompanyCommand companyCommand);
+
     /********** api 方法    *************/
     Company apiEdit(EditCompanyCommand command);
 
@@ -39,5 +41,4 @@ public interface ICompanyService {
     List<Company> apiByName(String name);
 
     Company apiResetPassword(ResetPasswordCommand command);
-
 }

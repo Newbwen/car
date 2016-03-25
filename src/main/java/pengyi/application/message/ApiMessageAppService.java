@@ -46,7 +46,6 @@ public class ApiMessageAppService implements IApiMessageAppService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public MessageRepresentation deleteByCompany(String messageId) {
 
         Message message = messageService.delete(messageId);
@@ -60,13 +59,12 @@ public class ApiMessageAppService implements IApiMessageAppService {
 
 
     @Override//3
-    @Transactional(readOnly = true)
     public BaseResponse apiCreateMessage(CompanyCreateMessageCommand command) {
         if (null != command) {
             if (CoreStringUtils.isEmpty(command.getCompany())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10006.getMessage());
             }
-            if (CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
+            if (null == command.getReceiveBaseUser()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50001.getMessage());
             }
             if (CoreStringUtils.isEmpty(command.getContent())) {

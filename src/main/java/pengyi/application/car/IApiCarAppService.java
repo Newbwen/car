@@ -16,4 +16,6 @@ public interface IApiCarAppService {
     BaseResponse apiCreate(CreateCarCommand command);
 
     BaseResponse updateCar(EditCarCommand command);
+
+    BaseResponse apiInfo(String driverId);
 }

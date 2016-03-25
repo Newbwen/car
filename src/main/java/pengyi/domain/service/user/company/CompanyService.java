@@ -124,6 +124,17 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
+    public List<Company> list(BaseListCompanyCommand companyCommand) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("status", companyCommand.getStatus()));
+
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.asc("createDate"));
+
+        return companyRepository.list(criterionList, orderList);
+    }
+
+    @Override
     public Company apiEdit(EditCompanyCommand command) {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());

@@ -91,20 +91,18 @@ public class CarService implements ICarService {
     @Override
     public Car create(CreateCarCommand command) {
 
-        Car car = this.searchByNumber(command.getCarNumber());
-        Car car1 = this.searchByDriver(command.getDriver());
-        if (null != car) {
-
-            throw new ExistException("车辆[" + command.getCarNumber() + "]的记录已存在");
-
+        Car carNumberUnique = this.searchByNumber(command.getCarNumber());
+        Car carDriverUnique = this.searchByDriver(command.getDriver());
+        if (null != carNumberUnique) {
+            throw new ExistException("车牌号[" + command.getCarNumber() + "]已存在");
         }
-        if (null != car1) {
-            throw new ExistException("车辆[" + command.getDriver() + "]的记录已存在");
+        if (null != carDriverUnique) {
+            throw new ExistException("司机[" + carDriverUnique.getDriver().getUserName() + "]已经拥有车辆");
         }
         Driver driver = driverService.show(command.getDriver());
-        Car car2 = new Car(command.getName(), command.getCarNumber(), driver, command.getCarType());
-        carRepository.save(car2);
-        return car2;
+        Car car = new Car(command.getName(), command.getCarNumber(), driver, command.getCarType());
+        carRepository.save(car);
+        return car;
     }
 
 

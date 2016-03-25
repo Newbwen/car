@@ -46,8 +46,17 @@ public class ApiCarAppService implements IApiCarAppService {
     @Override
     public BaseResponse apiCreate(CreateCarCommand command) {
         if (null != command) {
-            if (null == command.getCarNumber()) {
+            if (CoreStringUtils.isEmpty(command.getName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getCarNumber())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30001.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getDriver())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10009.getMessage());
+            }
+            if (null != command.getCarType()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30002.getMessage());
             }
             CarRepresentation carRepresentation = mappingService.map(carService.create(command), CarRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
@@ -69,5 +78,11 @@ public class ApiCarAppService implements IApiCarAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+    }
+
+    @Override
+    public BaseResponse apiInfo(String driverId) {
+        CarRepresentation car = mappingService.map(carService.searchByDriver(driverId), CarRepresentation.class, false);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, car, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }

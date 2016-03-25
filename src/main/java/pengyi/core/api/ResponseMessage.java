@@ -47,7 +47,8 @@ public enum ResponseMessage {
     ERROR_20007(20007, "description字段不能为空"),
 
     //车辆
-    ERROR_30001(30001, "车牌号已存在"),
+    ERROR_30001(30001, "carNumber字段不能为空"),
+    ERROR_30002(30002, "carType字段不能为空"),
 
     //评价
     ERROR_40001(40001, "content字段不能为空"),

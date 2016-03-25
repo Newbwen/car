@@ -283,5 +283,29 @@
             <zhuyi>必须登录,rescueType(CHILDREN:留守儿童,OLD_MAN:老人,OTHER:其他)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>ec97cd7b-d73f-4656-9fc0-c288c37dafa6</id>
+            <name>创建车辆</name>
+            <address>api/app/car/create</address>
+            <shuoming>name(车辆名称),carNumber(车牌号),driver(司机id),carType(车辆类型)</shuoming>
+            <zhuyi>carType(ECONMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>e05cb814-4dfb-40ac-b5cd-812331baa838</id>
+            <name>获取车辆信息</name>
+            <address>api/app/car/info</address>
+            <shuoming>无</shuoming>
+            <zhuyi>司机必须登录</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"carNumber":"121231","carType":"COMFORT","driver":{"balance":0.00,"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"createDate":"2016-03-17 15:59:57.0","driverType":"TAXI","drivingLicencePic":null,"email":"driver_test_1@bulian.com","head":null,"id":"402881e953837f770153839697750003","identityCardPic":null,"latitude":null,"level":4,"longitude":null,"money":0.00,"name":"一号司机","online":true,"password":"d2dfce5bacacfa6211f16133a1705811","reportCount":0,"salt":"2068a8706a5c71652d0ce2c97883e139","sex":"WOMAN","status":"ENABLE","userName":"15823634846","userRole":{"description":"司机用户角色","id":"402881e9538377ac0153837d323e0001","permissions":[],"roleName":"driver","status":"ENABLE","version":1},"userType":"DRIVER","version":11},"id":"12312","name":"俺还是觉得合适就","version":1},"debug_time":2093,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>c2c4bf2c-2937-41bf-9187-5f02649bc740</id>
+            <name>无</name>
+            <address>无</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
     </apis>
 </apifile>

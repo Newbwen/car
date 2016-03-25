@@ -22,4 +22,6 @@ public interface IApiCompanyAppService {
     BaseResponse apiUpdatePassword(UpdatePasswordCommand command);
 
     BaseResponse apiResetPassword(ResetPasswordCommand command);
+
+    BaseResponse apiList();
 }
