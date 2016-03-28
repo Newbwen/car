@@ -19,7 +19,7 @@ public class EditCarCommand {
     @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
     private String carNumber;           //车牌号
 
-    @NotNull(message = "{car.carType,NotEmpty,message}")
+    @NotNull(message = "{car.carType,Notnull,message}")
     private CarType carType;             //车辆类型
 
     public CarType getCarType() {

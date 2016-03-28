@@ -17,7 +17,7 @@ public class CreateCarCommand {
     @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
     private String carNumber;           //车牌号
 
-    @NotEmpty(message = "{car.driver,NotEmpty,message}")
+    @NotEmpty(message = "{car.driver,Notnull,message}")
     private String driver;              //司机
 
   //  @NotNull(message = "{car.carType,NotEmpty,message}")
