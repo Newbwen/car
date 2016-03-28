@@ -1,5 +1,6 @@
 package pengyi.interfaces.auth.web;
 
+import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -73,9 +74,16 @@ public class AuthController extends BaseController {
             return new ModelAndView("/login", AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage)
                     .addObject("user", command);
         }
+        boolean flag = false;
+        try {
+            flag = imageCaptchaService.validateResponseForID(request.getRequestedSessionId(),
+                    command.getVerificationCode());
+        } catch (CaptchaServiceException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
+                    this.getMessage("login.verificationCode.Error.message", null, locale));
+            return new ModelAndView("/login", "user", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
 
-        boolean flag = imageCaptchaService.validateResponseForID(request.getRequestedSessionId(),
-                command.getVerificationCode());
 
         if (flag) {
 

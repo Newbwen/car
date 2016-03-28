@@ -34,9 +34,7 @@ import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by YJH on 2016/3/7.
@@ -78,7 +76,7 @@ public class BaseUserService implements IBaseUserService {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
         }
 
-        if(null != command.getUserType()){
+        if (null != command.getUserType()) {
             criteriaList.add(Restrictions.eq("userType", command.getUserType()));
         }
         List<Order> orderList = new ArrayList<Order>();
@@ -208,5 +206,15 @@ public class BaseUserService implements IBaseUserService {
 
         baseUserRepository.update(baseUser);
         return baseUser;
+    }
+
+    @Override
+    public List<BaseUser> apiSearchByUserNameAndRole(BaseListBaseUserCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("userName", command.getUserName()));
+        criterionList.add(Restrictions.eq("role.roleName", command.getRoleName()));
+        Map<String, String> alias = new HashMap<String, String>();
+        alias.put("userRole", "role");
+        return baseUserRepository.list(criterionList, null, null, null, alias);
     }
 }

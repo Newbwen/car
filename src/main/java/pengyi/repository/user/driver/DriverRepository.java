@@ -1,6 +1,7 @@
 package pengyi.repository.user.driver;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import pengyi.domain.model.user.driver.Driver;
@@ -20,5 +21,12 @@ public class DriverRepository extends AbstractHibernateGenericRepository<Driver,
         Criteria criteria = getSession().createCriteria(getPersistentClass());
         criteria.add(Restrictions.eq("company.id", company));
         return criteria.list();
+    }
+
+    @Override
+    public Driver searchByUserName(String userName) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("userName", userName));
+        return (Driver) criteria.uniqueResult();
     }
 }

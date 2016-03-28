@@ -12,6 +12,7 @@ public class BaseListBaseUserCommand extends BasicPaginationCommand {
     private String userName;
     private EnableStatus status;
     private UserType userType;
+    private String roleName;
 
     public String getUserName() {
         return userName;
@@ -35,5 +36,13 @@ public class BaseListBaseUserCommand extends BasicPaginationCommand {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

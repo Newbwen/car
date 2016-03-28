@@ -43,7 +43,7 @@
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> 状态</div>
+                <div class="profile-info-name"> 权限</div>
 
                 <div class="profile-info-value">
                     <ul class="list-view">

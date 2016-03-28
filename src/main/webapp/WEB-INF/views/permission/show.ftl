@@ -45,6 +45,7 @@
         <br>
         <br>
         <div class="col-xs-12">
+            <a href="/permission/create" class="btn btn-success btn-block">在创建一个</a>
             <a href="/permission/list" class="btn btn-success btn-block">返回列表</a>
         </div>
     </div>

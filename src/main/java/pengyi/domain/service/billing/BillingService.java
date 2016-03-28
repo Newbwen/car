@@ -33,6 +33,9 @@ public class BillingService implements IBillingService {
     @Autowired
     private ICompanyService companyService;
 
+    @Autowired
+    private IDriverService driverService;
+
     @Override
     public Pagination<Billing> pagination(ListBillingCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
@@ -77,6 +80,12 @@ public class BillingService implements IBillingService {
     @Override
     public Billing searchByCompany(String id) {
         return billingRepository.searchByCompany(id);
+    }
+
+    @Override
+    public Billing searchByDriver(String userName) {
+        Driver driver = driverService.searchByUserName(userName);
+        return this.searchByCompany(driver.getCompany().getId());
     }
 
 }

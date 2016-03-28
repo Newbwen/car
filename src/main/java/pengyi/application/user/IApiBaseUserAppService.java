@@ -1,5 +1,6 @@
 package pengyi.application.user;
 
+import pengyi.application.user.command.BaseListBaseUserCommand;
 import pengyi.application.user.command.LoginUserCommand;
 import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.representation.BaseUserRepresentation;
@@ -15,4 +16,6 @@ public interface IApiBaseUserAppService {
     BaseUserRepresentation login(LoginUserCommand command);
 
     BaseResponse resetPassword(ResetPasswordCommand command);
+
+    BaseResponse apiSearchByUserNameAndRole(BaseListBaseUserCommand command);
 }

@@ -34,6 +34,21 @@ public class ApiAppOrderController {
     @Autowired
     private IApiOrderAppService apiOrderAppService;
 
+    @RequestMapping(value = "/wait_order")
+    @ResponseBody
+    public BaseResponse waitOrder(ListOrderCommand command) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.waitOrderPagination(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseCode.RESPONSE_CODE_FAILURE.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
     @RequestMapping(value = "/pagination")
     @ResponseBody
     public BaseResponse pagination(ListOrderCommand command, HttpSession session) {

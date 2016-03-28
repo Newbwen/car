@@ -8,6 +8,8 @@ import pengyi.core.api.BaseResponse;
  */
 public interface IApiOrderAppService {
 
+    BaseResponse waitOrderPagination(ListOrderCommand command);
+
     BaseResponse companyOrderPagination(CompanyOrderListCommand command);
 
     BaseResponse createOrder(CreateOrderCommand command);
@@ -25,4 +27,6 @@ public interface IApiOrderAppService {
     BaseResponse cancelOrder(UpDateOrderStatusCommand command);
 
     BaseResponse pagination(ListOrderCommand command);
+
+
 }

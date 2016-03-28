@@ -19,4 +19,6 @@ public interface IBillingService {
     Billing edit(EditBillingCommand command);
 
     Billing searchByCompany(String id);
+
+    Billing searchByDriver(String userName);
 }

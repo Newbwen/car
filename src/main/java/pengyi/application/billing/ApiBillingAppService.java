@@ -85,4 +85,18 @@ public class ApiBillingAppService implements IApiBillingAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
     }
+
+    @Override
+    public BaseResponse searchByDriver(String userName) {
+        if (CoreStringUtils.isEmpty(userName)) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseMessage.ERROR_10010.getMessage());
+        }
+        Billing billing = billingService.searchByDriver(userName);
+        BillingRepresentation data = null;
+        if (null != billing) {
+            data = mappingService.map(billing, BillingRepresentation.class, false);
+        }
+
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
 }
