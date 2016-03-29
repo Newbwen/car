@@ -10,7 +10,6 @@ import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ReportStatus;
-import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.IReportRepository;
@@ -19,7 +18,6 @@ import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.repository.generic.Pagination;
-import pengyi.repository.report.ReportRepository;
 
 import java.util.*;
 
@@ -63,34 +61,29 @@ public class ReportService implements IReportService {
     public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         Map<String, String> aliasMap = new HashMap<String, String>();
-        /*if (!CoreStringUtils.isEmpty(command.getReportUser())) {
-            criterionList.add(Restrictions.like("reportUser", command.getReportUser(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getReportUser())) {
+            criterionList.add(Restrictions.like("reportUser.userName", command.getReportUser(), MatchMode.ANYWHERE));
+            aliasMap.put("reportUser", "reportUser");
         }
-          if (!CoreStringUtils.isEmpty(command.getOrder())) {
+        if (!CoreStringUtils.isEmpty(command.getOrder())) {
             aliasMap.put("order", "order");
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
-        }*/
-        /*if (null !=command.getBeginTime() && null !=command.getEndTime()) {
-            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getBeginTime()),CoreDateUtils.parseDate(command.getEndTime())));
-        }*/
-        if(!CoreStringUtils.isEmpty(command.getBeginTime())){
-            criterionList.add(Restrictions.ge("reportTime",CoreDateUtils.parseDate(command.getBeginTime())));
         }
-        if(!CoreStringUtils.isEmpty(command.getEndTime())){
-            criterionList.add(Restrictions.le("reportTime",CoreDateUtils.parseDate(command.getEndTime())));
+        if (null != command.getEndDealTime() && null != command.getStartDealTime()) {
+            criterionList.add(Restrictions.between("reportTime", command.getStartDealTime(), command.getEndDealTime()));
         }
-        if(null !=command.getStatus()){
-            criterionList.add(Restrictions.eq("status",command.getStatus()));
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
         }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
-        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList,aliasMap, orderList,null,null);
+        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
     }
 
     @Override
     public void apiFinishReport(EditReportCommand command) {
-        Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.IN_PROCESS){
+        Report report = this.getById(command.getId());
+        if (report.getStatus() == ReportStatus.IN_PROCESS) {
             report.setHandleResult(command.getHandleResult());
             report.setStatus(ReportStatus.FIGURE_OUT);
             report.setEndDealTime(new Date());
@@ -101,8 +94,8 @@ public class ReportService implements IReportService {
 
     @Override
     public void apiUpdateReport(EditReportCommand command) {
-        Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.PENDING){
+        Report report = this.getById(command.getId());
+        if (report.getStatus() == ReportStatus.PENDING) {
             report.setStatus(ReportStatus.IN_PROCESS);
             report.setStartDealTime(new Date());
             reportRepository.update(report);
