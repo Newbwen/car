@@ -39,6 +39,9 @@ public class EvaluateController extends BaseController {
         return new ModelAndView("evaluate/list", "command", command).addObject("pagination", evaluateAppService.pagination(command));
     }
 
+    /**
+     * 发起评价
+     */
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView create(@ModelAttribute("command") CreateEvaluateCommand command) {
         return new ModelAndView("/evaluate/create", "command", command);
@@ -71,6 +74,9 @@ public class EvaluateController extends BaseController {
 
     }
 
+    /**
+     * 查看评价
+     */
     @RequestMapping(value = "show/{id}", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable String id, RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
@@ -86,6 +92,9 @@ public class EvaluateController extends BaseController {
         return new ModelAndView("/evaluate/show", "evaluate", evaluateRepresentation);
     }
 
+    /**
+     * 修改
+     */
     @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id, @ModelAttribute("command") EditEvaluateCommand command,
                              RedirectAttributes redirectAttributes, Locale locale) {

@@ -39,6 +39,10 @@ public class CarController extends BaseController {
     public ModelAndView list(ListCarCommand command){
         return new ModelAndView("/car/list","command",command).addObject("pagination",carAppService.pagination(command));
     }
+
+    /**
+     * 创建车辆
+     */
     @RequestMapping(value ="/create",method = RequestMethod.GET)
     public ModelAndView create(@ModelAttribute("command") CreateCarCommand command){
         return new ModelAndView("/car/create","command",command);
@@ -73,6 +77,10 @@ public class CarController extends BaseController {
 
 
     }
+
+    /**
+     * 根据id车看车辆
+     */
     @RequestMapping(value = "show/{id}",method =RequestMethod.GET)
     public ModelAndView show(@PathVariable String id,  RedirectAttributes redirectAttributes, Locale locale){
         AlertMessage alertMessage;
@@ -90,6 +98,10 @@ public class CarController extends BaseController {
         }
         return new ModelAndView("/car/show","car",carRepresentation);
     }
+
+    /**
+     *根据id修改车辆
+     */
     @RequestMapping(value = "/edit/{id}")
     public ModelAndView edit(@PathVariable String id,@ModelAttribute("command")EditCarCommand command,
                              RedirectAttributes redirectAttributes, Locale locale){
