@@ -28,4 +28,19 @@ public class ApiAppBillingController {
     @Autowired
     private IApiBillingAppService apiBillingAppService;
 
+    @RequestMapping(value = "/search")
+    @ResponseBody
+    public BaseResponse searchByDriver(String userName) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = apiBillingAppService.searchByDriver(userName);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
 }

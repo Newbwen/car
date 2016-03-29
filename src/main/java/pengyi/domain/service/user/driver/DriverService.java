@@ -122,6 +122,11 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public Driver searchByUserName(String userName) {
+        return driverRepository.searchByUserName(userName);
+    }
+
+    @Override
     public Pagination<Driver> apiPagination(CompanyDriverListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("company.id", command.getCompany()));

@@ -1,5 +1,7 @@
 package pengyi.application.area.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by YJH on 2016/3/9.
  */
@@ -8,7 +10,9 @@ public class EditAreaCommand {
     private String id;
     private Integer version;
 
+    @NotEmpty(message = "{area.name.NotEmpty.message}")
     private String name;                    //地区名
+    @NotEmpty(message = "{area.priority.NotEmpty.message}")
     private String priority;                //区域优先级
     private String parent;                    //父级地区
 

@@ -7,10 +7,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class LoginUserCommand {
 
-    @NotEmpty(message = "{Login.username.NotEmpty.message}")
+    @NotEmpty(message = "{login.username.NotEmpty.message}")
     private String username;
 
-    @NotEmpty(message = "{Login.password.NotEmpty.message}")
+    @NotEmpty(message = "{login.password.NotEmpty.message}")
     private String password;
 
     private String verificationCode;

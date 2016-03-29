@@ -11,16 +11,16 @@ import javax.validation.constraints.NotNull;
  */
 public class CreateCarCommand {
 
-    @NotEmpty(message = "{car.name,NotEmpty,message}")
+    @NotEmpty(message = "{car.name.NotEmpty.message}")
     private String name;                //车辆名称
 
-    @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
+    @NotEmpty(message = "{car.carNumber.NotEmpty.message}")
     private String carNumber;           //车牌号
 
-    @NotEmpty(message = "{car.driver,NotEmpty,message}")
+    @NotEmpty(message = "{car.driver.Notnull.message}")
     private String driver;              //司机
 
-  //  @NotNull(message = "{car.carType,NotEmpty,message}")
+  //  @NotNull(message = "{car.carType.NotEmpty.message}")
     private CarType carType;             //车辆类型
 
     public CarType getCarType() {

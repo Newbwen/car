@@ -64,9 +64,9 @@
                                             <li>
                                                 <a class="blue" href="[@spring.url '/evaluate/show/${evaluate.id!}'/]">查看</a>
                                             </li>
-                                            <li>
-                                                <a class="green" href="[@spring.url '/evaluate/edit/${evaluate.id}'/]">编辑</a>
-                                            </li>
+                                            [#--<li>--]
+                                                [#--<a class="green" href="[@spring.url '/evaluate/edit/${evaluate.id}'/]">编辑</a>--]
+                                            [#--</li>--]
                                         </ul>
                                     </div>
                                 </td>

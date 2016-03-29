@@ -1,6 +1,8 @@
 package pengyi.application.report.command;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by liubowen on 2016/3/10.
  * 页面修改
@@ -8,8 +10,14 @@ package pengyi.application.report.command;
 public class EditReportCommand {
     private String id;
     private Integer version;
+
+    @NotEmpty(message = "{report.status,NotEmpty,message}")
     private String status;                  //状态（待处理、处理中、处理完成）
+
+    @NotEmpty(message = "{report.handleResult,NotEmpty,message}")
     private String handleResult;                   //处理结果
+
+    @NotEmpty(message = "{report.description,NotEmpty,message}")
     private String description;                 //说明
 
     public String getDescription() {

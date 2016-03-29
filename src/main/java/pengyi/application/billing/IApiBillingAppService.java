@@ -13,4 +13,6 @@ public interface IApiBillingAppService {
     BaseResponse create(CreateBillingCommand command);
 
     BaseResponse edit(EditBillingCommand command);
+
+    BaseResponse searchByDriver(String userName);
 }

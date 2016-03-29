@@ -37,6 +37,8 @@ public enum ResponseMessage {
     ERROR_10028(10028, "endAddress字段不能为空"),
     ERROR_10029(10029, "kmBilling字段不能为空"),
     ERROR_10030(10030, "minuteBilling字段不能为空"),
+    ERROR_10031(10031, "page字段不能为空"),
+    ERROR_10032(10032, "roleName字段不能为空"),
 
     //救援
     ERROR_20000(20000, "派送救援司机不能为空"),
@@ -60,10 +62,9 @@ public enum ResponseMessage {
     ERROR_50001(50001, "接收人sendBaseUser字段不能为空"),
     ERROR_50002(50002, "类容content字段不能为空"),
     ERROR_50003(50003, "类型type字段不能为空"),
-    ERROR_50004(50004,"字段messageId不能为空"),
+    ERROR_50004(50004, "字段messageId不能为空"),
     //举报
     ERROR_60001(60001, "handleResult字段不能为空");
-
 
 
     private int code;
