@@ -77,6 +77,9 @@ public class EvaluateService implements IEvaluateService {
 
     }
 
+    /**
+     * 根据id查看评价
+     */
     @Override
     public Evaluate show(String id) {
 
