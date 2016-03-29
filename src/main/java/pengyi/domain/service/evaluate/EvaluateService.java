@@ -82,7 +82,7 @@ public class EvaluateService implements IEvaluateService {
 
         Evaluate evaluate = (Evaluate) evaluateRepository.getById(id);
         if (null == evaluate) {
-            throw new NoFoundException("没有找到资源路径id=[" + id + "]的记录");
+            throw new NoFoundException("没有找到评价id=[" + id + "]的记录");
         }
         return evaluate;
     }
