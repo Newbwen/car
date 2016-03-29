@@ -43,7 +43,7 @@ public class MessageService implements IMessageService {
     private ICompanyService companyService;
 
     @Override
-    public Message show(String messageId) {
+    public Message getById(String messageId) {
         Message message = messageRepository.getById(messageId);
         if (null == message) {
             throw new NoFoundException("没有找到messageId=[" + messageId + "]的记录");
@@ -109,7 +109,7 @@ public class MessageService implements IMessageService {
 
     @Override
     public Message delete(String messageId) {
-        Message message = this.show(messageId);
+        Message message = this.getById(messageId);
         message.setShowType(ShowType.BLANK);
         messageRepository.update(message);
         return message;
@@ -120,8 +120,16 @@ public class MessageService implements IMessageService {
     public Pagination<Message> apiPagination(CompanyListMessageCommand command) {
         Map<String, String> aliasMap = new HashMap<String, String>();
         List<Criterion> criterionList = new ArrayList();
-
-        criterionList.add(Restrictions.eq("sendBaseUser.id", command.getCompany()));
+        aliasMap.put("receiveBaseUser", "receiveBaseUser");
+        aliasMap.put("sendBaseUser", "sendBaseUser");
+        switch (command.getSearchType()) {
+            case 1:
+                criterionList.add(Restrictions.eq("sendBaseUser.id", command.getCompany()));
+                break;
+            case 2:
+                    criterionList.add(Restrictions.like("receiveBaseUser.id", command.getCompany()));
+                break;
+        }
 
         if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
             criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime())));
@@ -129,11 +137,9 @@ public class MessageService implements IMessageService {
         if (!CoreStringUtils.isEmpty(command.getEndTime())) {
             criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
         }
-        if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
-            criterionList.add(Restrictions.like("receiveBaseUser.userName", command.getReceiveBaseUser(),MatchMode.ANYWHERE));
-            aliasMap.put("receiveBaseUser", "receiveBaseUser");
+        if(!CoreStringUtils.isEmpty(command.getReceiveBaseUser())){
+            criterionList.add(Restrictions.like("receiveBaseUser.userName", command.getReceiveBaseUser(), MatchMode.ANYWHERE));
         }
-
         List<Order> orderList = new ArrayList();
 
         orderList.add(Order.desc("sendDate"));
@@ -147,16 +153,12 @@ public class MessageService implements IMessageService {
     }
 
     @Override
-    public Message edit(String messageId) {
+    public Message show(String messageId) {
 
-        Message message = this.show(messageId);
-
-        if (null != messageId) {
-            message.setReceiveDate(new Date());
-            messageRepository.update(message);
-            return message;
-        }
-        return null;
+        Message message = messageRepository.getById(messageId);
+        message.setReceiveDate(new Date());
+        messageRepository.update(message);
+        return message;
     }
 
     @Override

@@ -117,26 +117,6 @@ public class MessageController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView edit(@PathVariable String id,
-                             RedirectAttributes redirectAttributes, Locale locale) {
-        AlertMessage alertMessage;
-
-        MessageRepresentation message = null;
-
-        try {
-            message = messageAppService.edit(id);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            redirectAttributes.addAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            return new ModelAndView("message/list");
-        }
-        logger.info("将messageId=[" + message.getId() + "]标记已读，时间[" + new Date() + "]");
-        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
-        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-        return new ModelAndView("redirect:/message/list");
-    }
 
 
 }
