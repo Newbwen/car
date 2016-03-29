@@ -4,6 +4,7 @@ import pengyi.core.commons.command.BasicPaginationCommand;
 import pengyi.core.type.ReportStatus;
 
 import javax.xml.crypto.Data;
+import java.util.Date;
 
 /**
  * Created by liubowen on 2016/3/9.
@@ -12,23 +13,24 @@ public class ListReportCommand extends BasicPaginationCommand {
     private String reportUser;      //举报人
     private String order;          //举报订单
     private ReportStatus status;   //状态（待处理、处理中、处理完成）
-    private String beginTime;
-    private String endTime;
+    private Date startDealTime;
+    private Date endDealTime;
 
-    public String getBeginTime() {
-        return beginTime;
+
+    public Date getStartDealTime() {
+        return startDealTime;
     }
 
-    public void setBeginTime(String beginTime) {
-        this.beginTime = beginTime;
+    public void setStartDealTime(Date startDealTime) {
+        this.startDealTime = startDealTime;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public Date getEndDealTime() {
+        return endDealTime;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setEndDealTime(Date endDealTime) {
+        this.endDealTime = endDealTime;
     }
 
     public String getReportUser() {
