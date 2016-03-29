@@ -13,13 +13,13 @@ public class EditCarCommand {
     private String id;
     private Integer version;
 
-    @NotEmpty(message = "{car.name,NotEmpty,message}")
+    @NotEmpty(message = "{car.name.NotEmpty.message}")
     private String name;                //车辆名称
 
-    @NotEmpty(message = "{car.carNumber,NotEmpty,message}")
+    @NotEmpty(message = "{car.carNumber.NotEmpty.message}")
     private String carNumber;           //车牌号
 
-    @NotNull(message = "{car.carType,Notnull,message}")
+    @NotNull(message = "{car.carType.Notnull.message}")
     private CarType carType;             //车辆类型
 
     public CarType getCarType() {
