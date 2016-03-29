@@ -36,7 +36,7 @@
                     </form>
                 </div>
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
-                    <thead>
+                    <thead>+
                     <tr role="row">
                         <th>发送人</th>
                         <th>内容</th>

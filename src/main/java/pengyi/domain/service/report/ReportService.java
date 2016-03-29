@@ -10,6 +10,7 @@ import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ReportStatus;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.IReportRepository;
@@ -70,7 +71,7 @@ public class ReportService implements IReportService {
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
         }
         if (null != command.getEndDealTime() && null != command.getStartDealTime()) {
-            criterionList.add(Restrictions.between("reportTime", command.getStartDealTime(), command.getEndDealTime()));
+            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
         }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
