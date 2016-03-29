@@ -9,7 +9,7 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IMessageService {
 
-    Message show(String messageId);
+    Message getById(String messageId);
 
     void create(CreateMessageByRoleCommand command);
 
@@ -19,7 +19,7 @@ public interface IMessageService {
 
     Message delete(String messageId);
 
-    Message edit(String messageId);
+    Message show(String messageId);
 
     //以下是api方法
     void apiCreate(CompanyCreateMessageCommand command);

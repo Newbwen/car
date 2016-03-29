@@ -41,12 +41,6 @@ public class MessageAppService implements IMessageAppService {
         messageService.create(command);
     }
 
-    @Override//根据id显示数据
-    @Transactional(readOnly = true)
-    public MessageRepresentation show(String id) {
-
-        return mappingService.map(messageService.show(id), MessageRepresentation.class, false);
-    }
 
     @Override
     public MessageRepresentation delete(String messageId) {
@@ -60,9 +54,9 @@ public class MessageAppService implements IMessageAppService {
 
 
     @Override
-    public MessageRepresentation edit(String messageId) {
+    public MessageRepresentation show(String messageId) {
 
-        return mappingService.map(messageService.edit(messageId), MessageRepresentation.class, false);
+        return mappingService.map(messageService.show(messageId), MessageRepresentation.class, false);
     }
 
 
