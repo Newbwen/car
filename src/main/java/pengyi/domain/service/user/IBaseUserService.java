@@ -34,4 +34,5 @@ public interface IBaseUserService {
     /*******  以下是 api 方法    ********/
     BaseUser apiResetPassword(ResetPasswordCommand command);
 
+    List<BaseUser> apiSearchByUserNameAndRole(BaseListBaseUserCommand command);
 }

@@ -1,5 +1,6 @@
 package pengyi.interfaces.auth.web;
 
+import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -69,13 +70,20 @@ public class AuthController extends BaseController {
 
         if (command.getVerificationCode().isEmpty()) {
             alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
-                    this.getMessage("Login.verificationCode.NotEmpty.message", null, locale));
+                    this.getMessage("login.verificationCode.NotEmpty.message", null, locale));
             return new ModelAndView("/login", AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage)
                     .addObject("user", command);
         }
+        boolean flag = false;
+        try {
+            flag = imageCaptchaService.validateResponseForID(request.getRequestedSessionId(),
+                    command.getVerificationCode());
+        } catch (CaptchaServiceException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
+                    this.getMessage("login.verificationCode.Error.message", null, locale));
+            return new ModelAndView("/login", "user", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
 
-        boolean flag = imageCaptchaService.validateResponseForID(request.getRequestedSessionId(),
-                command.getVerificationCode());
 
         if (flag) {
 
@@ -89,34 +97,34 @@ public class AuthController extends BaseController {
                 } else {
                     subject.logout();
                     alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,
-                            this.getMessage("Login.NoPermission.Error.message", null, locale));
+                            this.getMessage("login.NoPermission.Error.message", null, locale));
                     redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
                     return new ModelAndView("redirect:/");
                 }
             } catch (UnknownAccountException e) {
                 alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
-                        this.getMessage("Login.account.NotExists.message", null, locale));
+                        this.getMessage("login.account.NotExists.message", null, locale));
                 redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
                 return new ModelAndView("redirect:/");
             } catch (IncorrectCredentialsException e) {
                 alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
-                        this.getMessage("Login.account.Error.message", null, locale));
+                        this.getMessage("login.account.Error.message", null, locale));
                 redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
                 return new ModelAndView("redirect:/");
             } catch (LockedAccountException e) {
                 alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,
-                        this.getMessage("Login.account.Disable.message", null, locale));
+                        this.getMessage("login.account.Disable.message", null, locale));
                 redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
                 return new ModelAndView("redirect:/");
             } catch (Exception e) {
                 alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
-                        this.getMessage("Login.login.Failure.message", null, locale));
+                        this.getMessage("login.login.Failure.message", null, locale));
                 redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
                 return new ModelAndView("redirect:/");
             }
         } else {
             alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER,
-                    this.getMessage("Login.verificationCode.Error.message", null, locale));
+                    this.getMessage("login.verificationCode.Error.message", null, locale));
             return new ModelAndView("/login", "user", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
     }

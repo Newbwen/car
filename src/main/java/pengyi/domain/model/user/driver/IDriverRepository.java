@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface IDriverRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
     List<Driver> searchByCompany(String company);
+
+    Driver searchByUserName(String userName);
 }

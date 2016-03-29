@@ -142,7 +142,7 @@ public class OrderService implements IOrderService {
     @Override
     public Order apiReceiverOrder(ReceiveOrderCommand command) {
         BaseUser receiveUser = baseUserService.show(command.getReceiveUser());
-        Order order = orderRepository.getById(command.getOrderId());
+        Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
         order.setReceiveUser(receiveUser);
@@ -215,7 +215,7 @@ public class OrderService implements IOrderService {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         if (!CoreStringUtils.isEmpty(command.getOrderUser())) {
             criterionList.add(Restrictions.eq("orderUser.id", command.getOrderUser()));
-        } else {
+        } else if (!CoreStringUtils.isEmpty(command.getReceiveUser())) {
             criterionList.add(Restrictions.eq("receiveUser.id", command.getReceiveUser()));
         }
 

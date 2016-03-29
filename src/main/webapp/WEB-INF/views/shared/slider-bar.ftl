@@ -167,12 +167,12 @@
                                 <span class="menu-text"> 车辆列表 </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="[@spring.url "/car/create"/]" class="dropdown-toggle">
-                                <i class="icon-pencil"></i>
-                                <span class="menu-text"> 车辆创建 </span>
-                            </a>
-                        </li>
+                        [#--<li>--]
+                            [#--<a href="[@spring.url "/car/create"/]" class="dropdown-toggle">--]
+                                [#--<i class="icon-pencil"></i>--]
+                                [#--<span class="menu-text"> 车辆创建 </span>--]
+                            [#--</a>--]
+                        [#--</li>--]
 
                     </ul>
                 </li>

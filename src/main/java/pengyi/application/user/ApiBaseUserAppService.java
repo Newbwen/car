@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.user.command.BaseListBaseUserCommand;
 import pengyi.application.user.command.LoginUserCommand;
 import pengyi.application.user.command.ResetPasswordCommand;
 import pengyi.application.user.command.UpdateHeadPicCommand;
@@ -16,6 +17,8 @@ import pengyi.core.redis.RedisService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.IBaseUserService;
+
+import java.util.List;
 
 /**
  * Created by YJH on 2016/3/15.
@@ -76,6 +79,27 @@ public class ApiBaseUserAppService implements IApiBaseUserAppService {
             BaseUserRepresentation data = mappingService.map(baseUserService.apiResetPassword(command), BaseUserRepresentation.class, false);
             redisService.delete(command.getUserName());
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse apiSearchByUserNameAndRole(BaseListBaseUserCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getUserName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getRoleName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10032.getMessage());
+            }
+            List<BaseUser> baseUsers = baseUserService.apiSearchByUserNameAndRole(command);
+            BaseUserRepresentation data = null;
+            if (baseUsers.size() > 0) {
+                data = mappingService.map(baseUsers.get(0), BaseUserRepresentation.class, false);
+            }
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
                     ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());

@@ -1,5 +1,8 @@
 package pengyi.application.billing.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -7,8 +10,11 @@ import java.math.BigDecimal;
  */
 public class CreateBillingCommand {
 
+    @NotNull(message = "{billing.kmBilling.NotNull.message}")
     private BigDecimal kmBilling;
+    @NotNull(message = "{billing.minuteBilling.NotNull.message}")
     private BigDecimal minuteBilling;
+    @NotEmpty(message = "{billing.company.NotEmpty.message}")
     private String company;  //公司
 
     public BigDecimal getKmBilling() {

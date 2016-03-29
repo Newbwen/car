@@ -10,6 +10,7 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.type.OrderStatus;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
@@ -31,6 +32,26 @@ public class ApiOrderAppService implements IApiOrderAppService {
 
     @Autowired
     private IMappingService mappingService;
+
+    @Override
+    public BaseResponse waitOrderPagination(ListOrderCommand command) {
+        if (null != command) {
+            if (null == command.getPage()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10031.getMessage());
+            }
+            if (null == command.getPageSize()) {
+                command.verifyPageSize(10);
+            }
+            command.setOrderStatus(OrderStatus.WAIT_ORDER);
+            Pagination<Order> pagination = orderService.apiPagination(command);
+            List<OrderRepresentation> data = mappingService.mapAsList(pagination.getData(), OrderRepresentation.class);
+
+            Pagination<OrderRepresentation> result = new Pagination<OrderRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, result, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
 
     @Override
     @Transactional(readOnly = true)

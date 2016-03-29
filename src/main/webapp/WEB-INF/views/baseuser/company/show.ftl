@@ -120,6 +120,15 @@
                 </div>
             </div>
 
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 公司资质图片</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click"
+                          id="age"><img src="${company.folder!}"/></span>
+                </div>
+            </div>
+
 
         </div>
         <br>

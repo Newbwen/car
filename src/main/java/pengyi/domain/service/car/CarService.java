@@ -52,6 +52,9 @@ public class CarService implements ICarService {
     }
 
 
+    /**
+     * 修改车辆信息
+     */
     @Override
     public Car edit(EditCarCommand command) {
         Car car = this.show(command.getId());
@@ -68,6 +71,9 @@ public class CarService implements ICarService {
         return car;
     }
 
+    /**
+     * 根据id查看车辆
+     */
     @Override
     public Car show(String id) {
         Car car = (Car) carRepository.getById(id);
@@ -77,16 +83,26 @@ public class CarService implements ICarService {
         return car;
     }
 
+    /**
+     * 根据车牌号查看车辆
+     */
     @Override
     public Car searchByNumber(String carNumber) {
         return carRepository.getByNumber(carNumber);
     }
 
+    /**
+     *根据司机查找车辆
+     */
     @Override
     public Car searchByDriver(String driver) {
         return carRepository.getByDriver(driver);
     }
 
+
+    /**
+     *创建车辆
+     */
 
     @Override
     public Car create(CreateCarCommand command) {

@@ -26,6 +26,8 @@ public interface IDriverService {
 
     void updateDriverLevel(String driverId, Double level);
 
+    Driver searchByUserName(String userName);
+
     /***********
      * api 方法
      **************/
@@ -46,4 +48,5 @@ public interface IDriverService {
     Driver apiEdit(EditDriverCommand command);
 
     Driver apiUpdateHeadPic(UpdateHeadPicCommand command);
+
 }

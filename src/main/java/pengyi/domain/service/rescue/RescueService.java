@@ -69,6 +69,9 @@ public class RescueService implements IRescueService {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
 
         }
+        if(null !=command.getRescueType()){
+            criteriaList.add(Restrictions.eq("rescueType",command.getRescueType()));
+        }
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("applyTime"));
 
@@ -128,6 +131,10 @@ public class RescueService implements IRescueService {
         return rescueRepository.getByName(rescueName);
     }
 
+
+    /**
+     * 处理救援
+     */
     @Override
     public Rescue apiUpdateRescue(EditRescueCommand command) {
         Rescue rescue = this.show(command.getId());
@@ -138,6 +145,9 @@ public class RescueService implements IRescueService {
         return rescue;
     }
 
+    /**
+     * 取消救援
+     */
     @Override
     public Rescue apiCancelRescue(EditRescueCommand command) {
 
@@ -148,6 +158,9 @@ public class RescueService implements IRescueService {
         return rescue;
     }
 
+    /**
+     * 完成救援
+     */
     @Override
     public Rescue apifinishRescue(EditRescueCommand command) {
 
