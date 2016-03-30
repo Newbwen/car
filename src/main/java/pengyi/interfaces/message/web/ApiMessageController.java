@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.message.IApiMessageAppService;
@@ -12,7 +13,11 @@ import pengyi.application.message.command.CompanyListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
+import pengyi.core.commons.Constants;
+import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -32,7 +37,6 @@ public class ApiMessageController {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
-
             response = apiMessageService.companyMessageList(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());

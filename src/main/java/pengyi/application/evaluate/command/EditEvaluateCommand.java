@@ -1,14 +1,18 @@
 package pengyi.application.evaluate.command;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by ${lvdi} on 2016/3/8.
  */
 public class EditEvaluateCommand {
     private String id;
     private Integer version;
-
+    @NotEmpty(message = "{evaluate.content.NotEmpty.message}")
     private String content;                          //评价内容
+
+    @NotEmpty(message = "{evaluate.level.NotEmpty.message}")
     private Integer level;                              //评级
 
     public String getId() {

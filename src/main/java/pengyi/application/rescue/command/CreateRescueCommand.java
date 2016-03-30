@@ -11,17 +11,17 @@ import javax.validation.constraints.NotNull;
  */
 public class CreateRescueCommand {
 
-    @NotEmpty(message = "{rescue.applyUser,NotEmpty,message}")
+    @NotEmpty(message = "{rescue.applyUser.NotEmpty.message}")
     private String applyUser;                   //申请人
 
     private String userName;
 
     private String verificationCode;
 
-    @NotNull(message = "{rescue.type,Notnull,message}")
+    @NotNull(message = "{rescue.type.Notnull.message}")
     private RescueType rescueType;                           //救援类型
 
-    @NotEmpty(message = "{rescue.description,NotEmpty,message}")
+    @NotEmpty(message = "{rescue.description.NotEmpty.message}")
     private String description;                 //救援说明
 
     public String getApplyUser() {

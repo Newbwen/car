@@ -36,10 +36,12 @@
                     </form>
                 </div>
                 <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
-                    <thead>
+                    <thead>+
                     <tr role="row">
                         <th>发送人</th>
                         <th>内容</th>
+                        <th>接收人</th>
+                        <th>接收人角色</th>
                         <th>发送时间</th>
                         <th>操作</th>
                     </tr>
@@ -52,6 +54,8 @@
                             <tr class="even">
                                 <td>${message.sendBaseUser.userName!}</td>
                                 <td>${message.content!}</td>
+                                <td>${message.receiveBaseUser.userName}</td>
+                                <td>${message.receiveBaseUser.userRole.roleName}</td>
                                 <td>${message.sendDate!}</td>
                                 <td>
                                     <div class="btn-group">
@@ -66,9 +70,6 @@
                                             </li>
                                             <li>
                                                 <a class="green" href="[@spring.url '/message/delete/${message.id}'/]">删除</a>
-                                            </li>
-                                            <li>
-                                                <a class="green" href="[@spring.url '/message/edit/${message.id}'/]">已读</a>
                                             </li>
                                         </ul>
                                     </div>

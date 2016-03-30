@@ -16,6 +16,7 @@ public class CompanyListMessageCommand extends BasicPaginationCommand {
     private String content;                 //内容
     private ShowType showType;              //是否显示
     private String company;
+    private int searchType;
 
     public String getCompany() {
         return company;
@@ -64,5 +65,13 @@ public class CompanyListMessageCommand extends BasicPaginationCommand {
 
     public void setReceiveBaseUser(String receiveBaseUser) {
         this.receiveBaseUser = receiveBaseUser;
+    }
+
+    public int getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(int searchType) {
+        this.searchType = searchType;
     }
 }

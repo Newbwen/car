@@ -1,5 +1,7 @@
 package pengyi.application.message.command;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.List;
 
 /**
@@ -7,8 +9,10 @@ import java.util.List;
  */
 public class CompanyCreateMessageCommand {
     private String company;                  //发送人
+    @NotEmpty(message = "{message.receiveUser.create.message}")
     private List<String> receiveBaseUser;            //接收人
     private String sendDate;                //发送时间
+    @NotEmpty(message = "{message.content.create.message}")
     private String content;                 //内容
 
     public List<String> getReceiveBaseUser() {

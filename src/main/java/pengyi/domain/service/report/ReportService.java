@@ -74,21 +74,16 @@ public class ReportService implements IReportService {
     public Pagination<Report> pagination(ListReportCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         Map<String, String> aliasMap = new HashMap<String, String>();
-        /*if (!CoreStringUtils.isEmpty(command.getReportUser())) {
-            criterionList.add(Restrictions.like("reportUser", command.getReportUser(), MatchMode.ANYWHERE));
+        if (!CoreStringUtils.isEmpty(command.getReportUser())) {
+            criterionList.add(Restrictions.like("reportUser.userName", command.getReportUser(), MatchMode.ANYWHERE));
+            aliasMap.put("reportUser", "reportUser");
         }
-          if (!CoreStringUtils.isEmpty(command.getOrder())) {
+        if (!CoreStringUtils.isEmpty(command.getOrder())) {
             aliasMap.put("order", "order");
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
-        }*/
-        /*if (null !=command.getBeginTime() && null !=command.getEndTime()) {
-            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getBeginTime()),CoreDateUtils.parseDate(command.getEndTime())));
-        }*/
-        if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
-            criterionList.add(Restrictions.ge("reportTime", CoreDateUtils.parseDate(command.getBeginTime())));
         }
-        if (!CoreStringUtils.isEmpty(command.getEndTime())) {
-            criterionList.add(Restrictions.le("reportTime", CoreDateUtils.parseDate(command.getEndTime())));
+        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
+            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
         }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
