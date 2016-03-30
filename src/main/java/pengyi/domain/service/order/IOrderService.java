@@ -21,6 +21,8 @@ public interface IOrderService {
 
     Order updateEvaluate(String orderId, EvaluateStatus evaluateStatus);
 
+    Order byOrderNumber(String orderNumber);
+
     /********
      * api 方法
      ***********/

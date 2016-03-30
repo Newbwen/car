@@ -1,9 +1,6 @@
 package pengyi.domain.model.order;
 
-import pengyi.core.type.CarType;
-import pengyi.core.type.DriverType;
-import pengyi.core.type.EvaluateStatus;
-import pengyi.core.type.OrderStatus;
+import pengyi.core.type.*;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
@@ -34,6 +31,8 @@ public class Order extends Identity {
     private String startAddress;                        //开始地址
     private String endAddress;                        //结束地址
     private CarType carType;                            //车辆类型
+    private PayType payType;                             //支付方式
+    private String payNo;                               //支付订单号
 
     public String getOrderNumber() {
         return orderNumber;
@@ -175,7 +174,23 @@ public class Order extends Identity {
         super();
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress,CarType carType) {
+    public PayType getPayType() {
+        return payType;
+    }
+
+    public void setPayType(PayType payType) {
+        this.payType = payType;
+    }
+
+    public String getPayNo() {
+        return payNo;
+    }
+
+    public void setPayNo(String payNo) {
+        this.payNo = payNo;
+    }
+
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;

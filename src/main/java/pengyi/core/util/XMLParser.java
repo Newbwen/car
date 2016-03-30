@@ -1,4 +1,4 @@
-package pengyi.core.pay.wechat;
+package pengyi.core.util;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

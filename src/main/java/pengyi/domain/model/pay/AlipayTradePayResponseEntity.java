@@ -23,8 +23,9 @@ public class AlipayTradePayResponseEntity {
     private String store_name;
     private double total_amount;
     private String trade_no;
-
     private List<FundBillListEntity> fund_bill_list;
+    private String sub_code;
+    private String sub_msg;
 
     public void setBuyer_logon_id(String buyer_logon_id) {
         this.buyer_logon_id = buyer_logon_id;
@@ -162,10 +163,26 @@ public class AlipayTradePayResponseEntity {
         return fund_bill_list;
     }
 
+    public String getSub_code() {
+        return sub_code;
+    }
+
+    public void setSub_code(String sub_code) {
+        this.sub_code = sub_code;
+    }
+
+    public String getSub_msg() {
+        return sub_msg;
+    }
+
+    public void setSub_msg(String sub_msg) {
+        this.sub_msg = sub_msg;
+    }
+
     public AlipayTradePayResponseEntity() {
     }
 
-    public AlipayTradePayResponseEntity(String buyer_logon_id, double buyer_pay_amount, String buyer_user_id, double card_balance, String code, DiscountGoodsDetail discount_goods_detail, String gmt_payment, double invoice_amount, String msg, String open_id, String out_trade_no, double point_amount, String receipt_amount, String store_name, double total_amount, String trade_no, List<FundBillListEntity> fund_bill_list) {
+    public AlipayTradePayResponseEntity(String buyer_logon_id, double buyer_pay_amount, String buyer_user_id, double card_balance, String code, DiscountGoodsDetail discount_goods_detail, String gmt_payment, double invoice_amount, String msg, String open_id, String out_trade_no, double point_amount, String receipt_amount, String store_name, double total_amount, String trade_no, List<FundBillListEntity> fund_bill_list, String sub_code, String sub_msg) {
         this.buyer_logon_id = buyer_logon_id;
         this.buyer_pay_amount = buyer_pay_amount;
         this.buyer_user_id = buyer_user_id;
@@ -183,5 +200,7 @@ public class AlipayTradePayResponseEntity {
         this.total_amount = total_amount;
         this.trade_no = trade_no;
         this.fund_bill_list = fund_bill_list;
+        this.sub_code = sub_code;
+        this.sub_msg = sub_msg;
     }
 }
