@@ -70,7 +70,7 @@ public class ReportService implements IReportService {
             aliasMap.put("order", "order");
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
         }
-        if (null != command.getEndDealTime() && null != command.getStartDealTime()) {
+        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
             criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
         }
         if (null != command.getStatus()) {
