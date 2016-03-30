@@ -18,7 +18,7 @@ public class Rescue extends Identity {
     private Date applyTime;                   //申请时间
     private RescueType rescueType;                           //救援类型
     private String description;                 //救援说明
-    private Driver driver;                      //救援司机
+    private Driver driver;                          //救援司机
     private Date rescueTime;                  //救援时间
     private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
     private Date finishTime;                  //救援完成时间
