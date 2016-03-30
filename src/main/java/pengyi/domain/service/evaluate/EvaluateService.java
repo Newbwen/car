@@ -32,7 +32,7 @@ import java.util.*;
 public class EvaluateService implements IEvaluateService {
 
     @Autowired
-    private IEvaluateRepository<Evaluate,String> evaluateRepository;
+    private IEvaluateRepository<Evaluate, String> evaluateRepository;
 
     @Autowired
     private BaseUserService baseUserService;
@@ -124,9 +124,20 @@ public class EvaluateService implements IEvaluateService {
         Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
         driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
-        orderService.updateEvaluate(order.getId(),EvaluateStatus.USER_EVALUATE);
+        orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
         return evaluate;
     }
 
+    /**
+     * 删除评价
+     */
+    @Override
+    public void delete(String orderId) {
+        Order order=orderService.show(orderId);
+        Evaluate evaluate = this.show(orderId);
+        evaluateRepository.delete(evaluate);
+        driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
+        orderService.updateEvaluate(order.getId(), EvaluateStatus.NOT_EVALUATE);
+    }
 
 }

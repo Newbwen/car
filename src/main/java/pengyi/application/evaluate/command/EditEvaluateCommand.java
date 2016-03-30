@@ -9,6 +9,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class EditEvaluateCommand {
     private String id;
     private Integer version;
+    @NotEmpty(message = "{evaluate.evaluateUser.NotEmpty.message}")
+    private String evaluateUser;                      //评价人
+
+    public String getEvaluateUser() {
+        return evaluateUser;
+    }
+
+    public void setEvaluateUser(String evaluateUser) {
+        this.evaluateUser = evaluateUser;
+    }
+
     @NotEmpty(message = "{evaluate.content.NotEmpty.message}")
     private String content;                          //评价内容
 

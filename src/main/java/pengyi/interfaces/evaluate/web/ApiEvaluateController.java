@@ -48,9 +48,9 @@ public class ApiEvaluateController {
     /**
      * (司机和用户)查看评价
      */
-    @RequestMapping("/examine")
+    @RequestMapping("/show")
     @ResponseBody
-    public BaseResponse examine(String order) {
+    public BaseResponse show(String order) {
         long startTime = System.currentTimeMillis();
         BaseResponse baseResponse = null;
         try {
@@ -62,6 +62,7 @@ public class ApiEvaluateController {
         }
         return baseResponse;
     }
+
     /**
      * (司机和用户)修改自己发起的评价
      */
@@ -71,11 +72,31 @@ public class ApiEvaluateController {
         long startTime = System.currentTimeMillis();
         BaseResponse baseResponse = null;
         try {
-            baseResponse=iApiEvaluateAppService.edit(command);
-        }catch (ConcurrencyException e){
+            baseResponse = iApiEvaluateAppService.edit(command);
+        } catch (ConcurrencyException e) {
             logger.warn(e.getMessage());
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        return baseResponse;
+    }
+
+    /**
+     * 取消评价
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    public BaseResponse delete(String order) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse baseResponse = null;
+        try {
+            baseResponse = iApiEvaluateAppService.delete(order);
+        } catch (ConcurrencyException e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
+        } catch (Exception e) {
             logger.warn(e.getMessage());
             baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
         }
