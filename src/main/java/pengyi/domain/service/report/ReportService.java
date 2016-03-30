@@ -82,9 +82,16 @@ public class ReportService implements IReportService {
             aliasMap.put("order", "order");
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
-            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
+
+        if(!CoreStringUtils.isEmpty(command.getStartDealTime())){
+            criterionList.add(Restrictions.ge("reportTime",CoreDateUtils.parseDate(command.getStartDealTime())));
         }
+        if(!CoreStringUtils.isEmpty(command.getEndDealTime())){
+            criterionList.add(Restrictions.le("reportTime",CoreDateUtils.parseDate(command.getEndDealTime())));
+        }
+//        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
+//            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
+//        }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
         }
