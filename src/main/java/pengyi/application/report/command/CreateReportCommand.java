@@ -7,7 +7,7 @@ package pengyi.application.report.command;
  */
 public class CreateReportCommand {
     private String reportUser;                //举报人
-    private String order;                        //举报订单
+    private String orderId;                        //举报订单
     private String description;                 //说明
 
     public String getReportUser() {
@@ -18,12 +18,12 @@ public class CreateReportCommand {
         this.reportUser = reportUser;
     }
 
-    public String getOrder() {
-        return order;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getDescription() {

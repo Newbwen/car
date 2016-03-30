@@ -1,7 +1,10 @@
 package pengyi.domain.model.billing;
 
+import pengyi.core.type.CarType;
+import pengyi.core.type.DriverType;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.company.Company;
+import pengyi.domain.model.user.driver.Driver;
 
 import java.math.BigDecimal;
 
@@ -14,16 +17,22 @@ public class Billing extends Identity {
 
     private BigDecimal minuteBilling; //根据分钟计费
 
-    private Company company;  //区域
+    private DriverType driverType;
+
+    private CarType carType;
+
+    private Company company;
 
     public Billing() {
         super();
     }
 
-    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Company company) {
+    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Company company, DriverType driverType, CarType carType) {
         this.kmBilling = kmBilling;
         this.minuteBilling = minuteBilling;
         this.company = company;
+        this.driverType = driverType;
+        this.carType = carType;
     }
 
     public BigDecimal getKmBilling() {
@@ -48,5 +57,21 @@ public class Billing extends Identity {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

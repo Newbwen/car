@@ -28,6 +28,8 @@ public interface IDriverService {
 
     Driver searchByUserName(String userName);
 
+    void updateReportCount(String driverId);
+
     /***********
      * api 方法
      **************/

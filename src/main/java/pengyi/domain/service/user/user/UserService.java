@@ -93,6 +93,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void updateReportCount(String id) {
+        User user = this.show(id);
+        user.setReportCount(user.getReportCount() + 1);
+        userRepository.update(user);
+    }
+
+    @Override
     public User apiUpdateHeadPic(UpdateHeadPicCommand command) {
         User user = this.show(command.getId());
         String headPic = command.getHeadPic().replaceAll("img_tmp", "img");

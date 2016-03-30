@@ -25,11 +25,27 @@ public class ApiOrderController {
 
     @RequestMapping(value = "/company_pagination")
     @ResponseBody
-    private BaseResponse companyOrderList(CompanyOrderListCommand command) {
+    public BaseResponse companyOrderList(CompanyOrderListCommand command) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
         try {
             response = apiOrderAppService.companyOrderPagination(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
+    @RequestMapping(value = "/show")
+    @ResponseBody
+    public BaseResponse show(String id){
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.show(id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

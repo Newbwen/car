@@ -1,5 +1,6 @@
 package pengyi.domain.model.order;
 
+import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
@@ -32,6 +33,7 @@ public class Order extends Identity {
     private EvaluateStatus evaluateStatus;            //评价状态
     private String startAddress;                        //开始地址
     private String endAddress;                        //结束地址
+    private CarType carType;                            //车辆类型
 
     public String getOrderNumber() {
         return orderNumber;
@@ -161,11 +163,19 @@ public class Order extends Identity {
         this.endAddress = endAddress;
     }
 
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
+
     public Order() {
         super();
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress) {
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress,CarType carType) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -182,5 +192,6 @@ public class Order extends Identity {
         this.evaluateStatus = evaluateStatus;
         this.startAddress = startAddress;
         this.endAddress = endAddress;
+        this.carType = carType;
     }
 }

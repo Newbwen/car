@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.billing.IApiBillingAppService;
 import pengyi.application.billing.command.CreateBillingCommand;
 import pengyi.application.billing.command.EditBillingCommand;
+import pengyi.application.billing.command.ListBillingCommand;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 
@@ -41,6 +42,23 @@ public class ApiBillingController {
         return response;
     }
 
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public BaseResponse list(ListBillingCommand command) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+
+        try {
+            response = apiBillingAppService.apiPagination(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
     @RequestMapping(value = "/show")
     @ResponseBody
     public BaseResponse showByCompany(String id) {
@@ -48,7 +66,7 @@ public class ApiBillingController {
         BaseResponse response = null;
 
         try {
-            response = apiBillingAppService.showByCompany(id);
+            response = apiBillingAppService.show(id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

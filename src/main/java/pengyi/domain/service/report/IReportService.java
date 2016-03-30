@@ -19,4 +19,6 @@ public interface IReportService {
     void apiFinishReport(EditReportCommand command);
 
     void apiUpdateReport(EditReportCommand command);
+
+    Pagination<Report> apiPagination(ListReportCommand command);
 }

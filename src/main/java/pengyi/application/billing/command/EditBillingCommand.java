@@ -1,6 +1,8 @@
 package pengyi.application.billing.command;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import pengyi.core.type.CarType;
+import pengyi.core.type.DriverType;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -19,6 +21,9 @@ public class EditBillingCommand {
     private BigDecimal minuteBilling;
     @NotEmpty(message = "{billing.company.NotEmpty.message}")
     private String company;  //公司
+
+    private DriverType driverType;
+    private CarType carType;
 
     public String getId() {
         return id;
@@ -58,5 +63,21 @@ public class EditBillingCommand {
 
     public void setMinuteBilling(BigDecimal minuteBilling) {
         this.minuteBilling = minuteBilling;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

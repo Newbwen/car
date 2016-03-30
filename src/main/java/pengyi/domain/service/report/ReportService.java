@@ -18,6 +18,8 @@ import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.domain.service.user.IBaseUserService;
+import pengyi.domain.service.user.driver.IDriverService;
+import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 import pengyi.repository.report.ReportRepository;
 
@@ -38,16 +40,25 @@ public class ReportService implements IReportService {
     @Autowired
     private IOrderService orderService;
 
+    @Autowired
+    private IDriverService driverService;
+
+    @Autowired
+    private IUserService userService;
+
     @Override
     public void createReport(CreateReportCommand command) {
 
         BaseUser baseUser = baseUserService.show(command.getReportUser());
 
-        Order order = orderService.show(command.getOrder());
+        Order order = orderService.show(command.getOrderId());
 
         Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING, null);
 
         reportRepository.save(report);
+
+        driverService.updateReportCount(order.getReceiveUser().getId());
+        userService.updateReportCount(baseUser.getId());
     }
 
     @Override
@@ -73,24 +84,24 @@ public class ReportService implements IReportService {
         /*if (null !=command.getBeginTime() && null !=command.getEndTime()) {
             criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getBeginTime()),CoreDateUtils.parseDate(command.getEndTime())));
         }*/
-        if(!CoreStringUtils.isEmpty(command.getBeginTime())){
-            criterionList.add(Restrictions.ge("reportTime",CoreDateUtils.parseDate(command.getBeginTime())));
+        if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
+            criterionList.add(Restrictions.ge("reportTime", CoreDateUtils.parseDate(command.getBeginTime())));
         }
-        if(!CoreStringUtils.isEmpty(command.getEndTime())){
-            criterionList.add(Restrictions.le("reportTime",CoreDateUtils.parseDate(command.getEndTime())));
+        if (!CoreStringUtils.isEmpty(command.getEndTime())) {
+            criterionList.add(Restrictions.le("reportTime", CoreDateUtils.parseDate(command.getEndTime())));
         }
-        if(null !=command.getStatus()){
-            criterionList.add(Restrictions.eq("status",command.getStatus()));
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
         }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
-        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList,aliasMap, orderList,null,null);
+        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
     }
 
     @Override
     public void apiFinishReport(EditReportCommand command) {
-        Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.IN_PROCESS){
+        Report report = this.getById(command.getId());
+        if (report.getStatus() == ReportStatus.IN_PROCESS) {
             report.setHandleResult(command.getHandleResult());
             report.setStatus(ReportStatus.FIGURE_OUT);
             report.setEndDealTime(new Date());
@@ -101,12 +112,31 @@ public class ReportService implements IReportService {
 
     @Override
     public void apiUpdateReport(EditReportCommand command) {
-        Report report=this.getById(command.getId());
-        if(report.getStatus()==ReportStatus.PENDING){
+        Report report = this.getById(command.getId());
+        if (report.getStatus() == ReportStatus.PENDING) {
             report.setStatus(ReportStatus.IN_PROCESS);
             report.setStartDealTime(new Date());
             reportRepository.update(report);
         }
+    }
+
+    @Override
+    public Pagination<Report> apiPagination(ListReportCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        criterionList.add(Restrictions.eq("reportUser.id", command.getReportUser()));
+
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.eq("order.orderNumber", command.getOrderNumber()));
+            aliasMap.put("order", "order");
+        }
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
+        }
+
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
+        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
     }
 
 }

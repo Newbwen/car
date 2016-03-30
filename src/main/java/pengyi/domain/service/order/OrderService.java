@@ -132,7 +132,10 @@ public class OrderService implements IOrderService {
         Order order = new Order(orderNo, orderUser, new Date(), null, null,
                 CoreDateUtils.parseDate(command.getSubscribeDate()), null, command.getDriverType(),
                 null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE,
-                command.getStartAddress(), command.getEndAddress());
+                command.getStartAddress(), command.getEndAddress(), null);
+        if (null != command.getCarType()) {
+            order.setCarType(command.getCarType());
+        }
 
         orderRepository.save(order);
 

@@ -49,27 +49,33 @@ public class ApiReportAppService implements IApiReportAppService {
     public BaseResponse list(ListReportCommand command) {
         if (null != command) {
 
-            Pagination<Report> pagination=reportService.pagination(command);
-            List<ReportRepresentation> data=mappingService.mapAsList(pagination.getData(),ReportRepresentation.class);
-            Pagination<ReportRepresentation> result=new Pagination<ReportRepresentation>(data,pagination.getCount(),pagination.getPage(),pagination.getPageSize());
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,result,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            Pagination<Report> pagination = reportService.pagination(command);
+            List<ReportRepresentation> data = mappingService.mapAsList(pagination.getData(), ReportRepresentation.class);
+            Pagination<ReportRepresentation> result = new Pagination<ReportRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, result, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
 
         }
-        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
     }
 
     @Override
     public BaseResponse create(CreateReportCommand command) {
-        if(null !=command){
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getDescription())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20007.getMessage());
+            }
             reportService.createReport(command);
-            return  new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,null,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
-        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR,0,null,ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
     }
 
     @Override
     public BaseResponse updateReport(EditReportCommand command) {
-        if(null!=command){
+        if (null != command) {
             if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
@@ -78,7 +84,7 @@ public class ApiReportAppService implements IApiReportAppService {
             }
             reportService.apiUpdateReport(command);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
-        }else {
+        } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
         }
@@ -93,7 +99,7 @@ public class ApiReportAppService implements IApiReportAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            if(null==command.getHandleResult()){
+            if (null == command.getHandleResult()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_60001.getMessage());
             }
             reportService.apiFinishReport(command);
@@ -102,6 +108,32 @@ public class ApiReportAppService implements IApiReportAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
         }
+    }
+
+    @Override
+    public BaseResponse apiPagination(ListReportCommand command) {
+        if (null != command) {
+            command.verifyPage();
+            command.verifyPageSize(10);
+            Pagination<Report> pagination = reportService.apiPagination(command);
+            List<ReportRepresentation> data = mappingService.mapAsList(pagination.getData(), ReportRepresentation.class);
+
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0,
+                    new Pagination<ReportRepresentation>(data, pagination.getCount(), pagination.getPage(),
+                            pagination.getPageSize()),
+                    ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse apiShow(String id) {
+        if (CoreStringUtils.isEmpty(id)) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+        }
+        ReportRepresentation data = mappingService.map(reportService.getById(id), ReportRepresentation.class, false);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }
 
