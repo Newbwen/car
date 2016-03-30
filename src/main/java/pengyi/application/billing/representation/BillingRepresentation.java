@@ -1,6 +1,9 @@
 package pengyi.application.billing.representation;
 
 import pengyi.application.user.company.representation.CompanyRepresentation;
+import pengyi.core.type.CarType;
+import pengyi.core.type.DriverType;
+import pengyi.domain.model.user.company.Company;
 import pengyi.repository.user.company.CompanyRepository;
 
 import java.math.BigDecimal;
@@ -17,7 +20,11 @@ public class BillingRepresentation {
 
     private BigDecimal minuteBilling; //根据分钟计费
 
-    private CompanyRepresentation company;  //公司
+    private DriverType driverType;
+
+    private CarType carType;
+
+    private CompanyRepresentation company;
 
     public String getId() {
         return id;
@@ -57,5 +64,21 @@ public class BillingRepresentation {
 
     public void setCompany(CompanyRepresentation company) {
         this.company = company;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

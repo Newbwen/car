@@ -1,8 +1,10 @@
 package pengyi.application.order.command;
 
+import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
+import pengyi.domain.model.car.Car;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,6 +20,7 @@ public class CreateOrderCommand {
     private BigDecimal extraMoney;                      //调度费
     private String startAddress;                        //开始地址
     private String endAddress;                          //结束地址
+    private CarType carType;
 
     public String getOrderUser() {
         return orderUser;
@@ -65,5 +68,13 @@ public class CreateOrderCommand {
 
     public void setEndAddress(String endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

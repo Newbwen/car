@@ -57,6 +57,12 @@
         <property name="startAddress" column="start_address" type="java.lang.String"/>
         <property name="endAddress" column="end_address" type="java.lang.String"/>
 
+        <property name="carType" column="car_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.CarType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>

@@ -8,7 +8,7 @@ import pengyi.core.type.ReportStatus;
  */
 public class ListReportCommand extends BasicPaginationCommand {
     private String reportUser;      //举报人
-    private String order;          //举报订单
+    private String orderNumber;          //举报订单号
     private ReportStatus status;   //状态（待处理、处理中、处理完成）
     private String startDealTime;
     private String endDealTime;
@@ -37,12 +37,12 @@ public class ListReportCommand extends BasicPaginationCommand {
         this.reportUser = reportUser;
     }
 
-    public String getOrder() {
-        return order;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public ReportStatus getStatus() {

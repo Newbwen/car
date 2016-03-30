@@ -15,6 +15,20 @@
         <property name="minuteBilling" column="minute_billing" type="java.math.BigDecimal"/>
 
         <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
+
+        <property name="driverType" column="driver_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.DriverType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="carType" column="car_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.CarType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
     </class>
 
 </hibernate-mapping>
