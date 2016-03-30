@@ -48,7 +48,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Override
     public Pagination<RescueRepresentation> search(ListRescueCommand command) {
         Pagination<Rescue> pagination = rescueService.pagination(command);
-            List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
+        List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
         return new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 
@@ -81,7 +81,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
             if (null == command.getApplyUser()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20005.getMessage());
             }
-            if(null == command.getRescueType()){
+            if (null == command.getRescueType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20006.getMessage());
             }
             if (null == command.getDescription()) {
@@ -97,6 +97,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
                         ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND.getMessage());
             }
             RescueRepresentation rescueRepresentation = mappingService.map(rescueService.create(command), RescueRepresentation.class, false);
+            redisService.delete(command.getUserName());
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
@@ -123,14 +124,14 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
     @Override
     public BaseResponse finishRescue(EditRescueCommand command) {
-        if(null!=command){
+        if (null != command) {
             if (!CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            RescueRepresentation rescueRepresentation=mappingService.map(rescueService.apifinishRescue(command),RescueRepresentation.class,false);
+            RescueRepresentation rescueRepresentation = mappingService.map(rescueService.apifinishRescue(command), RescueRepresentation.class, false);
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
     }

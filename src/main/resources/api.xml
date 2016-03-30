@@ -311,8 +311,8 @@
             <id>ec97cd7b-d73f-4656-9fc0-c288c37dafa6</id>
             <name>创建车辆</name>
             <address>api/app/car/create</address>
-            <shuoming>name(车辆名称),carNumber(车牌号),driver(司机id),carType(车辆类型)</shuoming>
-            <zhuyi>carType(ECONMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
+            <shuoming>name(车辆名称),carNumber(车牌号),carType(车辆类型)</shuoming>
+            <zhuyi>司机必须登录,carType(ECONMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
         </api>
         <api>

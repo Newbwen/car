@@ -30,11 +30,17 @@ public class ApiAppCarController {
 
     @RequestMapping(value = "/create")
     @ResponseBody
-    public BaseResponse create(CreateCarCommand command) {
+    public BaseResponse create(CreateCarCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        command.setDriver(baseUser.getId());
         BaseResponse response = null;
         try {
-            apiCarAppService.apiCreate(command);
+            response = apiCarAppService.apiCreate(command);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
@@ -49,7 +55,7 @@ public class ApiAppCarController {
     public BaseResponse info(HttpSession session) {
         long startTime = System.currentTimeMillis();
         BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
-        if(null == baseUser){
+        if (null == baseUser) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
         }

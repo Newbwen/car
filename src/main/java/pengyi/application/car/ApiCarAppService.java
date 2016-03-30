@@ -55,7 +55,7 @@ public class ApiCarAppService implements IApiCarAppService {
             if (CoreStringUtils.isEmpty(command.getDriver())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10009.getMessage());
             }
-            if (null != command.getCarType()) {
+            if (null == command.getCarType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30002.getMessage());
             }
             CarRepresentation carRepresentation = mappingService.map(carService.create(command), CarRepresentation.class, false);

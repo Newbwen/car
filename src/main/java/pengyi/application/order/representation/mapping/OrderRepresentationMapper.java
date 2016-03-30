@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import pengyi.application.order.representation.OrderRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.domain.model.order.Order;
 
 /**
@@ -26,6 +27,10 @@ public class OrderRepresentationMapper extends CustomMapper<Order, OrderRepresen
         if (null != order.getReceiveUser()) {
             BaseUserRepresentation data = mappingService.map(order.getReceiveUser(), BaseUserRepresentation.class, false);
             representation.setReceiveUser(data);
+        }
+        if(null != order.getCreateDate()){
+            String date = CoreDateUtils.formatDate(order.getCreateDate(),CoreDateUtils.DATETIME);
+            representation.setCreateDate(date);
         }
     }
 
