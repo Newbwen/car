@@ -32,4 +32,6 @@ public interface IEvaluateService {
      * api方法 yjh
      ***************/
     Evaluate apiCreateEvaluate(CreateEvaluateCommand command);
+
+    void delete(String orderId);
 }

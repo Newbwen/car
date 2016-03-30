@@ -16,6 +16,7 @@ import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.IReportRepository;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.driver.IDriverService;

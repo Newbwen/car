@@ -14,4 +14,6 @@ public interface IApiEvaluateAppService {
     EvaluateRepresentation show(String orderId);
 
     BaseResponse edit(EditEvaluateCommand command);
+
+    BaseResponse delete(String orderId);
 }
