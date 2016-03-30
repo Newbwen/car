@@ -18,5 +18,4 @@ public interface IMoneyDetailedService {
     MoneyDetailed edit(EditMoneyDetailedCommand command);
 
     MoneyDetailed show(String id);
-
 }

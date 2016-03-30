@@ -363,5 +363,21 @@
             <zhuyi>参数不能为空</zhuyi>
             <fanhuixinxi>无</fanhuixinxi>
         </api>
+        <api>
+            <id>4b4c9b68-c876-4032-9fb7-fa0fb01668f4</id>
+            <name>用户创建反馈信息</name>
+            <address>api/app/feed_back/create</address>
+            <shuoming>phone(联系电话),qq(联系qq),email(联系有邮箱)，content(意见内容)</shuoming>
+            <zhuyi>phone,qq,email(最少要有一个字段不能为空),content(不能为空)</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>8aaf0bed-8c91-45ad-932d-1b67fab428ca</id>
+            <name>用户获取资金明细</name>
+            <address>api/app/money_detailed/list</address>
+            <shuoming>page(页码),pageSize(每页大小)</shuoming>
+            <zhuyi>page(默认为1)pageSize(默认为10),</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
     </apis>
 </apifile>
