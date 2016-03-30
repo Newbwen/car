@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>开始<input type="date" value="${command.beginTime!}" name="beginTime" /></label>
-                                <label>结束<input type="date" value="${command.endTime!}" name="endTime" /></label>
+                                <label>开始<input type="date" value="${command.startDealTime!}" name="startDealTime" /></label>
+                                <label>结束<input type="date" value="${command.endDealTime!}" name="endDealTime" /></label>
                                 <label>处理状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
