@@ -89,6 +89,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public Order byOrderNumber(String orderNumber) {
+        return orderRepository.byOrderNumber(orderNumber);
+    }
+
+    @Override
     public Pagination<Order> apiCompanyOrderPagination(CompanyOrderListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         List<Driver> drivers = driverService.searchByCompany(command.getCompany());

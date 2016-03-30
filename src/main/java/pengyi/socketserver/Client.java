@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
 import pengyi.core.type.UserType;
 import pengyi.socketserver.model.ReceiveObj;
@@ -29,8 +30,6 @@ public class Client implements Runnable {
     private DataOutputStream dos = null;
     private boolean bConnected = false;
 
-    @Autowired
-    private MessageSource messageSource;
 
     public Client(Socket s) {
         this.s = s;
@@ -39,7 +38,7 @@ public class Client implements Runnable {
             dos = new DataOutputStream(s.getOutputStream());
             bConnected = true;
         } catch (IOException e) {
-            logger.info(messageSource.getMessage("socket.connection.fail.message", new Object[]{"unknow", "UNKNOW"}, Locale.CHINA));
+            logger.info("socket.connection.fail.message");
             close();
             e.printStackTrace();
         }
@@ -49,7 +48,7 @@ public class Client implements Runnable {
         try {
             dos.writeUTF(str);
         } catch (IOException e) {
-            logger.info(messageSource.getMessage("socket.server.sendMessage.fail.message", new Object[]{phone, userType}, Locale.CHINA));
+            logger.info("socket.server.sendMessage.fail.message");
             close();
         }
     }
@@ -95,10 +94,10 @@ public class Client implements Runnable {
                 }
             }
         } catch (EOFException e) {
-            logger.info(messageSource.getMessage("socket.shutdown.message", new Object[]{phone, userType}, Locale.CHINA));
+            logger.info("socket.shutdown.message");
             e.printStackTrace();
         } catch (IOException e) {
-            logger.info(messageSource.getMessage("socket.dirty.shutdown.message", new Object[]{phone, userType}, Locale.CHINA));
+            logger.info("socket.dirty.shutdown.message");
             e.printStackTrace();
         } finally {
             close();

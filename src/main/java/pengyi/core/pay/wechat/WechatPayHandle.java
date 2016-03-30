@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 import org.xml.sax.SAXException;
 import pengyi.core.util.HttpUtil;
+import pengyi.core.util.Signature;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

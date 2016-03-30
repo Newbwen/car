@@ -1,5 +1,7 @@
 package pengyi.core.pay.wechat;
 
+import pengyi.core.util.RandomStringGenerator;
+
 /**
  * 微信下单对象
  * Created by pengyi on 2016/3/9.

@@ -61,7 +61,7 @@
                             <tr class="even">
                                 <td>${rescue.applyUser.userName!}</td>
                                 <td>${rescue.applyTime!}</td>
-                                <td>${rescue.type!}</td>
+                                <td>${(rescue.rescueType.getName())!}</td>
                                 <td>${rescue.description!}</td>
                                 <td>${rescue.driver.userName!}</td>
                                 <td>${rescue.rescueTime!}</td>

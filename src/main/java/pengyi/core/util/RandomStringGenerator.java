@@ -1,4 +1,4 @@
-package pengyi.core.pay.wechat;
+package pengyi.core.util;
 
 import java.util.Random;
 
