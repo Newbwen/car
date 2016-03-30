@@ -20,10 +20,11 @@ public interface IUserService {
 
     User create(User user);
 
-
+    void updateReportCount(String id);
 
     /******** api 方法  ***********/
     User apiUpdateHeadPic(UpdateHeadPicCommand command);
 
     User apiRegister(RegisterUserCommand command);
+
 }

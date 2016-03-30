@@ -127,12 +127,19 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public void updateReportCount(String driverId) {
+        Driver driver = this.show(driverId);
+        driver.setReportCount(driver.getReportCount() + 1);
+        driverRepository.update(driver);
+    }
+
+    @Override
     public Pagination<Driver> apiPagination(CompanyDriverListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("company.id", command.getCompany()));
 
         if (!CoreStringUtils.isEmpty(command.getUserName())) {
-            criterionList.add(Restrictions.like("userName", command.getUserName(),MatchMode.ANYWHERE));
+            criterionList.add(Restrictions.like("userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
         if (null != command.getStatus()) {

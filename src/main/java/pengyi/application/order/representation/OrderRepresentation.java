@@ -1,6 +1,7 @@
 package pengyi.application.order.representation;
 
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
@@ -32,6 +33,7 @@ public class OrderRepresentation {
     private EvaluateStatus evaluateStatus;            //评价状态
     private String startAddress;                        //开始地址
     private String endAddress;                        //结束地址
+    private CarType carType;                            //车辆类型
 
     public String getId() {
         return id;
@@ -175,5 +177,13 @@ public class OrderRepresentation {
 
     public void setEndAddress(String endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

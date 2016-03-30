@@ -10,6 +10,7 @@ import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ReportStatus;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.report.IReportRepository;
@@ -17,7 +18,10 @@ import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.domain.service.user.IBaseUserService;
+import pengyi.domain.service.user.driver.IDriverService;
+import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
+import pengyi.repository.report.ReportRepository;
 
 import java.util.*;
 
@@ -36,16 +40,25 @@ public class ReportService implements IReportService {
     @Autowired
     private IOrderService orderService;
 
+    @Autowired
+    private IDriverService driverService;
+
+    @Autowired
+    private IUserService userService;
+
     @Override
     public void createReport(CreateReportCommand command) {
 
         BaseUser baseUser = baseUserService.show(command.getReportUser());
 
-        Order order = orderService.show(command.getOrder());
+        Order order = orderService.show(command.getOrderId());
 
         Report report = new Report(baseUser, order, new Date(), null, null, command.getDescription(), ReportStatus.PENDING, null);
 
         reportRepository.save(report);
+
+        driverService.updateReportCount(order.getReceiveUser().getId());
+        userService.updateReportCount(baseUser.getId());
     }
 
     @Override
@@ -65,12 +78,12 @@ public class ReportService implements IReportService {
             criterionList.add(Restrictions.like("reportUser.userName", command.getReportUser(), MatchMode.ANYWHERE));
             aliasMap.put("reportUser", "reportUser");
         }
-        if (!CoreStringUtils.isEmpty(command.getOrder())) {
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
             aliasMap.put("order", "order");
-            criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
+            criterionList.add(Restrictions.like("order.orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
         }
-        if (null != command.getEndDealTime() && null != command.getStartDealTime()) {
-            criterionList.add(Restrictions.between("reportTime", command.getStartDealTime(), command.getEndDealTime()));
+        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
+            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
         }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
@@ -100,6 +113,25 @@ public class ReportService implements IReportService {
             report.setStartDealTime(new Date());
             reportRepository.update(report);
         }
+    }
+
+    @Override
+    public Pagination<Report> apiPagination(ListReportCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        criterionList.add(Restrictions.eq("reportUser.id", command.getReportUser()));
+
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.eq("order.orderNumber", command.getOrderNumber()));
+            aliasMap.put("order", "order");
+        }
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
+        }
+
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
+        return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
     }
 
 }

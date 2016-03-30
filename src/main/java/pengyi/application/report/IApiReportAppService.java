@@ -12,10 +12,16 @@ import pengyi.repository.generic.Pagination;
  */
 public interface IApiReportAppService {
     ReportRepresentation show(String reportId);
+
     BaseResponse list(ListReportCommand command);
+
     BaseResponse create(CreateReportCommand command);
 
     BaseResponse updateReport(EditReportCommand command);
 
     BaseResponse finishReport(EditReportCommand command);
+
+    BaseResponse apiPagination(ListReportCommand command);
+
+    BaseResponse apiShow(String id);
 }

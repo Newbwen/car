@@ -11,10 +11,8 @@ public class CreateReportCommand {
 
     @NotEmpty(message = "{report.reportUser,NotEmpty,message}")
     private String reportUser;                //举报人
-
-    @NotEmpty(message = "{report.order,NotEmpty,message}")
-    private String order;                        //举报订单
-
+    @NotEmpty(message = "{report.orderId,NotEmpty,message}")
+    private String orderId;                        //举报订单
     @NotEmpty(message = "{report.description,NotEmpty,message}")
     private String description;                 //说明
 
@@ -26,12 +24,12 @@ public class CreateReportCommand {
         this.reportUser = reportUser;
     }
 
-    public String getOrder() {
-        return order;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getDescription() {

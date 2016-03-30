@@ -2,12 +2,16 @@ package pengyi.domain.service.billing;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.billing.command.CreateBillingCommand;
 import pengyi.application.billing.command.EditBillingCommand;
 import pengyi.application.billing.command.ListBillingCommand;
+import pengyi.application.billing.command.SearchBillingCommand;
+import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.DriverType;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.billing.IBillingRepository;
@@ -59,7 +63,16 @@ public class BillingService implements IBillingService {
     public Billing create(CreateBillingCommand command) {
         Company company = companyService.show(command.getCompany());
 
-        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), company);
+        Billing unique = billingRepository.searchUnique(command.getDriverType(), command.getCarType(), company.getId());
+        if (null != unique) {
+            throw new ExistException("该类型数据已存在，无需重复添加");
+        }
+
+        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), company, command.getDriverType(), null);
+
+        if (null != command.getCarType()) {
+            billing.setCarType(command.getCarType());
+        }
 
         billingRepository.save(billing);
 
@@ -70,9 +83,20 @@ public class BillingService implements IBillingService {
     public Billing edit(EditBillingCommand command) {
         Billing billing = this.show(command.getId());
         billing.fainWhenConcurrencyViolation(command.getVersion());
+
+//        if (billing.getDriverType() != command.getDriverType() && billing.getCarType() != command.getCarType()) {
+//            Billing unique = billingRepository.searchUnique(command.getDriverType(), command.getCarType(), billing.getCompany().getId());
+//            if (null != unique) {
+//                throw new ExistException("该类型数据已存在，无需重复添加");
+//            }
+//        }
+
         billing.setKmBilling(command.getKmBilling());
         billing.setMinuteBilling(command.getMinuteBilling());
-
+        billing.setDriverType(command.getDriverType());
+//        if (null != command.getCarType()) {
+//            billing.setCarType(command.getCarType());
+//        }
         billingRepository.update(billing);
         return billing;
     }
@@ -83,9 +107,23 @@ public class BillingService implements IBillingService {
     }
 
     @Override
-    public Billing searchByDriver(String userName) {
-        Driver driver = driverService.searchByUserName(userName);
-        return this.searchByCompany(driver.getCompany().getId());
+    public List<Billing> searchByDriver(SearchBillingCommand command) {
+        Driver driver = driverService.searchByUserName(command.getUserName());
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("company.id", driver.getCompany().getId()));
+        criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        if (command.getDriverType() == DriverType.LIMOUSINE) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
+        }
+        return billingRepository.list(criterionList, null);
+    }
+
+    @Override
+    public Pagination<Billing> apiPagination(ListBillingCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("company.id", command.getCompany()));
+
+        return billingRepository.pagination(command.getPage(), command.getPageSize(), criterionList, null);
     }
 
 }
