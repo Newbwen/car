@@ -78,9 +78,9 @@ public class ReportService implements IReportService {
             criterionList.add(Restrictions.like("reportUser.userName", command.getReportUser(), MatchMode.ANYWHERE));
             aliasMap.put("reportUser", "reportUser");
         }
-        if (!CoreStringUtils.isEmpty(command.getOrder())) {
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
             aliasMap.put("order", "order");
-            criterionList.add(Restrictions.like("order.orderNumber", command.getOrder(), MatchMode.ANYWHERE));
+            criterionList.add(Restrictions.like("order.orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
         }
         if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
             criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
