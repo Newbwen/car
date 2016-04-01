@@ -132,7 +132,7 @@ public class ReportService implements IReportService {
         if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
             criterionList.add(Restrictions.eq("order.orderNumber", command.getOrderNumber()));
             aliasMap.put("order", "order");
-        }
+    }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
         }

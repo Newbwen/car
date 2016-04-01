@@ -63,7 +63,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     public void edit(EditEvaluateCommand command) {
-        Evaluate evaluate = this.show(command.getId());
+               Evaluate evaluate = this.show(command.getId());
 //        Evaluate evaluate1=this.searchByOrder(command.getOrder());
 //        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
 //        Order order = orderService.show(command.getOrder());
@@ -73,7 +73,6 @@ public class EvaluateService implements IEvaluateService {
         evaluate.setContent(command.getContent());
         evaluate.setLevel(command.getLevel());
         evaluateRepository.update(evaluate);
-
 
     }
 
