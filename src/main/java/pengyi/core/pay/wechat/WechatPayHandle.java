@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 import org.xml.sax.SAXException;
+import pengyi.core.commons.Constants;
 import pengyi.core.util.HttpUtil;
 import pengyi.core.util.Signature;
 
@@ -23,7 +24,7 @@ public class WechatPayHandle {
             String sign = Signature.getSign(object);
             object.setSign(sign);
             XStream xStream=new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
-            String s = HttpUtil.urlConnection(Configure.unified_url, xStream.toXML(object));
+            String s = HttpUtil.urlConnection(Constants.WECHAT_UNIFIED_URL, xStream.toXML(object));
 
             return (UnifiedResponse) xStream.fromXML(Signature.getSignFromResponseString(s));
 

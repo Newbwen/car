@@ -1,7 +1,7 @@
 package pengyi.core.util;
 
 import org.xml.sax.SAXException;
-import pengyi.core.pay.wechat.Configure;
+import pengyi.core.commons.Constants;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class Signature {
             sb.append(arrayToSort[i]);
         }
         String result = sb.toString();
-        result += "key=" + Configure.key;
+        result += "key=" + Constants.WECHAT_KEY;
         Util.log("Sign Before MD5:" + result);
         result = MD5Util.MD5Encode(result).toUpperCase();
         Util.log("Sign Result:" + result);
@@ -62,7 +62,7 @@ public class Signature {
             sb.append(arrayToSort[i]);
         }
         String result = sb.toString();
-        result += "key=" + Configure.key;
+        result += "key=" + Constants.WECHAT_KEY;
         //Util.log("Sign Before MD5:" + result);
         result = MD5Util.MD5Encode(result).toUpperCase();
         //Util.log("Sign Result:" + result);

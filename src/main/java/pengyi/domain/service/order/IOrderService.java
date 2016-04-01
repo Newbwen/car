@@ -23,6 +23,8 @@ public interface IOrderService {
 
     Order byOrderNumber(String orderNumber);
 
+    void paySuccress(Order order);
+
     /********
      * api 方法
      ***********/

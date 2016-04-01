@@ -1,5 +1,6 @@
 package pengyi.core.pay.wechat;
 
+import pengyi.core.commons.Constants;
 import pengyi.core.util.RandomStringGenerator;
 
 /**
@@ -112,8 +113,8 @@ public class UnifiedRequest {
     }
 
     public UnifiedRequest(String body, String detail, String out_trade_no, int total_fee, String spbill_create_ip) {
-        this.appid = Configure.appid;
-        this.mch_id = Configure.mch_id;
+        this.appid = Constants.WECHAT_APPID;
+        this.mch_id = Constants.WECHAT_MCH_ID;
         this.nonce_str = RandomStringGenerator.getRandomStringByLength(16);
         this.sign = "";
         this.body = body;
@@ -121,7 +122,7 @@ public class UnifiedRequest {
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
-        this.notify_url = Configure.notify_url;
+        this.notify_url = Constants.WECHAT_NOTIFY_URL;
         this.trade_type = "App";
     }
 }
