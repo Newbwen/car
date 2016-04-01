@@ -29,7 +29,7 @@ public class ApiFeedBackAppService implements IApiFeedBackAppService {
 
     @Override
     public BaseResponse create(CreateFeedBackCommand command) {
-        if (null == command) {
+        if (null != command) {
             if (CoreStringUtils.isEmpty(command.getQq()) && CoreStringUtils.isEmpty(command.getEmail()) && CoreStringUtils.isEmpty(command.getPhone())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10033.getMessage());
             }

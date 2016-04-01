@@ -108,7 +108,9 @@ public class UserService implements IUserService {
 
         userRepository.update(user);
         fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
-        fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
+        if (null != oldHeadPic) {
+            fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
+        }
         return user;
     }
 

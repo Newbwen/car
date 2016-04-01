@@ -123,22 +123,22 @@
             <zhuyi>无</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"carNumber":"151515","carType":"COMFORT","driver":{"balance":0.00,"company":null,"createDate":"2016-03-18 16:01:52.0","driverType":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportCount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"ENABLE","userName":"2858585858","userRole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"roleName":"driver","status":"ENABLE","version":0},"userType":"DRIVER","version":0},"id":"1","name":"奔驰","version":1},"debug_time":605,"message":"成功"}</fanhuixinxi>
         </api>
-        <api>
-            <id>08d93b00-056a-436b-86aa-7da1216c07c3</id>
-            <name>(司机)创建车辆信息</name>
-            <address>/car/api/create</address>
-            <shuoming>name(车名),carNumber(车牌号),driver(司机id),carType(类型),</shuoming>
-            <zhuyi>carType(ECONMY(</zhuyi>
-            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
-        </api>
-        <api>
-            <id>f12f1a86-e949-4ee8-90ab-25393e69f83a</id>
-            <name>(司机)修改车信息</name>
-            <address>/car/api/edit</address>
-            <shuoming>id,version,name,carNumber,carType()</shuoming>
-            <zhuyi>carType(ECONMY(</zhuyi>
-            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
-        </api>
+        <!--<api>-->
+        <!--<id>08d93b00-056a-436b-86aa-7da1216c07c3</id>-->
+        <!--<name>(司机)创建车辆信息</name>-->
+        <!--<address>/car/api/create</address>-->
+        <!--<shuoming>name(车名),carNumber(车牌号),driver(司机id),carType(类型),</shuoming>-->
+        <!--<zhuyi>carType(ECONMY(</zhuyi>-->
+        <!--<fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>-->
+        <!--</api>-->
+        <!--<api>-->
+        <!--<id>f12f1a86-e949-4ee8-90ab-25393e69f83a</id>-->
+        <!--<name>(司机)修改车信息</name>-->
+        <!--<address>/car/api/edit</address>-->
+        <!--<shuoming>id,version,name,carNumber,carType()</shuoming>-->
+        <!--<zhuyi>carType(ECONMY(</zhuyi>-->
+        <!--<fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>-->
+        <!--</api>-->
         <api>
             <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
             <name>(公司)查看救援列表</name>
@@ -377,7 +377,7 @@
             <address>api/app/money_detailed/list</address>
             <shuoming>page(页码),pageSize(每页大小)</shuoming>
             <zhuyi>page(默认为1)pageSize(默认为10),</zhuyi>
-            <fanhuixinxi>无</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"count":1,"data":[{"baseUser":{"balance":0.00,"createDate":"2016-03-21 17:03:29.0","email":"13271940409@163.com","head":null,"id":"402881e9539857710153986a30fd0001","integral":0,"money":null,"name":"怪叔叔丶","password":"cc02a9dbbfdafd467d958f67b272fbe5","reportCount":null,"salt":"f5386e338e52190fb5a0edd3eaa47a1e","sex":"MAN","status":"ENABLE","userName":"13271940409","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":18},"description":"阿萨德撒打算","flowType":"OUT_FLOW","id":"1231","money":123.00,"newMoney":3152.00,"oldMoney":20.00,"version":1}],"page":1,"pageSize":20},"debug_time":13,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>

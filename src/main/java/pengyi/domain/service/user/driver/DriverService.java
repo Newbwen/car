@@ -283,7 +283,9 @@ public class DriverService implements IDriverService {
 
         driverRepository.update(driver);
         fileUploadService.move(headPic.substring(headPic.lastIndexOf("/") + 1));
-        fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
+        if (null != oldHeadPic) {
+            fileUploadService.delete(oldHeadPic.substring(oldHeadPic.lastIndexOf("/") + 1));
+        }
         return driver;
     }
 }
