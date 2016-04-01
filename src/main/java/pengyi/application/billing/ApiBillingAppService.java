@@ -58,6 +58,9 @@ public class ApiBillingAppService implements IApiBillingAppService {
             if (null == command.getMinuteBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10030.getMessage());
             }
+            if (null == command.getStartingPrice()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10035.getMessage());
+            }
             if (null == command.getDriverType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());
             }
@@ -91,6 +94,9 @@ public class ApiBillingAppService implements IApiBillingAppService {
             }
             if (null == command.getMinuteBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10030.getMessage());
+            }
+            if (null == command.getStartingPrice()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10035.getMessage());
             }
 //            if (null == command.getDriverType()) {
 //                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());

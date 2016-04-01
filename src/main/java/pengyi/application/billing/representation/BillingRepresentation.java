@@ -3,8 +3,6 @@ package pengyi.application.billing.representation;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
-import pengyi.domain.model.user.company.Company;
-import pengyi.repository.user.company.CompanyRepository;
 
 import java.math.BigDecimal;
 
@@ -19,6 +17,8 @@ public class BillingRepresentation {
     private BigDecimal kmBilling;   //根据公里计费
 
     private BigDecimal minuteBilling; //根据分钟计费
+
+    private BigDecimal startingPrice;   //起步价
 
     private DriverType driverType;
 
@@ -80,5 +80,13 @@ public class BillingRepresentation {
 
     public void setCarType(CarType carType) {
         this.carType = carType;
+    }
+
+    public BigDecimal getStartingPrice() {
+        return startingPrice;
+    }
+
+    public void setStartingPrice(BigDecimal startingPrice) {
+        this.startingPrice = startingPrice;
     }
 }

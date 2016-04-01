@@ -5,7 +5,7 @@ package pengyi.core.type;
  */
 public enum CarType {
 
-    ECONMY("经济型", 1, Boolean.FALSE),
+    ECONOMY("经济型", 1, Boolean.FALSE),
     COMFORT("舒适型", 2, Boolean.FALSE),
     BUSINESS("商务型", 3, Boolean.FALSE),
     LUXURY("豪华型", 3, Boolean.FALSE);

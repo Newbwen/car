@@ -212,12 +212,12 @@
                         计费模板列表
                     </a>
                 </li>
-                <li>
-                    <a href="[@spring.url '/billing/create'/]">
-                        <i class="icon-leaf"></i>
-                        创建计费模板
-                    </a>
-                </li>
+                [#--<li>--]
+                    [#--<a href="[@spring.url '/billing/create'/]">--]
+                        [#--<i class="icon-leaf"></i>--]
+                        [#--创建计费模板--]
+                    [#--</a>--]
+                [#--</li>--]
             </ul>
         </li>
 

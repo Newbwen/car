@@ -20,7 +20,7 @@
             <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                 <!-- 查询条件 -->
                 <div class="row">
-                    [#--<form>--]
+                [#--<form>--]
                         [#--<div class="col-sm-6">--]
                             [#--<div id="sample-table-2_length" class="dataTables_length">--]
                                 [#--<label>根据公里计费<input type="text" value="${command.kmBilling!}" name="kmBilling" /></label>--]
@@ -36,6 +36,7 @@
                     <tr role="row">
                         <th>根据公里计费</th>
                         <th>根据分钟计费</th>
+                        <th>起步价</th>
                         <th>公司</th>
                         <th>操作</th>
                     </tr>
@@ -48,6 +49,7 @@
                             <tr class="even">
                                 <td>${billing.kmBilling!}</td>
                                 <td>${billing.minuteBilling!}</td>
+                                <td>${billing.startingPrice!}</td>
                                 <td>${billing.company.name!}</td>
                                 <td>
                                     <div class="btn-group">
@@ -58,10 +60,12 @@
 
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="blue" href="[@spring.url '/billing/show/${billing.id!}'/]">查看</a>
+                                                <a class="blue"
+                                                   href="[@spring.url '/billing/show/${billing.id!}'/]">查看</a>
                                             </li>
                                             <li>
-                                                <a class="green" href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>
+                                                <a class="green"
+                                                   href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>
                                             </li>
                                         </ul>
                                     </div>

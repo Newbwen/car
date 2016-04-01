@@ -16,6 +16,8 @@ public class CreateBillingCommand {
     private BigDecimal kmBilling;
     @NotNull(message = "{billing.minuteBilling.NotNull.message}")
     private BigDecimal minuteBilling;
+    @NotNull(message = "{billing.startingPrice.NotNull.message}")
+    private BigDecimal startingPrice;   //起步价
     @NotEmpty(message = "{billing.company.NotEmpty.message}")
     private String company;  //公司
 
@@ -60,5 +62,13 @@ public class CreateBillingCommand {
 
     public void setCarType(CarType carType) {
         this.carType = carType;
+    }
+
+    public BigDecimal getStartingPrice() {
+        return startingPrice;
+    }
+
+    public void setStartingPrice(BigDecimal startingPrice) {
+        this.startingPrice = startingPrice;
     }
 }
