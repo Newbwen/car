@@ -68,7 +68,7 @@ public class BillingService implements IBillingService {
             throw new ExistException("该类型数据已存在，无需重复添加");
         }
 
-        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), company, command.getDriverType(), null);
+        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), command.getStartingPrice(), company, command.getDriverType(), null);
 
         if (null != command.getCarType()) {
             billing.setCarType(command.getCarType());
@@ -93,7 +93,8 @@ public class BillingService implements IBillingService {
 
         billing.setKmBilling(command.getKmBilling());
         billing.setMinuteBilling(command.getMinuteBilling());
-        billing.setDriverType(command.getDriverType());
+        billing.setStartingPrice(command.getStartingPrice());
+//        billing.setDriverType(command.getDriverType());
 //        if (null != command.getCarType()) {
 //            billing.setCarType(command.getCarType());
 //        }

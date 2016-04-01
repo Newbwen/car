@@ -35,10 +35,34 @@
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> 区域</div>
+                <div class="profile-info-name"> 起步价</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="age">${billing.company.name!}</span>
+                    <span class="editable editable-click" id="country">${billing.startingPrice!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 所属公司</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="country">${billing.company.name!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 司机类型</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age">${(billing.driverType.getName())!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 车辆类型</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age">${(billing.carType.getName())!}</span>
                 </div>
             </div>
         </div>

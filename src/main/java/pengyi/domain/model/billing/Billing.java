@@ -17,6 +17,8 @@ public class Billing extends Identity {
 
     private BigDecimal minuteBilling; //根据分钟计费
 
+    private BigDecimal startingPrice;   //起步价
+
     private DriverType driverType;
 
     private CarType carType;
@@ -27,9 +29,10 @@ public class Billing extends Identity {
         super();
     }
 
-    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling, Company company, DriverType driverType, CarType carType) {
+    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling,BigDecimal startingPrice, Company company, DriverType driverType, CarType carType) {
         this.kmBilling = kmBilling;
         this.minuteBilling = minuteBilling;
+        this.startingPrice = startingPrice;
         this.company = company;
         this.driverType = driverType;
         this.carType = carType;
@@ -73,5 +76,13 @@ public class Billing extends Identity {
 
     public void setCarType(CarType carType) {
         this.carType = carType;
+    }
+
+    public BigDecimal getStartingPrice() {
+        return startingPrice;
+    }
+
+    public void setStartingPrice(BigDecimal startingPrice) {
+        this.startingPrice = startingPrice;
     }
 }
