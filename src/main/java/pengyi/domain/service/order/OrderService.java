@@ -144,6 +144,13 @@ public class OrderService implements IOrderService {
 
         orderRepository.save(order);
 
+        String[] drivers = command.getDrivers().split(",");
+        for (String driver : drivers) {
+            if (TcpService.userClients.containsKey(driver)) {
+                TcpService.userClients.get(driver).send(order.getOrderNumber());
+            }
+        }
+
         return order;
     }
 

@@ -20,7 +20,8 @@ public class CreateOrderCommand {
     private BigDecimal extraMoney;                      //调度费
     private String startAddress;                        //开始地址
     private String endAddress;                          //结束地址
-    private CarType carType;
+    private CarType carType;                            //车辆类型
+    private String drivers;                             //附近司机
 
     public String getOrderUser() {
         return orderUser;
@@ -76,5 +77,13 @@ public class CreateOrderCommand {
 
     public void setCarType(CarType carType) {
         this.carType = carType;
+    }
+
+    public String getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(String drivers) {
+        this.drivers = drivers;
     }
 }

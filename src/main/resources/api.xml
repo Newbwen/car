@@ -199,7 +199,7 @@
             <id>f0799840-48fd-49e8-850e-742eabde69ec</id>
             <name>创建订单</name>
             <address>api/app/order/create_order</address>
-            <shuoming>subscribeDate(预约时间),driverType(接单司机类型),extraMoney(调度费),startAddress(开始地址),endAddress(结束地址),carType(专车类型)</shuoming>
+            <shuoming>subscribeDate(预约时间),driverType(接单司机类型),extraMoney(调度费),startAddress(开始地址),endAddress(结束地址),carType(专车类型),drivers(司机的手机号，已,分割)</shuoming>
             <zhuyi>用户之前必须登录,subscribeDate(格式:yyyyMMdd hh:mm:ss),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车),extraMoney(格式:0.00),carType(专车类型,只有选择专车的时候为必传.ECONMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":145,"message":"成功"}</fanhuixinxi>
         </api>

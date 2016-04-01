@@ -94,6 +94,9 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getEndAddress())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10028.getMessage());
             }
+            if (CoreStringUtils.isEmpty(command.getDrivers())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10034.getMessage());
+            }
             OrderRepresentation order = mappingService.map(orderService.apiCreateOrder(command), OrderRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, order, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
