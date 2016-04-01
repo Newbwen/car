@@ -146,8 +146,8 @@ public class OrderService implements IOrderService {
 
         String[] drivers = command.getDrivers().split(",");
         for (String driver : drivers) {
-            if (TcpService.userClients.containsKey(driver)) {
-                TcpService.userClients.get(driver).send(JSON.toJSONString(order));
+            if (TcpService.driverClients.containsKey(driver)) {
+                TcpService.driverClients.get(driver).send(JSON.toJSONString(order));
             }
         }
 

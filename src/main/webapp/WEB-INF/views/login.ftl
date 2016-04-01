@@ -9,7 +9,7 @@
     <meta name="author" content="YJH"/>
 [/@block]
 
-    <title>西瓜行 后台管理 - 登录</title>
+    <title>西瓜专车 后台管理 - 登录</title>
     <link rel="shortcut icon" href="[@spring.url '/resources/assets/images/favicon.ico' /]" type="image/x-icon"/>
 
     <link href="[@spring.url '/resources/assets/css/bootstrap.min.css'/]" rel="stylesheet"/>
@@ -66,8 +66,8 @@
                 <div class="login-container">
                     <div class="center">
                         <h1>
-                            <i class="icon-leaf green"></i>
-                            <span class="red">西瓜行</span>
+                            <img class="logo-img" src="[@spring.url '/resources/assets/images/logo.ico'/]">
+                            <span class="red">西瓜专车</span>
                             <span class="white">后台管理</span>
                         </h1>
                     </div>
@@ -78,10 +78,6 @@
                         <div id="login-box" class="login-box visible widget-box no-border">
                             <div class="widget-body">
                                 <div class="widget-main">
-                                    <h4 class="header blue lighter bigger">
-                                        <i class="icon-coffee green"></i>
-                                        西瓜行 后台管理登录
-                                    </h4>
                                 [@mc.showAlert /]
                                     <div class="space-6"></div>
 

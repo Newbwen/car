@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.car.command.CreateCarCommand;
 import pengyi.application.car.command.EditCarCommand;
+import pengyi.application.car.representation.ApiAppCarRepresentation;
 import pengyi.application.car.representation.CarRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -82,7 +83,7 @@ public class ApiCarAppService implements IApiCarAppService {
 
     @Override
     public BaseResponse apiInfo(String driverId) {
-        CarRepresentation car = mappingService.map(carService.searchByDriver(driverId), CarRepresentation.class, false);
+        ApiAppCarRepresentation car = mappingService.map(carService.searchByDriver(driverId), ApiAppCarRepresentation.class, false);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, car, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }

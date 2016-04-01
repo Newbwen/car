@@ -15400,3 +15400,8 @@ th[aria-selected=true] .ui-jqgrid-sortable {
         top: 65px
     }
 }
+
+.logo-img{
+    width: 40px;
+    height: 40px;
+}

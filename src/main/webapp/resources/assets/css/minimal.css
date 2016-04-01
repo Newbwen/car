@@ -5220,9 +5220,9 @@ menu .btn .fa {
     background-color: rgba(0, 0, 0, 0.05);
 }
 .navbar .navbar-header {
-    width: 250px;
-    position: relative;
-    z-index: 99;
+    /*width: 250px;*/
+    /*position: relative;*/
+    /*z-index: 99;*/
 }
 .navbar .navbar-header .navbar-brand {
     font-weight: 300;

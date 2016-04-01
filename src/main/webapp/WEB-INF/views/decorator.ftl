@@ -30,7 +30,7 @@
     <meta name="description" content=""/>
     <meta name="author" content="YJH"/>
 [/@block]
-    <title>西瓜行 后台管理 - [@block name="title"][/@block]</title>
+    <title>西瓜专车 后台管理 - [@block name="title"][/@block]</title>
     <link rel="shortcut icon" href="[@spring.url '/resources/assets/images/favicon.ico' /]" type="image/x-icon"/>
     <!-- basic styles -->
     <link href="[@spring.url '/resources/assets/css/bootstrap.min.css' /]" rel="stylesheet"/>

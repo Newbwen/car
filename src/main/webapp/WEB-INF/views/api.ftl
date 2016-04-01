@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>西瓜行API</title>
+    <title>西瓜专车API</title>
     <link href="[@spring.url '/resources/assets/css/api.css' /]" rel="stylesheet"/>
     <script type="text/javascript" src="[@spring.url '/resources/assets/js/jquery-2.0.3.min.js' /]"></script>
 </head>
