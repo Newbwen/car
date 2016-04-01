@@ -1,7 +1,6 @@
 package pengyi.core.util;
 
 import org.xml.sax.SAXException;
-import pengyi.core.pay.wechat.Configure;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

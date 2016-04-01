@@ -8,13 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.order.IOrderAppService;
 import pengyi.application.order.representation.OrderRepresentation;
+import pengyi.application.pay.IPayAppService;
+import pengyi.core.commons.Constants;
 import pengyi.core.type.PayType;
+import pengyi.core.util.HttpUtil;
 import pengyi.core.util.Signature;
 import pengyi.domain.model.pay.AlipayNotify;
+import pengyi.domain.model.pay.WechatNotify;
 import pengyi.domain.service.pay.IPayService;
 import pengyi.interfaces.shared.web.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,11 +33,11 @@ public class PayController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IPayService payService;
+    private IPayAppService payAppService;
 
     @RequestMapping(value = "/alipay/notify")
     @ResponseBody
-    public String alipayNotify(AlipayNotify notify, HttpServletRequest request, Locale locale) throws IllegalAccessException {
+    public String alipayNotify(AlipayNotify notify, HttpServletRequest request, Locale locale) {
 
         Map<String, Object> map = request.getParameterMap();
         for (Map.Entry entry : map.entrySet()) {
@@ -41,30 +46,64 @@ public class PayController extends BaseController {
         String sign = notify.getSign();
         notify.setSign("");
         notify.setSign_type("");
-        String mySign = Signature.getSign(notify);
+        String mySign = null;
+        try {
+            mySign = Signature.getSign(notify);
+            if (mySign.equals(sign) && "true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
+                    Constants.ALIPAY_NOTIFY_VERIFY_PARAM + notify.getNotify_id()))) {
+                if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
+                    payAppService.alipaySuccess(notify);
+                    logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
+                } else if (notify.getTrade_status().equals("TRADE_FINISHED")) {
+                    payAppService.alipaySuccess(notify);
+                    logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
+                } else if (notify.getTrade_status().equals("WAIT_BUYER_PAY")) {
 
-        https://mapi.alipay.com/gateway.do?service=notify_verify&partner=2088002396712354&notify_id=RqPnCoPT3K9%252Fvwbh3I%252BFioE227%252BPfNMl8jwyZqMIiXQWxhOCmQ5MQO%252FWd93rvCB%252BaiGg
-
-        if (mySign.equals(sign)) {
-            if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
-                logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
-                payService.alipaySuccess(notify);
-            } else if (notify.getTrade_status().equals("TRADE_FINISHED")) {
-                logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
-                payService.alipaySuccess(notify);
-            } else if (notify.getTrade_status().equals("WAIT_BUYER_PAY")) {
-
+                }
+            } else {
+                logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败或不是支付宝通知"}, locale));
             }
+            return "true";
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-
-        return "success";
+        logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "UNKNOWN"}, locale));
+        return "false";
     }
 
     @RequestMapping(value = "/wechat/notify")
     @ResponseBody
-    public String wechatNotify() {
+    public String wechatNotify(WechatNotify notify, HttpServletRequest request, Locale locale) {
 
+        Map<String, Object> map = request.getParameterMap();
+        for (Map.Entry entry : map.entrySet()) {
+            logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue());
+        }
+        String sign = notify.getSign();
+        notify.setSign(sign);
+        try {
+            String mySign = Signature.getSign(notify);
+            if (mySign.equals(sign)) {
+                if (notify.getReturn_code().equals("SUCCESS")) {
+                    if (notify.getResult_code().equals("SUCCESS")) {
+                        payAppService.wechatSuccess(notify);
+                        logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
+                    } else {
+                        logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getErr_code_des()}, locale));
+                    }
+
+                } else {
+                    logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getReturn_msg()}, locale));
+                }
+            } else {
+                logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败"}, locale));
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         return "success";
     }

@@ -94,6 +94,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public void paySuccress(Order order) {
+        orderRepository.save(order);
+    }
+
+    @Override
     public Pagination<Order> apiCompanyOrderPagination(CompanyOrderListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         List<Driver> drivers = driverService.searchByCompany(command.getCompany());
