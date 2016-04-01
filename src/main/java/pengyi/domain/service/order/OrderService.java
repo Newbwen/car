@@ -147,7 +147,7 @@ public class OrderService implements IOrderService {
         String[] drivers = command.getDrivers().split(",");
         for (String driver : drivers) {
             if (TcpService.userClients.containsKey(driver)) {
-                TcpService.userClients.get(driver).send(order.getOrderNumber());
+                TcpService.userClients.get(driver).send(JSON.toJSONString(order));
             }
         }
 
@@ -168,7 +168,7 @@ public class OrderService implements IOrderService {
 
         String phone = order.getOrderUser().getUserName();
         if (TcpService.userClients.containsKey(phone)) {
-            TcpService.userClients.get(phone).send(order.getOrderNumber());
+            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
         }
         return order;
     }
