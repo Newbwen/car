@@ -6,11 +6,11 @@ package pengyi.core.sms.obj;
  */
 public enum  SmsTemplate {
 
-    AUTHENTICATION("SMS_5391049", "验证码${code}，您正在进行${product}身份验证，打死不要告诉别人哦！"),   //身份验证
-    SME_LOGIN("SMS_5391048", "验证码${code}，您正在登录${product}，若非本人操作，请勿泄露。"),            //登录验证
-    REGISTER("SMS_5391046", "验证码${code}，您正在注册成为${product}用户，感谢您的支持！"),               //注册
-    RESETPWD("SMS_5391044", "验证码${code}，您正在尝试修改${product}登录密码，请妥善保管账户信息。"),     //修改密码
-    INFO_CHANGE("SMS_5391043", "验证码${code}，您正在尝试变更${product}重要信息，请妥善保管账户信息。");  //修改重要信息
+    AUTHENTICATION("SMS_7300220", "验证码${code}，您正在进行${product}身份验证，打死不要告诉别人哦！"),   //身份验证
+    SME_LOGIN("SMS_7300218", "验证码${code}，您正在登录${product}，若非本人操作，请勿泄露。"),            //登录验证
+    REGISTER("SMS_7300216", "验证码${code}，您正在注册成为${product}用户，感谢您的支持！"),               //注册
+    RESETPWD("SMS_7300214", "验证码${code}，您正在尝试修改${product}登录密码，请妥善保管账户信息。"),     //修改密码
+    INFO_CHANGE("SMS_7300213", "验证码${code}，您正在尝试变更${product}重要信息，请妥善保管账户信息。");  //修改重要信息
 
     private String key;
     private String value;
