@@ -40,6 +40,7 @@ public enum ResponseMessage {
     ERROR_10031(10031, "page字段不能为空"),
     ERROR_10032(10032, "roleName字段不能为空"),
     ERROR_10033(10033, "qq,phone,email必须有一个字段不能为空"),
+    ERROR_10034(10034, "drivers字段不能为空"),
 
     //救援
     ERROR_20000(20000, "派送救援司机不能为空"),
