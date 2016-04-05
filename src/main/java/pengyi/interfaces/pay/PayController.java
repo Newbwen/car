@@ -48,7 +48,7 @@ public class PayController extends BaseController {
         notify.setSign_type("");
         String mySign = null;
         try {
-            mySign = Signature.getSign(notify);
+            mySign = Signature.getAlipaySign(notify);
             if (mySign.equals(sign) && "true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
                     Constants.ALIPAY_NOTIFY_VERIFY_PARAM + notify.getNotify_id()))) {
                 if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
@@ -85,7 +85,7 @@ public class PayController extends BaseController {
         String sign = notify.getSign();
         notify.setSign(sign);
         try {
-            String mySign = Signature.getSign(notify);
+            String mySign = Signature.getWechatSign(notify);
             if (mySign.equals(sign)) {
                 if (notify.getReturn_code().equals("SUCCESS")) {
                     if (notify.getResult_code().equals("SUCCESS")) {

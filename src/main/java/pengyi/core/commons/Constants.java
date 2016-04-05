@@ -7,7 +7,7 @@ public class Constants {
 
     public final static String SESSION_USER = "sessionUser";
 
-    public final static String ALIPAY_PARTNER = "";
+    public final static String ALIPAY_PARTNER = "2088221376498325";
 
     public final static String ALIPAY_NOTIFY_VERIFY_URL = "https://mapi.alipay.com/gateway.do";
 
