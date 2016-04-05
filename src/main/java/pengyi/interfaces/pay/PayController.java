@@ -1,5 +1,6 @@
 package pengyi.interfaces.pay;
 
+import org.aspectj.weaver.SignatureUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import pengyi.application.pay.IPayAppService;
 import pengyi.core.commons.Constants;
 import pengyi.core.type.PayType;
 import pengyi.core.util.HttpUtil;
+import pengyi.core.util.SignUtils;
 import pengyi.core.util.Signature;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
@@ -41,14 +43,15 @@ public class PayController extends BaseController {
 
         Map<String, Object> map = request.getParameterMap();
         for (Map.Entry entry : map.entrySet()) {
-            logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue());
+            logger.info(entry.getKey() + ">----------->" + ((String[])entry.getValue())[0]);
         }
         String sign = notify.getSign();
+        logger.info("sign" + notify.getSign() + ">----->sign_type" + notify.getSign_type());
         notify.setSign("");
         notify.setSign_type("");
         String mySign = null;
         try {
-            mySign = Signature.getAlipaySign(notify);
+            mySign = SignUtils.sign(notify);
             if (mySign.equals(sign) && "true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
                     Constants.ALIPAY_NOTIFY_VERIFY_PARAM + notify.getNotify_id()))) {
                 if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
@@ -60,12 +63,10 @@ public class PayController extends BaseController {
                 } else if (notify.getTrade_status().equals("WAIT_BUYER_PAY")) {
 
                 }
+                return "true";
             } else {
                 logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败或不是支付宝通知"}, locale));
             }
-            return "true";
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +81,7 @@ public class PayController extends BaseController {
 
         Map<String, Object> map = request.getParameterMap();
         for (Map.Entry entry : map.entrySet()) {
-            logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue());
+            logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue().toString());
         }
         String sign = notify.getSign();
         notify.setSign(sign);

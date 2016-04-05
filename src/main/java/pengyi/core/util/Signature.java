@@ -47,36 +47,6 @@ public class Signature {
         return result;
     }
 
-    /**
-            * 签名算法
-    * @param o 要参与签名的数据对象
-    * @return 签名
-    * @throws IllegalAccessException
-    */
-    public static String getAlipaySign(Object o) throws IllegalAccessException {
-        ArrayList<String> list = new ArrayList<String>();
-        Class cls = o.getClass();
-        Field[] fields = cls.getDeclaredFields();
-        for (Field f : fields) {
-            f.setAccessible(true);
-            if (f.get(o) != null && f.get(o) != "") {
-                list.add(f.getName() + "=" + f.get(o) + "&");
-            }
-        }
-        int size = list.size();
-        String [] arrayToSort = list.toArray(new String[size]);
-        Arrays.sort(arrayToSort, String.CASE_INSENSITIVE_ORDER);
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < size; i ++) {
-            sb.append(arrayToSort[i]);
-        }
-        String result = sb.toString();
-        Util.log("Sign Before MD5:" + result);
-        result = MD5Util.MD5Encode(result).toUpperCase();
-        Util.log("Sign Result:" + result);
-        return result;
-    }
-
     public static String getSign(Map<String,Object> map){
         ArrayList<String> list = new ArrayList<String>();
         for(Map.Entry<String,Object> entry:map.entrySet()){

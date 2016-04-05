@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class AlipayNotify {
 
-    private Date notify_time;
+    private String notify_time;
     private String notify_type;
     private String notify_id;
     private String sign_type;
@@ -27,19 +27,19 @@ public class AlipayNotify {
     private int quantity;
     private BigDecimal price;
     private String body;
-    private Date gmt_create;
-    private Date gmt_payment;
+    private String gmt_create;
+    private String gmt_payment;
     private String is_total_fee_adjust;
     private String use_coupon;
     private BigDecimal discount;
     private String refund_status;
     private Date gmt_refund;
 
-    public Date getNotify_time() {
+    public String getNotify_time() {
         return notify_time;
     }
 
-    public void setNotify_time(Date notify_time) {
+    public void setNotify_time(String notify_time) {
         this.notify_time = notify_time;
     }
 
@@ -179,19 +179,19 @@ public class AlipayNotify {
         this.body = body;
     }
 
-    public Date getGmt_create() {
+    public String getGmt_create() {
         return gmt_create;
     }
 
-    public void setGmt_create(Date gmt_create) {
+    public void setGmt_create(String gmt_create) {
         this.gmt_create = gmt_create;
     }
 
-    public Date getGmt_payment() {
+    public String getGmt_payment() {
         return gmt_payment;
     }
 
-    public void setGmt_payment(Date gmt_payment) {
+    public void setGmt_payment(String gmt_payment) {
         this.gmt_payment = gmt_payment;
     }
 
