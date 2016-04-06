@@ -8,7 +8,7 @@ public enum CarType {
     ECONOMY("经济型", 1, Boolean.FALSE),
     COMFORT("舒适型", 2, Boolean.FALSE),
     BUSINESS("商务型", 3, Boolean.FALSE),
-    LUXURY("豪华型", 3, Boolean.FALSE);
+    LUXURY("豪华型", 4, Boolean.FALSE);
 
     private CarType(String name, int value, Boolean onlyQuery) {
         this.name = name;

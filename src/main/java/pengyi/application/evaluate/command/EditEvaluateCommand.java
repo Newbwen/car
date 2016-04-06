@@ -11,6 +11,14 @@ public class EditEvaluateCommand {
     private Integer version;
     @NotEmpty(message = "{evaluate.evaluateUser.NotEmpty.message}")
     private String evaluateUser;                      //评价人
+    @NotEmpty(message = "{evaluate.order.NotEmpty.message}")
+    private String orderId;                             //订单
+
+    @NotEmpty(message = "{evaluate.content.NotEmpty.message}")
+    private String content;                          //评价内容
+
+    @NotEmpty(message = "{evaluate.level.NotEmpty.message}")
+    private Integer level;                              //评级
 
     public String getEvaluateUser() {
         return evaluateUser;
@@ -20,11 +28,13 @@ public class EditEvaluateCommand {
         this.evaluateUser = evaluateUser;
     }
 
-    @NotEmpty(message = "{evaluate.content.NotEmpty.message}")
-    private String content;                          //评价内容
+    public String getOrderId() {
+        return orderId;
+    }
 
-    @NotEmpty(message = "{evaluate.level.NotEmpty.message}")
-    private Integer level;                              //评级
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public String getId() {
         return id;
