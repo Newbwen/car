@@ -379,5 +379,21 @@
             <zhuyi>page(默认为1)pageSize(默认为10),</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"count":1,"data":[{"baseUser":{"balance":0.00,"createDate":"2016-03-21 17:03:29.0","email":"13271940409@163.com","head":null,"id":"402881e9539857710153986a30fd0001","integral":0,"money":null,"name":"怪叔叔丶","password":"cc02a9dbbfdafd467d958f67b272fbe5","reportCount":null,"salt":"f5386e338e52190fb5a0edd3eaa47a1e","sex":"MAN","status":"ENABLE","userName":"13271940409","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":18},"description":"阿萨德撒打算","flowType":"OUT_FLOW","id":"1231","money":123.00,"newMoney":3152.00,"oldMoney":20.00,"version":1}],"page":1,"pageSize":20},"debug_time":13,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>b87aabd1-fb3c-4048-bd62-61cd26c910fb</id>
+            <name>用户余额支付订单</name>
+            <address>api/app/order/balance_pay</address>
+            <shuoming>orderId(订单id),version(订单数据版本号)</shuoming>
+            <zhuyi>用户必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>80296303-0d16-4af4-a341-107aca88d60d</id>
+            <name>用户线下支付</name>
+            <address>api/app/order/off_line_pay</address>
+            <shuoming>orderId(订单id),version(订单数据版本号)</shuoming>
+            <zhuyi>用户必须登录,参数不能为空</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
+        </api>
     </apis>
 </apifile>

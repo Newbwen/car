@@ -1,6 +1,7 @@
 package pengyi.repository.generic;
 
 import org.hibernate.FetchMode;
+import org.hibernate.LockMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
@@ -31,6 +32,8 @@ public interface IHibernateGenericRepository<T, ID extends Serializable> {
     void saveOrUpdate(T entity);
 
     void update(T entity);
+
+    void addLock();
 
     void delete(T entity);
 

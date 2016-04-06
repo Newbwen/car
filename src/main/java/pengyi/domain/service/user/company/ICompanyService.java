@@ -29,6 +29,10 @@ public interface ICompanyService {
 
     List<Company> list(BaseListCompanyCommand companyCommand);
 
+    void update(Company company);
+
+    void addLock();
+
     /********** api 方法    *************/
     Company apiEdit(EditCompanyCommand command);
 

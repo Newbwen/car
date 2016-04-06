@@ -110,6 +110,11 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public void addLock(){
+        driverRepository.addLock();
+    }
+
+    @Override
     public List<Driver> searchByCompany(String company) {
         return driverRepository.searchByCompany(company);
     }

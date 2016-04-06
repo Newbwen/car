@@ -7,15 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.order.IApiOrderAppService;
-import pengyi.application.order.command.CreateOrderCommand;
-import pengyi.application.order.command.ListOrderCommand;
-import pengyi.application.order.command.ReceiveOrderCommand;
-import pengyi.application.order.command.UpDateOrderStatusCommand;
+import pengyi.application.order.command.*;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.core.exception.OrderIsStartException;
 import pengyi.core.type.UserType;
 import pengyi.domain.model.user.BaseUser;
@@ -227,6 +225,54 @@ public class ApiAppOrderController {
         } catch (OrderIsStartException e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseCode.RESPONSE_CODE_FAILURE.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
+    @RequestMapping(value = "/balance_pay")
+    @ResponseBody
+    public BaseResponse balancePay(BalancePayCommand command, HttpSession session) {
+        long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.balancePay(command);
+        } catch (ConcurrencyException e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_ORDER_UPDATED, 0, null, ResponseCode.RESPONSE_CODE_ORDER_UPDATED.getMessage());
+        } catch (NotSufficientFundsException e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_SUFFICIENT_FUNDS, 0, null, ResponseCode.RESPONSE_CODE_NOT_SUFFICIENT_FUNDS.getMessage());
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseCode.RESPONSE_CODE_FAILURE.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
+    @RequestMapping(value = "/off_line_pay")
+    public BaseResponse offLinePay(OffLinePayCommand command, HttpSession session) {
+        long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.offLinePay(command);
+        } catch (ConcurrencyException e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_ORDER_UPDATED, 0, null, ResponseCode.RESPONSE_CODE_ORDER_UPDATED.getMessage());
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseCode.RESPONSE_CODE_FAILURE.getMessage());

@@ -135,6 +135,16 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
+    public void update(Company company) {
+        companyRepository.update(company);
+    }
+
+    @Override
+    public void addLock() {
+        companyRepository.addLock();
+    }
+
+    @Override
     public Company apiEdit(EditCompanyCommand command) {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());

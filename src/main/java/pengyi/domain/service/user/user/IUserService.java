@@ -22,9 +22,12 @@ public interface IUserService {
 
     void updateReportCount(String id);
 
+    void update(User user);
+
+    void addLock();
+
     /******** api 方法  ***********/
     User apiUpdateHeadPic(UpdateHeadPicCommand command);
 
     User apiRegister(RegisterUserCommand command);
-
 }

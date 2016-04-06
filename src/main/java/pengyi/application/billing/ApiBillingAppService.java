@@ -116,7 +116,7 @@ public class ApiBillingAppService implements IApiBillingAppService {
 
     @Override
     public BaseResponse searchByDriver(SearchBillingCommand command) {
-        if (null == command) {
+        if (null != command) {
             if (CoreStringUtils.isEmpty(command.getUserName())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
             }

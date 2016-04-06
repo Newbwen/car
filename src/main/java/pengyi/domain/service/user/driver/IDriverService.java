@@ -22,6 +22,8 @@ public interface IDriverService {
 
     Driver create(Driver driver);
 
+    void addLock();
+
     List<Driver> searchByCompany(String company);
 
     void updateDriverLevel(String driverId, Double level);

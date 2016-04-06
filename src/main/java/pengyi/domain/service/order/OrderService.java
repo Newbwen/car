@@ -9,17 +9,23 @@ import org.springframework.stereotype.Service;
 import pengyi.application.order.command.*;
 import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.core.exception.OrderIsStartException;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.core.type.OrderStatus;
+import pengyi.core.type.PayType;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.order.IOrderRepository;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
+import pengyi.domain.model.user.user.User;
 import pengyi.domain.service.user.IBaseUserService;
+import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.domain.service.user.driver.IDriverService;
+import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 import pengyi.socketserver.TcpService;
 
@@ -42,6 +48,12 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private IDriverService driverService;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private ICompanyService companyService;
 
     @Autowired
     private IdFactory idFactory;
@@ -251,5 +263,53 @@ public class OrderService implements IOrderService {
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
 
         return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+    }
+
+    @Override
+    public Order balancePay(BalancePayCommand command) {
+        Order order = this.show(command.getOrderId());
+        order.fainWhenConcurrencyViolation(command.getVersion());
+        User user = userService.show(order.getOrderUser().getId());
+        Driver driver = driverService.show(order.getReceiveUser().getId());
+        Company company = driver.getCompany();
+
+        if (user.getMoney().compareTo(order.getShouldMoney()) == -1) {
+            throw new NotSufficientFundsException("用户余额不足");
+        }
+
+        userService.addLock();
+        user.setMoney(user.getMoney().subtract(order.getShouldMoney()));
+        userService.update(user);
+        companyService.addLock();
+        company.setMoney(company.getMoney().add(order.getShouldMoney()));
+        companyService.update(company);
+
+        order.setPayTime(new Date());
+        order.setOrderStatus(OrderStatus.SUCCESS);
+        order.setPayType(PayType.BALANCE);
+
+        orderRepository.update(order);
+        return order;
+    }
+
+    @Override
+    public Order offLinePay(OffLinePayCommand command) {
+        Order order = this.show(command.getOrderId());
+        order.fainWhenConcurrencyViolation(command.getVersion());
+
+        Driver driver = driverService.show(order.getReceiveUser().getId());
+        Company company = companyService.show(driver.getCompany().getId());
+
+        driverService.addLock();
+        driver.setMoney(driver.getMoney().subtract(order.getShouldMoney()));
+        companyService.addLock();
+        company.setMoney(company.getMoney().add(order.getShouldMoney()));
+
+        order.setPayTime(new Date());
+        order.setOrderStatus(OrderStatus.SUCCESS);
+        order.setPayType(PayType.OFFLINE);
+
+        orderRepository.update(order);
+        return order;
     }
 }

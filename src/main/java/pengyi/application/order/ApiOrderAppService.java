@@ -73,7 +73,7 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getOrderUser())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10020.getMessage());
             }
-            if (null != command.getKm()) {
+            if (null == command.getKm()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10036.getMessage());
             }
             if (!CoreStringUtils.isEmpty(command.getSubscribeDate())) {
@@ -216,6 +216,42 @@ public class ApiOrderAppService implements IApiOrderAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0,
                     new Pagination<OrderRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize()),
                     ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse balancePay(BalancePayCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+
+            OrderRepresentation order = mappingService.map(orderService.balancePay(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public BaseResponse offLinePay(OffLinePayCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+
+            OrderRepresentation order = mappingService.map(orderService.offLinePay(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
                     ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());

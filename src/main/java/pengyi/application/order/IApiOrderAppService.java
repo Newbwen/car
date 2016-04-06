@@ -29,4 +29,7 @@ public interface IApiOrderAppService {
     BaseResponse pagination(ListOrderCommand command);
 
 
+    BaseResponse balancePay(BalancePayCommand command);
+
+    BaseResponse offLinePay(OffLinePayCommand command);
 }

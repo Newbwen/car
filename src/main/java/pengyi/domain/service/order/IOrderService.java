@@ -44,4 +44,7 @@ public interface IOrderService {
 
     Pagination<Order> apiPagination(ListOrderCommand command);
 
+    Order balancePay(BalancePayCommand command);
+
+    Order offLinePay(OffLinePayCommand command);
 }

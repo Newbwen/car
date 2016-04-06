@@ -1,9 +1,6 @@
 package pengyi.repository.generic;
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.*;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +53,11 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     @Override
     public void refresh(Object obj) {
         getSession().refresh(obj);
+    }
+
+    @Override
+    public void addLock(){
+        getSession().createCriteria(getPersistentClass()).setLockMode(LockMode.PESSIMISTIC_WRITE);
     }
 
     @Override

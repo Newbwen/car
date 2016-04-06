@@ -100,6 +100,16 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void update(User user) {
+        userRepository.update(user);
+    }
+
+    @Override
+    public void addLock() {
+        userRepository.addLock();
+    }
+
+    @Override
     public User apiUpdateHeadPic(UpdateHeadPicCommand command) {
         User user = this.show(command.getId());
         String headPic = command.getHeadPic().replaceAll("img_tmp", "img");
