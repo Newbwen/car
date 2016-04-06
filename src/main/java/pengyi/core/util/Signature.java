@@ -22,7 +22,7 @@ public class Signature {
      * @return 签名
      * @throws IllegalAccessException
      */
-    public static String getSign(Object o) throws IllegalAccessException {
+    public static String getWechatSign(Object o) throws IllegalAccessException {
         ArrayList<String> list = new ArrayList<String>();
         Class cls = o.getClass();
         Field[] fields = cls.getDeclaredFields();

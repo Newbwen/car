@@ -35,7 +35,7 @@ public class SmsSender {
             public void run() {
                 AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
                 req.setSmsType("normal");
-                req.setSmsFreeSignName("登录验证");
+                req.setSmsFreeSignName("西瓜专车");
                 req.setSmsParamString("{\"code\":\"" + code + "\",\"product\":\"西瓜专车\"}");
                 req.setRecNum(phone);
                 req.setSmsTemplateCode(template.getKey());

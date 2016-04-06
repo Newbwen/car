@@ -29,7 +29,7 @@ public class PayService implements IPayService {
 
         if (null != order && order.getExtraMoney().add(order.getShouldMoney()).equals(notify.getTotal_fee())) {
             order.setEndTime(new Date());
-            order.setPayTime(notify.getGmt_payment());
+            order.setPayTime(CoreDateUtils.parseLongDate(notify.getGmt_payment()));
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.ALIPAY);
             order.setPayNo(notify.getTrade_no());
