@@ -23,7 +23,7 @@ public interface IBillingService {
 
     Billing searchByCompany(String id);
 
-    List<Billing> searchByDriver(SearchBillingCommand userName);
+    List<Billing> searchByDriver(SearchBillingCommand command);
 
     Pagination<Billing> apiPagination(ListBillingCommand command);
 }

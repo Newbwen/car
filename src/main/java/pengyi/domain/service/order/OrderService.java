@@ -6,6 +6,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pengyi.application.billing.command.SearchBillingCommand;
 import pengyi.application.order.command.*;
 import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
@@ -16,12 +17,14 @@ import pengyi.core.type.OrderStatus;
 import pengyi.core.type.PayType;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.order.IOrderRepository;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.model.user.user.User;
+import pengyi.domain.service.billing.IBillingService;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.domain.service.user.driver.IDriverService;
@@ -29,6 +32,7 @@ import pengyi.domain.service.user.user.IUserService;
 import pengyi.repository.generic.Pagination;
 import pengyi.socketserver.TcpService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +58,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private ICompanyService companyService;
+
+    @Autowired
+    private IBillingService billingService;
 
     @Autowired
     private IdFactory idFactory;
@@ -207,6 +214,24 @@ public class OrderService implements IOrderService {
     public Order apiWaitPayOrder(UpDateOrderStatusCommand command) {
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
+
+        order.setEndTime(new Date());
+        Driver driver = driverService.show(order.getReceiveUser().getId());
+        SearchBillingCommand billingCommand = new SearchBillingCommand();
+        billingCommand.setUserName(driver.getUserName());
+        billingCommand.setDriverType(order.getDriverType());
+        billingCommand.setCarType(order.getCarType());
+        List<Billing> billingList = billingService.searchByDriver(billingCommand);
+        if (null == billingCommand && billingList.size() < 1) {
+            throw new NoFoundException("没有找到计费模板");
+        }
+        Billing billing = billingList.get(0);
+        BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(order.getKm()));
+        long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
+        dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
+        BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
+
+        order.setShouldMoney(knMoney.add(minuteMoney));
 
         order.setOrderStatus(OrderStatus.WAIT_PAY);
 
