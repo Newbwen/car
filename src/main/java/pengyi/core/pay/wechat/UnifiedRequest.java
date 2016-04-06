@@ -3,6 +3,10 @@ package pengyi.core.pay.wechat;
 import pengyi.core.commons.Constants;
 import pengyi.core.util.RandomStringGenerator;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 微信下单对象
  * Created by pengyi on 2016/3/9.
@@ -123,6 +127,26 @@ public class UnifiedRequest {
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
         this.notify_url = Constants.WECHAT_NOTIFY_URL;
-        this.trade_type = "App";
+        this.trade_type = "APP";
+    }
+
+
+    public Map<String,Object> toMap(){
+        Map<String,Object> map = new HashMap<String, Object>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            Object obj;
+            try {
+                obj = field.get(this);
+                if(obj!=null){
+                    map.put(field.getName(), obj);
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
     }
 }

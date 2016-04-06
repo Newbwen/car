@@ -379,5 +379,13 @@
             <zhuyi>page(默认为1)pageSize(默认为10),</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"count":1,"data":[{"baseUser":{"balance":0.00,"createDate":"2016-03-21 17:03:29.0","email":"13271940409@163.com","head":null,"id":"402881e9539857710153986a30fd0001","integral":0,"money":null,"name":"怪叔叔丶","password":"cc02a9dbbfdafd467d958f67b272fbe5","reportCount":null,"salt":"f5386e338e52190fb5a0edd3eaa47a1e","sex":"MAN","status":"ENABLE","userName":"13271940409","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":18},"description":"阿萨德撒打算","flowType":"OUT_FLOW","id":"1231","money":123.00,"newMoney":3152.00,"oldMoney":20.00,"version":1}],"page":1,"pageSize":20},"debug_time":13,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>d92ca998-3ef8-4dcf-90ce-318744f8e03a</id>
+            <name>微信支付</name>
+            <address>pay/wechat/pay</address>
+            <shuoming>orderId(订单id)</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"appid":"wx7827a70d6465f5df","err_code":null,"err_code_des":null,"mch_id":"1328747701","nonce_str":"4xU8J8rf5qVcRluW","prepay_id":"wx20160406164836f9d7ef9af80048283087","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"AACE2B9E95A4B581704D8BE0548FCD44","trade_type":"APP"},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
     </apis>
 </apifile>

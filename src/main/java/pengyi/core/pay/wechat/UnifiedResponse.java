@@ -1,5 +1,9 @@
 package pengyi.core.pay.wechat;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 微信下单对象
  * Created by pengyi on 2016/3/9.

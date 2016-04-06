@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.pay.IPayAppService;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
+import pengyi.core.exception.WechatSignException;
 import pengyi.core.type.PayType;
 import pengyi.core.util.HttpUtil;
-import pengyi.core.util.SignUtils;
+import pengyi.core.util.IPUtil;
 import pengyi.core.util.Signature;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
@@ -32,13 +35,27 @@ public class PayController extends BaseController {
     @Autowired
     private IPayAppService payAppService;
 
+    @RequestMapping(value = "/wechat/pay")
+    @ResponseBody
+    public BaseResponse wechatNotify(String orderId, HttpServletRequest request) {
+
+        long starttime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = payAppService.wechatPay(orderId, IPUtil.getIpAddress(request));
+        } catch (WechatSignException e) {
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, System.currentTimeMillis()-starttime, null, e.getMessage());
+        }
+        return response;
+    }
+
     @RequestMapping(value = "/alipay/notify")
     @ResponseBody
     public String alipayNotify(AlipayNotify notify, HttpServletRequest request, Locale locale) {
 
         Map<String, Object> map = request.getParameterMap();
         for (Map.Entry entry : map.entrySet()) {
-            logger.info(entry.getKey() + ">----------->" + ((String[])entry.getValue())[0]);
+            logger.info(entry.getKey() + ">----------->" + ((String[]) entry.getValue())[0]);
         }
         try {
             if ("true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,

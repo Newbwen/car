@@ -1,6 +1,7 @@
 package pengyi.domain.service.pay;
 
 
+import pengyi.core.pay.wechat.UnifiedResponse;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 
@@ -12,4 +13,6 @@ public interface IPayService {
     void alipaySuccess(AlipayNotify notify);
 
     void wechatSuccess(WechatNotify notify);
+
+    UnifiedResponse wechatPay(String orderId, String ipAddress);
 }

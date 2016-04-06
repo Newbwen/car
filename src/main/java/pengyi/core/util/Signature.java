@@ -42,7 +42,7 @@ public class Signature {
         String result = sb.toString();
         result += "key=" + Constants.WECHAT_KEY;
         Util.log("Sign Before MD5:" + result);
-        result = MD5Util.MD5Encode(result).toUpperCase();
+        result = MD5Util.MD5Encode(result, "utf-8").toUpperCase();
         Util.log("Sign Result:" + result);
         return result;
     }
@@ -63,9 +63,9 @@ public class Signature {
         }
         String result = sb.toString();
         result += "key=" + Constants.WECHAT_KEY;
-        //Util.log("Sign Before MD5:" + result);
-        result = MD5Util.MD5Encode(result).toUpperCase();
-        //Util.log("Sign Result:" + result);
+        Util.log("Sign Before MD5:" + result);
+        result = MD5Util.MD5Encode(result, "utf-8").toUpperCase();
+        Util.log("Sign Result:" + result);
         return result;
     }
 
