@@ -1,27 +1,25 @@
 package pengyi.interfaces.pay;
 
-import org.aspectj.weaver.SignatureUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pengyi.application.order.IOrderAppService;
-import pengyi.application.order.representation.OrderRepresentation;
 import pengyi.application.pay.IPayAppService;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
+import pengyi.core.exception.WechatSignException;
 import pengyi.core.type.PayType;
 import pengyi.core.util.HttpUtil;
-import pengyi.core.util.SignUtils;
+import pengyi.core.util.IPUtil;
 import pengyi.core.util.Signature;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
-import pengyi.domain.service.pay.IPayService;
 import pengyi.interfaces.shared.web.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,22 +35,30 @@ public class PayController extends BaseController {
     @Autowired
     private IPayAppService payAppService;
 
+    @RequestMapping(value = "/wechat/pay")
+    @ResponseBody
+    public BaseResponse wechatNotify(String orderId, HttpServletRequest request) {
+
+        long starttime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = payAppService.wechatPay(orderId, IPUtil.getIpAddress(request));
+        } catch (WechatSignException e) {
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, System.currentTimeMillis()-starttime, null, e.getMessage());
+        }
+        return response;
+    }
+
     @RequestMapping(value = "/alipay/notify")
     @ResponseBody
     public String alipayNotify(AlipayNotify notify, HttpServletRequest request, Locale locale) {
 
         Map<String, Object> map = request.getParameterMap();
         for (Map.Entry entry : map.entrySet()) {
-            logger.info(entry.getKey() + ">----------->" + ((String[])entry.getValue())[0]);
+            logger.info(entry.getKey() + ">----------->" + ((String[]) entry.getValue())[0]);
         }
-        String sign = notify.getSign();
-        logger.info("sign" + notify.getSign() + ">----->sign_type" + notify.getSign_type());
-        notify.setSign("");
-        notify.setSign_type("");
-        String mySign = null;
         try {
-            mySign = SignUtils.sign(notify);
-            if (mySign.equals(sign) && "true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
+            if ("true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
                     Constants.ALIPAY_NOTIFY_VERIFY_PARAM + notify.getNotify_id()))) {
                 if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
                     payAppService.alipaySuccess(notify);
@@ -65,13 +71,12 @@ public class PayController extends BaseController {
                 }
                 return "true";
             } else {
-                logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败或不是支付宝通知"}, locale));
+                logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "不是支付宝通知"}, locale));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), e.getMessage()}, locale));
         }
 
-        logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "UNKNOWN"}, locale));
         return "false";
     }
 

@@ -3,10 +3,7 @@ package pengyi.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -29,8 +26,9 @@ public class HttpUtil {
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
 
+
             // Send data
-            PrintWriter pw = new PrintWriter(conn.getOutputStream());
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(conn.getOutputStream(), CharsetConstant.UTF8_STRING));
             // pa为请求的参数
             pw.print(pa);
             pw.flush();
@@ -44,7 +42,7 @@ public class HttpUtil {
             }
 
             InputStream inputStream = conn.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetConstant.UTF8_STRING));
             StringBuilder builder = new StringBuilder();
             String readLine;
             while (null != (readLine = br.readLine())) {

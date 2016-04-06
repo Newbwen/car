@@ -17,27 +17,6 @@ import java.io.IOException;
  */
 public class WechatPayHandle {
 
-    public UnifiedResponse unifiedOrder(UnifiedRequest object) {
 
-        try {
-
-            String sign = Signature.getWechatSign(object);
-            object.setSign(sign);
-            XStream xStream=new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
-            String s = HttpUtil.urlConnection(Constants.WECHAT_UNIFIED_URL, xStream.toXML(object));
-
-            return (UnifiedResponse) xStream.fromXML(Signature.getSignFromResponseString(s));
-
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

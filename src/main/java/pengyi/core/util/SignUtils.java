@@ -43,6 +43,7 @@ public class SignUtils {
                 sb.append(arrayToSort[i]);
             }
             logger.info("签名前" + sb.toString());
+
             PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
                     Base64.decode(Constants.ALIPAY_RSA_PRIVATE_KEY));
             KeyFactory keyf = KeyFactory.getInstance(ALGORITHM);
@@ -52,7 +53,7 @@ public class SignUtils {
                     .getInstance(SIGN_ALGORITHMS);
 
             signature.initSign(priKey);
-            signature.update(sb.toString().getBytes(DEFAULT_CHARSET));
+            signature.update(("_input_charset=utf-8" + sb.toString()).getBytes(DEFAULT_CHARSET));
 
             byte[] signed = signature.sign();
 
