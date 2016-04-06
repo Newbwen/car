@@ -73,6 +73,9 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getOrderUser())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10020.getMessage());
             }
+            if (null != command.getKm()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10036.getMessage());
+            }
             if (!CoreStringUtils.isEmpty(command.getSubscribeDate())) {
                 if (null == CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME)) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10022.getMessage());

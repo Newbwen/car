@@ -22,6 +22,7 @@ public class CreateOrderCommand {
     private String endAddress;                          //结束地址
     private CarType carType;                            //车辆类型
     private String drivers;                             //附近司机
+    private Integer km;                                 //公里数
 
     public String getOrderUser() {
         return orderUser;
@@ -85,5 +86,13 @@ public class CreateOrderCommand {
 
     public void setDrivers(String drivers) {
         this.drivers = drivers;
+    }
+
+    public Integer getKm() {
+        return km;
+    }
+
+    public void setKm(Integer km) {
+        this.km = km;
     }
 }

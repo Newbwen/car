@@ -91,6 +91,14 @@
             </div>
 
             <div class="profile-info-row">
+                <div class="profile-info-name">公里数</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="username">${order.km!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
                 <div class="profile-info-name"> 应付</div>
 
                 <div class="profile-info-value">

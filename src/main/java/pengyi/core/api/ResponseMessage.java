@@ -42,6 +42,7 @@ public enum ResponseMessage {
     ERROR_10033(10033, "qq,phone,email必须有一个字段不能为空"),
     ERROR_10034(10034, "drivers字段不能为空"),
     ERROR_10035(10035, "startingPrice字段不能为空"),
+    ERROR_10036(10036, "km字段不能为空"),
 
     //救援
     ERROR_20000(20000, "派送救援司机不能为空"),

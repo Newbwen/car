@@ -63,6 +63,8 @@
                 <param name="type">4</param>
             </type>
         </property>
+
+        <property name="km" column="km" type="java.lang.Integer"/>
     </class>
 
 </hibernate-mapping>

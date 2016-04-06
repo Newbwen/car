@@ -33,6 +33,7 @@ public class Order extends Identity {
     private CarType carType;                            //车辆类型
     private PayType payType;                             //支付方式
     private String payNo;                               //支付订单号
+    private Integer km;                                 //公里
 
     public String getOrderNumber() {
         return orderNumber;
@@ -190,7 +191,15 @@ public class Order extends Identity {
         this.payNo = payNo;
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType) {
+    public Integer getKm() {
+        return km;
+    }
+
+    public void setKm(Integer km) {
+        this.km = km;
+    }
+
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, Integer km) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -208,5 +217,6 @@ public class Order extends Identity {
         this.startAddress = startAddress;
         this.endAddress = endAddress;
         this.carType = carType;
+        this.km = km;
     }
 }
