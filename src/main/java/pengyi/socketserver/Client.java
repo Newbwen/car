@@ -80,7 +80,6 @@ public class Client implements Runnable {
         try {
             while (bConnected) {
                 String str = dis.readUTF();
-                dos.writeUTF("111111111111111");
                 ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
                 phone = obj.getPhone();
                 userType = obj.getType();
