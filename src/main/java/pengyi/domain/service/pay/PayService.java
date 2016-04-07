@@ -24,6 +24,7 @@ import pengyi.domain.service.order.IOrderService;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -79,11 +80,20 @@ public class PayService implements IPayService {
             request.setSign(sign);
             XStream xStream = new XStream(new DomDriver("utf-8", new XmlFriendlyNameCoder("-_", "_")));
             String s = HttpUtil.urlConnection(Constants.WECHAT_UNIFIED_URL, xStream.toXML(request));
-            String st = Signature.getSignFromResponseString(s);
+
             UnifiedResponse response = null;
             response = (UnifiedResponse) XMLParser.getObjFromXML(s, UnifiedResponse.class);
             if (response != null) {
-                response.setSign(st);
+                response.setTime_stamp(System.currentTimeMillis()/1000);
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("appid", response.getAppid());
+                map.put("partnerid", response.getMch_id());
+                map.put("prepayid", response.getPrepay_id());
+                map.put("package", "Sign=WXPay");
+                map.put("noncestr", response.getNonce_str());
+                map.put("timestamp", response.getTime_stamp());
+                response.setSign(Signature.getSign(map));
+
             }
             return response;
         } catch (ParserConfigurationException e) {

@@ -1,9 +1,5 @@
 package pengyi.core.pay.wechat;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 微信下单对象
  * Created by pengyi on 2016/3/9.
@@ -21,6 +17,7 @@ public class UnifiedResponse {
     private String err_code_des;
     private String trade_type;                      //此处为App
     private String prepay_id;
+    private long time_stamp;
 
     public String getReturn_code() {
         return return_code;
@@ -108,6 +105,14 @@ public class UnifiedResponse {
 
     public void setPrepay_id(String prepay_id) {
         this.prepay_id = prepay_id;
+    }
+
+    public long getTime_stamp() {
+        return time_stamp;
+    }
+
+    public void setTime_stamp(long time_stamp) {
+        this.time_stamp = time_stamp;
     }
 
     public UnifiedResponse() {
