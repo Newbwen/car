@@ -23,6 +23,7 @@ import pengyi.domain.service.order.IOrderService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class PayService implements IPayService {
         Order order = orderService.show(orderId);
         String body = "订单号：" + order.getOrderNumber() + "，" + order.getDriverType().getName();
         String detail = order.getStartAddress() + "到" + order.getEndAddress();
-        UnifiedRequest request = new UnifiedRequest(body, detail, order.getOrderNumber(), 100 * (order.getShouldMoney().add(order.getExtraMoney()).intValue()), ipAddress);
+        UnifiedRequest request = new UnifiedRequest(body, detail, order.getOrderNumber(), order.getShouldMoney().add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue(), ipAddress);
 
         try {
             String sign = Signature.getSign(request.toMap());
