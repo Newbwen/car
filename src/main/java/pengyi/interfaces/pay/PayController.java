@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.pay.IPayAppService;
@@ -11,15 +12,21 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.WechatSignException;
+import pengyi.core.pay.wechat.UnifiedResponse;
 import pengyi.core.type.PayType;
 import pengyi.core.util.HttpUtil;
 import pengyi.core.util.IPUtil;
 import pengyi.core.util.Signature;
+import pengyi.core.util.XMLParser;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.interfaces.shared.web.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Map;
 
@@ -44,7 +51,7 @@ public class PayController extends BaseController {
         try {
             response = payAppService.wechatPay(orderId, IPUtil.getIpAddress(request));
         } catch (WechatSignException e) {
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, System.currentTimeMillis()-starttime, null, e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, System.currentTimeMillis() - starttime, null, e.getMessage());
         }
         return response;
     }
@@ -82,12 +89,22 @@ public class PayController extends BaseController {
 
     @RequestMapping(value = "/wechat/notify")
     @ResponseBody
-    public String wechatNotify(WechatNotify notify, HttpServletRequest request, Locale locale) {
+    public String wechatNotify(HttpServletRequest request, Locale locale) {
 
-        Map<String, Object> map = request.getParameterMap();
-        for (Map.Entry entry : map.entrySet()) {
-            logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue().toString());
+        byte[] bytes = new byte[request.getContentLength()];
+        try {
+            request.getInputStream().read(bytes, 0, request.getContentLength());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        WechatNotify notify = null;
+        try {
+            notify = (WechatNotify) XMLParser.getObjFromXML(new String(bytes), WechatNotify.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String sign = notify.getSign();
         try {
             String mySign = Signature.getWechatSign(notify);
