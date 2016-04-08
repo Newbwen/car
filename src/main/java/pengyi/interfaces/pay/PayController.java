@@ -89,7 +89,6 @@ public class PayController extends BaseController {
             logger.warn(entry.getKey() + ">>>>>>>>>>>>>>>>>>>>>>" + entry.getValue().toString());
         }
         String sign = notify.getSign();
-        notify.setSign(sign);
         try {
             String mySign = Signature.getWechatSign(notify);
             if (mySign.equals(sign)) {
