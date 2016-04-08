@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.pay.IPayAppService;
@@ -12,12 +11,8 @@ import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.WechatSignException;
-import pengyi.core.pay.wechat.UnifiedResponse;
 import pengyi.core.type.PayType;
-import pengyi.core.util.HttpUtil;
-import pengyi.core.util.IPUtil;
-import pengyi.core.util.Signature;
-import pengyi.core.util.XMLParser;
+import pengyi.core.util.*;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.interfaces.shared.web.BaseController;
@@ -25,8 +20,6 @@ import pengyi.interfaces.shared.web.BaseController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Map;
 
@@ -105,7 +98,14 @@ public class PayController extends BaseController {
             e.printStackTrace();
         }
 
+        try {
+            logger.info("response---------------->"+ new String(bytes, "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         String sign = notify.getSign();
+        notify.setSign("");
         try {
             String mySign = Signature.getWechatSign(notify);
             if (mySign.equals(sign)) {
@@ -113,6 +113,7 @@ public class PayController extends BaseController {
                     if (notify.getResult_code().equals("SUCCESS")) {
                         payAppService.wechatSuccess(notify);
                         logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
+                        return "false";
                     } else {
                         logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getErr_code_des()}, locale));
                     }
@@ -127,7 +128,7 @@ public class PayController extends BaseController {
             e.printStackTrace();
         }
 
-        return "success";
+        return "false";
     }
 
 }

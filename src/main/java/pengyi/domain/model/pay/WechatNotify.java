@@ -27,7 +27,7 @@ public class WechatNotify {
     private int cash_fee;
     private String cash_fee_type;
     private String coupon_fee;
-    private int coupon_count;
+    private String coupon_count;
     private String transaction_id;
     private String out_trade_no;
     private String attach;
@@ -185,11 +185,11 @@ public class WechatNotify {
         this.coupon_fee = coupon_fee;
     }
 
-    public int getCoupon_count() {
+    public String getCoupon_count() {
         return coupon_count;
     }
 
-    public void setCoupon_count(int coupon_count) {
+    public void setCoupon_count(String coupon_count) {
         this.coupon_count = coupon_count;
     }
 

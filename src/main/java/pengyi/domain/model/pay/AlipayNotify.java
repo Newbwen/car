@@ -23,17 +23,17 @@ public class AlipayNotify {
     private String seller_email;
     private String buyer_id;
     private String buyer_email;
-    private BigDecimal total_fee;
-    private int quantity;
-    private BigDecimal price;
+    private String total_fee;
+    private String quantity;
+    private String price;
     private String body;
     private String gmt_create;
     private String gmt_payment;
     private String is_total_fee_adjust;
     private String use_coupon;
-    private BigDecimal discount;
+    private String discount;
     private String refund_status;
-    private Date gmt_refund;
+    private String gmt_refund;
 
     public String getNotify_time() {
         return notify_time;
@@ -147,27 +147,27 @@ public class AlipayNotify {
         this.buyer_email = buyer_email;
     }
 
-    public BigDecimal getTotal_fee() {
+    public String getTotal_fee() {
         return total_fee;
     }
 
-    public void setTotal_fee(BigDecimal total_fee) {
+    public void setTotal_fee(String total_fee) {
         this.total_fee = total_fee;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -211,11 +211,11 @@ public class AlipayNotify {
         this.use_coupon = use_coupon;
     }
 
-    public BigDecimal getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
@@ -227,11 +227,11 @@ public class AlipayNotify {
         this.refund_status = refund_status;
     }
 
-    public Date getGmt_refund() {
+    public String getGmt_refund() {
         return gmt_refund;
     }
 
-    public void setGmt_refund(Date gmt_refund) {
+    public void setGmt_refund(String gmt_refund) {
         this.gmt_refund = gmt_refund;
     }
 
