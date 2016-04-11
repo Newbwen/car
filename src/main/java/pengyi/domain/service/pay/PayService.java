@@ -74,7 +74,8 @@ public class PayService implements IPayService {
         Order order = orderService.show(orderId);
         String body = "订单号：" + order.getOrderNumber() + "，" + order.getDriverType().getName();
         String detail = order.getStartAddress() + "到" + order.getEndAddress();
-        UnifiedRequest request = new UnifiedRequest(body, detail, order.getOrderNumber(), order.getShouldMoney().add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue(), ipAddress);
+        UnifiedRequest request = new UnifiedRequest(body, detail, order.getOrderNumber(), order.getShouldMoney()
+                .add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue(), ipAddress, Constants.WECHAT_NOTIFY_URL);
 
         try {
             String sign = Signature.getSign(request.toMap());

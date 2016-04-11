@@ -24,4 +24,6 @@ public class Constants {
     public static String WECHAT_UNIFIED_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
     public static String WECHAT_NOTIFY_URL = "http://a.xiguaxing.com/pay/wechat/notify";
+
+    public static String WECHAT_RECHARGE_NOTIFY_URL = "http://a.xiguaxing.com/recharge/wechat/notify";
 }

@@ -116,7 +116,7 @@ public class UnifiedRequest {
     public UnifiedRequest() {
     }
 
-    public UnifiedRequest(String body, String detail, String out_trade_no, int total_fee, String spbill_create_ip) {
+    public UnifiedRequest(String body, String detail, String out_trade_no, int total_fee, String spbill_create_ip, String notify_url) {
         this.appid = Constants.WECHAT_APPID;
         this.mch_id = Constants.WECHAT_MCH_ID;
         this.nonce_str = RandomStringGenerator.getRandomStringByLength(16);
@@ -126,7 +126,7 @@ public class UnifiedRequest {
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
-        this.notify_url = Constants.WECHAT_NOTIFY_URL;
+        this.notify_url = notify_url;
         this.trade_type = "APP";
     }
 

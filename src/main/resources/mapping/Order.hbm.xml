@@ -64,6 +64,15 @@
             </type>
         </property>
 
+        <property name="payType" column="pay_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.PayType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="payNo" column="pay_no" type="java.lang.String" />
+
         <property name="km" column="km" type="java.lang.Integer"/>
     </class>
 

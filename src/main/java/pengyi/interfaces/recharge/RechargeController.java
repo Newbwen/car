@@ -1,4 +1,4 @@
-package pengyi.interfaces.pay;
+package pengyi.interfaces.recharge;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pengyi.application.pay.IPayAppService;
+import pengyi.application.recharge.IRechargeAppService;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.WechatSignException;
 import pengyi.core.type.PayType;
-import pengyi.core.util.*;
+import pengyi.core.util.HttpUtil;
+import pengyi.core.util.IPUtil;
+import pengyi.core.util.Signature;
+import pengyi.core.util.XMLParser;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.interfaces.shared.web.BaseController;
@@ -26,27 +30,13 @@ import java.util.Map;
  * Created by pengyi on 2016/3/14.
  */
 @Controller
-@RequestMapping("/pay")
-public class PayController extends BaseController {
+@RequestMapping("/recharge")
+public class RechargeController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IPayAppService payAppService;
-
-    @RequestMapping(value = "/wechat/pay")
-    @ResponseBody
-    public BaseResponse wechatPay(String orderId, HttpServletRequest request) {
-
-        long starttime = System.currentTimeMillis();
-        BaseResponse response = null;
-        try {
-            response = payAppService.wechatPay(orderId, IPUtil.getIpAddress(request));
-        } catch (WechatSignException e) {
-            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, System.currentTimeMillis() - starttime, null, e.getMessage());
-        }
-        return response;
-    }
+    private IRechargeAppService rechargeAppService;
 
     @RequestMapping(value = "/alipay/notify")
     @ResponseBody
@@ -60,10 +50,10 @@ public class PayController extends BaseController {
             if ("true".equals(HttpUtil.urlConnection(Constants.ALIPAY_NOTIFY_VERIFY_URL,
                     Constants.ALIPAY_NOTIFY_VERIFY_PARAM + notify.getNotify_id()))) {
                 if (notify.getTrade_status().equals("TRADE_SUCCESS")) {
-                    payAppService.alipaySuccess(notify);
+                    rechargeAppService.alipaySuccess(notify);
                     logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
                 } else if (notify.getTrade_status().equals("TRADE_FINISHED")) {
-                    payAppService.alipaySuccess(notify);
+                    rechargeAppService.alipaySuccess(notify);
                     logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.ALIPAY}, locale));
                 } else if (notify.getTrade_status().equals("WAIT_BUYER_PAY")) {
 
@@ -105,7 +95,7 @@ public class PayController extends BaseController {
                 if (mySign.equals(sign)) {
                     if (notify.getReturn_code().equals("SUCCESS")) {
                         if (notify.getResult_code().equals("SUCCESS")) {
-                            payAppService.wechatSuccess(notify);
+                            rechargeAppService.wechatSuccess(notify);
                             logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
                             return "true";
                         } else {
