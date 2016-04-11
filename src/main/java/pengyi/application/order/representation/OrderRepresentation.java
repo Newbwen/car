@@ -34,7 +34,7 @@ public class OrderRepresentation {
     private String startAddress;                        //开始地址
     private String endAddress;                        //结束地址
     private CarType carType;                            //车辆类型
-    private Integer kn;                                 //公里数
+    private Integer km;                                 //公里数
 
     public String getId() {
         return id;
@@ -188,11 +188,11 @@ public class OrderRepresentation {
         this.carType = carType;
     }
 
-    public Integer getKn() {
-        return kn;
+    public Integer getKm() {
+        return km;
     }
 
-    public void setKn(Integer kn) {
-        this.kn = kn;
+    public void setKm(Integer km) {
+        this.km = km;
     }
 }

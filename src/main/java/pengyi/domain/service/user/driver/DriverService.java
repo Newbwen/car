@@ -110,7 +110,7 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void addLock(){
+    public void addLock() {
         driverRepository.addLock();
     }
 
@@ -135,6 +135,11 @@ public class DriverService implements IDriverService {
     public void updateReportCount(String driverId) {
         Driver driver = this.show(driverId);
         driver.setReportCount(driver.getReportCount() + 1);
+        driverRepository.update(driver);
+    }
+
+    @Override
+    public void update(Driver driver) {
         driverRepository.update(driver);
     }
 

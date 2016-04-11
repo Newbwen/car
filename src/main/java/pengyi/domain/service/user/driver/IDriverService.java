@@ -32,6 +32,8 @@ public interface IDriverService {
 
     void updateReportCount(String driverId);
 
+    void update(Driver driver);
+
     /***********
      * api 方法
      **************/
@@ -52,5 +54,4 @@ public interface IDriverService {
     Driver apiEdit(EditDriverCommand command);
 
     Driver apiUpdateHeadPic(UpdateHeadPicCommand command);
-
 }
