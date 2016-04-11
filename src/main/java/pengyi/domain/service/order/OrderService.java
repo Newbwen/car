@@ -230,8 +230,12 @@ public class OrderService implements IOrderService {
         long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
         dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
         BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
-
-        order.setShouldMoney(knMoney.add(minuteMoney));
+        BigDecimal shouldMoney = knMoney.add(minuteMoney);
+        if(shouldMoney.compareTo(billing.getStartingPrice()) == -1){
+            order.setShouldMoney(billing.getStartingPrice());
+        }else{
+            order.setShouldMoney(shouldMoney);
+        }
 
         order.setOrderStatus(OrderStatus.WAIT_PAY);
 
@@ -302,10 +306,10 @@ public class OrderService implements IOrderService {
             throw new NotSufficientFundsException("用户余额不足");
         }
 
-        userService.addLock();
+//        userService.addLock();
         user.setMoney(user.getMoney().subtract(order.getShouldMoney()));
         userService.update(user);
-        companyService.addLock();
+//        companyService.addLock();
         company.setMoney(company.getMoney().add(order.getShouldMoney()));
         companyService.update(company);
 
@@ -325,10 +329,12 @@ public class OrderService implements IOrderService {
         Driver driver = driverService.show(order.getReceiveUser().getId());
         Company company = companyService.show(driver.getCompany().getId());
 
-        driverService.addLock();
+//        driverService.addLock();
         driver.setMoney(driver.getMoney().subtract(order.getShouldMoney()));
-        companyService.addLock();
+        driverService.update(driver);
+//        companyService.addLock();
         company.setMoney(company.getMoney().add(order.getShouldMoney()));
+        companyService.update(company);
 
         order.setPayTime(new Date());
         order.setOrderStatus(OrderStatus.SUCCESS);
