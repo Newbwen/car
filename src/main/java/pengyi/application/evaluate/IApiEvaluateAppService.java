@@ -16,4 +16,6 @@ public interface IApiEvaluateAppService {
     BaseResponse edit(EditEvaluateCommand command);
 
     BaseResponse delete(String orderId);
+
+    BaseResponse getByOrderId(String orderId);
 }

@@ -47,7 +47,6 @@
             <property name="registerDate" column="register_date" type="java.util.Date"/>
             <many-to-one name="registerAddress" column="register_address_id" class="pengyi.domain.model.area.Area"/>
             <many-to-one name="operateAddress" column="operate_address_id" class="pengyi.domain.model.area.Area"/>
-            <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="level" column="level" type="java.lang.Double"/>
         </joined-subclass>
 
@@ -63,7 +62,6 @@
                     <param name="type">4</param>
                 </type>
             </property>
-            <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="level" column="level" type="java.lang.Double"/>
             <property name="longitude" column="longitude" type="java.lang.Double"/>
             <property name="latitude" column="latitude" type="java.lang.Double"/>
@@ -97,7 +95,6 @@
                 </type>
             </property>
             <property name="integral" column="integral" type="java.lang.Integer"/>
-            <property name="money" column="money" type="java.math.BigDecimal"/>
             <property name="reportCount" column="report_count" type="java.lang.Integer"/>
         </joined-subclass>
 

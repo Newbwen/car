@@ -18,7 +18,7 @@ public class Recharge extends Identity {
     private Date payTime;               //支付时间
     private PayType payType;            //支付方式
     private String payNo;               //支付号
-    private boolean isPayed;             //是否支付
+    private boolean payed;             //是否支付
 
     public BaseUser getUser() {
         return user;
@@ -69,11 +69,11 @@ public class Recharge extends Identity {
     }
 
     public boolean isPayed() {
-        return isPayed;
+        return payed;
     }
 
     public void setPayed(boolean payed) {
-        isPayed = payed;
+        this.payed = payed;
     }
 
     public Recharge() {
@@ -84,6 +84,6 @@ public class Recharge extends Identity {
         this.createTime = new Date();
         this.money = money;
         this.payType = payType;
-        this.isPayed = false;
+        this.payed = false;
     }
 }

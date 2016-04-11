@@ -278,6 +278,24 @@
         <li>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-envelope"></i>
+                <span class="menu-text"> 充值记录管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url '/recharge/list'/]">
+                        <i class="icon-calendar"></i>
+                        充值记录列表
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-envelope"></i>
                 <span class="menu-text"> 站内信息管理 </span>
 
                 <b class="arrow icon-angle-down"></b>

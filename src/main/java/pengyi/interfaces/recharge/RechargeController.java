@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import pengyi.application.pay.IPayAppService;
 import pengyi.application.recharge.IRechargeAppService;
+import pengyi.application.recharge.command.ListRechargeCommand;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
@@ -117,4 +119,8 @@ public class RechargeController extends BaseController {
         return "false";
     }
 
+    @RequestMapping(value = "/list")
+    public ModelAndView pagination(ListRechargeCommand command){
+        return new ModelAndView("/recharge/list","pagination",rechargeAppService.pagination(command)).addObject("command",command);
+    }
 }

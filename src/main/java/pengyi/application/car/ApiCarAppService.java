@@ -56,9 +56,9 @@ public class ApiCarAppService implements IApiCarAppService {
             if (CoreStringUtils.isEmpty(command.getDriver())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10009.getMessage());
             }
-            if (null == command.getCarType()) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30002.getMessage());
-            }
+//            if (null == command.getCarType()) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30002.getMessage());
+//            }
             CarRepresentation carRepresentation = mappingService.map(carService.create(command), CarRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
@@ -75,6 +75,12 @@ public class ApiCarAppService implements IApiCarAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
+            if(CoreStringUtils.isEmpty(command.getName())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
+            }
+            if(CoreStringUtils.isEmpty(command.getCarNumber())){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30001.getMessage());
+            }
             CarRepresentation carRepresentation = mappingService.map(carService.edit(command), CarRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, carRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
@@ -83,7 +89,11 @@ public class ApiCarAppService implements IApiCarAppService {
 
     @Override
     public BaseResponse apiInfo(String driverId) {
-        ApiAppCarRepresentation car = mappingService.map(carService.searchByDriver(driverId), ApiAppCarRepresentation.class, false);
-        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, car, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        if (!CoreStringUtils.isEmpty(driverId)) {
+            ApiAppCarRepresentation car = mappingService.map(carService.searchByDriver(driverId), ApiAppCarRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, car, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+        }
     }
 }

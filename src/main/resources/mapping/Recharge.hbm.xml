@@ -27,7 +27,7 @@
 
         <property name="payNo" column="pay_no" type="java.lang.String" />
 
-        <property name="isPayed" column="is_payed" type="boolean" />
+        <property name="payed" column="payed" type="boolean" />
     </class>
 
 </hibernate-mapping>

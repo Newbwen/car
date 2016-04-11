@@ -7,12 +7,14 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.billing.command.SearchBillingCommand;
+import pengyi.application.moneydetailed.command.CreateMoneyDetailedCommand;
 import pengyi.application.order.command.*;
 import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.core.exception.OrderIsStartException;
 import pengyi.core.type.EvaluateStatus;
+import pengyi.core.type.FlowType;
 import pengyi.core.type.OrderStatus;
 import pengyi.core.type.PayType;
 import pengyi.core.util.CoreDateUtils;
@@ -25,6 +27,7 @@ import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.model.user.user.User;
 import pengyi.domain.service.billing.IBillingService;
+import pengyi.domain.service.moneydetailed.IMoneyDetailedService;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.domain.service.user.driver.IDriverService;
@@ -61,6 +64,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private IBillingService billingService;
+
+    @Autowired
+    private IMoneyDetailedService moneyDetailedService;
 
     @Autowired
     private IdFactory idFactory;
@@ -231,9 +237,9 @@ public class OrderService implements IOrderService {
         dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
         BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
         BigDecimal shouldMoney = knMoney.add(minuteMoney);
-        if(shouldMoney.compareTo(billing.getStartingPrice()) == -1){
+        if (shouldMoney.compareTo(billing.getStartingPrice()) == -1) {
             order.setShouldMoney(billing.getStartingPrice());
-        }else{
+        } else {
             order.setShouldMoney(shouldMoney);
         }
 
@@ -296,21 +302,25 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order balancePay(BalancePayCommand command) {
+        //资金明细
+        CreateMoneyDetailedCommand moneyDetailedCommand = new CreateMoneyDetailedCommand();
+
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
         User user = userService.show(order.getOrderUser().getId());
         Driver driver = driverService.show(order.getReceiveUser().getId());
         Company company = driver.getCompany();
 
-        if (user.getMoney().compareTo(order.getShouldMoney()) == -1) {
+        if (user.getBalance().compareTo(order.getShouldMoney()) == -1) {
             throw new NotSufficientFundsException("用户余额不足");
         }
 
+        moneyDetailedCommand.setOldMoney(user.getBalance());//设置资金明细原有金额
 //        userService.addLock();
-        user.setMoney(user.getMoney().subtract(order.getShouldMoney()));
+        user.setBalance(user.getBalance().subtract(order.getShouldMoney()));
         userService.update(user);
 //        companyService.addLock();
-        company.setMoney(company.getMoney().add(order.getShouldMoney()));
+        company.setBalance(company.getBalance().add(order.getShouldMoney()));
         companyService.update(company);
 
         order.setPayTime(new Date());
@@ -318,6 +328,15 @@ public class OrderService implements IOrderService {
         order.setPayType(PayType.BALANCE);
 
         orderRepository.update(order);
+
+        //创建资金明细
+        moneyDetailedCommand.setBaseUser(order.getOrderUser().getId());
+        moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
+        moneyDetailedCommand.setMoney(order.getShouldMoney());
+        moneyDetailedCommand.setExplain("订单支付");
+        moneyDetailedCommand.setNewMoney(user.getBalance());
+        moneyDetailedService.create(moneyDetailedCommand);
+
         return order;
     }
 
@@ -330,10 +349,10 @@ public class OrderService implements IOrderService {
         Company company = companyService.show(driver.getCompany().getId());
 
 //        driverService.addLock();
-        driver.setMoney(driver.getMoney().subtract(order.getShouldMoney()));
+        driver.setBalance(driver.getBalance().subtract(order.getShouldMoney()));
         driverService.update(driver);
 //        companyService.addLock();
-        company.setMoney(company.getMoney().add(order.getShouldMoney()));
+        company.setBalance(company.getBalance().add(order.getShouldMoney()));
         companyService.update(company);
 
         order.setPayTime(new Date());

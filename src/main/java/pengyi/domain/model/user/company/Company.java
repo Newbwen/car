@@ -24,7 +24,6 @@ public class Company extends BaseUser {
     private Date registerDate;    //注册时间
     private Area registerAddress;   //注册地点
     private Area operateAddress;    //运营地点
-    private BigDecimal money;       //余额
     private Double level;           //等级
 
     public String getName() {
@@ -67,14 +66,6 @@ public class Company extends BaseUser {
         this.operateAddress = operateAddress;
     }
 
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
-
     public Double getLevel() {
         return level;
     }
@@ -87,24 +78,22 @@ public class Company extends BaseUser {
         super();
     }
 
-    public Company(String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
+    public Company(String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, Double level) {
         this.name = name;
         this.folder = folder;
         this.registerDate = registerDate;
         this.registerAddress = registerAddress;
         this.operateAddress = operateAddress;
-        this.money = money;
         this.level = level;
     }
 
-    public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, BigDecimal money, Double level) {
+    public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, Double level) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.folder = folder;
         this.registerDate = registerDate;
         this.registerAddress = registerAddress;
         this.operateAddress = operateAddress;
-        this.money = money;
         this.level = level;
     }
 

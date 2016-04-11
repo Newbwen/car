@@ -24,5 +24,7 @@ public interface ICarService {
     Car create(CreateCarCommand command);
 
 
+    void update(Car car);
 
+    void delete(Car car);
 }

@@ -1,5 +1,7 @@
 package pengyi.application.user.driver.command;
 
+import pengyi.core.type.DriverType;
+
 /**
  * Created by YJH on 2016/3/21.
  */
@@ -11,6 +13,7 @@ public class RegisterDriverCommand {
     private String identityCardPic;
     private String drivingLicencePic;
     private String company;
+    private DriverType driverType;
 
     public String getUserName() {
         return userName;
@@ -58,5 +61,13 @@ public class RegisterDriverCommand {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
     }
 }

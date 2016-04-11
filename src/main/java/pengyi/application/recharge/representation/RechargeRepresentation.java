@@ -1,6 +1,8 @@
 package pengyi.application.recharge.representation;
 
+import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.PayType;
+import pengyi.domain.model.user.BaseUser;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,12 +12,21 @@ import java.util.Date;
  */
 public class RechargeRepresentation {
 
+    private BaseUserRepresentation user;
     private Date createTime;            //创建时间
     private BigDecimal money;           //充值金额
     private Date payTime;               //支付时间
     private PayType payType;            //支付方式
     private String payNo;               //支付号
-    private boolean isPayd;             //是否支付
+    private boolean payed;             //是否支付
+
+    public BaseUserRepresentation getUser() {
+        return user;
+    }
+
+    public void setUser(BaseUserRepresentation user) {
+        this.user = user;
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -57,11 +68,11 @@ public class RechargeRepresentation {
         this.payNo = payNo;
     }
 
-    public boolean isPayd() {
-        return isPayd;
+    public boolean isPayed() {
+        return payed;
     }
 
-    public void setPayd(boolean payd) {
-        isPayd = payd;
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 }

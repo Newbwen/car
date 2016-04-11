@@ -41,6 +41,12 @@
     [/#if]
 [/#macro]
 
+[#macro dateShow date]
+    [#if date??]
+    ${date?datetime}
+    [/#if]
+[/#macro]
+
 [#--//TODO with parameters--]
 [#macro showPagination path]
 <div class="row">

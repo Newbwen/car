@@ -55,8 +55,8 @@
             <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
             <name>司机注册</name>
             <address>api/app/driver/register</address>
-            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id))</shuoming>
-            <zhuyi>参数不能为空</zhuyi>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id)),driverType(司机类型)</shuoming>
+            <zhuyi>参数不能为空，driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
@@ -402,6 +402,38 @@
             <shuoming>orderId(订单id)</shuoming>
             <zhuyi>无</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"appid":"wx7827a70d6465f5df","err_code":null,"err_code_des":null,"mch_id":"1328747701","nonce_str":"4xU8J8rf5qVcRluW","prepay_id":"wx20160406164836f9d7ef9af80048283087","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"AACE2B9E95A4B581704D8BE0548FCD44","trade_type":"APP"},"debug_time":0,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>21bcb219-c851-4cee-b182-a6ec1e7bba55</id>
+            <name>根据司机获取车辆信息</name>
+            <address>/api/app/car/get_by_driver</address>
+            <shuoming>id(司机ID)</shuoming>
+            <zhuyi>参数不能为空</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>ffec1c51-bb9d-4b2a-9fac-67c49d7f660c</id>
+            <name>修改车辆信息</name>
+            <address>api/app/car/edit</address>
+            <shuoming>id(),version(数据版本号),name(车辆名称),carNumber(车牌号),carType(车辆类型)</shuoming>
+            <zhuyi>carType可以为空，其他均不为空</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>6d72f5fc-47eb-493a-a930-a0663a2da2b1</id>
+            <name>添加评价</name>
+            <address>/api/app/evaluate/create</address>
+            <shuoming>orderId(评价订单id),content(评价内容),level(评价等级)</shuoming>
+            <zhuyi>用户或司机必须登录</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
+        </api>
+        <api>
+            <id>a6d22eff-8477-43ef-ab6a-79a44a3cc6d2</id>
+            <name>根据订单获取评价</name>
+            <address>api/app/evaluate/get_by_orderId</address>
+            <shuoming>orderId(订单id)</shuoming>
+            <zhuyi>参数不能为空,用户必须登录</zhuyi>
+            <fanhuixinxi>无</fanhuixinxi>
         </api>
     </apis>
 </apifile>

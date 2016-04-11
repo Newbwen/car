@@ -5,13 +5,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.recharge.command.CreateRechargeCommand;
+import pengyi.application.recharge.command.ListRechargeCommand;
 import pengyi.application.recharge.representation.RechargeRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
+import pengyi.domain.model.recharge.Recharge;
 import pengyi.domain.service.recharge.IRechargeService;
+import pengyi.repository.generic.Pagination;
+
+import java.util.List;
 
 /**
  * Created by pengyi on 2016/4/11.
@@ -45,5 +50,14 @@ public class RechargeAppService implements IRechargeAppService {
     @Override
     public void wechatSuccess(WechatNotify notify) {
         rechargeService.wechatSuccess(notify);
+    }
+
+    @Override
+    public Pagination<RechargeRepresentation> pagination(ListRechargeCommand command) {
+        command.verifyPage();
+        command.verifyPageSize(15);
+        Pagination<Recharge> pagination = rechargeService.pagination(command);
+        List<RechargeRepresentation> data = mappingService.mapAsList(pagination.getData(), RechargeRepresentation.class);
+        return new Pagination<RechargeRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
     }
 }

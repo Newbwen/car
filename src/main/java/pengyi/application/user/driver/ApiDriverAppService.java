@@ -172,6 +172,9 @@ public class ApiDriverAppService implements IApiDriverAppService {
             if (CoreStringUtils.isEmpty(command.getVerificationCode())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10019.getMessage());
             }
+            if(null == command.getDriverType()){
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());
+            }
             if (redisService.exists(command.getUserName())) {
                 if (!redisService.getCache(command.getUserName()).equals(command.getVerificationCode())) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR, 0, null,

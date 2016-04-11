@@ -74,11 +74,21 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     public BaseResponse delete(String orderId) {
         if (null != orderId) {
             evaluateService.delete(orderId);
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS,0,null,ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
 
+    }
+
+    @Override
+    public BaseResponse getByOrderId(String orderId) {
+        if (!CoreStringUtils.isEmpty(orderId)) {
+            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId),EvaluateRepresentation.class,false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+        }
     }
 
 

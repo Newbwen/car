@@ -13,15 +13,18 @@ import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.DriverType;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
 import pengyi.core.upload.IFileUploadService;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.car.Car;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.model.user.driver.IDriverRepository;
+import pengyi.domain.service.car.ICarService;
 import pengyi.domain.service.role.IRoleService;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.domain.service.user.company.ICompanyService;
@@ -49,6 +52,9 @@ public class DriverService implements IDriverService {
 
     @Autowired
     private ICompanyService companyService;
+
+    @Autowired
+    private ICarService carService;
 
     @Autowired
     private IFileUploadService fileUploadService;
@@ -224,7 +230,7 @@ public class DriverService implements IDriverService {
 
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0),
                 new Date(), role, null, UserType.DRIVER, null, null, company,
-                null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
+                null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
                 null, null);
 
         driverRepository.save(driver);
@@ -260,7 +266,7 @@ public class DriverService implements IDriverService {
 
         Role role = roleService.searchByName("driver");
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, company, null, new BigDecimal(0), 0.0, 0.0, 0.0, 0, false, null, identityCarPic, drivingLicencePic);
+                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic);
 
         driverRepository.save(driver);
         fileUploadService.move(identityCarPic.substring(identityCarPic.indexOf("/") + 1));
@@ -277,6 +283,14 @@ public class DriverService implements IDriverService {
         driver.setName(command.getName());
         driver.setSex(command.getSex());
         driver.setDriverType(command.getDriverType());
+
+        Car car = carService.searchByDriver(driver.getId());
+        if (driver.getDriverType() == DriverType.TAXI) {
+            car.setCarType(null);
+            carService.update(car);
+        } else if (driver.getDriverType() == DriverType.GENERATION) {
+            carService.delete(car);
+        }
 
         driverRepository.update(driver);
 

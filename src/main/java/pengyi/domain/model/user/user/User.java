@@ -24,7 +24,6 @@ public class User extends BaseUser {
     private String head;                    //头像
     private Sex sex;                        //性别（0为男，2为女）
     private Integer integral;                   //积分
-    private BigDecimal money;               //余额
     private Integer reportCount;                //举报次数
 
     public String getName() {
@@ -59,14 +58,6 @@ public class User extends BaseUser {
         this.integral = integral;
     }
 
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
-
     public Integer getReportCount() {
         return reportCount;
     }
@@ -79,22 +70,20 @@ public class User extends BaseUser {
         super();
     }
 
-    public User(String name, String head, Sex sex, Integer integral, BigDecimal money, Integer reportCount) {
+    public User(String name, String head, Sex sex, Integer integral, Integer reportCount) {
         this.name = name;
         this.head = head;
         this.sex = sex;
         this.integral = integral;
-        this.money = money;
         this.reportCount = reportCount;
     }
 
-    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Sex sex, Integer integral, BigDecimal money, Integer reportCount) {
+    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Sex sex, Integer integral, Integer reportCount) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
         this.sex = sex;
         this.integral = integral;
-        this.money = money;
         this.reportCount = reportCount;
     }
 

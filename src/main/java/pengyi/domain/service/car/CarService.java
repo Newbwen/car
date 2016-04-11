@@ -60,8 +60,10 @@ public class CarService implements ICarService {
         Car car = this.show(command.getId());
         car.fainWhenConcurrencyViolation(car.getVersion());
         Car car1 = this.searchByNumber(command.getCarNumber());
-        if (null != car1) {
-            throw new ExistException("车牌号[" + command.getCarNumber() + "]的记录已存在");
+        if (car.getCarNumber() != command.getCarNumber()) {
+            if (null != car1) {
+                throw new ExistException("车牌号[" + command.getCarNumber() + "]的记录已存在");
+            }
         }
 
         car.setCarType(command.getCarType());
@@ -92,7 +94,7 @@ public class CarService implements ICarService {
     }
 
     /**
-     *根据司机查找车辆
+     * 根据司机查找车辆
      */
     @Override
     public Car searchByDriver(String driver) {
@@ -101,7 +103,7 @@ public class CarService implements ICarService {
 
 
     /**
-     *创建车辆
+     * 创建车辆
      */
 
     @Override
@@ -119,6 +121,16 @@ public class CarService implements ICarService {
         Car car = new Car(command.getName(), command.getCarNumber(), driver, command.getCarType());
         carRepository.save(car);
         return car;
+    }
+
+    @Override
+    public void update(Car car) {
+        carRepository.update(car);
+    }
+
+    @Override
+    public void delete(Car car) {
+        carRepository.delete(car);
     }
 
 

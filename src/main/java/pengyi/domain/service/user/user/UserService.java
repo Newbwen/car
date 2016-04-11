@@ -135,7 +135,7 @@ public class UserService implements IUserService {
 
         Role role = roleService.searchByName("user");
         User user = new User(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.USER,
-                null, null, null, 0, new BigDecimal(0), 0);
+                null, null, null, 0, 0);
 
         userRepository.save(user);
         return user;

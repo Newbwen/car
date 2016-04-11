@@ -3,20 +3,22 @@ package pengyi.domain.service.recharge;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import pengyi.application.moneydetailed.command.CreateMoneyDetailedCommand;
 import pengyi.application.recharge.command.CreateRechargeCommand;
+import pengyi.application.recharge.command.ListRechargeCommand;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.WechatSignException;
 import pengyi.core.pay.wechat.UnifiedRequest;
 import pengyi.core.pay.wechat.UnifiedResponse;
 import pengyi.core.type.FlowType;
-import pengyi.core.util.CoreDateUtils;
-import pengyi.core.util.HttpUtil;
-import pengyi.core.util.Signature;
-import pengyi.core.util.XMLParser;
+import pengyi.core.util.*;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.domain.model.recharge.IRechargeRepository;
@@ -24,14 +26,12 @@ import pengyi.domain.model.recharge.Recharge;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.moneydetailed.IMoneyDetailedService;
 import pengyi.domain.service.user.IBaseUserService;
-import pengyi.domain.service.user.user.IUserService;
+import pengyi.repository.generic.Pagination;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by pengyi on 2016/4/11.
@@ -158,6 +158,25 @@ public class RechargeService implements IRechargeService {
         }
 
         rechargeRepository.update(recharge);
+    }
+
+    @Override
+    public Pagination<Recharge> pagination(ListRechargeCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> alias = new HashMap<String, String>();
+        if (!CoreStringUtils.isEmpty(command.getUserName())) {
+            criterionList.add(Restrictions.like("user.userName", command.getUserName(), MatchMode.ANYWHERE));
+            alias.put("user", "user");
+        }
+        if (!CoreStringUtils.isEmpty(command.getStartCreateDate()) && null != CoreDateUtils.parseDate(command.getStartCreateDate())) {
+            criterionList.add(Restrictions.ge("createTime", CoreDateUtils.parseDate(command.getStartCreateDate())));
+        }
+        if (!CoreStringUtils.isEmpty(command.getEndCreateDate()) && null != CoreDateUtils.parseDate(command.getEndCreateDate())) {
+            criterionList.add(Restrictions.le("createTime", CoreDateUtils.parseDate(command.getEndCreateDate())));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("createTime"));
+        return rechargeRepository.pagination(command.getPage(), command.getPageSize(), criterionList, alias, orderList, null, null);
     }
 
 }

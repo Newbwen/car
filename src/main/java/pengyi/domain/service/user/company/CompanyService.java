@@ -189,7 +189,7 @@ public class CompanyService implements ICompanyService {
 
         Company company = new Company(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(),
                 role, command.getEmail(), UserType.COMPANY, command.getName(), folder,
-                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, new BigDecimal(0), 0.0);
+                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, 0.0);
 
         companyRepository.save(company);
 

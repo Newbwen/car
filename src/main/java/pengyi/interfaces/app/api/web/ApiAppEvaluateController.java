@@ -50,4 +50,26 @@ public class ApiAppEvaluateController {
         return response;
     }
 
+    @RequestMapping(value = "/get_by_orderId")
+    @ResponseBody
+    public BaseResponse info(String orderId,HttpSession session) {
+        long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        BaseResponse response = null;
+
+        try {
+            response = apiEvaluateAppService.getByOrderId(orderId);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
 }

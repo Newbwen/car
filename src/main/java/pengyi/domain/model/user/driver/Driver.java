@@ -24,7 +24,6 @@ public class Driver extends BaseUser {
     private String head;                    //头像
     private Company company;                //公司
     private Sex sex;                        //性别（0为男，1为女）
-    private BigDecimal money;               //余额
     private Double level;                   //评级（12345）
     private Double longitude;               //经度
     private Double latitude;                //纬度
@@ -64,14 +63,6 @@ public class Driver extends BaseUser {
 
     public void setSex(Sex sex) {
         this.sex = sex;
-    }
-
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
     }
 
     public Double getLevel() {
@@ -142,13 +133,12 @@ public class Driver extends BaseUser {
         super();
     }
 
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, BigDecimal money, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic) {
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
         this.company = company;
         this.sex = sex;
-        this.money = money;
         this.level = level;
         this.longitude = longitude;
         this.latitude = latitude;
