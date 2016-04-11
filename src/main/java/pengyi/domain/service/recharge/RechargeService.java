@@ -6,12 +6,13 @@ import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
+import pengyi.application.moneydetailed.command.CreateMoneyDetailedCommand;
 import pengyi.application.recharge.command.CreateRechargeCommand;
-import pengyi.application.recharge.representation.RechargeRepresentation;
 import pengyi.core.commons.Constants;
 import pengyi.core.exception.WechatSignException;
 import pengyi.core.pay.wechat.UnifiedRequest;
 import pengyi.core.pay.wechat.UnifiedResponse;
+import pengyi.core.type.FlowType;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.HttpUtil;
 import pengyi.core.util.Signature;
@@ -21,11 +22,14 @@ import pengyi.domain.model.pay.WechatNotify;
 import pengyi.domain.model.recharge.IRechargeRepository;
 import pengyi.domain.model.recharge.Recharge;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.service.moneydetailed.IMoneyDetailedService;
 import pengyi.domain.service.user.IBaseUserService;
+import pengyi.domain.service.user.user.IUserService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +44,9 @@ public class RechargeService implements IRechargeService {
 
     @Autowired
     private IBaseUserService baseUserService;
+
+    @Autowired
+    private IMoneyDetailedService moneyDetailedService;
 
     @Override
     public UnifiedResponse wechatPay(CreateRechargeCommand command) {
@@ -107,11 +114,24 @@ public class RechargeService implements IRechargeService {
 
         if (null != recharge && recharge.getMoney().toString().equals(notify.getTotal_fee())) {
             recharge.setPayTime(CoreDateUtils.parseLongDate(notify.getGmt_payment()));
-            recharge.setPayd(true);
+            recharge.setPayed(true);
             recharge.setPayNo(notify.getTrade_no());
+
+            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
+
+            CreateMoneyDetailedCommand command = new CreateMoneyDetailedCommand();
+            command.setBaseUser(recharge.getUser().getId());
+            command.setCreateDate(new Date());
+            command.setExplain(notify.getSubject());
+            command.setFlowType(FlowType.IN_FLOW);
+            command.setMoney(recharge.getMoney());
+            command.setNewMoney(recharge.getUser().getBalance().add(recharge.getMoney()));
+            command.setOldMoney(recharge.getUser().getBalance());
+            moneyDetailedService.create(command);
+
+            rechargeRepository.update(recharge);
         }
 
-        rechargeRepository.update(recharge);
     }
 
     @Override
@@ -119,10 +139,22 @@ public class RechargeService implements IRechargeService {
 
         Recharge recharge = rechargeRepository.getById(notify.getOut_trade_no());
 
-        if (null != recharge && recharge.getMoney().toString().equals(notify.getTotal_fee())) {
+        if (null != recharge && recharge.getMoney().multiply(new BigDecimal(100)).intValue() == notify.getTotal_fee()) {
             recharge.setPayTime(CoreDateUtils.parseDate(notify.getTime_end(), "yyyyMMddHHmmss"));
-            recharge.setPayd(true);
+            recharge.setPayed(true);
             recharge.setPayNo(notify.getTransaction_id());
+
+            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
+
+            CreateMoneyDetailedCommand command = new CreateMoneyDetailedCommand();
+            command.setBaseUser(recharge.getUser().getId());
+            command.setCreateDate(new Date());
+            command.setExplain("余额充值：" + recharge.getId());
+            command.setFlowType(FlowType.IN_FLOW);
+            command.setMoney(recharge.getMoney());
+            command.setNewMoney(recharge.getUser().getBalance().add(recharge.getMoney()));
+            command.setOldMoney(recharge.getUser().getBalance());
+            moneyDetailedService.create(command);
         }
 
         rechargeRepository.update(recharge);

@@ -5,6 +5,7 @@ import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public interface IBaseUserService {
 
     List<BaseUser> searchByUserRole(String roleId);
 
+    void updateBalance(String userId, BigDecimal bigDecimal);
 
     /*******  以下是 api 方法    ********/
     BaseUser apiResetPassword(ResetPasswordCommand command);
