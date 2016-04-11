@@ -43,7 +43,7 @@ public class PayService implements IPayService {
 
         Order order = orderService.byOrderNumber(notify.getOut_trade_no());
 
-        if (null != order && order.getExtraMoney().add(order.getShouldMoney()).equals(notify.getTotal_fee())) {
+        if (null != order && order.getExtraMoney().add(order.getShouldMoney()).toString().equals(notify.getTotal_fee())) {
             order.setPayTime(CoreDateUtils.parseLongDate(notify.getGmt_payment()));
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.ALIPAY);
@@ -85,7 +85,7 @@ public class PayService implements IPayService {
             UnifiedResponse response = null;
             response = (UnifiedResponse) XMLParser.getObjFromXML(s, UnifiedResponse.class);
             if (response != null) {
-                response.setTime_stamp(System.currentTimeMillis()/1000);
+                response.setTime_stamp(System.currentTimeMillis() / 1000);
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("appid", response.getAppid());
                 map.put("partnerid", response.getMch_id());

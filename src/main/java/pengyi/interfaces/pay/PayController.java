@@ -19,12 +19,11 @@ import pengyi.interfaces.shared.web.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by YJH on 2016/3/14.
+ * Created by pengyi on 2016/3/14.
  */
 @Controller
 @RequestMapping("/pay")
@@ -84,48 +83,45 @@ public class PayController extends BaseController {
     @ResponseBody
     public String wechatNotify(HttpServletRequest request, Locale locale) {
 
-        byte[] bytes = new byte[request.getContentLength()];
-        try {
-            request.getInputStream().read(bytes, 0, request.getContentLength());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        int contentLength = request.getContentLength();
+        byte[] bytes = new byte[contentLength];
         WechatNotify notify = null;
         try {
+            request.getInputStream().read(bytes, 0, contentLength);
             notify = (WechatNotify) XMLParser.getObjFromXML(new String(bytes), WechatNotify.class);
+            logger.info("response---------------->" + new String(bytes, "utf-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try {
-            logger.info("response---------------->"+ new String(bytes, "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String sign = null;
+        if (notify != null) {
+            sign = notify.getSign();
+            notify.setSign("");
+            try {
+                String mySign = Signature.getWechatSign(notify);
+                if (mySign.equals(sign)) {
+                    if (notify.getReturn_code().equals("SUCCESS")) {
+                        if (notify.getResult_code().equals("SUCCESS")) {
+                            payAppService.wechatSuccess(notify);
+                            logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
+                            return "true";
+                        } else {
+                            logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getErr_code_des()}, locale));
+                        }
 
-        String sign = notify.getSign();
-        notify.setSign("");
-        try {
-            String mySign = Signature.getWechatSign(notify);
-            if (mySign.equals(sign)) {
-                if (notify.getReturn_code().equals("SUCCESS")) {
-                    if (notify.getResult_code().equals("SUCCESS")) {
-                        payAppService.wechatSuccess(notify);
-                        logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
-                        return "false";
                     } else {
-                        logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getErr_code_des()}, locale));
+                        logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getReturn_msg()}, locale));
                     }
-
                 } else {
-                    logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getReturn_msg()}, locale));
+                    logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败"}, locale));
                 }
-            } else {
-                logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "签名验证失败"}, locale));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+
         }
 
         return "false";
