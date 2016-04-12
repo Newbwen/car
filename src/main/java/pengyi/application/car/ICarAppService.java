@@ -20,5 +20,5 @@ public interface ICarAppService {
     CarRepresentation show(String id);
 
 
-
+    CarRepresentation searchByDriver(String driverId);
 }

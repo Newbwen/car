@@ -41,18 +41,24 @@ public class CarAppService implements ICarAppService {
 
     @Override
     public CarRepresentation create(CreateCarCommand command) {
-        return mappingService.map(carService.create(command),CarRepresentation.class,false);
+        return mappingService.map(carService.create(command), CarRepresentation.class, false);
     }
 
     @Override
     public CarRepresentation edit(EditCarCommand command) {
-        return mappingService.map(carService.edit(command),CarRepresentation.class,false);
+        return mappingService.map(carService.edit(command), CarRepresentation.class, false);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CarRepresentation show(String id) {
-        return mappingService.map(carService.show(id),CarRepresentation.class,false);
+        return mappingService.map(carService.show(id), CarRepresentation.class, false);
+    }
+
+    @Override
+    public CarRepresentation searchByDriver(String driverId) {
+        Car car = carService.searchByDriver(driverId);
+        return car != null ? mappingService.map(car, CarRepresentation.class, false) : null;
     }
 
 }

@@ -1,10 +1,7 @@
 package pengyi.application.order.representation;
 
 import pengyi.application.user.representation.BaseUserRepresentation;
-import pengyi.core.type.CarType;
-import pengyi.core.type.DriverType;
-import pengyi.core.type.EvaluateStatus;
-import pengyi.core.type.OrderStatus;
+import pengyi.core.type.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -34,6 +31,8 @@ public class OrderRepresentation {
     private String startAddress;                        //开始地址
     private String endAddress;                        //结束地址
     private CarType carType;                            //车辆类型
+    private PayType payType;                             //支付方式
+    private String payNo;                               //支付订单号
     private Integer km;                                 //公里数
 
     public String getId() {
@@ -194,5 +193,21 @@ public class OrderRepresentation {
 
     public void setKm(Integer km) {
         this.km = km;
+    }
+
+    public PayType getPayType() {
+        return payType;
+    }
+
+    public void setPayType(PayType payType) {
+        this.payType = payType;
+    }
+
+    public String getPayNo() {
+        return payNo;
+    }
+
+    public void setPayNo(String payNo) {
+        this.payNo = payNo;
     }
 }

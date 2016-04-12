@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.car.ICarAppService;
+import pengyi.application.car.representation.CarRepresentation;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.application.evaluate.representation.EvaluateRepresentation;
@@ -26,6 +28,9 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     private IEvaluateService evaluateService;
     @Autowired
     private IMappingService mappingService;
+
+    @Autowired
+    private ICarAppService carAppService;
 
     @Override
     public BaseResponse createEvaluate(CreateEvaluateCommand command) {
@@ -84,7 +89,11 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     @Override
     public BaseResponse getByOrderId(String orderId) {
         if (!CoreStringUtils.isEmpty(orderId)) {
-            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId),EvaluateRepresentation.class,false);
+            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId), EvaluateRepresentation.class, false);
+            CarRepresentation car = carAppService.searchByDriver(data.getOrder().getReceiveUser().getId());
+            if (null != car) {
+                data.setCar(car);
+            }
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());

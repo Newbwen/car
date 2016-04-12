@@ -260,6 +260,7 @@ public class ApiAppOrderController {
     }
 
     @RequestMapping(value = "/off_line_pay")
+    @ResponseBody
     public BaseResponse offLinePay(OffLinePayCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
         BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
