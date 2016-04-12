@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class RechargeRepresentation {
 
+    private String id;
     private BaseUserRepresentation user;
     private Date createTime;            //创建时间
     private BigDecimal money;           //充值金额
@@ -19,6 +20,14 @@ public class RechargeRepresentation {
     private PayType payType;            //支付方式
     private String payNo;               //支付号
     private boolean payed;             //是否支付
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BaseUserRepresentation getUser() {
         return user;

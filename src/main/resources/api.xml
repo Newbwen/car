@@ -449,7 +449,7 @@
             <address>recharge/alipay/pay</address>
             <shuoming>money(金额)</shuoming>
             <zhuyi>异步通知地址：http://a.xiguaxing.com/recharge/alipay/notify</zhuyi>
-            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"createTime":"2016-04-0-11","money":100.00,"payTime":null,"payType":"ALIPAY","payNo":null,"isPayd":"false"},"debug_time":0,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"id":"402881e9539857710153986a30fd0001","createTime":"2016-04-0-11","money":100.00,"payTime":null,"payType":"ALIPAY","payNo":null,"isPayd":"false"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>
