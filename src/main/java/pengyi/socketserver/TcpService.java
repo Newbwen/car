@@ -48,8 +48,7 @@ public class TcpService implements Runnable {
         try {
             while (started) {
                 Socket s = serverSocket.accept();
-                Client c = new Client(s);
-                new Thread(c).start();
+                new Client(s);
             }
         } catch (IOException e) {
             logger.error("socket.server.dirty.shutdown.message");

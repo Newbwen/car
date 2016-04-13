@@ -3,10 +3,6 @@ package pengyi.socketserver;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.stereotype.Component;
 import pengyi.core.type.UserType;
 import pengyi.socketserver.model.ReceiveObj;
 
@@ -15,12 +11,11 @@ import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Locale;
 
 /**
  * Created by pengyi on 2016/3/25.
  */
-public class Client implements Runnable {
+public class Client {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private Socket s;
@@ -28,7 +23,6 @@ public class Client implements Runnable {
     private UserType userType;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
-    private boolean bConnected = false;
 
 
     public Client(Socket s) {
@@ -36,11 +30,23 @@ public class Client implements Runnable {
         try {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
-            bConnected = true;
-        } catch (IOException e) {
+            String str = dis.readUTF();
+            ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+            phone = obj.getPhone();
+            userType = obj.getType();
+            switch (obj.getType()) {
+                case USER:
+                    TcpService.userClients.put(phone, this);
+                    break;
+                case DRIVER:
+                    TcpService.driverClients.put(phone, this);
+                    break;
+            }
+        } catch (EOFException e) {
+            logger.info("socket.shutdown.message");
+        }  catch (IOException e) {
             logger.info("socket.connection.fail.message");
             close();
-            e.printStackTrace();
         }
     }
 
@@ -76,30 +82,30 @@ public class Client implements Runnable {
         }
     }
 
-    public void run() {
-        try {
-            while (bConnected) {
-                String str = dis.readUTF();
-                ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-                phone = obj.getPhone();
-                userType = obj.getType();
-                switch (obj.getType()) {
-                    case USER:
-                        TcpService.userClients.put(phone, this);
-                        break;
-                    case DRIVER:
-                        TcpService.driverClients.put(phone, this);
-                        break;
-                }
-            }
-        } catch (EOFException e) {
-            logger.info("socket.shutdown.message");
-            e.printStackTrace();
-        } catch (IOException e) {
-            logger.info("socket.dirty.shutdown.message");
-            e.printStackTrace();
-        } finally {
-            close();
-        }
-    }
+//    public void run() {
+//        try {
+//            while (bConnected) {
+//                String str = dis.readUTF();
+//                ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+//                phone = obj.getPhone();
+//                userType = obj.getType();
+//                switch (obj.getType()) {
+//                    case USER:
+//                        TcpService.userClients.put(phone, this);
+//                        break;
+//                    case DRIVER:
+//                        TcpService.driverClients.put(phone, this);
+//                        break;
+//                }
+//            }
+//        } catch (EOFException e) {
+//            logger.info("socket.shutdown.message");
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            logger.info("socket.dirty.shutdown.message");
+//            e.printStackTrace();
+//        } finally {
+//            close();
+//        }
+//    }
 }
