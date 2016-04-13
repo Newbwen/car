@@ -65,5 +65,11 @@ public class EvaluateAppService implements IEvaluateAppService {
         return mappingService.map(evaluateService.show(id), EvaluateRepresentation.class, false);
     }
 
+    @Override
+    public EvaluateRepresentation searchByOrderID(String id) {
+        Evaluate evaluate = evaluateService.searchByOrder(id);
+        return evaluate != null ? mappingService.map(evaluate, EvaluateRepresentation.class, false) : null;
+    }
+
 
 }

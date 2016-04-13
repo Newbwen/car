@@ -1,7 +1,10 @@
 package pengyi.application.evaluate.representation;
 
+import pengyi.application.car.representation.CarRepresentation;
 import pengyi.application.order.representation.OrderRepresentation;
+import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.domain.model.user.driver.Driver;
 
 /**
  * Created by ${lvdi} on 2016/3/8.
@@ -16,6 +19,7 @@ public class EvaluateRepresentation {
     private String content;                                    //评价内容
     private int level;                                         //评级
     private String createDate;                                 //评价时间
+    private CarRepresentation car;                              //车
 
     public Integer getVersion() {
         return version;
@@ -73,4 +77,11 @@ public class EvaluateRepresentation {
         this.id = id;
     }
 
+    public CarRepresentation getCar() {
+        return car;
+    }
+
+    public void setCar(CarRepresentation car) {
+        this.car = car;
+    }
 }
