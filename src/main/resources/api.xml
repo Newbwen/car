@@ -451,5 +451,13 @@
             <zhuyi>异步通知地址：http://a.xiguaxing.com/recharge/alipay/notify</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"id":"402881e9539857710153986a30fd0001","createTime":"2016-04-0-11","money":100.00,"payTime":null,"payType":"ALIPAY","payNo":null,"isPayd":"false"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
+        <api>
+            <id>83eab5c2-df0e-4048-899f-a2b360246e4e</id>
+            <name>app检查版本</name>
+            <address>/api/app/version/check_version</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"appVersion":"1.2","id":"40288193540d93c401540d9729550002","status":"ENABLE","updateContent":"1231235446545646532123","updateDate":"2016-04-13 11:08:10","version":2},"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
     </apis>
 </apifile>

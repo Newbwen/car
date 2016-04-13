@@ -170,6 +170,7 @@ public class RoleController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
             return new ModelAndView("redirect:/role/list");
         }
 

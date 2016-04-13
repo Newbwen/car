@@ -182,6 +182,30 @@
         <li>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-exchange"></i>
+                <span class="menu-text"> App版本管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url '/app_version/list'/]">
+                        <i class="icon-calendar"></i>
+                        App版本列表
+                    </a>
+                </li>
+                <li>
+                    <a href="[@spring.url '/app_version/create'/]">
+                        <i class="icon-calendar"></i>
+                        App版本创建
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-exchange"></i>
                 <span class="menu-text"> 资金流向管理 </span>
 
                 <b class="arrow icon-angle-down"></b>
