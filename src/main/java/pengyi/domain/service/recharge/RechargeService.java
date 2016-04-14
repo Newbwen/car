@@ -58,7 +58,7 @@ public class RechargeService implements IRechargeService {
 
             String body = "余额充值：" + recharge.getId();
             String detail = command.getUserName() + "充值￥" + command.getMoney();
-            UnifiedRequest request = new UnifiedRequest(body, detail, recharge.getId(), command.getMoney()
+            UnifiedRequest request = new UnifiedRequest(command.getUserType(), body, detail, recharge.getId(), command.getMoney()
                     .multiply(new BigDecimal(100)).intValue(), command.getIp(), Constants.WECHAT_RECHARGE_NOTIFY_URL);
 
             try {

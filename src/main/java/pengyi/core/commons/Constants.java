@@ -18,8 +18,11 @@ public class Constants {
     public final static String ALIPAY_NOTIFY_VERIFY_PARAM = "service=notify_verify&partner=" + Constants.ALIPAY_PARTNER + "&notify_id=";
 
     public static String WECHAT_KEY = "402881165388d598015388d7245a0004";           //微信支付key
-    public static String WECHAT_APPID = "wx7827a70d6465f5df";                       //appid
-    public static String WECHAT_MCH_ID ="1328747701";                               //商户id
+    public static String WECHAT_APPID_U = "wx7827a70d6465f5df";                       //appid
+    public static String WECHAT_MCH_ID_U ="1328747701";                               //商户id
+
+    public static String WECHAT_APPID_D = "wx30564a5076355fc5";                       //appid
+    public static String WECHAT_MCH_ID_D ="1332609701";                               //商户id
 
     public static String WECHAT_UNIFIED_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
