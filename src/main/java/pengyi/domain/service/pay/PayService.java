@@ -12,6 +12,7 @@ import pengyi.core.pay.wechat.UnifiedRequest;
 import pengyi.core.pay.wechat.UnifiedResponse;
 import pengyi.core.type.OrderStatus;
 import pengyi.core.type.PayType;
+import pengyi.core.type.UserType;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.HttpUtil;
 import pengyi.core.util.Signature;
@@ -74,7 +75,7 @@ public class PayService implements IPayService {
         Order order = orderService.show(orderId);
         String body = "订单号：" + order.getOrderNumber() + "，" + order.getDriverType().getName();
         String detail = order.getStartAddress() + "到" + order.getEndAddress();
-        UnifiedRequest request = new UnifiedRequest(body, detail, order.getOrderNumber(), order.getShouldMoney()
+        UnifiedRequest request = new UnifiedRequest(UserType.USER, body, detail, order.getOrderNumber(), order.getShouldMoney()
                 .add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue(), ipAddress, Constants.WECHAT_NOTIFY_URL);
 
         try {

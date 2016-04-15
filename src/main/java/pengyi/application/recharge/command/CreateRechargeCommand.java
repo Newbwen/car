@@ -1,6 +1,7 @@
 package pengyi.application.recharge.command;
 
 import pengyi.core.type.PayType;
+import pengyi.core.type.UserType;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -10,11 +11,20 @@ import java.math.BigDecimal;
  */
 public class CreateRechargeCommand {
 
+    private UserType userType;
     private String userName;
     @NotNull(message = "{recharge.money,NotEmpty,message}")
     private BigDecimal money;
     private PayType payType;
     private String ip;
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
     public String getUserName() {
         return userName;

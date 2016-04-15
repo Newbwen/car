@@ -439,7 +439,7 @@
             <id>0c67bf57-607d-4c9b-87e1-8b12b56df358</id>
             <name>充值（微信支付）</name>
             <address>recharge/wechat/pay</address>
-            <shuoming>money(金额)</shuoming>
+            <shuoming>money(金额),userType(用户类型)</shuoming>
             <zhuyi/>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"appid":"wx7827a70d6465f5df","err_code":null,"err_code_des":null,"mch_id":"1328747701","nonce_str":"4xU8J8rf5qVcRluW","prepay_id":"wx20160406164836f9d7ef9af80048283087","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"AACE2B9E95A4B581704D8BE0548FCD44","trade_type":"APP"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>

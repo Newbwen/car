@@ -1,6 +1,7 @@
 package pengyi.core.pay.wechat;
 
 import pengyi.core.commons.Constants;
+import pengyi.core.type.UserType;
 import pengyi.core.util.RandomStringGenerator;
 
 import java.lang.reflect.Field;
@@ -116,9 +117,18 @@ public class UnifiedRequest {
     public UnifiedRequest() {
     }
 
-    public UnifiedRequest(String body, String detail, String out_trade_no, int total_fee, String spbill_create_ip, String notify_url) {
-        this.appid = Constants.WECHAT_APPID;
-        this.mch_id = Constants.WECHAT_MCH_ID;
+    public UnifiedRequest(UserType userType, String body, String detail, String out_trade_no, int total_fee, String spbill_create_ip, String notify_url) {
+        switch (userType) {
+            case USER:
+                this.appid = Constants.WECHAT_APPID_U;
+                this.mch_id = Constants.WECHAT_MCH_ID_U;
+                break;
+            case DRIVER:
+                this.appid = Constants.WECHAT_APPID_D;
+                this.mch_id = Constants.WECHAT_MCH_ID_D;
+                break;
+        }
+
         this.nonce_str = RandomStringGenerator.getRandomStringByLength(16);
         this.sign = "";
         this.body = body;
