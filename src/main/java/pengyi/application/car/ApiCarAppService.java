@@ -69,7 +69,7 @@ public class ApiCarAppService implements IApiCarAppService {
     @Override
     public BaseResponse updateCar(EditCarCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getId())) {
+            if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
