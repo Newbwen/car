@@ -5,8 +5,9 @@ package pengyi.core.type;
  */
 public enum RescueType {
     CHILDREN("留守儿童", 1, Boolean.FALSE),
-    OLD_MAN("老人", 2, Boolean.FALSE),
-    OTHER("其他", 3, Boolean.FALSE);
+    OLD_MAN("空巢老人", 2, Boolean.FALSE),
+    WOMAN("留守妇女", 3, Boolean.FALSE),
+    OTHER("SOS紧急", 4, Boolean.FALSE);
 
     RescueType(String name, int value, Boolean onlyQuery) {
         this.name = name;

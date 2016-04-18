@@ -42,8 +42,10 @@ public class Client {
                     TcpService.driverClients.put(phone, this);
                     break;
             }
+            dis.readUTF();
         } catch (EOFException e) {
             logger.info("socket.shutdown.message");
+            close();
         }  catch (IOException e) {
             logger.info("socket.connection.fail.message");
             close();
