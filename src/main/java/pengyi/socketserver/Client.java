@@ -3,6 +3,7 @@ package pengyi.socketserver;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import pengyi.core.type.UserType;
 import pengyi.socketserver.model.ReceiveObj;
 
@@ -15,7 +16,7 @@ import java.net.Socket;
 /**
  * Created by pengyi on 2016/3/25.
  */
-public class Client {
+public class Client implements Runnable {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private Socket s;
@@ -30,19 +31,29 @@ public class Client {
         try {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
-            String str = dis.readUTF();
-            ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-            phone = obj.getPhone();
-            userType = obj.getType();
-            switch (obj.getType()) {
-                case USER:
-                    TcpService.userClients.put(phone, this);
-                    break;
-                case DRIVER:
-                    TcpService.driverClients.put(phone, this);
-                    break;
-            }
-            dis.readUTF();
+//            String str = dis.readUTF();
+//            ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+//            phone = obj.getPhone();
+//            userType = obj.getType();
+//            switch (obj.getType()) {
+//                case USER:
+//                    TcpService.userClients.put(phone, this);
+//                    break;
+//                case DRIVER:
+//                    TcpService.driverClients.put(phone, this);
+//                    break;
+//            }
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        dis.readUTF();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                        close();
+//                    }
+//                }
+//            }).start();
         } catch (EOFException e) {
             logger.info("socket.shutdown.message");
             close();
@@ -84,30 +95,31 @@ public class Client {
         }
     }
 
-//    public void run() {
-//        try {
-//            while (bConnected) {
-//                String str = dis.readUTF();
-//                ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-//                phone = obj.getPhone();
-//                userType = obj.getType();
-//                switch (obj.getType()) {
-//                    case USER:
-//                        TcpService.userClients.put(phone, this);
-//                        break;
-//                    case DRIVER:
-//                        TcpService.driverClients.put(phone, this);
-//                        break;
-//                }
-//            }
-//        } catch (EOFException e) {
-//            logger.info("socket.shutdown.message");
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            logger.info("socket.dirty.shutdown.message");
-//            e.printStackTrace();
-//        } finally {
-//            close();
-//        }
-//    }
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                String str = dis.readUTF();
+                ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+                phone = obj.getPhone();
+                userType = obj.getType();
+                switch (obj.getType()) {
+                    case USER:
+                        TcpService.userClients.put(phone, this);
+                        break;
+                    case DRIVER:
+                        TcpService.driverClients.put(phone, this);
+                        break;
+                }
+            }
+        } catch (EOFException e) {
+            logger.info("socket.shutdown.message");
+            close();
+        } catch (IOException e) {
+            logger.info("socket.dirty.shutdown.message");
+            close();
+        } finally {
+            close();
+        }
+    }
 }

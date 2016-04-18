@@ -4,6 +4,7 @@ import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.FlowType;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by YJH on 2016/3/9.
@@ -19,6 +20,7 @@ public class MoneyDetailedRepresentation {
     private String description;     //说明（如：专车订单+订单号）
     private BigDecimal oldMoney;    //原有金额
     private BigDecimal newMoney;    //现有金额
+    private Date createDate;        //创建日期
 
     public String getId() {
         return id;
@@ -82,5 +84,13 @@ public class MoneyDetailedRepresentation {
 
     public void setNewMoney(BigDecimal newMoney) {
         this.newMoney = newMoney;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

@@ -117,8 +117,6 @@ public class RechargeService implements IRechargeService {
             recharge.setPayed(true);
             recharge.setPayNo(notify.getTrade_no());
 
-            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
-
             CreateMoneyDetailedCommand command = new CreateMoneyDetailedCommand();
             command.setBaseUser(recharge.getUser().getId());
             command.setCreateDate(new Date());
@@ -128,6 +126,8 @@ public class RechargeService implements IRechargeService {
             command.setNewMoney(recharge.getUser().getBalance().add(recharge.getMoney()));
             command.setOldMoney(recharge.getUser().getBalance());
             moneyDetailedService.create(command);
+
+            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
 
             rechargeRepository.update(recharge);
         }
@@ -144,8 +144,6 @@ public class RechargeService implements IRechargeService {
             recharge.setPayed(true);
             recharge.setPayNo(notify.getTransaction_id());
 
-            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
-
             CreateMoneyDetailedCommand command = new CreateMoneyDetailedCommand();
             command.setBaseUser(recharge.getUser().getId());
             command.setCreateDate(new Date());
@@ -155,6 +153,8 @@ public class RechargeService implements IRechargeService {
             command.setNewMoney(recharge.getUser().getBalance().add(recharge.getMoney()));
             command.setOldMoney(recharge.getUser().getBalance());
             moneyDetailedService.create(command);
+
+            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
         }
 
         rechargeRepository.update(recharge);
