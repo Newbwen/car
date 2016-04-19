@@ -213,6 +213,11 @@ public class OrderService implements IOrderService {
 
         orderRepository.update(order);
 
+        String phone = order.getOrderUser().getUserName();
+        if (TcpService.userClients.containsKey(phone)) {
+            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
+        }
+
         return order;
     }
 
@@ -246,6 +251,11 @@ public class OrderService implements IOrderService {
         order.setOrderStatus(OrderStatus.WAIT_PAY);
 
         orderRepository.update(order);
+
+        String phone = order.getOrderUser().getUserName();
+        if (TcpService.userClients.containsKey(phone)) {
+            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
+        }
 
         return order;
     }
