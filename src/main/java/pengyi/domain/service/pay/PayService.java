@@ -44,7 +44,7 @@ public class PayService implements IPayService {
 
         Order order = orderService.byOrderNumber(notify.getOut_trade_no());
 
-        if (null != order && null != order.getPayTime() && order.getExtraMoney().add(order.getShouldMoney()).toString().equals(notify.getTotal_fee())) {
+        if (null != order && null == order.getPayTime() && order.getExtraMoney().add(order.getShouldMoney()).toString().equals(notify.getTotal_fee())) {
             order.setPayTime(CoreDateUtils.parseLongDate(notify.getGmt_payment()));
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.ALIPAY);
@@ -59,7 +59,7 @@ public class PayService implements IPayService {
 
         Order order = orderService.byOrderNumber(notify.getOut_trade_no());
 
-        if (null != order && null != order.getPayTime() && order.getShouldMoney().add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue() == (notify.getTotal_fee())) {
+        if (null != order && null == order.getPayTime() && order.getShouldMoney().add(order.getExtraMoney()).multiply(new BigDecimal(100)).intValue() == (notify.getTotal_fee())) {
             order.setPayTime(CoreDateUtils.parseDate(notify.getTime_end(), "yyyyMMddHHmmss"));
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.WECHAT);
