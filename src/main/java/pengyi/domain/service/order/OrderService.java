@@ -233,7 +233,7 @@ public class OrderService implements IOrderService {
         billingCommand.setDriverType(order.getDriverType());
         billingCommand.setCarType(order.getCarType());
         List<Billing> billingList = billingService.searchByDriver(billingCommand);
-        if (null == billingCommand && billingList.size() < 1) {
+        if (null == billingList || billingList.size() < 1) {
             throw new NoFoundException("没有找到计费模板");
         }
         Billing billing = billingList.get(0);
