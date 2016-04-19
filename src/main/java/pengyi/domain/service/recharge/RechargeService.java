@@ -112,7 +112,7 @@ public class RechargeService implements IRechargeService {
 
         Recharge recharge = rechargeRepository.getById(notify.getOut_trade_no());
 
-        if (null != recharge && recharge.getMoney().toString().equals(notify.getTotal_fee())) {
+        if (null != recharge && !recharge.isPayed() && recharge.getMoney().toString().equals(notify.getTotal_fee())) {
             recharge.setPayTime(CoreDateUtils.parseLongDate(notify.getGmt_payment()));
             recharge.setPayed(true);
             recharge.setPayNo(notify.getTrade_no());
@@ -139,7 +139,7 @@ public class RechargeService implements IRechargeService {
 
         Recharge recharge = rechargeRepository.getById(notify.getOut_trade_no());
 
-        if (null != recharge && recharge.getMoney().multiply(new BigDecimal(100)).intValue() == notify.getTotal_fee()) {
+        if (null != recharge && !recharge.isPayed() && recharge.getMoney().multiply(new BigDecimal(100)).intValue() == notify.getTotal_fee()) {
             recharge.setPayTime(CoreDateUtils.parseDate(notify.getTime_end(), "yyyyMMddHHmmss"));
             recharge.setPayed(true);
             recharge.setPayNo(notify.getTransaction_id());

@@ -59,15 +59,15 @@ public class CarService implements ICarService {
     public Car edit(EditCarCommand command) {
         Car car = this.show(command.getId());
         car.fainWhenConcurrencyViolation(car.getVersion());
-        Car car1 = this.searchByNumber(command.getCarNumber());
-        if (car.getCarNumber() != command.getCarNumber()) {
+        if (!car.getCarNumber().equals(command.getCarNumber())) {
+            Car car1 = this.searchByNumber(command.getCarNumber());
             if (null != car1) {
                 throw new ExistException("车牌号[" + command.getCarNumber() + "]的记录已存在");
             }
+            car.setCarNumber(command.getCarNumber());
         }
 
         car.setCarType(command.getCarType());
-        car.setCarNumber(command.getCarNumber());
         car.setName(command.getName());
         carRepository.update(car);
         return car;
@@ -78,7 +78,7 @@ public class CarService implements ICarService {
      */
     @Override
     public Car show(String id) {
-        Car car = (Car) carRepository.getById(id);
+        Car car = carRepository.getById(id);
         if (null == car) {
             throw new NoFoundException("没有找到车辆id=[" + id + "]的记录");
         }
