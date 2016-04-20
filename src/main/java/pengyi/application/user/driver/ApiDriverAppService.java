@@ -61,9 +61,9 @@ public class ApiDriverAppService implements IApiDriverAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            if (CoreStringUtils.isEmpty(command.getUserName())) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
-            }
+//            if (CoreStringUtils.isEmpty(command.getUserName())) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
+//            }
             if (null == command.getPassword()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10007.getMessage());
             }
@@ -207,9 +207,9 @@ public class ApiDriverAppService implements IApiDriverAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            if (CoreStringUtils.isEmpty(command.getEmail())) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10013.getMessage());
-            }
+//            if (CoreStringUtils.isEmpty(command.getEmail())) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10013.getMessage());
+//            }
             if (CoreStringUtils.isEmpty(command.getName())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
             }
