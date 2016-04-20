@@ -171,16 +171,9 @@ public class DriverService implements IDriverService {
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (!command.getUserName().equals(driver.getUserName())) {
-            if (null != baseUserService.searchByUserName(command.getUserName())) {
-                throw new ExistException("用户名[" + command.getUserName() + "]已存在");
-            }
-        }
-
         String salt = PasswordHelper.getSalt();
-        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+        String password = PasswordHelper.encryptPassword(command.getPassword(), driver.getCredentialsSalt());
 
-        driver.setUserName(command.getUserName());
         driver.setPassword(password);
         driver.setDriverType(command.getDriverType());
 
