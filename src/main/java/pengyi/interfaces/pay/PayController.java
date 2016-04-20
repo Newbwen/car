@@ -68,7 +68,7 @@ public class PayController extends BaseController {
                 } else if (notify.getTrade_status().equals("WAIT_BUYER_PAY")) {
 
                 }
-                return "true";
+                return "success";
             } else {
                 logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), "不是支付宝通知"}, locale));
             }
@@ -76,7 +76,7 @@ public class PayController extends BaseController {
             logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), e.getMessage()}, locale));
         }
 
-        return "false";
+        return "fail";
     }
 
     @RequestMapping(value = "/wechat/notify")
