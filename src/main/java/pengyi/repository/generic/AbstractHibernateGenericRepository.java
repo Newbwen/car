@@ -115,7 +115,6 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     @Override
     public void save(T entity) {
         getSession().save(entity);
-        getSession().flush();
     }
 
     @Override
@@ -131,7 +130,6 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     @Override
     public void delete(T entity) {
         getSession().delete(entity);
-        getSession().flush();
     }
 
     @Override

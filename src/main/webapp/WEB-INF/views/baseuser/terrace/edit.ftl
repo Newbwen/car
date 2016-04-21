@@ -39,7 +39,7 @@
 
                 <div class="col-sm-9">
                     <input type="text" id="form-field-1" name="name" value="${terrace.name!command.name}"
-                           placeholder="公司名称" class="col-xs-10 col-sm-5" required/>
+                           placeholder="平台昵称" class="col-xs-10 col-sm-5" required/>
                     [@spring.showErrors "name"/]
                 </div>
             </div>
