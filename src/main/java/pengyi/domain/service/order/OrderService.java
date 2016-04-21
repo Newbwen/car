@@ -384,4 +384,20 @@ public class OrderService implements IOrderService {
 
         return order;
     }
+
+    @Override
+    public boolean hasOrder(String userId) {
+
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("receiveUser.id", userId));
+        criterionList.add(Restrictions.isNull("subscribeDate"));
+
+        List<OrderStatus> orderStatuses = new ArrayList<OrderStatus>();
+        orderStatuses.add(OrderStatus.HAS_ORDER);
+        orderStatuses.add(OrderStatus.START_ORDER);
+        orderStatuses.add(OrderStatus.WAIT_PAY);
+        criterionList.add(Restrictions.in("orderStatus", orderStatuses));
+        List<Order> orders = orderRepository.list(criterionList, null);
+        return null != orders && orders.size() != 0;
+    }
 }

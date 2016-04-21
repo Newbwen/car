@@ -20,7 +20,8 @@ public enum ResponseCode {
     RESPONSE_CODE_VERIFICATION_CODE_ERROR(90009,"验证码错误"),
     RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND(90010,"未发送验证码"),
     RESPONSE_CODE_ORDER_UPDATED(90011,"订单已更新"),
-    RESPONSE_CODE_NOT_SUFFICIENT_FUNDS(90012,"余额不足");
+    RESPONSE_CODE_NOT_SUFFICIENT_FUNDS(90012,"余额不足"),
+    RESPONSE_CODE_HAS_ORDER(900013, "有未完成的订单");
 
     private int code;
     private String message;
