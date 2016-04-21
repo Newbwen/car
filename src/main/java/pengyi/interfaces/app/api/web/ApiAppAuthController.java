@@ -49,6 +49,7 @@ public class ApiAppAuthController {
             logger.info("用户:" + user.getUserName() + "登录成功!时间:" + new Date());
 
             session.setAttribute(Constants.SESSION_USER, user);
+            session.setMaxInactiveInterval(60*60*24*30);
 
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, user, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } catch (UnknownAccountException e) {
@@ -71,10 +72,11 @@ public class ApiAppAuthController {
 
     @RequestMapping(value = "/logout")
     @ResponseBody
-    public BaseResponse logout() {
+    public BaseResponse logout(HttpSession session) {
         long startTime = System.currentTimeMillis();
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
+        session.invalidate();
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, (System.currentTimeMillis() - startTime), null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 

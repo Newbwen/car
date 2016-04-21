@@ -347,6 +347,12 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setNewMoney(user.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
+        String pnone = order.getReceiveUser().getUserName();
+        if (TcpService.driverClients.containsKey(pnone)) {
+            TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
+        }
+
+
         return order;
     }
 
@@ -370,6 +376,12 @@ public class OrderService implements IOrderService {
         order.setPayType(PayType.OFFLINE);
 
         orderRepository.update(order);
+
+        String pnone = order.getOrderUser().getUserName();
+        if (TcpService.userClients.containsKey(pnone)) {
+            TcpService.userClients.get(pnone).send(JSON.toJSONString(order));
+        }
+
         return order;
     }
 }

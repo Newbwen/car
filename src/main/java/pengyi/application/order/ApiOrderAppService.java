@@ -79,8 +79,6 @@ public class ApiOrderAppService implements IApiOrderAppService {
                 if (null == CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME)) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10022.getMessage());
                 }
-            } else {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10021.getMessage());
             }
             if (null == command.getDriverType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());

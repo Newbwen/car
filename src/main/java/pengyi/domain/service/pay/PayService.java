@@ -1,5 +1,6 @@
 package pengyi.domain.service.pay;
 
+import com.alibaba.fastjson.JSON;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
@@ -21,6 +22,7 @@ import pengyi.domain.model.order.Order;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.domain.service.order.IOrderService;
+import pengyi.socketserver.TcpService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -49,6 +51,11 @@ public class PayService implements IPayService {
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.ALIPAY);
             order.setPayNo(notify.getTrade_no());
+
+            String pnone = order.getReceiveUser().getUserName();
+            if (TcpService.driverClients.containsKey(pnone)) {
+                TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
+            }
         }
 
         orderService.paySuccress(order);
@@ -64,6 +71,11 @@ public class PayService implements IPayService {
             order.setOrderStatus(OrderStatus.SUCCESS);
             order.setPayType(PayType.WECHAT);
             order.setPayNo(notify.getTransaction_id());
+
+            String pnone = order.getReceiveUser().getUserName();
+            if (TcpService.driverClients.containsKey(pnone)) {
+                TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
+            }
         }
 
         orderService.paySuccress(order);
