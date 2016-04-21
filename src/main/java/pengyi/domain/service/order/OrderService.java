@@ -231,7 +231,9 @@ public class OrderService implements IOrderService {
         SearchBillingCommand billingCommand = new SearchBillingCommand();
         billingCommand.setUserName(driver.getUserName());
         billingCommand.setDriverType(order.getDriverType());
-        billingCommand.setCarType(order.getCarType());
+        if (null != order.getCarType()) {
+            billingCommand.setCarType(order.getCarType());
+        }
         List<Billing> billingList = billingService.searchByDriver(billingCommand);
         if (null == billingList || billingList.size() < 1) {
             throw new NoFoundException("没有找到计费模板");
