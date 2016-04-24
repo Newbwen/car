@@ -12,6 +12,8 @@ import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pengyi on 2016/3/25.
@@ -38,22 +40,31 @@ public class Client implements Runnable {
 //            switch (obj.getType()) {
 //                case USER:
 //                    TcpService.userClients.put(phone, this);
+//                    if (TcpService.userMessages.containsKey(phone)){
+//                        List<String> messages = TcpService.userMessages.get(phone);
+//                        List<String> newMessages = new ArrayList<String>();
+//                        for (String message : messages) {
+//                            if (!send(message)) {
+//                                newMessages.add(message);
+//                            }
+//                        }
+//                        TcpService.userMessages.replace(phone, newMessages);
+//                    }
 //                    break;
 //                case DRIVER:
 //                    TcpService.driverClients.put(phone, this);
+//                    if (TcpService.driverMessages.containsKey(phone)){
+//                        List<String> messages = TcpService.driverMessages.get(phone);
+//                        List<String> newMessages = new ArrayList<String>();
+//                        for (String message : messages) {
+//                            if (!send(message)) {
+//                                newMessages.add(message);
+//                            }
+//                        }
+//                        TcpService.driverMessages.replace(phone, newMessages);
+//                    }
 //                    break;
 //            }
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        dis.readUTF();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                        close();
-//                    }
-//                }
-//            }).start();
         } catch (EOFException e) {
             logger.info("socket.shutdown.message");
             close();
@@ -63,12 +74,14 @@ public class Client implements Runnable {
         }
     }
 
-    public void send(String str) {
+    public boolean send(String str) {
         try {
-            dos.writeUTF(str);
+            dos.writeUTF(str.replace(" ", "").replace("\n", "").replace("\t", ""));
+            return true;
         } catch (IOException e) {
             logger.info("socket.server.sendMessage.fail.message");
             close();
+            return false;
         }
     }
 
@@ -105,19 +118,37 @@ public class Client implements Runnable {
                 userType = obj.getType();
                 switch (obj.getType()) {
                     case USER:
-                        TcpService.userClients.put(phone, this);
-                        break;
-                    case DRIVER:
-                        TcpService.driverClients.put(phone, this);
-                        break;
+                    TcpService.userClients.put(phone, this);
+                    if (TcpService.userMessages.containsKey(phone)){
+                        List<String> messages = TcpService.userMessages.get(phone);
+                        List<String> newMessages = new ArrayList<String>();
+                        for (String message : messages) {
+                            if (!send(message)) {
+                                newMessages.add(message);
+                            }
+                        }
+                        TcpService.userMessages.replace(phone, newMessages);
+                    }
+                    break;
+                case DRIVER:
+                    TcpService.driverClients.put(phone, this);
+                    if (TcpService.driverMessages.containsKey(phone)){
+                        List<String> messages = TcpService.driverMessages.get(phone);
+                        List<String> newMessages = new ArrayList<String>();
+                        for (String message : messages) {
+                            if (!send(message)) {
+                                newMessages.add(message);
+                            }
+                        }
+                        TcpService.driverMessages.replace(phone, newMessages);
+                    }
+                    break;
                 }
             }
         } catch (EOFException e) {
             logger.info("socket.shutdown.message");
-            close();
         } catch (IOException e) {
             logger.info("socket.dirty.shutdown.message");
-            close();
         } finally {
             close();
         }

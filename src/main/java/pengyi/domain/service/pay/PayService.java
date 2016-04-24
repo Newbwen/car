@@ -21,15 +21,14 @@ import pengyi.core.util.XMLParser;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
+import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.socketserver.TcpService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -52,9 +51,29 @@ public class PayService implements IPayService {
             order.setPayType(PayType.ALIPAY);
             order.setPayNo(notify.getTrade_no());
 
-            String pnone = order.getReceiveUser().getUserName();
-            if (TcpService.driverClients.containsKey(pnone)) {
-                TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
+            String phone = order.getReceiveUser().getUserName();
+
+            BaseUser orderUser = order.getOrderUser();
+            orderUser.setUserRole(null);
+            BaseUser driver = order.getReceiveUser();
+
+            driver.setUserRole(null);
+
+            order.setOrderUser(orderUser);
+            order.setReceiveUser(driver);
+
+            if (TcpService.driverClients.containsKey(phone)) {
+                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
+                    if (TcpService.driverMessages.containsKey(phone)) {
+                        List<String> messages = TcpService.driverMessages.get(phone);
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.replace(phone, messages);
+                    } else {
+                        List<String> messages = new ArrayList<String>();
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.put(phone, messages);
+                    }
+                }
             }
         }
 
@@ -72,9 +91,29 @@ public class PayService implements IPayService {
             order.setPayType(PayType.WECHAT);
             order.setPayNo(notify.getTransaction_id());
 
-            String pnone = order.getReceiveUser().getUserName();
-            if (TcpService.driverClients.containsKey(pnone)) {
-                TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
+            String phone = order.getReceiveUser().getUserName();
+
+            BaseUser orderUser = order.getOrderUser();
+            orderUser.setUserRole(null);
+            BaseUser driver = order.getReceiveUser();
+
+            driver.setUserRole(null);
+
+            order.setOrderUser(orderUser);
+            order.setReceiveUser(driver);
+
+            if (TcpService.driverClients.containsKey(phone)) {
+                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
+                    if (TcpService.driverMessages.containsKey(phone)) {
+                        List<String> messages = TcpService.driverMessages.get(phone);
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.replace(phone, messages);
+                    } else {
+                        List<String> messages = new ArrayList<String>();
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.put(phone, messages);
+                    }
+                }
             }
         }
 

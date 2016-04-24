@@ -174,6 +174,9 @@ public class OrderService implements IOrderService {
 
         orderRepository.save(order);
 
+        orderUser.setUserRole(null);
+        order.setOrderUser(orderUser);
+
         String[] drivers = command.getDrivers().split(",");
         for (String driver : drivers) {
             if (TcpService.driverClients.containsKey(driver)) {
@@ -197,8 +200,25 @@ public class OrderService implements IOrderService {
         orderRepository.update(order);
 
         String phone = order.getOrderUser().getUserName();
+
+        BaseUser orderUser = order.getOrderUser();
+        orderUser.setUserRole(null);
+        receiveUser.setUserRole(null);
+
+        order.setOrderUser(orderUser);
+        order.setReceiveUser(receiveUser);
         if (TcpService.userClients.containsKey(phone)) {
-            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+                if (TcpService.userMessages.containsKey(phone)) {
+                    List<String> messages = TcpService.userMessages.get(phone);
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.replace(phone, messages);
+                } else {
+                    List<String> messages = new ArrayList<String>();
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.put(phone, messages);
+                }
+            }
         }
         return order;
     }
@@ -214,8 +234,28 @@ public class OrderService implements IOrderService {
         orderRepository.update(order);
 
         String phone = order.getOrderUser().getUserName();
+
+        BaseUser orderUser = order.getOrderUser();
+        orderUser.setUserRole(null);
+        BaseUser receiveUser = order.getReceiveUser();
+        receiveUser.setUserRole(null);
+
+        order.setOrderUser(orderUser);
+        order.setReceiveUser(receiveUser);
+
+
         if (TcpService.userClients.containsKey(phone)) {
-            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+                if (TcpService.userMessages.containsKey(phone)) {
+                    List<String> messages = TcpService.userMessages.get(phone);
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.replace(phone, messages);
+                } else {
+                    List<String> messages = new ArrayList<String>();
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.put(phone, messages);
+                }
+            }
         }
 
         return order;
@@ -255,8 +295,27 @@ public class OrderService implements IOrderService {
         orderRepository.update(order);
 
         String phone = order.getOrderUser().getUserName();
+
+        BaseUser orderUser = order.getOrderUser();
+        orderUser.setUserRole(null);
+        driver.setUserRole(null);
+
+        order.setOrderUser(orderUser);
+        order.setReceiveUser(driver);
+
+
         if (TcpService.userClients.containsKey(phone)) {
-            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+                if (TcpService.userMessages.containsKey(phone)) {
+                    List<String> messages = TcpService.userMessages.get(phone);
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.replace(phone, messages);
+                } else {
+                    List<String> messages = new ArrayList<String>();
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.put(phone, messages);
+                }
+            }
         }
 
         return order;
@@ -279,12 +338,39 @@ public class OrderService implements IOrderService {
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (null != order.getReceiveUser()) {
+        if (order.getOrderStatus()!=OrderStatus.WAIT_ORDER && order.getOrderStatus()!=OrderStatus.HAS_ORDER) {
             throw new OrderIsStartException("订单已经开始,不能取消订单!");
         }
         order.setOrderStatus(OrderStatus.INVALID);
 
         orderRepository.update(order);
+
+        if (null != order.getReceiveUser()) {
+            String phone = order.getReceiveUser().getUserName();
+
+            BaseUser orderUser = order.getOrderUser();
+            orderUser.setUserRole(null);
+            BaseUser driver = order.getReceiveUser();
+
+            driver.setUserRole(null);
+
+            order.setOrderUser(orderUser);
+            order.setReceiveUser(driver);
+
+            if (TcpService.driverClients.containsKey(phone)) {
+                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
+                    if (TcpService.driverMessages.containsKey(phone)) {
+                        List<String> messages = TcpService.driverMessages.get(phone);
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.replace(phone, messages);
+                    } else {
+                        List<String> messages = new ArrayList<String>();
+                        messages.add(JSON.toJSONString(order));
+                        TcpService.driverMessages.put(phone, messages);
+                    }
+                }
+            }
+        }
 
         return order;
     }
@@ -349,11 +435,28 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setNewMoney(user.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
-        String pnone = order.getReceiveUser().getUserName();
-        if (TcpService.driverClients.containsKey(pnone)) {
-            TcpService.driverClients.get(pnone).send(JSON.toJSONString(order));
-        }
+        String phone = order.getReceiveUser().getUserName();
 
+        BaseUser orderUser = order.getOrderUser();
+        orderUser.setUserRole(null);
+        driver.setUserRole(null);
+
+        order.setOrderUser(orderUser);
+        order.setReceiveUser(driver);
+
+        if (TcpService.driverClients.containsKey(phone)) {
+            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
+                if (TcpService.driverMessages.containsKey(phone)) {
+                    List<String> messages = TcpService.driverMessages.get(phone);
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.driverMessages.replace(phone, messages);
+                } else {
+                    List<String> messages = new ArrayList<String>();
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.driverMessages.put(phone, messages);
+                }
+            }
+        }
 
         return order;
     }
@@ -379,27 +482,49 @@ public class OrderService implements IOrderService {
 
         orderRepository.update(order);
 
-        String pnone = order.getOrderUser().getUserName();
-        if (TcpService.userClients.containsKey(pnone)) {
-            TcpService.userClients.get(pnone).send(JSON.toJSONString(order));
-        }
+        String phone = order.getOrderUser().getUserName();
 
+        BaseUser orderUser = order.getOrderUser();
+        orderUser.setUserRole(null);
+        driver.setUserRole(null);
+
+        order.setOrderUser(orderUser);
+        order.setReceiveUser(driver);
+
+        if (TcpService.userClients.containsKey(phone)) {
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+                if (TcpService.userMessages.containsKey(phone)) {
+                    List<String> messages = TcpService.userMessages.get(phone);
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.replace(phone, messages);
+                } else {
+                    List<String> messages = new ArrayList<String>();
+                    messages.add(JSON.toJSONString(order));
+                    TcpService.userMessages.put(phone, messages);
+                }
+            }
+        }
         return order;
     }
 
     @Override
-    public boolean hasOrder(String userId) {
+    public boolean hasOrder(String userId, String orderId) {
 
-        List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("receiveUser.id", userId));
-        criterionList.add(Restrictions.isNull("subscribeDate"));
+        Order order = orderRepository.getById(orderId);
 
-        List<OrderStatus> orderStatuses = new ArrayList<OrderStatus>();
-        orderStatuses.add(OrderStatus.HAS_ORDER);
-        orderStatuses.add(OrderStatus.START_ORDER);
-        orderStatuses.add(OrderStatus.WAIT_PAY);
-        criterionList.add(Restrictions.in("orderStatus", orderStatuses));
-        List<Order> orders = orderRepository.list(criterionList, null);
-        return null != orders && orders.size() != 0;
+        if (null == order.getSubscribeDate()) {
+            List<Criterion> criterionList = new ArrayList<Criterion>();
+            criterionList.add(Restrictions.eq("receiveUser.id", userId));
+            criterionList.add(Restrictions.isNull("subscribeDate"));
+
+            List<OrderStatus> orderStatuses = new ArrayList<OrderStatus>();
+            orderStatuses.add(OrderStatus.HAS_ORDER);
+            orderStatuses.add(OrderStatus.START_ORDER);
+            criterionList.add(Restrictions.in("orderStatus", orderStatuses));
+            List<Order> orders = orderRepository.list(criterionList, null);
+            return null != orders && orders.size() != 0;
+        }
+
+        return false;
     }
 }

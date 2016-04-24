@@ -117,7 +117,7 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getReceiveUser())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10023.getMessage());
             }
-            if (orderService.hasOrder(command.getReceiveUser())) {
+            if (orderService.hasOrder(command.getReceiveUser(), command.getOrderId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_HAS_ORDER, 0, null, ResponseCode.RESPONSE_CODE_HAS_ORDER.getMessage());
             }
             OrderRepresentation order = mappingService.map(orderService.apiReceiverOrder(command), OrderRepresentation.class, false);

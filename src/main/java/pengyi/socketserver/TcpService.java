@@ -9,6 +9,7 @@ import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -21,6 +22,10 @@ public class TcpService implements Runnable {
     boolean started = false;
     public static Map<String, Client> userClients = new HashMap<String, Client>();
     public static Map<String, Client> driverClients = new HashMap<String, Client>();
+
+    public static Map<String, List<String>> userMessages = new HashMap<String, List<String>>();
+    public static Map<String, List<String>> driverMessages = new HashMap<String, List<String>>();
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
