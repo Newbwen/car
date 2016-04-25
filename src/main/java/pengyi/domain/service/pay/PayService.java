@@ -62,19 +62,7 @@ public class PayService implements IPayService {
             order.setOrderUser(orderUser);
             order.setReceiveUser(driver);
 
-            if (TcpService.driverClients.containsKey(phone)) {
-                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
-                    if (TcpService.driverMessages.containsKey(phone)) {
-                        List<String> messages = TcpService.driverMessages.get(phone);
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.replace(phone, messages);
-                    } else {
-                        List<String> messages = new ArrayList<String>();
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.put(phone, messages);
-                    }
-                }
-            }
+            sendToDriver(phone, order);
         }
 
         orderService.paySuccress(order);
@@ -102,19 +90,7 @@ public class PayService implements IPayService {
             order.setOrderUser(orderUser);
             order.setReceiveUser(driver);
 
-            if (TcpService.driverClients.containsKey(phone)) {
-                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
-                    if (TcpService.driverMessages.containsKey(phone)) {
-                        List<String> messages = TcpService.driverMessages.get(phone);
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.replace(phone, messages);
-                    } else {
-                        List<String> messages = new ArrayList<String>();
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.put(phone, messages);
-                    }
-                }
-            }
+            sendToDriver(phone, order);
         }
 
         orderService.paySuccress(order);
@@ -160,5 +136,27 @@ public class PayService implements IPayService {
             throw new WechatSignException("未知错误");
         }
 
+    }
+
+    private void sendToDriver(String phone, Order order) {
+        if (TcpService.driverClients.containsKey(phone)) {
+            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))) {
+                putDriverMessage(phone, order);
+            }
+        } else {
+            putDriverMessage(phone, order);
+        }
+    }
+
+    private void putDriverMessage(String phone, Order order) {
+        if (TcpService.driverMessages.containsKey(phone)) {
+            List<String> messages = TcpService.driverMessages.get(phone);
+            messages.add(JSON.toJSONString(order));
+            TcpService.driverMessages.replace(phone, messages);
+        } else {
+            List<String> messages = new ArrayList<String>();
+            messages.add(JSON.toJSONString(order));
+            TcpService.driverMessages.put(phone, messages);
+        }
     }
 }

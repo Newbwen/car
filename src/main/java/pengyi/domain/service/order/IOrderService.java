@@ -49,4 +49,6 @@ public interface IOrderService {
     Order offLinePay(OffLinePayCommand command);
 
     boolean hasOrder(String userId, String orderId);
+
+    boolean hasBalance(String userId);
 }

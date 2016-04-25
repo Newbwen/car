@@ -1,6 +1,8 @@
 package pengyi.application.order.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.CarType;
+import pengyi.core.type.DriverType;
 import pengyi.core.type.OrderStatus;
 
 /**
@@ -12,6 +14,8 @@ public class ListOrderCommand extends BasicPaginationCommand {
     private OrderStatus orderStatus;
     private String orderUser;
     private String receiveUser;
+    private DriverType driverType;
+    private CarType carType;
 
     public String getOrderNumber() {
         return orderNumber;
@@ -43,5 +47,21 @@ public class ListOrderCommand extends BasicPaginationCommand {
 
     public void setReceiveUser(String receiveUser) {
         this.receiveUser = receiveUser;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

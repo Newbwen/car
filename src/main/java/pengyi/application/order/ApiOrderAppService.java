@@ -120,6 +120,9 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (orderService.hasOrder(command.getReceiveUser(), command.getOrderId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_HAS_ORDER, 0, null, ResponseCode.RESPONSE_CODE_HAS_ORDER.getMessage());
             }
+            if (!orderService.hasBalance(command.getReceiveUser())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_SUFFICIENT_FUNDS, 0, null, ResponseCode.RESPONSE_CODE_NOT_SUFFICIENT_FUNDS.getMessage());
+            }
             OrderRepresentation order = mappingService.map(orderService.apiReceiverOrder(command), OrderRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {

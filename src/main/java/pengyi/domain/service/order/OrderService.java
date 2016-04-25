@@ -207,19 +207,7 @@ public class OrderService implements IOrderService {
 
         order.setOrderUser(orderUser);
         order.setReceiveUser(receiveUser);
-        if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
-                if (TcpService.userMessages.containsKey(phone)) {
-                    List<String> messages = TcpService.userMessages.get(phone);
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.replace(phone, messages);
-                } else {
-                    List<String> messages = new ArrayList<String>();
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.put(phone, messages);
-                }
-            }
-        }
+        sendToUser(phone, order);
         return order;
     }
 
@@ -243,20 +231,7 @@ public class OrderService implements IOrderService {
         order.setOrderUser(orderUser);
         order.setReceiveUser(receiveUser);
 
-
-        if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
-                if (TcpService.userMessages.containsKey(phone)) {
-                    List<String> messages = TcpService.userMessages.get(phone);
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.replace(phone, messages);
-                } else {
-                    List<String> messages = new ArrayList<String>();
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.put(phone, messages);
-                }
-            }
-        }
+        sendToUser(phone, order);
 
         return order;
     }
@@ -303,20 +278,7 @@ public class OrderService implements IOrderService {
         order.setOrderUser(orderUser);
         order.setReceiveUser(driver);
 
-
-        if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
-                if (TcpService.userMessages.containsKey(phone)) {
-                    List<String> messages = TcpService.userMessages.get(phone);
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.replace(phone, messages);
-                } else {
-                    List<String> messages = new ArrayList<String>();
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.put(phone, messages);
-                }
-            }
-        }
+        sendToUser(phone, order);
 
         return order;
     }
@@ -338,7 +300,7 @@ public class OrderService implements IOrderService {
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
-        if (order.getOrderStatus()!=OrderStatus.WAIT_ORDER && order.getOrderStatus()!=OrderStatus.HAS_ORDER) {
+        if (order.getOrderStatus() != OrderStatus.WAIT_ORDER && order.getOrderStatus() != OrderStatus.HAS_ORDER) {
             throw new OrderIsStartException("订单已经开始,不能取消订单!");
         }
         order.setOrderStatus(OrderStatus.INVALID);
@@ -357,19 +319,7 @@ public class OrderService implements IOrderService {
             order.setOrderUser(orderUser);
             order.setReceiveUser(driver);
 
-            if (TcpService.driverClients.containsKey(phone)) {
-                if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
-                    if (TcpService.driverMessages.containsKey(phone)) {
-                        List<String> messages = TcpService.driverMessages.get(phone);
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.replace(phone, messages);
-                    } else {
-                        List<String> messages = new ArrayList<String>();
-                        messages.add(JSON.toJSONString(order));
-                        TcpService.driverMessages.put(phone, messages);
-                    }
-                }
-            }
+            sendToDriver(phone, order);
         }
 
         return order;
@@ -390,6 +340,14 @@ public class OrderService implements IOrderService {
 
         if (null != command.getOrderStatus()) {
             criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));
+        }
+
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        }
+
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
         }
 
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
@@ -431,7 +389,7 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setBaseUser(order.getOrderUser().getId());
         moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
         moneyDetailedCommand.setMoney(order.getShouldMoney());
-        moneyDetailedCommand.setExplain("订单支付");
+        moneyDetailedCommand.setExplain("订单支付:" + order.getOrderNumber());
         moneyDetailedCommand.setNewMoney(user.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
@@ -444,19 +402,7 @@ public class OrderService implements IOrderService {
         order.setOrderUser(orderUser);
         order.setReceiveUser(driver);
 
-        if (TcpService.driverClients.containsKey(phone)) {
-            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))){
-                if (TcpService.driverMessages.containsKey(phone)) {
-                    List<String> messages = TcpService.driverMessages.get(phone);
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.driverMessages.replace(phone, messages);
-                } else {
-                    List<String> messages = new ArrayList<String>();
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.driverMessages.put(phone, messages);
-                }
-            }
-        }
+        sendToDriver(phone, order);
 
         return order;
     }
@@ -491,19 +437,7 @@ public class OrderService implements IOrderService {
         order.setOrderUser(orderUser);
         order.setReceiveUser(driver);
 
-        if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
-                if (TcpService.userMessages.containsKey(phone)) {
-                    List<String> messages = TcpService.userMessages.get(phone);
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.replace(phone, messages);
-                } else {
-                    List<String> messages = new ArrayList<String>();
-                    messages.add(JSON.toJSONString(order));
-                    TcpService.userMessages.put(phone, messages);
-                }
-            }
-        }
+        sendToUser(phone, order);
         return order;
     }
 
@@ -526,5 +460,55 @@ public class OrderService implements IOrderService {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean hasBalance(String userId) {
+        BaseUser baseUser = baseUserService.show(userId);
+        return baseUser.getBalance().doubleValue() >= 0;
+    }
+
+    private void sendToUser(String phone, Order order) {
+        if (TcpService.userClients.containsKey(phone)) {
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+                putUserMessage(phone, order);
+            }
+        } else {
+            putUserMessage(phone, order);
+        }
+    }
+
+    private void sendToDriver(String phone, Order order) {
+        if (TcpService.driverClients.containsKey(phone)) {
+            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))) {
+                putDriverMessage(phone, order);
+            }
+        } else {
+            putDriverMessage(phone, order);
+        }
+    }
+
+    private void putUserMessage(String phone, Order order) {
+        if (TcpService.userMessages.containsKey(phone)) {
+            List<String> messages = TcpService.userMessages.get(phone);
+            messages.add(JSON.toJSONString(order));
+            TcpService.userMessages.replace(phone, messages);
+        } else {
+            List<String> messages = new ArrayList<String>();
+            messages.add(JSON.toJSONString(order));
+            TcpService.userMessages.put(phone, messages);
+        }
+    }
+
+    private void putDriverMessage(String phone, Order order) {
+        if (TcpService.driverMessages.containsKey(phone)) {
+            List<String> messages = TcpService.driverMessages.get(phone);
+            messages.add(JSON.toJSONString(order));
+            TcpService.driverMessages.replace(phone, messages);
+        } else {
+            List<String> messages = new ArrayList<String>();
+            messages.add(JSON.toJSONString(order));
+            TcpService.driverMessages.put(phone, messages);
+        }
     }
 }
