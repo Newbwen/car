@@ -174,8 +174,9 @@ public class OrderService implements IOrderService {
 
         orderRepository.save(order);
 
-        orderUser.setUserRole(null);
-        order.setOrderUser(orderUser);
+//        Order responseOrder = order;
+//        orderUser.setUserRole(null);
+//        responseOrder.setOrderUser(orderUser);
 
         String[] drivers = command.getDrivers().split(",");
         for (String driver : drivers) {
@@ -189,11 +190,11 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order apiReceiverOrder(ReceiveOrderCommand command) {
-        BaseUser receiveUser = baseUserService.show(command.getReceiveUser());
+        Driver driver = driverService.show(command.getReceiveUser());
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
-        order.setReceiveUser(receiveUser);
+        order.setReceiveUser(driver);
         order.setReceiveDate(new Date());
         order.setOrderStatus(OrderStatus.HAS_ORDER);
 
@@ -201,12 +202,13 @@ public class OrderService implements IOrderService {
 
         String phone = order.getOrderUser().getUserName();
 
-        BaseUser orderUser = order.getOrderUser();
-        orderUser.setUserRole(null);
-        receiveUser.setUserRole(null);
+//        BaseUser orderUser = order.getOrderUser();
+//        orderUser.setUserRole(null);
+//        driver.setUserRole(null);
+//        driver.setCompany(null);
 
-        order.setOrderUser(orderUser);
-        order.setReceiveUser(receiveUser);
+//        order.setOrderUser(orderUser);
+//        order.setReceiveUser(driver);
         sendToUser(phone, order);
         return order;
     }
@@ -221,15 +223,18 @@ public class OrderService implements IOrderService {
 
         orderRepository.update(order);
 
+//        Order responseOrder = order;
+//
         String phone = order.getOrderUser().getUserName();
-
-        BaseUser orderUser = order.getOrderUser();
-        orderUser.setUserRole(null);
-        BaseUser receiveUser = order.getReceiveUser();
-        receiveUser.setUserRole(null);
-
-        order.setOrderUser(orderUser);
-        order.setReceiveUser(receiveUser);
+//
+//        BaseUser orderUser = order.getOrderUser();
+//        orderUser.setUserRole(null);
+//        Driver driver = (Driver) order.getReceiveUser();
+//        driver.setUserRole(null);
+//        driver.setCompany(null);
+//
+//        responseOrder.setOrderUser(orderUser);
+//        responseOrder.setReceiveUser(driver);
 
         sendToUser(phone, order);
 
@@ -269,14 +274,17 @@ public class OrderService implements IOrderService {
 
         orderRepository.update(order);
 
+//        Order responseOrder = order;
+//
         String phone = order.getOrderUser().getUserName();
-
-        BaseUser orderUser = order.getOrderUser();
-        orderUser.setUserRole(null);
-        driver.setUserRole(null);
-
-        order.setOrderUser(orderUser);
-        order.setReceiveUser(driver);
+//
+//        BaseUser orderUser = order.getOrderUser();
+//        orderUser.setUserRole(null);
+//        driver.setUserRole(null);
+//        driver.setCompany(null);
+//
+//        responseOrder.setOrderUser(orderUser);
+//        responseOrder.setReceiveUser(driver);
 
         sendToUser(phone, order);
 
@@ -308,16 +316,20 @@ public class OrderService implements IOrderService {
         orderRepository.update(order);
 
         if (null != order.getReceiveUser()) {
+
+//            Order responseOrder = order;
+
             String phone = order.getReceiveUser().getUserName();
 
-            BaseUser orderUser = order.getOrderUser();
-            orderUser.setUserRole(null);
-            BaseUser driver = order.getReceiveUser();
+//            BaseUser orderUser = order.getOrderUser();
+//            orderUser.setUserRole(null);
+//            Driver driver = (Driver) order.getReceiveUser();
+//
+//            driver.setUserRole(null);
+//            driver.setCompany(null);
 
-            driver.setUserRole(null);
-
-            order.setOrderUser(orderUser);
-            order.setReceiveUser(driver);
+//            responseOrder.setOrderUser(orderUser);
+//            responseOrder.setReceiveUser(driver);
 
             sendToDriver(phone, order);
         }
@@ -395,12 +407,15 @@ public class OrderService implements IOrderService {
 
         String phone = order.getReceiveUser().getUserName();
 
-        BaseUser orderUser = order.getOrderUser();
-        orderUser.setUserRole(null);
-        driver.setUserRole(null);
+//        Order responseOrder = order;
 
-        order.setOrderUser(orderUser);
-        order.setReceiveUser(driver);
+//        BaseUser orderUser = order.getOrderUser();
+//        orderUser.setUserRole(null);
+//        driver.setUserRole(null);
+//        driver.setCompany(null);
+//
+//        responseOrder.setOrderUser(orderUser);
+//        responseOrder.setReceiveUser(driver);
 
         sendToDriver(phone, order);
 
@@ -409,12 +424,17 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order offLinePay(OffLinePayCommand command) {
+
+        //资金明细
+        CreateMoneyDetailedCommand moneyDetailedCommand = new CreateMoneyDetailedCommand();
+
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
         Driver driver = driverService.show(order.getReceiveUser().getId());
         Company company = companyService.show(driver.getCompany().getId());
 
+        moneyDetailedCommand.setOldMoney(driver.getBalance());
 //        driverService.addLock();
         driver.setBalance(driver.getBalance().subtract(order.getShouldMoney()));
         driverService.update(driver);
@@ -427,15 +447,25 @@ public class OrderService implements IOrderService {
         order.setPayType(PayType.OFFLINE);
 
         orderRepository.update(order);
+        //创建资金明细
+        moneyDetailedCommand.setBaseUser(order.getReceiveUser().getId());
+        moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
+        moneyDetailedCommand.setMoney(order.getShouldMoney());
+        moneyDetailedCommand.setExplain("订单支付:" + order.getOrderNumber());
+        moneyDetailedCommand.setNewMoney(driver.getBalance());
+        moneyDetailedService.create(moneyDetailedCommand);
 
         String phone = order.getOrderUser().getUserName();
 
-        BaseUser orderUser = order.getOrderUser();
-        orderUser.setUserRole(null);
-        driver.setUserRole(null);
-
-        order.setOrderUser(orderUser);
-        order.setReceiveUser(driver);
+//        Order responseOrder = order;
+//
+//        BaseUser orderUser = order.getOrderUser();
+//        orderUser.setUserRole(null);
+//        driver.setUserRole(null);
+//        driver.setCompany(null);
+//
+//        responseOrder.setOrderUser(orderUser);
+//        responseOrder.setReceiveUser(driver);
 
         sendToUser(phone, order);
         return order;

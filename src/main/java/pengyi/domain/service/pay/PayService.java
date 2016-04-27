@@ -22,6 +22,7 @@ import pengyi.domain.model.order.Order;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.order.IOrderService;
 import pengyi.socketserver.TcpService;
 
@@ -53,14 +54,15 @@ public class PayService implements IPayService {
 
             String phone = order.getReceiveUser().getUserName();
 
-            BaseUser orderUser = order.getOrderUser();
-            orderUser.setUserRole(null);
-            BaseUser driver = order.getReceiveUser();
-
-            driver.setUserRole(null);
-
-            order.setOrderUser(orderUser);
-            order.setReceiveUser(driver);
+//            BaseUser orderUser = order.getOrderUser();
+//            orderUser.setUserRole(null);
+//            Driver driver = (Driver) order.getReceiveUser();
+//
+//            driver.setUserRole(null);
+//            driver.setCompany(null);
+//
+//            order.setOrderUser(orderUser);
+//            order.setReceiveUser(driver);
 
             sendToDriver(phone, order);
         }
@@ -81,14 +83,15 @@ public class PayService implements IPayService {
 
             String phone = order.getReceiveUser().getUserName();
 
-            BaseUser orderUser = order.getOrderUser();
-            orderUser.setUserRole(null);
-            BaseUser driver = order.getReceiveUser();
-
-            driver.setUserRole(null);
-
-            order.setOrderUser(orderUser);
-            order.setReceiveUser(driver);
+//            BaseUser orderUser = order.getOrderUser();
+//            orderUser.setUserRole(null);
+//            Driver driver = (Driver) order.getReceiveUser();
+//
+//            driver.setUserRole(null);
+//            driver.setCompany(null);
+//
+//            order.setOrderUser(orderUser);
+//            order.setReceiveUser(driver);
 
             sendToDriver(phone, order);
         }
