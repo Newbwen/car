@@ -167,7 +167,7 @@ public class OrderService implements IOrderService {
         Order order = new Order(orderNo, orderUser, new Date(), null, null,
                 CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME), null, command.getDriverType(),
                 null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE,
-                command.getStartAddress(), command.getEndAddress(), null, command.getKm());
+                command.getStartAddress(), command.getEndAddress(), null, command.getStartLat(), command.getStartLon(), command.getEndLat(), command.getEndLon());
         if (null != command.getCarType()) {
             order.setCarType(command.getCarType());
         }
@@ -246,6 +246,7 @@ public class OrderService implements IOrderService {
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
 
+        order.setKm(command.getKm());
         order.setEndTime(new Date());
         Driver driver = driverService.show(order.getReceiveUser().getId());
         SearchBillingCommand billingCommand = new SearchBillingCommand();
@@ -259,7 +260,7 @@ public class OrderService implements IOrderService {
             throw new NoFoundException("没有找到计费模板");
         }
         Billing billing = billingList.get(0);
-        BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(order.getKm()));
+        BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(command.getKm()));
         long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
         dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
         BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));

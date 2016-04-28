@@ -22,7 +22,10 @@ public class CreateOrderCommand {
     private String endAddress;                          //结束地址
     private CarType carType;                            //车辆类型
     private String drivers;                             //附近司机
-    private Integer km;                                 //公里数
+    private double startLon;                           //开始经度
+    private double startLat;                            //开始纬度
+    private double endLon;                           //开始经度
+    private double endLat;                            //开始纬度
 
     public String getOrderUser() {
         return orderUser;
@@ -88,11 +91,35 @@ public class CreateOrderCommand {
         this.drivers = drivers;
     }
 
-    public Integer getKm() {
-        return km;
+    public double getStartLon() {
+        return startLon;
     }
 
-    public void setKm(Integer km) {
-        this.km = km;
+    public void setStartLon(double startLon) {
+        this.startLon = startLon;
+    }
+
+    public double getStartLat() {
+        return startLat;
+    }
+
+    public void setStartLat(double startLat) {
+        this.startLat = startLat;
+    }
+
+    public double getEndLon() {
+        return endLon;
+    }
+
+    public void setEndLon(double endLon) {
+        this.endLon = endLon;
+    }
+
+    public double getEndLat() {
+        return endLat;
+    }
+
+    public void setEndLat(double endLat) {
+        this.endLat = endLat;
     }
 }

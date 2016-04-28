@@ -74,6 +74,11 @@
                                             <li>
                                                 <a class="blue" href="[@spring.url '/order/show/${order.id!}'/]">查看</a>
                                             </li>
+                                            [#if order.orderStatus.getValue()==4 || order.orderStatus.getValue()==5]
+                                                <li>
+                                                    <a class="blue" href="[@spring.url '/order/way/${order.id!}'/]">线路</a>
+                                                </li>
+                                            [/#if]
                                             [#--<li>--]
                                                 [#--<a class="green" href="[@spring.url '/order/edit/${order.id}'/]">编辑</a>--]
                                             [#--</li>--]

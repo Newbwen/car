@@ -75,6 +75,7 @@
             </property>
             <property name="identityCardPic" column="identity_card_pic" type="java.lang.String"/>
             <property name="drivingLicencePic" column="driving_licence_pic" type="java.lang.String"/>
+            <property name="startDriveDate" column="start_drive_date" type="java.util.Date"/>
         </joined-subclass>
 
         <joined-subclass name="pengyi.domain.model.user.terrace.Terrace"

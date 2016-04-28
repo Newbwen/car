@@ -14,7 +14,6 @@ public class CreateEvaluateCommand {
     @NotEmpty(message = "{evaluate.order.NotEmpty.message}")
     private String orderId;                             //订单
 
-    @NotEmpty(message = "{evaluate.content.NotEmpty.message}")
     private String content;                           //评价内容
 
     @NotEmpty(message = "{evaluate.level.NotEmpty.message}")

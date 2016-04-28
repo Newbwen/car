@@ -1,4 +1,4 @@
-[@override name="title"]订单管理-订单列表[/@override]
+[@override name="title"]订单管理-订单详情[/@override]
 
 [@override name="topResources"]
     [@super /]
@@ -6,11 +6,11 @@
 
 [@override name="breadcrumbTitle"]
 <li class="active"><a href="[@spring.url '/order/list'/]">订单管理</a></li>
-<li class="active">订单列表</li>
+<li class="active">订单详情</li>
 [/@override]
 
 [@override name="pageHeaderTitle"]
-订单列表
+订单详情
 [/@override]
 
 [@override name="subContent"]

@@ -11,11 +11,12 @@ public class CreateDriverCommand extends BaseCreateBaseUserCommand {
 
     private String name;                    //姓名
     private String head;                    //头像
-    private String company;                //公司
+    private String company;                 //公司
     private Sex sex;                        //性别（0为男，1为女）
-    private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
+    private DriverType driverType;          //类型（1代驾、2专车、3出租车）
     private String identityCardPic;         //身份证照片
     private String drivingLicencePic;       //驾驶证照片
+    private String startDriveDate;         //开始驾驶时间
 
     public String getName() {
         return name;
@@ -71,5 +72,13 @@ public class CreateDriverCommand extends BaseCreateBaseUserCommand {
 
     public void setDrivingLicencePic(String drivingLicencePic) {
         this.drivingLicencePic = drivingLicencePic;
+    }
+
+    public String getStartDriveDate() {
+        return startDriveDate;
+    }
+
+    public void setStartDriveDate(String startDriveDate) {
+        this.startDriveDate = startDriveDate;
     }
 }

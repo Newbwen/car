@@ -74,6 +74,11 @@
         <property name="payNo" column="pay_no" type="java.lang.String" />
 
         <property name="km" column="km" type="java.lang.Integer"/>
+
+        <property name="startLat" type="java.lang.Double" column="start_lat" />
+        <property name="startLon" type="java.lang.Double" column="start_lon" />
+        <property name="endLat" type="java.lang.Double" column="end_lat" />
+        <property name="endLon" type="java.lang.Double" column="end_lon" />
     </class>
 
 </hibernate-mapping>

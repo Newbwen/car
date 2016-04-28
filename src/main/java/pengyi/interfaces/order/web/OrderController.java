@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pengyi.application.order.IOrderAppService;
+import pengyi.application.order.IOrderWayPointAppService;
 import pengyi.application.order.command.ListOrderCommand;
 import pengyi.application.order.representation.OrderRepresentation;
+import pengyi.application.order.representation.OrderWayPointRepresentation;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -27,6 +30,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private IOrderAppService orderAppService;
+
+    @Autowired
+    private IOrderWayPointAppService orderWayPointAppService;
 
     @RequestMapping(value = "/list")
     public ModelAndView list(ListOrderCommand command) {
@@ -48,5 +54,28 @@ public class OrderController extends BaseController {
             return new ModelAndView("redirect:/order/list");
         }
         return new ModelAndView("/order/show", "order", order);
+    }
+
+    @RequestMapping(value = "/way/{id}")
+    public ModelAndView way(@PathVariable("id") String id, RedirectAttributes redirectAttributes, Locale locale) {
+        AlertMessage alertMessage;
+        List<OrderWayPointRepresentation> wayPoints = null;
+
+        try {
+            wayPoints = orderWayPointAppService.list(id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/order/list");
+        }
+
+        if (null == wayPoints || wayPoints.size() < 2) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,
+                    this.getMessage("order.way.point.size.message", null, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/order/list");
+        }
+        return new ModelAndView("/order/way", "wayPoints", wayPoints);
     }
 }

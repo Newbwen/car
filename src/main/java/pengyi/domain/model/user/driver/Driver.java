@@ -27,11 +27,12 @@ public class Driver extends BaseUser {
     private Double level;                   //评级（12345）
     private Double longitude;               //经度
     private Double latitude;                //纬度
-    private Integer reportCount;                //举报次数
+    private Integer reportCount;            //举报次数
     private Boolean online;                 //是否在线
-    private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
-    private String identityCardPic;                   //身份证照片
-    private String drivingLicencePic;          //驾驶证照片
+    private DriverType driverType;          //类型（1代驾、2专车、3出租车）
+    private String identityCardPic;         //身份证照片
+    private String drivingLicencePic;       //驾驶证照片
+    private Date startDriveDate;         //开始驾驶时间
 
     public String getName() {
         return name;
@@ -129,11 +130,19 @@ public class Driver extends BaseUser {
         this.drivingLicencePic = drivingLicencePic;
     }
 
+    public Date getStartDriveDate() {
+        return startDriveDate;
+    }
+
+    public void setStartDriveDate(Date startDriveDate) {
+        this.startDriveDate = startDriveDate;
+    }
+
     public Driver() {
         super();
     }
 
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic) {
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
@@ -147,6 +156,7 @@ public class Driver extends BaseUser {
         this.driverType = driverType;
         this.identityCardPic = identityCardPic;
         this.drivingLicencePic = drivingLicencePic;
+        this.startDriveDate = startDriveDate;
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {

@@ -72,8 +72,8 @@ public class ApiOrderAppService implements IApiOrderAppService {
             if (CoreStringUtils.isEmpty(command.getOrderUser())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10020.getMessage());
             }
-            if (null == command.getKm()) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10036.getMessage());
+            if (0 == command.getStartLat() || 0 == command.getStartLon() || 0 == command.getEndLat() || 0 == command.getEndLon()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10037.getMessage());
             }
             if (!CoreStringUtils.isEmpty(command.getSubscribeDate())) {
                 if (null == CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME)) {
@@ -165,6 +165,9 @@ public class ApiOrderAppService implements IApiOrderAppService {
             }
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            if (null == command.getKm()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10036.getMessage());
             }
             OrderRepresentation order = mappingService.map(orderService.apiWaitPayOrder(command), OrderRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());

@@ -14,6 +14,7 @@ public class RegisterDriverCommand {
     private String drivingLicencePic;
     private String company;
     private DriverType driverType;
+    private String startDriveDate;
 
     public String getUserName() {
         return userName;
@@ -69,5 +70,13 @@ public class RegisterDriverCommand {
 
     public void setDriverType(DriverType driverType) {
         this.driverType = driverType;
+    }
+
+    public String getStartDriveDate() {
+        return startDriveDate;
+    }
+
+    public void setStartDriveDate(String startDriveDate) {
+        this.startDriveDate = startDriveDate;
     }
 }

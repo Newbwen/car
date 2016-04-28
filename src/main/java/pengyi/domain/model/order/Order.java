@@ -34,6 +34,10 @@ public class Order extends Identity {
     private PayType payType;                             //支付方式
     private String payNo;                               //支付订单号
     private Integer km;                                 //公里
+    private double startLon;                           //开始经度
+    private double startLat;                            //开始纬度
+    private double endLon;                           //开始经度
+    private double endLat;                            //开始纬度
 
     public String getOrderNumber() {
         return orderNumber;
@@ -199,7 +203,39 @@ public class Order extends Identity {
         this.km = km;
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, Integer km) {
+    public double getStartLon() {
+        return startLon;
+    }
+
+    public void setStartLon(double startLon) {
+        this.startLon = startLon;
+    }
+
+    public double getStartLat() {
+        return startLat;
+    }
+
+    public void setStartLat(double startLat) {
+        this.startLat = startLat;
+    }
+
+    public double getEndLon() {
+        return endLon;
+    }
+
+    public void setEndLon(double endLon) {
+        this.endLon = endLon;
+    }
+
+    public double getEndLat() {
+        return endLat;
+    }
+
+    public void setEndLat(double endLat) {
+        this.endLat = endLat;
+    }
+
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, double startLat, double startLon, double endLat, double endLon) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -217,6 +253,9 @@ public class Order extends Identity {
         this.startAddress = startAddress;
         this.endAddress = endAddress;
         this.carType = carType;
-        this.km = km;
+        this.startLat = startLat;
+        this.startLon = startLon;
+        this.endLat = endLat;
+        this.endLon = endLon;
     }
 }

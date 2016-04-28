@@ -17,6 +17,7 @@ import pengyi.core.type.DriverType;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
 import pengyi.core.upload.IFileUploadService;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.car.Car;
 import pengyi.domain.model.role.Role;
@@ -171,10 +172,6 @@ public class DriverService implements IDriverService {
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
-        String salt = PasswordHelper.getSalt();
-        String password = PasswordHelper.encryptPassword(command.getPassword(), driver.getCredentialsSalt());
-
-        driver.setPassword(password);
         driver.setDriverType(command.getDriverType());
 
         driverRepository.update(driver);
@@ -224,7 +221,7 @@ public class DriverService implements IDriverService {
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0),
                 new Date(), role, null, UserType.DRIVER, null, null, company,
                 null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
-                null, null);
+                null, null, CoreDateUtils.parseDate(command.getStartDriveDate()));
 
         driverRepository.save(driver);
 
@@ -259,11 +256,11 @@ public class DriverService implements IDriverService {
 
         Role role = roleService.searchByName("driver");
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic);
+                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic, CoreDateUtils.parseDate(command.getStartDriveDate()));
 
         driverRepository.save(driver);
-        fileUploadService.move(identityCarPic.substring(identityCarPic.indexOf("/") + 1));
-        fileUploadService.move(drivingLicencePic.substring(drivingLicencePic.indexOf("/") + 1));
+        fileUploadService.move(identityCarPic.substring(identityCarPic.lastIndexOf("/") + 1));
+        fileUploadService.move(drivingLicencePic.substring(drivingLicencePic.lastIndexOf("/") + 1));
         return driver;
     }
 

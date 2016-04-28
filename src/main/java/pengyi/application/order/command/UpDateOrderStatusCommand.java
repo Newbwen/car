@@ -12,6 +12,8 @@ public class UpDateOrderStatusCommand {
 
     private OrderStatus status;
 
+    private Integer km;
+
     public String getOrderId() {
         return orderId;
     }
@@ -34,5 +36,13 @@ public class UpDateOrderStatusCommand {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public Integer getKm() {
+        return km;
+    }
+
+    public void setKm(Integer km) {
+        this.km = km;
     }
 }

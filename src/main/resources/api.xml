@@ -55,8 +55,8 @@
             <id>91de77b0-d997-4527-96ae-ef5daa83788f</id>
             <name>司机注册</name>
             <address>api/app/driver/register</address>
-            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id)),driverType(司机类型)</shuoming>
-            <zhuyi>参数不能为空，driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)</zhuyi>
+            <shuoming>userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id)),driverType(司机类型), startDriveDate(开始驾驶时间，算驾龄用)</shuoming>
+            <zhuyi>参数不能为空，driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)，startDriveDate(格式：yyyy-MM-dd)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
@@ -199,7 +199,7 @@
             <id>f0799840-48fd-49e8-850e-742eabde69ec</id>
             <name>创建订单</name>
             <address>api/app/order/create_order</address>
-            <shuoming>subscribeDate(预约时间),driverType(接单司机类型),extraMoney(调度费),startAddress(开始地址),endAddress(结束地址),carType(专车类型),drivers(司机的手机号),km(公里数)</shuoming>
+            <shuoming>subscribeDate(预约时间),driverType(接单司机类型),extraMoney(调度费),startAddress(开始地址),endAddress(结束地址),carType(专车类型),drivers(司机的手机号),startLon(开始经度),startLat(开始纬度),endLon(结束经度),endLat(结束纬度)</shuoming>
             <zhuyi>用户之前必须登录,subscribeDate(格式:yyyyMMdd hh:mm:ss),driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车),extraMoney(格式:0.00),carType(专车类型,只有选择专车的时候为必传.ECONOMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":145,"message":"成功"}</fanhuixinxi>
         </api>
@@ -223,7 +223,7 @@
             <id>190e9615-e35a-47c1-8a3c-ab9aecb56522</id>
             <name>更改订单为待支付</name>
             <address>api/app/order/wait_pay_order</address>
-            <shuoming>orderId(订单id),version(数据version)</shuoming>
+            <shuoming>orderId(订单id),version(数据version),km(公里数)</shuoming>
             <zhuyi>司机之前必须登录,参数不能为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":117,"message":"成功"}</fanhuixinxi>
         </api>
@@ -458,6 +458,14 @@
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"appVersion":"1.2","id":"40288193540d93c401540d9729550002","status":"ENABLE","updateContent":"1231235446545646532123","updateDate":"2016-04-13 11:08:10","version":2},"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>83eab5c2-df0e-4048-899f-a99360246e4e</id>
+            <name>上传线路</name>
+            <address>/api/app/order/way/upload</address>
+            <shuoming>orderId(订单id),lat(纬度),lon(经度)</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>
