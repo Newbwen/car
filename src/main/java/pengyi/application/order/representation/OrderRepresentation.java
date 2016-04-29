@@ -34,6 +34,10 @@ public class OrderRepresentation {
     private PayType payType;                             //支付方式
     private String payNo;                               //支付订单号
     private Integer km;                                 //公里数
+    private double startLon;                           //开始经度
+    private double startLat;                            //开始纬度
+    private double endLon;                           //开始经度
+    private double endLat;                            //开始纬度
 
     public String getId() {
         return id;
@@ -209,5 +213,37 @@ public class OrderRepresentation {
 
     public void setPayNo(String payNo) {
         this.payNo = payNo;
+    }
+
+    public double getStartLon() {
+        return startLon;
+    }
+
+    public void setStartLon(double startLon) {
+        this.startLon = startLon;
+    }
+
+    public double getStartLat() {
+        return startLat;
+    }
+
+    public void setStartLat(double startLat) {
+        this.startLat = startLat;
+    }
+
+    public double getEndLon() {
+        return endLon;
+    }
+
+    public void setEndLon(double endLon) {
+        this.endLon = endLon;
+    }
+
+    public double getEndLat() {
+        return endLat;
+    }
+
+    public void setEndLat(double endLat) {
+        this.endLat = endLat;
     }
 }
