@@ -13,10 +13,7 @@ import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.core.exception.OrderIsStartException;
-import pengyi.core.type.EvaluateStatus;
-import pengyi.core.type.FlowType;
-import pengyi.core.type.OrderStatus;
-import pengyi.core.type.PayType;
+import pengyi.core.type.*;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.billing.Billing;
@@ -248,31 +245,34 @@ public class OrderService implements IOrderService {
 
         order.setKm(command.getKm());
         order.setEndTime(new Date());
-        Driver driver = driverService.show(order.getReceiveUser().getId());
-        SearchBillingCommand billingCommand = new SearchBillingCommand();
-        billingCommand.setUserName(driver.getUserName());
-        billingCommand.setDriverType(order.getDriverType());
-        if (null != order.getCarType()) {
-            billingCommand.setCarType(order.getCarType());
-        }
-        List<Billing> billingList = billingService.searchByDriver(billingCommand);
-        if (null == billingList || billingList.size() < 1) {
-            throw new NoFoundException("没有找到计费模板");
-        }
-        Billing billing = billingList.get(0);
-        BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(command.getKm()));
-        long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
-        dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
-        BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
-        BigDecimal shouldMoney = knMoney.add(minuteMoney);
-        if (shouldMoney.compareTo(billing.getStartingPrice()) == -1) {
-            order.setShouldMoney(billing.getStartingPrice());
+
+        if (DriverType.TAXI == order.getDriverType()) {
+            order.setOrderStatus(OrderStatus.SUCCESS);
         } else {
-            order.setShouldMoney(shouldMoney);
+            Driver driver = driverService.show(order.getReceiveUser().getId());
+            SearchBillingCommand billingCommand = new SearchBillingCommand();
+            billingCommand.setUserName(driver.getUserName());
+            billingCommand.setDriverType(order.getDriverType());
+            if (null != order.getCarType()) {
+                billingCommand.setCarType(order.getCarType());
+            }
+            List<Billing> billingList = billingService.searchByDriver(billingCommand);
+            if (null == billingList || billingList.size() < 1) {
+                throw new NoFoundException("没有找到计费模板");
+            }
+            Billing billing = billingList.get(0);
+            BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(command.getKm()));
+            long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
+            dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
+            BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
+            BigDecimal shouldMoney = knMoney.add(minuteMoney);
+            if (shouldMoney.compareTo(billing.getStartingPrice()) == -1) {
+                order.setShouldMoney(billing.getStartingPrice());
+            } else {
+                order.setShouldMoney(shouldMoney);
+            }
+            order.setOrderStatus(OrderStatus.WAIT_PAY);
         }
-
-        order.setOrderStatus(OrderStatus.WAIT_PAY);
-
         orderRepository.update(order);
 
 //        Order responseOrder = order;
