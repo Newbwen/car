@@ -13,6 +13,7 @@ import pengyi.core.commons.PasswordHelper;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.AuthStatus;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.EnableStatus;
 import pengyi.core.type.UserType;
@@ -151,6 +152,17 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public Driver auth(EditStatusCommand command) {
+        Driver driver = this.show(command.getId());
+        driver.fainWhenConcurrencyViolation(command.getVersion());
+
+        driver.setAuthStatus(AuthStatus.AUTH_TERRACE);
+        driver.setStatus(EnableStatus.ENABLE);
+        driverRepository.update(driver);
+        return driver;
+    }
+
+    @Override
     public Pagination<Driver> apiPagination(CompanyDriverListCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         criterionList.add(Restrictions.eq("company.id", command.getCompany()));
@@ -183,7 +195,7 @@ public class DriverService implements IDriverService {
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
-        driver.setStatus(EnableStatus.ENABLE);
+        driver.setAuthStatus(AuthStatus.AUTH_COMPANY);
 
         driverRepository.update(driver);
         return driver;
@@ -221,7 +233,7 @@ public class DriverService implements IDriverService {
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0),
                 new Date(), role, null, UserType.DRIVER, null, null, company,
                 null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
-                null, null, CoreDateUtils.parseDate(command.getStartDriveDate()));
+                null, null, CoreDateUtils.parseDate(command.getStartDriveDate()), AuthStatus.AUTH_TERRACE);
 
         driverRepository.save(driver);
 
@@ -256,7 +268,7 @@ public class DriverService implements IDriverService {
 
         Role role = roleService.searchByName("driver");
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic, CoreDateUtils.parseDate(command.getStartDriveDate()));
+                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic, CoreDateUtils.parseDate(command.getStartDriveDate()), AuthStatus.AUTH_WAIT);
 
         driverRepository.save(driver);
         fileUploadService.move(identityCarPic.substring(identityCarPic.lastIndexOf("/") + 1));

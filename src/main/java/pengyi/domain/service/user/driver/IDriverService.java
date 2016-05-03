@@ -34,6 +34,8 @@ public interface IDriverService {
 
     void update(Driver driver);
 
+    Driver auth(EditStatusCommand command);
+
     /***********
      * api 方法
      **************/

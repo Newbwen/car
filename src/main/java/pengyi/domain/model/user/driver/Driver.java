@@ -1,9 +1,6 @@
 package pengyi.domain.model.user.driver;
 
-import pengyi.core.type.DriverType;
-import pengyi.core.type.EnableStatus;
-import pengyi.core.type.Sex;
-import pengyi.core.type.UserType;
+import pengyi.core.type.*;
 import pengyi.domain.model.role.Role;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.company.Company;
@@ -33,6 +30,7 @@ public class Driver extends BaseUser {
     private String identityCardPic;         //身份证照片
     private String drivingLicencePic;       //驾驶证照片
     private Date startDriveDate;         //开始驾驶时间
+    private AuthStatus authStatus;      //审核状态
 
     public String getName() {
         return name;
@@ -138,11 +136,19 @@ public class Driver extends BaseUser {
         this.startDriveDate = startDriveDate;
     }
 
+    public AuthStatus getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(AuthStatus authStatus) {
+        this.authStatus = authStatus;
+    }
+
     public Driver() {
         super();
     }
 
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate) {
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate, AuthStatus authStatus) {
         super(userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.name = name;
         this.head = head;
@@ -157,6 +163,7 @@ public class Driver extends BaseUser {
         this.identityCardPic = identityCardPic;
         this.drivingLicencePic = drivingLicencePic;
         this.startDriveDate = startDriveDate;
+        this.authStatus = authStatus;
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {

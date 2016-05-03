@@ -46,37 +46,37 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-double-angle-right"></i>
-                        司机用户管理
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="[@spring.url "/user/driver/list"/]">
-                                <i class="icon-calendar"></i>
-                                司机用户列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
                 [#--<li>--]
                     [#--<a href="#" class="dropdown-toggle">--]
                         [#--<i class="icon-double-angle-right"></i>--]
-                        [#--公司用户管理--]
+                        [#--司机用户管理--]
                         [#--<b class="arrow icon-angle-down"></b>--]
                     [#--</a>--]
                     [#--<ul class="submenu">--]
                         [#--<li>--]
-                            [#--<a href="[@spring.url "/user/company/list"/]">--]
+                            [#--<a href="[@spring.url "/user/driver/list"/]">--]
                                 [#--<i class="icon-calendar"></i>--]
-                                [#--公司用户列表--]
+                                [#--司机用户列表--]
                             [#--</a>--]
                         [#--</li>--]
                     [#--</ul>--]
                 [#--</li>--]
+
+            [#--<li>--]
+            [#--<a href="#" class="dropdown-toggle">--]
+            [#--<i class="icon-double-angle-right"></i>--]
+            [#--公司用户管理--]
+            [#--<b class="arrow icon-angle-down"></b>--]
+            [#--</a>--]
+            [#--<ul class="submenu">--]
+            [#--<li>--]
+            [#--<a href="[@spring.url "/user/company/list"/]">--]
+            [#--<i class="icon-calendar"></i>--]
+            [#--公司用户列表--]
+            [#--</a>--]
+            [#--</li>--]
+            [#--</ul>--]
+            [#--</li>--]
 
                 <li>
                     <a href="#" class="dropdown-toggle">
@@ -132,6 +132,30 @@
         <li>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-briefcase"></i>
+                <span class="menu-text"> 司机管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url "/user/driver/list"/]">
+                        <i class="icon-calendar"></i>
+                        司机用户列表
+                    </a>
+                </li>
+                <li>
+                    <a href="[@spring.url "/user/driver/auth_list"/]">
+                        <i class="icon-calendar"></i>
+                        待审核司机用户列表
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-briefcase"></i>
                 <span class="menu-text"> 公司管理 </span>
 
                 <b class="arrow icon-angle-down"></b>
@@ -167,12 +191,12 @@
                                 <span class="menu-text"> 车辆列表 </span>
                             </a>
                         </li>
-                        [#--<li>--]
-                            [#--<a href="[@spring.url "/car/create"/]" class="dropdown-toggle">--]
-                                [#--<i class="icon-pencil"></i>--]
-                                [#--<span class="menu-text"> 车辆创建 </span>--]
-                            [#--</a>--]
-                        [#--</li>--]
+                    [#--<li>--]
+                    [#--<a href="[@spring.url "/car/create"/]" class="dropdown-toggle">--]
+                    [#--<i class="icon-pencil"></i>--]
+                    [#--<span class="menu-text"> 车辆创建 </span>--]
+                    [#--</a>--]
+                    [#--</li>--]
 
                     </ul>
                 </li>
@@ -236,12 +260,12 @@
                         计费模板列表
                     </a>
                 </li>
-                [#--<li>--]
-                    [#--<a href="[@spring.url '/billing/create'/]">--]
-                        [#--<i class="icon-leaf"></i>--]
-                        [#--创建计费模板--]
-                    [#--</a>--]
-                [#--</li>--]
+            [#--<li>--]
+            [#--<a href="[@spring.url '/billing/create'/]">--]
+            [#--<i class="icon-leaf"></i>--]
+            [#--创建计费模板--]
+            [#--</a>--]
+            [#--</li>--]
             </ul>
         </li>
 

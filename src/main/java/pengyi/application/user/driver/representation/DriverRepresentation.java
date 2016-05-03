@@ -2,6 +2,7 @@ package pengyi.application.user.driver.representation;
 
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
+import pengyi.core.type.AuthStatus;
 import pengyi.core.type.DriverType;
 import pengyi.core.type.Sex;
 
@@ -25,6 +26,7 @@ public class DriverRepresentation extends BaseUserRepresentation {
     private DriverType driverType;                       //类型（1代驾、2专车、3出租车）
     private String identityCardPic;                   //身份证照片
     private String drivingLicencePic;          //驾驶证照片
+    private AuthStatus authStatus;      //审核状态
 
     public String getName() {
         return name;
@@ -128,5 +130,13 @@ public class DriverRepresentation extends BaseUserRepresentation {
 
     public void setDrivingLicencePic(String drivingLicencePic) {
         this.drivingLicencePic = drivingLicencePic;
+    }
+
+    public AuthStatus getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(AuthStatus authStatus) {
+        this.authStatus = authStatus;
     }
 }

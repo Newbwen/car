@@ -130,7 +130,7 @@ public class CompanyController extends BaseController {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
-            return new ModelAndView("redirect:/user/company/auth_list");
+            return new ModelAndView("redirect:/user/company/auth_list").addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 
         logger.info("修改用户状态成功id=[" + company.getId() + "],时间[" + new Date() + "]");

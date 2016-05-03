@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.mapping.IMappingService;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.user.driver.IDriverService;
@@ -44,5 +45,10 @@ public class DriverAppService implements IDriverAppService {
     @Override
     public DriverRepresentation show(String id) {
         return mappingService.map(driverService.show(id), DriverRepresentation.class, false);
+    }
+
+    @Override
+    public DriverRepresentation updateStatus(EditStatusCommand command) {
+        return mappingService.map(driverService.auth(command), DriverRepresentation.class, false);
     }
 }

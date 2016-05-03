@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pengyi.application.user.company.command.BaseListCompanyCommand;
+import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.application.user.driver.IDriverAppService;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.type.EnableStatus;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.Locale;
@@ -41,8 +46,16 @@ public class DriverController extends BaseController {
                 .addObject("pagination", driverAppService.pagination(command));
     }
 
+    @RequestMapping(value = "/auth_list")
+    public ModelAndView auth_list(BaseListDriverCommand command) {
+        command.setStatus(EnableStatus.DISABLE);
+        return new ModelAndView("/baseuser/driver/authlist", "command", command)
+                .addObject("pagination", driverAppService.pagination(command));
+    }
+
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
-    public ModelAndView show(@PathVariable String id, RedirectAttributes redirectAttributes, Locale locale) {
+    public ModelAndView show(@PathVariable String id, RedirectAttributes redirectAttributes, HttpServletRequest request, Locale locale) {
+        String url = request.getHeader("referer");
         AlertMessage alertMessage;
         DriverRepresentation driver = null;
         try {
@@ -53,7 +66,10 @@ public class DriverController extends BaseController {
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/user/driver/list");
         }
-        return new ModelAndView("/baseuser/driver/show", "driver", driver);
+        if (url.indexOf("auth") != -1) {
+            return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath","/user/driver/auth_list");
+        }
+        return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath","/user/driver/list");
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -108,6 +124,24 @@ public class DriverController extends BaseController {
         redirectAttributes.addAttribute("id", driver.getId());
 
         return new ModelAndView("redirect:/user/driver/show/{id}");
+    }
+
+    @RequestMapping(value = "/auth")
+    public ModelAndView auth(EditStatusCommand command, RedirectAttributes redirectAttributes, Locale locale) {
+        AlertMessage alertMessage;
+        DriverRepresentation driver = null;
+        try {
+            driver = driverAppService.updateStatus(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
+            return new ModelAndView("redirect:/user/driver/auth_list").addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
+
+        logger.info("修改用户状态成功id=[" + driver.getId() + "],时间[" + new Date() + "]");
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/user/driver/auth_list");
     }
 
 }
