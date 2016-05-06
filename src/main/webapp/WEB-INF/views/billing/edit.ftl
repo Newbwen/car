@@ -22,14 +22,25 @@
             <input type="hidden" name="id" value="${billing.id!command.id}" />
             <input type="hidden" name="version" value="${billing.version!command.version}" />
 
-            [@spring.bind "command.KMBilling"/]
+            [@spring.bind "command.kmBilling"/]
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 根据公里计费* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="KMBilling" value="${billing.KMBilling!command.KMBilling}"
+                    <input type="text" id="form-field-1" name="kmBilling" value="${billing.kmBilling!command.kmBilling}"
                            placeholder="根据公里计费" class="col-xs-10 col-sm-5" required/>
-                    [@spring.showErrors "KMBilling"/]
+                    [@spring.showErrors "kmBilling"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.startKm"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步公里* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startKm" value="${billing.startKm!command.startKm}"
+                           placeholder="起步公里" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startKm"/]
                 </div>
             </div>
 
@@ -38,19 +49,42 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 根据分钟计费* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="carNumber" value="${billing.minuteBilling!command.minuteBilling}"
+                    <input type="text" id="form-field-1" name="minuteBilling" value="${billing.minuteBilling!command.minuteBilling}"
                            placeholder="根据分钟计费" class="col-xs-10 col-sm-5" required/>
                     [@spring.showErrors "minuteBilling"/]
                 </div>
             </div>
 
-            [@spring.bind "command.area"/]
+            [@spring.bind "command.startMin"/]
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 区域* </label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步分钟* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startMin" value="${billing.startMin!command.startMin}"
+                           placeholder="起步分钟" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startMin"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.startingPrice"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步价* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startingPrice" value="${command.startingPrice!}"
+                           placeholder="起步价" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startingPrice"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.company"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 公司* </label>
 
                 <div class="col-sm-9">
                     <select class="col-xs-3 area_data">
                     </select>
+                    [@spring.showErrors "company"/]
                 </div>
             </div>
             <div class="clearfix form-actions">
@@ -98,9 +132,9 @@
                                             <li>
                                                 <label>根据公里计费:</label>
                                                     <span>
-                                                        <input type="text" class="form-control" id="KMBilling"
-                                                               name="KMBilling"
-                                                               value="${command.KMBilling!}">
+                                                        <input type="text" class="form-control" id="kmBilling"
+                                                               name="kmBilling"
+                                                               value="${command.kmBilling!}">
                                                     </span>
                                             </li>
 
@@ -116,9 +150,9 @@
                                             <li>
                                                 <label>区域:</label>
                                                     <span>
-                                                        <input type="text" class="form-control" id="area"
+                                                        <input type="text" class="form-control" id="company"
                                                                name="area"
-                                                               value="${command.area!}">
+                                                               value="${command.company!}">
                                                     </span>
                                             </li>
 

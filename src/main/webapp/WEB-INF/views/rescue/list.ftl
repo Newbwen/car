@@ -31,6 +31,7 @@
                                         <option value="">全部</option>
                                         <option value="WAIT_RESCUE" [@mc.selected status "WAIT_RESCUE"/]>待救援</option>
                                         <option value="IN_RESCUE" [@mc.selected status "IN_RESCUE"/]>救援中</option>
+                                        <option value="WAIT_AUDIT" [@mc.selected status "WAIT_AUDIT"/]>完成待审核</option>
                                         <option value="SUCCESS_RESCUE" [@mc.selected status "SUCCESS_RESCUE"/]>救援完成</option>
                                     </select>
                                 </label>

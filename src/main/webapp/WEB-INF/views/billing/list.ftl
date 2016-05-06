@@ -35,7 +35,9 @@
                     <thead>
                     <tr role="row">
                         <th>根据公里计费</th>
+                        <th>起步公里</th>
                         <th>根据分钟计费</th>
+                        <th>起步分钟</th>
                         <th>起步价</th>
                         <th>公司</th>
                         <th>操作</th>
@@ -48,7 +50,9 @@
                             [#list pagination.data as billing ]
                             <tr class="even">
                                 <td>${billing.kmBilling!}</td>
+                                <td>${billing.startKm!}</td>
                                 <td>${billing.minuteBilling!}</td>
+                                <td>${billing.startMin!}</td>
                                 <td>${billing.startingPrice!}</td>
                                 <td>${billing.company.name!}</td>
                                 <td>
@@ -63,10 +67,10 @@
                                                 <a class="blue"
                                                    href="[@spring.url '/billing/show/${billing.id!}'/]">查看</a>
                                             </li>
-                                            <li>
-                                                <a class="green"
-                                                   href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>
-                                            </li>
+                                            [#--<li>--]
+                                                [#--<a class="green"--]
+                                                   [#--href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>--]
+                                            [#--</li>--]
                                         </ul>
                                     </div>
                             </tr>
@@ -76,7 +80,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/billing/list?KMBilling=${command.KMBilling!}&minuteBilling=${command.minuteBilling!}&area=${car.area}' /]
+                    [@mc.showPagination '/billing/list?kmBilling=${command.kmBilling!}&minuteBilling=${command.minuteBilling!}&area=${car.area}' /]
                 [/#if]
 
             </div>

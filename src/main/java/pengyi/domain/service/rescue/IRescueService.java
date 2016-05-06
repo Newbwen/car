@@ -3,6 +3,7 @@ package pengyi.domain.service.rescue;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.application.rescue.command.RescueSuccessCommand;
 import pengyi.domain.model.rescue.Rescue;
 import pengyi.repository.generic.Pagination;
 
@@ -36,7 +37,9 @@ public interface IRescueService {
 
     Rescue apiCancelRescue(EditRescueCommand command);
 
-    Rescue apifinishRescue(EditRescueCommand command);
+    Rescue apiDriverFinishRescue(RescueSuccessCommand command);
+
+    Rescue apiFinishRescue(RescueSuccessCommand command);
 
     Pagination searchRescue(ListRescueCommand command);
 

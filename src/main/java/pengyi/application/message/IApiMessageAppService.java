@@ -17,4 +17,7 @@ public interface IApiMessageAppService {
 
     BaseResponse companyMessageList(CompanyListMessageCommand command);
 
+    BaseResponse list(ListMessageCommand command);
+
+    BaseResponse apiUnread(String id);
 }

@@ -20,6 +20,10 @@ public class BillingRepresentation {
 
     private BigDecimal startingPrice;   //起步价
 
+    private Integer startKm;
+
+    private Integer startMin;
+
     private DriverType driverType;
 
     private CarType carType;
@@ -88,5 +92,21 @@ public class BillingRepresentation {
 
     public void setStartingPrice(BigDecimal startingPrice) {
         this.startingPrice = startingPrice;
+    }
+
+    public Integer getStartKm() {
+        return startKm;
+    }
+
+    public void setStartKm(Integer startKm) {
+        this.startKm = startKm;
+    }
+
+    public Integer getStartMin() {
+        return startMin;
+    }
+
+    public void setStartMin(Integer startMin) {
+        this.startMin = startMin;
     }
 }

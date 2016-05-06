@@ -12,14 +12,15 @@ public class RescueRepresentation {
     private String id;
     private Integer version;
 
-    private BaseUserRepresentation applyUser;                 //申请人
+    private BaseUserRepresentation applyUser;   //申请人
     private String applyTime;                   //申请时间
-    private RescueType rescueType;                           //救援类型
+    private RescueType rescueType;              //救援类型
     private String description;                 //救援说明
-    private DriverRepresentation driver;                      //救援司机
+    private DriverRepresentation driver;        //救援司机
     private String rescueTime;                  //救援时间
-    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
+    private RescueStatus status;                //救援状态（1待救援、2救援中、3已救援）
     private String finishTime;                  //救援完成时间
+    private String images;                      //救援图片
 
     public String getId() {
         return id;
@@ -99,5 +100,13 @@ public class RescueRepresentation {
 
     public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }

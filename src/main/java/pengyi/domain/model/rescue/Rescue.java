@@ -15,13 +15,14 @@ import java.util.Date;
 public class Rescue extends Identity {
 
     private BaseUser applyUser;                 //申请人
-    private Date applyTime;                   //申请时间
-    private RescueType rescueType;                           //救援类型
+    private Date applyTime;                     //申请时间
+    private RescueType rescueType;              //救援类型
     private String description;                 //救援说明
-    private Driver driver;                          //救援司机
-    private Date rescueTime;                  //救援时间
-    private RescueStatus status;                         //救援状态（1待救援、2救援中、3已救援）
-    private Date finishTime;                  //救援完成时间
+    private Driver driver;                      //救援司机
+    private Date rescueTime;                    //救援时间
+    private RescueStatus status;                //救援状态（1待救援、2救援中、3已救援）
+    private Date finishTime;                    //救援完成时间
+    private String images;                      //救援图片
 
     public BaseUser getApplyUser() {
         return applyUser;
@@ -88,11 +89,19 @@ public class Rescue extends Identity {
         this.finishTime = finishTime;
     }
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
     public Rescue() {
         super();
     }
 
-    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime) {
+    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime, String images) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;
         this.rescueType = rescueType;
@@ -101,5 +110,6 @@ public class Rescue extends Identity {
         this.rescueTime = rescueTime;
         this.status = status;
         this.finishTime = finishTime;
+        this.images = images;
     }
 }

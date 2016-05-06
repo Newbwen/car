@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.message.command.CompanyCreateMessageCommand;
 import pengyi.application.message.command.CompanyListMessageCommand;
+import pengyi.application.message.command.ListMessageCommand;
 import pengyi.application.message.representation.MessageRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -92,6 +93,26 @@ public class ApiMessageAppService implements IApiMessageAppService {
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
 
+    }
+
+    @Override
+    public BaseResponse list(ListMessageCommand command) {
+        if (null != command) {
+            if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
+                Pagination<Message> pagination = messageService.apiAppList(command);
+                List<MessageRepresentation> data = mappingService.mapAsList(pagination.getData(), MessageRepresentation.class);
+                Pagination<MessageRepresentation> result = new Pagination<MessageRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, result, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            } else {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50001.getMessage());
+            }
+        }
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+    }
+
+    @Override
+    public BaseResponse apiUnread(String id) {
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, messageService.apiUnread(id), ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
 }

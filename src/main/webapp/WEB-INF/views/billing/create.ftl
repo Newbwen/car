@@ -30,6 +30,17 @@
                 </div>
             </div>
 
+            [@spring.bind "command.startKm"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步公里* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startKm" value="${command.startKm!}"
+                           placeholder="起步公里" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startKm"/]
+                </div>
+            </div>
+
             [@spring.bind "command.minuteBilling"/]
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 根据分钟计费* </label>
@@ -38,6 +49,28 @@
                     <input type="text" id="form-field-1" name="minuteBilling" value="${command.minuteBilling!}"
                            placeholder="根据分钟计费" class="col-xs-10 col-sm-5" required/>
                     [@spring.showErrors "minuteBilling"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.startMin"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步分钟* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startMin" value="${command.startMin!}"
+                           placeholder="起步分钟" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startMin"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.startingPrice"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 起步价* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" name="startingPrice" value="${command.startingPrice!}"
+                           placeholder="起步价" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "startingPrice"/]
                 </div>
             </div>
 

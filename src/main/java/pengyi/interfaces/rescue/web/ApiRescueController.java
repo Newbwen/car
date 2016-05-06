@@ -11,6 +11,7 @@ import pengyi.application.rescue.IApiRescueAppService;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.application.rescue.command.RescueSuccessCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -119,33 +120,11 @@ public class ApiRescueController {
     }
 
     /**
-     *(司机用户)取消救援
-     */
-    @RequestMapping(value = "/cancel")
-    @ResponseBody
-    public BaseResponse cancel(EditRescueCommand command){
-        long startTime=System.currentTimeMillis();
-        BaseResponse baseResponse=null;
-        try {
-            baseResponse=iApiRescueAppService.cancelRescue(command);
-
-        }catch (ConcurrencyException e){
-            logger.warn(e.getMessage());
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, null, ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR.getMessage());
-        }catch (Exception e){
-            logger.warn(e.getMessage());
-            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
-        }
-        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
-        return baseResponse;
-    }
-
-    /**
-     *(司机)完成救援
+     *完成救援
      */
     @RequestMapping(value = "/ finish")
     @ResponseBody
-    public BaseResponse  finish(EditRescueCommand command){
+    public BaseResponse  finish(RescueSuccessCommand command){
         long startTime=System.currentTimeMillis();
          BaseResponse baseResponse=null;
         try {

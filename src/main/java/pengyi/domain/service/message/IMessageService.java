@@ -28,4 +28,7 @@ public interface IMessageService {
 
     Message apiShow(String messageId);
 
+    Pagination<Message> apiAppList(ListMessageCommand command);
+
+    boolean apiUnread(String id);
 }

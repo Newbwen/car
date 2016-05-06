@@ -261,16 +261,23 @@ public class OrderService implements IOrderService {
                 throw new NoFoundException("没有找到计费模板");
             }
             Billing billing = billingList.get(0);
-            BigDecimal knMoney = billing.getKmBilling().multiply(new BigDecimal(command.getKm()));
+            BigDecimal knMoney;
+            if (command.getKm() > billing.getStartKm()) {
+                knMoney = billing.getKmBilling().multiply(new BigDecimal(command.getKm() - billing.getStartKm()));
+            } else {
+                knMoney = new BigDecimal(0);
+            }
+
             long dateTime = (order.getEndTime().getTime() - order.getBeginTime().getTime());
             dateTime = dateTime % 60000 == 0 ? (dateTime / 60000) : (dateTime / 60000) + 1;
-            BigDecimal minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime));
-            BigDecimal shouldMoney = knMoney.add(minuteMoney);
-            if (shouldMoney.compareTo(billing.getStartingPrice()) == -1) {
-                order.setShouldMoney(billing.getStartingPrice());
+            BigDecimal minuteMoney;
+            if (dateTime > billing.getStartMin()) {
+                minuteMoney = billing.getMinuteBilling().multiply(new BigDecimal(dateTime - billing.getStartMin()));
             } else {
-                order.setShouldMoney(shouldMoney);
+                minuteMoney = new BigDecimal(0);
             }
+
+            order.setShouldMoney(knMoney.add(minuteMoney).add(billing.getStartingPrice()));
             order.setOrderStatus(OrderStatus.WAIT_PAY);
         }
         orderRepository.update(order);
@@ -501,7 +508,7 @@ public class OrderService implements IOrderService {
 
     private void sendToUser(String phone, Order order) {
         if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))){
+            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))) {
                 putUserMessage(phone, order);
             }
         } else {

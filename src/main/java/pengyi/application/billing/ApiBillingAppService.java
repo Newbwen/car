@@ -55,8 +55,14 @@ public class ApiBillingAppService implements IApiBillingAppService {
             if (null == command.getKmBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10029.getMessage());
             }
+            if (null == command.getStartKm()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10038.getMessage());
+            }
             if (null == command.getMinuteBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10030.getMessage());
+            }
+            if (null == command.getStartMin()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10039.getMessage());
             }
             if (null == command.getStartingPrice()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10035.getMessage());
@@ -92,8 +98,14 @@ public class ApiBillingAppService implements IApiBillingAppService {
             if (null == command.getKmBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10029.getMessage());
             }
+            if (null == command.getStartKm()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10038.getMessage());
+            }
             if (null == command.getMinuteBilling()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10030.getMessage());
+            }
+            if (null == command.getStartMin()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10039.getMessage());
             }
             if (null == command.getStartingPrice()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10035.getMessage());

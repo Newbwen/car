@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.application.rescue.command.RescueSuccessCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
@@ -123,7 +124,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
     }
 
     @Override
-    public BaseResponse finishRescue(EditRescueCommand command) {
+    public BaseResponse driverSuccessRescue(RescueSuccessCommand command) {
         if (null != command) {
             if (!CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
@@ -131,9 +132,39 @@ public class ApiRescueAppService implements IApiRescueAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            RescueRepresentation rescueRepresentation = mappingService.map(rescueService.apifinishRescue(command), RescueRepresentation.class, false);
+            if (null == command.getImages()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20008.getMessage());
+            }
+            RescueRepresentation rescueRepresentation = mappingService.map(rescueService.apiDriverFinishRescue(command), RescueRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+
+    }
+
+    @Override
+    public BaseResponse finishRescue(RescueSuccessCommand command) {
+        if (null != command) {
+            if (!CoreStringUtils.isEmpty(command.getId())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+            }
+            if (null == command.getVersion()) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+            }
+            RescueRepresentation rescueRepresentation = mappingService.map(rescueService.apiFinishRescue(command), RescueRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         }
         return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+    }
+
+    @Override
+    public BaseResponse list(ListRescueCommand command) {
+        Pagination<Rescue> pagination = rescueService.pagination(command);
+        List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
+        Pagination<RescueRepresentation> rescuePagination = new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescuePagination, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
 

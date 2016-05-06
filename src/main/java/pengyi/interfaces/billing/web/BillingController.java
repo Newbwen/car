@@ -62,7 +62,7 @@ public class BillingController extends BaseController {
             return new ModelAndView("/billing/create","command",command)
                     .addObject(AlertMessage.MODEL_ATTRIBUTE_KEY,alertMessage);
         }
-        logger.info("创建计费成功KMBilling=[" + billing.getKmBilling() + "],时间[" + new Date() + "]");
+        logger.info("创建计费成功kmBilling=[" + billing.getKmBilling() + "],时间[" + new Date() + "]");
 
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
 

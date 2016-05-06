@@ -1,9 +1,6 @@
 package pengyi.domain.service.message;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.message.command.*;
@@ -127,7 +124,7 @@ public class MessageService implements IMessageService {
                 criterionList.add(Restrictions.eq("sendBaseUser.id", command.getCompany()));
                 break;
             case 2:
-                    criterionList.add(Restrictions.like("receiveBaseUser.id", command.getCompany()));
+                criterionList.add(Restrictions.like("receiveBaseUser.id", command.getCompany()));
                 break;
         }
 
@@ -137,7 +134,7 @@ public class MessageService implements IMessageService {
         if (!CoreStringUtils.isEmpty(command.getEndTime())) {
             criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
         }
-        if(!CoreStringUtils.isEmpty(command.getReceiveBaseUser())){
+        if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
             criterionList.add(Restrictions.like("receiveBaseUser.userName", command.getReceiveBaseUser(), MatchMode.ANYWHERE));
         }
         List<Order> orderList = new ArrayList();
@@ -150,6 +147,33 @@ public class MessageService implements IMessageService {
     public Message apiShow(String messageId) {
         Message message = messageRepository.getById(messageId);
         return message;
+    }
+
+    @Override
+    public Pagination<Message> apiAppList(ListMessageCommand command) {
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        aliasMap.put("receiveBaseUser", "receiveBaseUser");
+
+        if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
+            criterionList.add(Restrictions.eq("receiveBaseUser.id", command.getReceiveBaseUser()));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("sendDate"));
+
+        List<Projection> projections = new ArrayList<Projection>();
+        return messageRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
+    }
+
+    @Override
+    public boolean apiUnread(String id) {
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        aliasMap.put("receiveBaseUser", "receiveBaseUser");
+
+        criterionList.add(Restrictions.eq("receiveBaseUser.id", id));
+        criterionList.add(Restrictions.isNull("receiveDate"));
+        return messageRepository.list(criterionList, null, null, null, aliasMap).size() > 0;
     }
 
     @Override

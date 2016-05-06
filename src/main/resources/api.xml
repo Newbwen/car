@@ -142,34 +142,50 @@
         <api>
             <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
             <name>(公司)查看救援列表</name>
-            <address>/rescue/api/edit/all_list</address>
-            <shuoming>无</shuoming>
+            <address>/rescue/api/list</address>
+            <shuoming>page,pageSize</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_FAILURE","data":[{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"}],"debug_time":2,"message":null}</fanhuixinxi>
+        </api>
+        <api>
+            <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
+            <name>(司机)查看救援列表</name>
+            <address>/api/app/rescue/driver/list</address>
+            <shuoming>page,pageSize</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_FAILURE","data":[{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"}],"debug_time":2,"message":null}</fanhuixinxi>
+        </api>
+        <api>
+            <id>440685a7-c1f5-4b36-89ea-40ed551f35cd</id>
+            <name>(用户)查看救援列表</name>
+            <address>/api/app/rescue/user/list</address>
+            <shuoming>page,pageSize</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_FAILURE","data":[{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"}],"debug_time":2,"message":null}</fanhuixinxi>
         </api>
         <api>
             <id>c3a16c32-1fda-466c-9391-681fc1f38896</id>
             <name>(公司)处理救援</name>
             <address>/rescue/api/edit/deal</address>
-            <shuoming>id,version,applyUser,type,description,driver,status</shuoming>
+            <shuoming>id,version,driver,status</shuoming>
             <zhuyi>status(WAIT_RESCUE(</zhuyi>
-            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>9794384e-bbb2-4ebf-ac35-8052e365b3f8</id>
             <name>(司机用户)取消救援</name>
-            <address>/rescue/api/edit</address>
-            <shuoming>id,version,status</shuoming>
+            <address>/api/app/rescue/cancel</address>
+            <shuoming>id,version</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{</fanhuixinxi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>128c0b90-e75c-4ace-9171-e2b5de9f793e</id>
-            <name>司机)完成救援</name>
-            <address>/rescue/api/finish</address>
-            <shuoming>id,version,status</shuoming>
+            <name>(司机)完成救援</name>
+            <address>/api/app/rescue/finish</address>
+            <shuoming>id,version,images</shuoming>
             <zhuyi>无</zhuyi>
-            <fanhuixinxi>{"code":"response_code_success","data":{"carnumber":"56461","cartype":"econmy","driver":{"balance":0.00,"company":null,"createdate":"2016-03-18="" 16:01:52.0","drivertype":null,"email":"admin1@admin1.com","head":null,"id":"402881f75388b735015388beb3860004","latitude":null,"level":null,"longitude":null,"money":null,"name":null,"online":null,"password":"167d97ef0ff907dfc355687069b44174","reportcount":null,"salt":"80fc6cc405bb6c07121d341ab5a08377","sex":null,"status":"enable","username":"2858585858","userrole":{"description":"测试","id":"402881f75388b735015388bd84d90002","permissions":[],"rolename":"driver","status":"enable","version":0},"usertype":"driver","version":0},"id":"402881f05398cff1015398e4425f0001","name":"fkaisj","version":0},"debug_time":0,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{"code":"response_code_success","data":{"code":"RESPONSE_CODE_SUCCESS","data":{"count":7,"data":[{"applyTime":"2016-04-22 16:53:01.0","applyUser":{"balance":19.42,"createDate":"2016-04-15 17:59:09.0","email":null,"id":"000000005418fa030154195c24de0000","password":"cc037151c8e916446e2ad15a502b580d","salt":"7f7f1a84382c6443c4439408f6c30a26","status":"ENABLE","userName":"18302099474","userRole":"","userType":"USER","version":3},"description":"啊啊啊啊啊啊","driver":null,"finishTime":null,"id":"00000000543c7bd001543d2c1d36002f","images":null,"rescueTime":null,"rescueType":"OLD_MAN","status":"WAIT_RESCUE","version":0}],"page":1,"pageSize":20},"debug_time":91,"message":"成功"},"debug_time":0,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>70719cbc-0a34-41d4-b21d-9a97f84a46e0</id>
@@ -337,7 +353,7 @@
             <address>api/app/billing/search</address>
             <shuoming>userName(司机用户名),driverType(司机类型),carType(专车类型)</shuoming>
             <zhuyi>参数不能为空,driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车),carType(专车类型,只有选择专车的时候为必传.ECONMY:经济型,COMFORT:舒适型,BUSINESS:商务型,LUXURY:豪华型)</zhuyi>
-            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"id":"297e058d53ad052d0153ad7d29460000","kmBilling":321.23123,"minuteBilling":87452.14123,"version":1},"debug_time":504,"message":"成功"}</fanhuixinxi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"company":{"balance":0.00,"createDate":"2016-03-18 10:44:52.0","email":"company_qiantai_1@bulian.com","folder":"123132132123","id":"402881e9538749db0153879c817a0000","level":0,"money":0.00,"name":"前台注册公司啦啦啦","operateAddress":null,"password":"35c3d2cbe6647fb90219180acdb0d942","registerAddress":{"id":"f7da20f5aea44f8f98f124acf3ef2dfc","name":"朝天门街道","parent":{"id":"944dd1eb615940f89a09ee415826e864","name":"渝中区","parent":{"id":"106ce824e0d641e49cbb273352aa4734","name":"市辖区","parent":{"id":"c5279da256bc4907b762087bf987cf61","name":"重庆市","parent":null,"priority":"50","version":0},"priority":"5001","version":0},"priority":"500103","version":0},"priority":"500103010","version":0},"registerDate":"2016-03-18 00:00:00.0","salt":"a0d8c8936daa50cf465127002b69be56","status":"ENABLE","userName":"company_qiantai_1","userRole":{"description":"公司角色","id":"402881e9538377ac0153837cf6ad0000","permissions":[],"roleName":"company","status":"ENABLE","version":0},"userType":"COMPANY","version":5},"id":"297e058d53ad052d0153ad7d29460000","kmBilling":321.23123,"minuteBilling":87452.14123,"startKm":1,"startMin":1,"version":1},"debug_time":504,"message":"成功"}</fanhuixinxi>
         </api>
         <api>
             <id>0060affa-ca62-4485-ba4f-a14860496206</id>
@@ -466,6 +482,42 @@
             <shuoming>orderId(订单id),lat(纬度),lon(经度)</shuoming>
             <zhuyi>无</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+
+        <api>
+            <id>83eab5c2-df0e-4048-899f-a99331246e4e</id>
+            <name>查询订单线路</name>
+            <address>/order/way/api/list</address>
+            <shuoming>orderId(订单id)</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+
+        <api>
+            <id>83eab5c2-df0e-4048-899f-a99631246e4e</id>
+            <name>站内信列表</name>
+            <address>/api/app/message/list</address>
+            <shuoming>page,pageSize</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+
+        <api>
+            <id>83aab5c2-df0e-4048-899f-a99631246e4e</id>
+            <name>站内信详情</name>
+            <address>/api/app/message/detail</address>
+            <shuoming>messageId</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+
+        <api>
+            <id>83aab5c2-df0e-4048-891f-a99631246e4e</id>
+            <name>是否有未读站内信</name>
+            <address>/api/app/message/unread</address>
+            <shuoming>无</shuoming>
+            <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":false,"debug_time":7,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>
 </apifile>

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.application.rescue.command.RescueSuccessCommand;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
@@ -49,7 +50,7 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue getById(String rescueId) {
-        return (Rescue) rescueRepository.getById(rescueId);
+        return rescueRepository.getById(rescueId);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class RescueService implements IRescueService {
 
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Rescue rescue1 = new Rescue(applyUser, new Date(), command.getRescueType(),
-                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null);
+                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null);
         rescueRepository.save(rescue1);
 
         return rescue1;
@@ -159,10 +160,23 @@ public class RescueService implements IRescueService {
     }
 
     /**
+     * 司机完成
+     */
+    @Override
+    public Rescue apiDriverFinishRescue(RescueSuccessCommand command) {
+
+        Rescue rescue = this.show(command.getId());
+        rescue.fainWhenConcurrencyViolation(command.getVersion());
+        rescue.setStatus(RescueStatus.WAIT_AUDIT);
+        rescueRepository.update(rescue);
+        return rescue;
+    }
+
+    /**
      * 完成救援
      */
     @Override
-    public Rescue apifinishRescue(EditRescueCommand command) {
+    public Rescue apiFinishRescue(RescueSuccessCommand command) {
 
         Rescue rescue = this.show(command.getId());
         rescue.fainWhenConcurrencyViolation(command.getVersion());

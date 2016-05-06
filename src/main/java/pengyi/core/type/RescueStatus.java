@@ -6,8 +6,9 @@ package pengyi.core.type;
 public enum  RescueStatus {
     WAIT_RESCUE("待救援", 1, Boolean.FALSE),
     IN_RESCUE("救援中", 2, Boolean.FALSE),
-    SUCCESS_RESCUE("救援完成",3,Boolean.FALSE),
-    CANCEL_RESCUE("取消救援",4,Boolean.FALSE);
+    WAIT_AUDIT("完成待审核",3, Boolean.FALSE),
+    SUCCESS_RESCUE("救援完成",4,Boolean.FALSE),
+    CANCEL_RESCUE("取消救援",5,Boolean.FALSE);
 
 
     private RescueStatus(String name, int value, Boolean onlyQuery) {

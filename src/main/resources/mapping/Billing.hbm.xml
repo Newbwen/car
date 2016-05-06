@@ -18,6 +18,10 @@
 
         <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
 
+        <property name="startKm" column="start_km" type="java.lang.Integer" />
+
+        <property name="startMin" column="start_min" type="java.lang.Integer" />
+
         <property name="driverType" column="driver_type">
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">pengyi.core.type.DriverType</param>

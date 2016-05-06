@@ -3,6 +3,7 @@ package pengyi.application.rescue;
 import pengyi.application.rescue.command.CreateRescueCommand;
 import pengyi.application.rescue.command.EditRescueCommand;
 import pengyi.application.rescue.command.ListRescueCommand;
+import pengyi.application.rescue.command.RescueSuccessCommand;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.repository.generic.Pagination;
@@ -23,9 +24,10 @@ public interface IApiRescueAppService {
 
     BaseResponse cancelRescue(EditRescueCommand command);
 
-    BaseResponse finishRescue(EditRescueCommand command);
+    BaseResponse driverSuccessRescue(RescueSuccessCommand command);
+
+    BaseResponse finishRescue(RescueSuccessCommand command);
 
 
-
-
+    BaseResponse list(ListRescueCommand command);
 }

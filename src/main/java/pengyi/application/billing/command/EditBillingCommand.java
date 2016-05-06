@@ -23,6 +23,10 @@ public class EditBillingCommand {
     private BigDecimal startingPrice;   //起步价
     @NotEmpty(message = "{billing.company.NotEmpty.message}")
     private String company;  //公司
+    @NotNull(message = "{billing.startKm.NotNull.message}")
+    private Integer startKm;
+    @NotNull(message = "{billing.startMin.NotNull.message}")
+    private Integer startMin;
 
     private DriverType driverType;
     private CarType carType;
@@ -89,5 +93,21 @@ public class EditBillingCommand {
 
     public void setStartingPrice(BigDecimal startingPrice) {
         this.startingPrice = startingPrice;
+    }
+
+    public Integer getStartKm() {
+        return startKm;
+    }
+
+    public void setStartKm(Integer startKm) {
+        this.startKm = startKm;
+    }
+
+    public Integer getStartMin() {
+        return startMin;
+    }
+
+    public void setStartMin(Integer startMin) {
+        this.startMin = startMin;
     }
 }
