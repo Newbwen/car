@@ -37,14 +37,6 @@ public class Driver extends BaseUser {
     private String businessPic;         //营业资格证
     private String workPic;             //从业资格证
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getHead() {
         return head;
     }
