@@ -19,5 +19,4 @@ public interface IEvaluateAppService {
 
     EvaluateRepresentation show(String id);
 
-    EvaluateRepresentation searchByOrderID(String id);
 }

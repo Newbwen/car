@@ -13,9 +13,8 @@
 
 [@override name="subContent"]
 <div class="row">
-    <div class="col-xs-12">
-        模板整理中....................
-        <a class="btn btn-green modal-search-modal">弹层</a>
+    <div class="col-xs-12 text-center">
+        <h2>我是首页</h2>
     </div>
 </div>
 [/@override]

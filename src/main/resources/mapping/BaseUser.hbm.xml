@@ -82,6 +82,11 @@
                     <param name="type">4</param>
                 </type>
             </property>
+            <property name="travelPic" column="travel_pic" type="java.lang.String"/>
+            <property name="drivingLicenceType" column="driving_licence_type" type="java.lang.String"/>
+            <property name="phone" column="phone" type="java.lang.String"/>
+            <property name="businessPic" column="business_pic" type="java.lang.String"/>
+            <property name="workPic" column="work_pic" type="java.lang.String"/>
         </joined-subclass>
 
         <joined-subclass name="pengyi.domain.model.user.terrace.Terrace"
