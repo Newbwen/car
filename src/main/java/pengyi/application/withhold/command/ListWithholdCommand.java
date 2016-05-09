@@ -8,9 +8,18 @@ import pengyi.core.type.WithdrawStatus;
  */
 public class ListWithholdCommand extends BasicPaginationCommand {
 
+    private String loginUser;
     private String baseUser;                          //被扣款人
     private String startTime;                         //扣款时间
     private String endTime;
+
+    public String getLoginUser() {
+        return loginUser;
+    }
+
+    public void setLoginUser(String loginUser) {
+        this.loginUser = loginUser;
+    }
 
     public String getBaseUser() {
         return baseUser;

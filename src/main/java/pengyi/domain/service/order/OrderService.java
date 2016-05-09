@@ -82,6 +82,15 @@ public class OrderService implements IOrderService {
         if (null != command.getOrderStatus()) {
             criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));
         }
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        }
+        if (null != command.getCarType()) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+        }
 
         return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orders);
     }
@@ -148,7 +157,12 @@ public class OrderService implements IOrderService {
         if (!CoreStringUtils.isEmpty(command.getEndCreateDate())) {
             criterionList.add(Restrictions.le("createDate", CoreDateUtils.parseDate(command.getEndCreateDate())));
         }
-
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        }
+        if (null != command.getCarType()) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
+        }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
 
@@ -366,10 +380,12 @@ public class OrderService implements IOrderService {
             criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
         }
 
-        if (null != command.getDriverType()) {
+        if (null != command.getCarType()) {
             criterionList.add(Restrictions.eq("carType", command.getCarType()));
         }
-
+        if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+        }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
 
@@ -504,6 +520,38 @@ public class OrderService implements IOrderService {
     public boolean hasBalance(String userId) {
         BaseUser baseUser = baseUserService.show(userId);
         return baseUser.getBalance().doubleValue() >= 0;
+    }
+
+    @Override
+    public List<Order> exportExcel(ListOrderCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        if (!CoreStringUtils.isEmpty(command.getOrderUser())) {
+            criterionList.add(Restrictions.eq("orderUser.id", command.getOrderUser()));
+        } else if (!CoreStringUtils.isEmpty(command.getReceiveUser())) {
+            criterionList.add(Restrictions.eq("receiveUser.id", command.getReceiveUser()));
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.eq("orderNumber", command.getOrderNumber()));
+        }
+
+        if (null != command.getOrderStatus()) {
+            criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));
+        }
+
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        }
+
+        if (null != command.getCarType()) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+        }
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(org.hibernate.criterion.Order.desc("createDate"));
+        return orderRepository.list(criterionList, orderList);
     }
 
     private void sendToUser(String phone, Order order) {

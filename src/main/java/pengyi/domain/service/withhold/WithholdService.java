@@ -69,6 +69,9 @@ public class WithholdService implements IWithholdService {
     @Override
     public Pagination<Withhold> pagination(ListWithholdCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
+        if (!CoreStringUtils.isEmpty(command.getLoginUser())) {
+            criterionList.add(Restrictions.eq("company.id", command.getLoginUser()));
+        }
         if (!CoreStringUtils.isEmpty(command.getBaseUser())) {
             criterionList.add(Restrictions.like("baseUser.userName", command.getBaseUser(), MatchMode.ANYWHERE));
         }

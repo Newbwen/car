@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 @Controller
 @RequestMapping("/rescue")
-public class RescueComtroller extends BaseController {
+public class RescueController extends BaseController {
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 

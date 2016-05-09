@@ -3,6 +3,7 @@ package pengyi.application.withhold;
 import pengyi.application.withhold.command.CreateWithholdCommand;
 import pengyi.application.withhold.command.ListWithholdCommand;
 import pengyi.application.withhold.representation.WithholdRepresentation;
+import pengyi.core.api.BaseResponse;
 import pengyi.repository.generic.Pagination;
 
 /**
@@ -14,4 +15,8 @@ public interface IWithholdAppService {
     Pagination<WithholdRepresentation> pagination(ListWithholdCommand command);
 
     WithholdRepresentation show(String id);
+
+    BaseResponse apiCreate(CreateWithholdCommand command);
+
+    BaseResponse apiList(ListWithholdCommand command);
 }

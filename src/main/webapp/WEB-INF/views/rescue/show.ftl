@@ -78,6 +78,19 @@
                     <span class="editable editable-click" id="age">${rescueRepresentation.finishTime!}</span>
                 </div>
             </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 公司资质图片</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click"
+                          id="age">
+                        [#list rescueRepresentation.images!?split(",") as image]
+                            <img src="${image!}"/>
+                        [/#list]
+                    </span>
+                </div>
+            </div>
         </div>
         <br>
         <br>

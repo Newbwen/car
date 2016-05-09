@@ -7,7 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.withhold.command.CreateWithholdCommand;
 import pengyi.application.withhold.command.ListWithholdCommand;
 import pengyi.application.withhold.representation.WithholdRepresentation;
+import pengyi.core.api.BaseResponse;
+import pengyi.core.api.ResponseCode;
+import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.withhold.Withhold;
 import pengyi.domain.service.withhold.IWithholdService;
 import pengyi.repository.generic.Pagination;
@@ -45,5 +49,29 @@ public class WithholdAppService implements IWithholdAppService {
     @Transactional(readOnly = true)
     public WithholdRepresentation show(String id) {
         return mappingService.map(withholdService.show(id), WithholdRepresentation.class, false);
+    }
+
+    @Override
+    public BaseResponse apiCreate(CreateWithholdCommand command) {
+        if (CoreStringUtils.isEmpty(command.getUserId())) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10041.getMessage());
+        }
+        if (null == command.getMoney()) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10040.getMessage());
+        }
+        if (CoreStringUtils.isEmpty(command.getDetail())) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50005.getMessage());
+        }
+        withholdService.create(command);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
+    public BaseResponse apiList(ListWithholdCommand command) {
+        command.verifyPage();
+        command.verifyPageSize(20);
+        Pagination<Withhold> withholdPagination = withholdService.pagination(command);
+        List<WithholdRepresentation> representations = mappingService.mapAsList(withholdPagination.getData(), WithholdRepresentation.class);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, representations, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 }
