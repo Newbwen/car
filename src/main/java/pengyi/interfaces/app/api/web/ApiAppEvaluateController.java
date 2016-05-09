@@ -62,7 +62,7 @@ public class ApiAppEvaluateController {
         BaseResponse response = null;
 
         try {
-            response = apiEvaluateAppService.getByOrderId(orderId);
+            response = apiEvaluateAppService.getByOrderId(orderId,baseUser.getId());
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

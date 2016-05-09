@@ -11,7 +11,7 @@ import java.io.Serializable;
 public interface IEvaluateRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
 
 
-    Evaluate getByOrder(String orderId);
+    Evaluate getByOrder(String orderId,String userId);
 
 
     Double reckonDriverLevel(String driverId);

@@ -17,5 +17,5 @@ public interface IApiEvaluateAppService {
 
     BaseResponse delete(String orderId);
 
-    BaseResponse getByOrderId(String orderId);
+    BaseResponse getByOrderId(String orderId,String userId);
 }

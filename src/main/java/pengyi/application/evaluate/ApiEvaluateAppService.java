@@ -50,7 +50,7 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
 
     @Override
     public EvaluateRepresentation show(String orderId) {
-        return mappingService.map(evaluateService.searchByOrder(orderId), EvaluateRepresentation.class, false);
+        return mappingService.map(evaluateService.show(orderId), EvaluateRepresentation.class, false);
     }
 
     @Override
@@ -84,9 +84,9 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     }
 
     @Override
-    public BaseResponse getByOrderId(String orderId) {
+    public BaseResponse getByOrderId(String orderId, String userId) {
         if (!CoreStringUtils.isEmpty(orderId)) {
-            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId), EvaluateRepresentation.class, false);
+            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId, userId), EvaluateRepresentation.class, false);
             CarRepresentation car = carAppService.searchByDriver(data.getOrder().getReceiveUser().getId());
             if (null != car) {
                 data.setCar(car);

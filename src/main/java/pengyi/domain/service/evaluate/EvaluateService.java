@@ -63,7 +63,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     public void edit(EditEvaluateCommand command) {
-               Evaluate evaluate = this.show(command.getId());
+        Evaluate evaluate = this.show(command.getId());
 //        Evaluate evaluate1=this.searchByOrder(command.getOrder());
 //        BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
 //        Order order = orderService.show(command.getOrder());
@@ -94,8 +94,8 @@ public class EvaluateService implements IEvaluateService {
      * 通过订单查看评价
      */
     @Override
-    public Evaluate searchByOrder(String order) {
-        return evaluateRepository.getByOrder(order);
+    public Evaluate searchByOrder(String order, String userId) {
+        return evaluateRepository.getByOrder(order,userId);
     }
 
 
@@ -132,7 +132,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     public void delete(String orderId) {
-        Order order=orderService.show(orderId);
+        Order order = orderService.show(orderId);
         Evaluate evaluate = this.show(orderId);
         evaluateRepository.delete(evaluate);
         driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));

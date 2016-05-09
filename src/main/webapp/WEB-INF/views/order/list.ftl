@@ -36,6 +36,25 @@
                                         <option value="INVALID" [@mc.selected status "INVALID"/]>作废</option>
                                     </select>
                                 </label>
+                                <label>司机类型
+                                    <select name="orderStatus">
+                                        [#assign status = (command.orderStatus!)?default("") /]
+                                        <option value="">全部</option>
+                                        <option value="GENERATION" [@mc.selected status "GENERATION"/]>代驾</option>
+                                        <option value="LIMOUSINE" [@mc.selected status "LIMOUSINE"/]>专车</option>
+                                        <option value="TAXI" [@mc.selected status "TAXI"/]>出租车</option>
+                                    </select>
+                                </label>
+                                <label>车辆类型
+                                    <select name="orderStatus">
+                                        [#assign status = (command.orderStatus!)?default("") /]
+                                        <option value="">全部</option>
+                                        <option value="ECONOMY" [@mc.selected status "ECONOMY"/]>经济型</option>
+                                        <option value="COMFORT" [@mc.selected status "COMFORT"/]>舒适型</option>
+                                        <option value="BUSINESS" [@mc.selected status "BUSINESS"/]>商务型</option>
+                                        <option value="LUXURY" [@mc.selected status "LUXURY"/]>豪华型</option>
+                                    </select>
+                                </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
                         </div>
@@ -47,7 +66,10 @@
                         <th>订单号</th>
                         <th>下单人</th>
                         <th>接单人</th>
+                        <th>订单金额</th>
                         <th>下单时间</th>
+                        <th>司机类型</th>
+                        <th>车辆类型</th>
                         <th>订单状态</th>
                         <th>操作</th>
                     </tr>
@@ -61,7 +83,10 @@
                                 <td>${order.orderNumber!}</td>
                                 <td>${order.orderUser.userName!}</td>
                                 <td>${order.receiveUser.userName!}</td>
+                                <td>${order.shouldMoney!}</td>
                                 <td>${order.createDate!}</td>
+                                <td>${(order.driverType.getName())!}</td>
+                                <td>${(order.carType.getName())!}</td>
                                 <td>${(order.orderStatus.getName())!}</td>
                                 <td>
                                     <div class="btn-group">
