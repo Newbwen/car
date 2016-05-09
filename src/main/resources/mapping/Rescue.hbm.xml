@@ -35,6 +35,8 @@
         </property>
 
         <property name="finishTime" column="finish_time" type="java.util.Date"  />
+
+        <property name="images" column="images" type="java.lang.String" />
     </class>
 
 </hibernate-mapping>

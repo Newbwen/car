@@ -29,6 +29,7 @@ public class BillingAppService implements IBillingAppService {
     private IMappingService mappingService;
 
     @Override
+    @Transactional(readOnly = true)
     public Pagination<BillingRepresentation> pagination(ListBillingCommand command) {
         command.verifyPage();
         command.verifyPageSize(12);
@@ -38,6 +39,7 @@ public class BillingAppService implements IBillingAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BillingRepresentation show(String id) {
         return mappingService.map(billingService.show(id), BillingRepresentation.class, false);
     }

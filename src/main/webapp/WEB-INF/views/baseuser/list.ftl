@@ -89,6 +89,9 @@
                                                 <a class="pink" href="[@spring.url '/base_user/reset_password/${baseUser.id!}'/]">重置密码</a>
                                             </li>
                                             <li>
+                                                <a class="red" href="[@spring.url '/withhold/create/${baseUser.id!}'/]">扣款</a>
+                                            </li>
+                                            <li>
                                                 [#if baseUser.status == "ENABLE"]
                                                     <a class="red" href="[@spring.url '/base_user/update_status?id=${baseUser.id!}&version=${baseUser.version!}'/]">
                                                         禁用

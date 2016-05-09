@@ -41,12 +41,14 @@ public class ApiRescueAppService implements IApiRescueAppService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse apiInfo(String id) {
         RescueRepresentation rescueRepresentation = mappingService.map(rescueService.show(id), RescueRepresentation.class, false);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Pagination<RescueRepresentation> search(ListRescueCommand command) {
         Pagination<Rescue> pagination = rescueService.pagination(command);
         List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
@@ -126,7 +128,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Override
     public BaseResponse driverSuccessRescue(RescueSuccessCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getId())) {
+            if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
@@ -160,8 +162,18 @@ public class ApiRescueAppService implements IApiRescueAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse list(ListRescueCommand command) {
         Pagination<Rescue> pagination = rescueService.pagination(command);
+        List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
+        Pagination<RescueRepresentation> rescuePagination = new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescuePagination, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BaseResponse userAndDriverList(ListRescueCommand command) {
+        Pagination<Rescue> pagination = rescueService.userAndDriverList(command);
         List<RescueRepresentation> data = mappingService.mapAsList(pagination.getData(), RescueRepresentation.class);
         Pagination<RescueRepresentation> rescuePagination = new Pagination<RescueRepresentation>(data, pagination.getCount(), pagination.getPage(), pagination.getPageSize());
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescuePagination, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());

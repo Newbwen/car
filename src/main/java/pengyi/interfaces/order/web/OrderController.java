@@ -51,7 +51,7 @@ public class OrderController extends BaseController {
             logger.warn(e.getMessage());
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, e.getMessage());
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            return new ModelAndView("redirect:/order/list");
+            return new ModelAndView("redirect:/order/list").addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
         return new ModelAndView("/order/show", "order", order);
     }
@@ -74,7 +74,7 @@ public class OrderController extends BaseController {
             alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING,
                     this.getMessage("order.way.point.size.message", null, locale));
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
-            return new ModelAndView("redirect:/order/list");
+            return new ModelAndView("redirect:/order/list").addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
         return new ModelAndView("/order/way", "wayPoints", wayPoints);
     }

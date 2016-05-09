@@ -31,7 +31,9 @@ public interface IBaseUserService {
 
     List<BaseUser> searchByUserRole(String roleId);
 
-    void updateBalance(String userId, BigDecimal bigDecimal);
+    void subtractBalance(String userId, BigDecimal bigDecimal);
+
+    void addBalance(String userId, BigDecimal bigDecimal);
 
     /*******  以下是 api 方法    ********/
     BaseUser apiResetPassword(ResetPasswordCommand command);

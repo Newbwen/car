@@ -43,8 +43,5 @@ public interface IRescueService {
 
     Pagination searchRescue(ListRescueCommand command);
 
-
-
-
-
+    Pagination<Rescue> userAndDriverList(ListRescueCommand command);
 }

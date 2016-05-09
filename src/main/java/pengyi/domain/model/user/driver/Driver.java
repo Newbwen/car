@@ -17,7 +17,6 @@ import java.util.Date;
  */
 public class Driver extends BaseUser {
 
-    private String name;                    //姓名
     private String head;                    //头像
     private Company company;                //公司
     private Sex sex;                        //性别（0为男，1为女）
@@ -31,14 +30,6 @@ public class Driver extends BaseUser {
     private String drivingLicencePic;       //驾驶证照片
     private Date startDriveDate;         //开始驾驶时间
     private AuthStatus authStatus;      //审核状态
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getHead() {
         return head;
@@ -149,8 +140,7 @@ public class Driver extends BaseUser {
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate, AuthStatus authStatus) {
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
-        this.name = name;
+        super(name, userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.head = head;
         this.company = company;
         this.sex = sex;
@@ -167,6 +157,6 @@ public class Driver extends BaseUser {
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
+        super("", userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

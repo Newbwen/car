@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class BaseUser extends Identity {
 
+    private String name;
     private String userName;                           //手机号
     private String password;                        //密码
     private String salt;                            //密码盐
@@ -24,6 +25,14 @@ public class BaseUser extends Identity {
     private Role userRole;                          //用户角色
     private String email;                           //邮箱
     private UserType userType;                               //1平台、2用户、3公司、4司机
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUserName() {
         return userName;
@@ -105,7 +114,12 @@ public class BaseUser extends Identity {
         super();
     }
 
-    public BaseUser(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
+    public BaseUser(String name) {
+        this.name = name;
+    }
+
+    public BaseUser(String name, String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
+        this.name = name;
         this.userName = userName;
         this.password = password;
         this.salt = salt;

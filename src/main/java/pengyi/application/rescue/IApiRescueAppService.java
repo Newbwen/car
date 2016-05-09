@@ -30,4 +30,6 @@ public interface IApiRescueAppService {
 
 
     BaseResponse list(ListRescueCommand command);
+
+    BaseResponse userAndDriverList(ListRescueCommand command);
 }

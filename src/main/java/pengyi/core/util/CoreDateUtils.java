@@ -70,6 +70,34 @@ public class CoreDateUtils {
         }
     }
 
+    public static Date parseDateStart(String dateStr) {
+        if (dateStr == null) {
+            return null;
+        }
+        dateStr += " 00:00:00";
+        try {
+            return DateUtils.parseDateStrictly(dateStr, DATETIME);
+        } catch (ParseException e) {
+            log.error("日期转换错误, dateStr={}, pattern={}", dateStr, CoreStringUtils.join(",", DATETIME));
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public static Date parseDateEnd(String dateStr) {
+        if (dateStr == null) {
+            return null;
+        }
+        dateStr += " 23:59:59";
+        try {
+            return DateUtils.parseDateStrictly(dateStr, DATETIME);
+        } catch (ParseException e) {
+            log.error("日期转换错误, dateStr={}, pattern={}", dateStr, CoreStringUtils.join(",", DATETIME));
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
     /**
      * 两个时间相隔天数 time1-time2
      * @param time1

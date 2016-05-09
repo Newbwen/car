@@ -10,6 +10,8 @@
 
         <version name="version" type="java.lang.Integer" column="version"/>
 
+        <property name="name" column="name" type="java.lang.String"/>
+
         <property name="userName" column="user_name" type="java.lang.String"/>
 
         <property name="password" column="password" type="java.lang.String"/>
@@ -42,7 +44,6 @@
         <joined-subclass name="pengyi.domain.model.user.company.Company"
                          table="base_user_company">
             <key column="base_user_company_id"/>
-            <property name="name" column="name" type="java.lang.String"/>
             <property name="folder" column="folder" type="java.lang.String"/>
             <property name="registerDate" column="register_date" type="java.util.Date"/>
             <many-to-one name="registerAddress" column="register_address_id" class="pengyi.domain.model.area.Area"/>
@@ -53,7 +54,6 @@
         <joined-subclass name="pengyi.domain.model.user.driver.Driver"
                          table="base_user_driver">
             <key column="base_user_driver_id"/>
-            <property name="name" column="name" type="java.lang.String"/>
             <property name="head" column="head" type="java.lang.String"/>
             <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
             <property name="sex" column="sex">
@@ -87,13 +87,11 @@
         <joined-subclass name="pengyi.domain.model.user.terrace.Terrace"
                          table="base_user_terrace">
             <key column="base_user_terrace_id"/>
-            <property name="name" column="name" type="java.lang.String"/>
         </joined-subclass>
 
         <joined-subclass name="pengyi.domain.model.user.user.User"
                          table="base_user_user">
             <key column="base_user_user_id"/>
-            <property name="name" column="name" type="java.lang.String"/>
             <property name="head" column="head" type="java.lang.String"/>
             <property name="sex" column="sex">
                 <type name="org.hibernate.type.EnumType">

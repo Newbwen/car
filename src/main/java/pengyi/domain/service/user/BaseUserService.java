@@ -165,9 +165,16 @@ public class BaseUserService implements IBaseUserService {
     }
 
     @Override
-    public void updateBalance(String userId, BigDecimal bigDecimal) {
+    public void addBalance(String userId, BigDecimal bigDecimal) {
         BaseUser baseUser = baseUserRepository.getById(userId);
         baseUser.setBalance(baseUser.getBalance().add(bigDecimal));
+        baseUserRepository.update(baseUser);
+    }
+
+    @Override
+    public void subtractBalance(String userId, BigDecimal bigDecimal) {
+        BaseUser baseUser = baseUserRepository.getById(userId);
+        baseUser.setBalance(baseUser.getBalance().subtract(bigDecimal));
         baseUserRepository.update(baseUser);
     }
 
