@@ -17,6 +17,8 @@ public class RegisterDriverCommand {
     private String company;
     private DriverType driverType;
     private String startDriveDate;
+
+    private String name;                    //姓名
     private String travelPic;               //行驶证
     private String drivingLicenceType;      //驾驶证类型（C1,C2,B1,B2,A1,A2）
     private String phone;               //电话
@@ -125,5 +127,13 @@ public class RegisterDriverCommand {
 
     public void setWorkPic(String workPic) {
         this.workPic = workPic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

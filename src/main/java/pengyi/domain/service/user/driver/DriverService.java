@@ -225,18 +225,44 @@ public class DriverService implements IDriverService {
         }
         Company company = companyService.show(command.getCompany());
 
-        Role role = roleService.searchByName("driver");
-
         String salt = PasswordHelper.getSalt();
         String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
 
-        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0),
-                new Date(), role, null, UserType.DRIVER, null, null, company,
-                null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(),
-                null, null, CoreDateUtils.parseDate(command.getStartDriveDate()), AuthStatus.AUTH_TERRACE);
+        String identityCarPic = command.getIdentityCardPic().replaceAll("img_tmp", "img");
+        String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
+
+        Role role = roleService.searchByName("driver");
+        Driver driver;
+        if (command.getDriverType() == DriverType.LIMOUSINE) {
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, travelPic, null, command.getPhone(), null, null);
+        } else if (command.getDriverType() == DriverType.GENERATION) {
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, null, command.getDrivingLicenceType(), command.getPhone(), null, null);
+        } else {
+            String businessPic = command.getBusinessPic().replace("img_tmp", "img");
+            String workPic = command.getWorkPic().replaceAll("img_tmp", "img");
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, travelPic, null, command.getPhone(), businessPic, workPic);
+        }
 
         driverRepository.save(driver);
-
+        fileUploadService.move(identityCarPic.substring(identityCarPic.lastIndexOf("/") + 1));
+        fileUploadService.move(drivingLicencePic.substring(drivingLicencePic.lastIndexOf("/") + 1));
+        if (!CoreStringUtils.isEmpty(command.getTravelPic())) {
+            fileUploadService.move(command.getTravelPic().substring(command.getTravelPic().lastIndexOf("/") + 1));
+        }
+        if (!CoreStringUtils.isEmpty(command.getBusinessPic())) {
+            fileUploadService.move(command.getBusinessPic().substring(command.getBusinessPic().lastIndexOf("/") + 1));
+        }
+        if (!CoreStringUtils.isEmpty(command.getWorkPic())) {
+            fileUploadService.move(command.getWorkPic().substring(command.getWorkPic().lastIndexOf("/") + 1));
+        }
         return driver;
     }
 
@@ -267,12 +293,37 @@ public class DriverService implements IDriverService {
         String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
 
         Role role = roleService.searchByName("driver");
-        Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
-                null, null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic, CoreDateUtils.parseDate(command.getStartDriveDate()), AuthStatus.AUTH_WAIT);
+        Driver driver;
+        if (command.getDriverType() == DriverType.LIMOUSINE) {
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, travelPic, null, command.getPhone(), null, null);
+        } else if (command.getDriverType() == DriverType.GENERATION) {
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, null, command.getDrivingLicenceType(), command.getPhone(), null, null);
+        } else {
+            String businessPic = command.getBusinessPic().replace("img_tmp", "img");
+            String workPic = command.getWorkPic().replaceAll("img_tmp", "img");
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
+                    command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), null, travelPic, null, command.getPhone(), businessPic, workPic);
+        }
 
         driverRepository.save(driver);
         fileUploadService.move(identityCarPic.substring(identityCarPic.lastIndexOf("/") + 1));
         fileUploadService.move(drivingLicencePic.substring(drivingLicencePic.lastIndexOf("/") + 1));
+        if (CoreStringUtils.isEmpty(command.getTravelPic())) {
+            fileUploadService.move(command.getTravelPic().substring(command.getTravelPic().lastIndexOf("/") + 1));
+        }
+        if (CoreStringUtils.isEmpty(command.getBusinessPic())) {
+            fileUploadService.move(command.getBusinessPic().substring(command.getBusinessPic().lastIndexOf("/") + 1));
+        }
+        if (CoreStringUtils.isEmpty(command.getWorkPic())) {
+            fileUploadService.move(command.getWorkPic().substring(command.getWorkPic().lastIndexOf("/") + 1));
+        }
         return driver;
     }
 
@@ -287,11 +338,21 @@ public class DriverService implements IDriverService {
         driver.setDriverType(command.getDriverType());
 
         Car car = carService.searchByDriver(driver.getId());
-        if (driver.getDriverType() == DriverType.TAXI) {
+        if (driver.getDriverType() == DriverType.LIMOUSINE) {
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver.setTravelPic(travelPic);
+        } else if (driver.getDriverType() == DriverType.GENERATION) {
+            driver.setDrivingLicenceType(command.getDrivingLicenceType());
+            carService.delete(car);
+        } else {
+            String businessPic = command.getBusinessPic().replace("img_tmp", "img");
+            String workPic = command.getWorkPic().replaceAll("img_tmp", "img");
+            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
+            driver.setBusinessPic(businessPic);
+            driver.setWorkPic(workPic);
+            driver.setTravelPic(travelPic);
             car.setCarType(null);
             carService.update(car);
-        } else if (driver.getDriverType() == DriverType.GENERATION) {
-            carService.delete(car);
         }
 
         driverRepository.update(driver);
