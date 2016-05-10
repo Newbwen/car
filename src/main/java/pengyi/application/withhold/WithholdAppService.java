@@ -13,7 +13,7 @@ import pengyi.core.api.ResponseMessage;
 import pengyi.core.mapping.IMappingService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.withhold.Withhold;
-import pengyi.domain.service.withhold.IWithholdService;
+import pengyi.domain.service.withhold.IWithHoldService;
 import pengyi.repository.generic.Pagination;
 
 import java.util.List;
@@ -26,13 +26,13 @@ import java.util.List;
 public class WithholdAppService implements IWithholdAppService {
 
     @Autowired
-    private IWithholdService withholdService;
+    private IWithHoldService withHoldService;
     @Autowired
     private IMappingService mappingService;
 
     @Override
     public void create(CreateWithholdCommand command) {
-        withholdService.create(command);
+        withHoldService.create(command);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class WithholdAppService implements IWithholdAppService {
     public Pagination<WithholdRepresentation> pagination(ListWithholdCommand command) {
         command.verifyPage();
         command.verifyPageSize(20);
-        Pagination<Withhold> withholdPagination = withholdService.pagination(command);
+        Pagination<Withhold> withholdPagination = withHoldService.pagination(command);
         List<WithholdRepresentation> representations = mappingService.mapAsList(withholdPagination.getData(), WithholdRepresentation.class);
         return new Pagination<WithholdRepresentation>(representations, withholdPagination.getCount(), command.getPage(), command.getPageSize());
     }
@@ -48,7 +48,7 @@ public class WithholdAppService implements IWithholdAppService {
     @Override
     @Transactional(readOnly = true)
     public WithholdRepresentation show(String id) {
-        return mappingService.map(withholdService.show(id), WithholdRepresentation.class, false);
+        return mappingService.map(withHoldService.show(id), WithholdRepresentation.class, false);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class WithholdAppService implements IWithholdAppService {
         if (CoreStringUtils.isEmpty(command.getDetail())) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50005.getMessage());
         }
-        withholdService.create(command);
+        withHoldService.create(command);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
@@ -70,7 +70,7 @@ public class WithholdAppService implements IWithholdAppService {
     public BaseResponse apiList(ListWithholdCommand command) {
         command.verifyPage();
         command.verifyPageSize(20);
-        Pagination<Withhold> withholdPagination = withholdService.pagination(command);
+        Pagination<Withhold> withholdPagination = withHoldService.pagination(command);
         List<WithholdRepresentation> representations = mappingService.mapAsList(withholdPagination.getData(), WithholdRepresentation.class);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, representations, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }

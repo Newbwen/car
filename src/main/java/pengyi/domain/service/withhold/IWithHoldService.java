@@ -8,7 +8,7 @@ import pengyi.repository.generic.Pagination;
 /**
  * Created by pengyi on 2016/5/7.
  */
-public interface IWithholdService {
+public interface IWithHoldService {
     void create(CreateWithholdCommand command);
 
     Pagination<Withhold> pagination(ListWithholdCommand command);
