@@ -37,8 +37,8 @@
                                     </select>
                                 </label>
                                 <label>司机类型
-                                    <select name="orderStatus">
-                                        [#assign status = (command.orderStatus!)?default("") /]
+                                    <select name="driverType">
+                                        [#assign status = (command.driverType!)?default("") /]
                                         <option value="">全部</option>
                                         <option value="GENERATION" [@mc.selected status "GENERATION"/]>代驾</option>
                                         <option value="LIMOUSINE" [@mc.selected status "LIMOUSINE"/]>专车</option>
@@ -46,8 +46,8 @@
                                     </select>
                                 </label>
                                 <label>车辆类型
-                                    <select name="orderStatus">
-                                        [#assign status = (command.orderStatus!)?default("") /]
+                                    <select name="carType">
+                                        [#assign status = (command.carType!)?default("") /]
                                         <option value="">全部</option>
                                         <option value="ECONOMY" [@mc.selected status "ECONOMY"/]>经济型</option>
                                         <option value="COMFORT" [@mc.selected status "COMFORT"/]>舒适型</option>
@@ -55,7 +55,14 @@
                                         <option value="LUXURY" [@mc.selected status "LUXURY"/]>豪华型</option>
                                     </select>
                                 </label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>
+                                开始<input type="date" value="${command.startTime!}" name="startTime" />
+                                </label>
+                                <label>
+                                    结束<input type="date" value="${command.endTime!}" name="endTime" />
+                                </label>
+                                <label><button type="submit" class="btn-success">查询</button></label>
+                                <label><a href="/order/export_excel?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime}&endTime=${command.endTime}" class="btn-sm btn-success">导出表格</a></label>
                             </div>
                         </div>
                     </form>
@@ -71,6 +78,7 @@
                         <th>司机类型</th>
                         <th>车辆类型</th>
                         <th>订单状态</th>
+                        <th>订单总额</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -88,6 +96,7 @@
                                 <td>${(order.driverType.getName())!}</td>
                                 <td>${(order.carType.getName())!}</td>
                                 <td>${(order.orderStatus.getName())!}</td>
+                                <td>${order.shouldMoney+order.extraMoney}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -117,7 +126,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/order/list?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}' /]
+                    [@mc.showPagination '/order/list?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime!}&endTime=${command.endTime!}' /]
                 [/#if]
 
             </div>

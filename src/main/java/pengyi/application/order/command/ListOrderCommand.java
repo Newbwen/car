@@ -16,6 +16,8 @@ public class ListOrderCommand extends BasicPaginationCommand {
     private String receiveUser;
     private DriverType driverType;
     private CarType carType;
+    private String startTime;
+    private String endTime;
 
     public String getOrderNumber() {
         return orderNumber;
@@ -63,5 +65,21 @@ public class ListOrderCommand extends BasicPaginationCommand {
 
     public void setCarType(CarType carType) {
         this.carType = carType;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

@@ -51,4 +51,6 @@ public interface IOrderService {
     boolean hasOrder(String userId, String orderId);
 
     boolean hasBalance(String userId);
+
+    List<Order> exportExcel(ListOrderCommand command);
 }

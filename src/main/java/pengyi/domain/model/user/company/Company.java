@@ -19,20 +19,11 @@ import java.util.Date;
  */
 public class Company extends BaseUser {
 
-    private String name;            //公司名
     private String folder;          //公司资质
     private Date registerDate;    //注册时间
     private Area registerAddress;   //注册地点
     private Area operateAddress;    //运营地点
     private Double level;           //等级
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getFolder() {
         return folder;
@@ -79,7 +70,7 @@ public class Company extends BaseUser {
     }
 
     public Company(String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, Double level) {
-        this.name = name;
+        super(name);
         this.folder = folder;
         this.registerDate = registerDate;
         this.registerAddress = registerAddress;
@@ -88,8 +79,7 @@ public class Company extends BaseUser {
     }
 
     public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String folder, Date registerDate, Area registerAddress, Area operateAddress, Double level) {
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
-        this.name = name;
+        super(name, userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.folder = folder;
         this.registerDate = registerDate;
         this.registerAddress = registerAddress;
@@ -98,6 +88,6 @@ public class Company extends BaseUser {
     }
 
     public Company(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
+        super("", userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

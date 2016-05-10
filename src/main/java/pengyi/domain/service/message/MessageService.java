@@ -41,10 +41,23 @@ public class MessageService implements IMessageService {
 
     @Override
     public Message getById(String messageId) {
+
         Message message = messageRepository.getById(messageId);
         if (null == message) {
             throw new NoFoundException("没有找到messageId=[" + messageId + "]的记录");
         }
+        return message;
+    }
+
+    @Override
+    public Message show(String messageId) {
+
+        Message message = messageRepository.getById(messageId);
+        if (null == message) {
+            throw new NoFoundException("没有找到messageId=[" + messageId + "]的记录");
+        }
+        message.setReceiveDate(new Date());
+        messageRepository.update(message);
         return message;
     }
 
@@ -73,6 +86,7 @@ public class MessageService implements IMessageService {
 
         BaseUser receiveBaseUser = baseUserService.show(command.getReceiveBaseUser());
         Message message = new Message(sendUser, receiveBaseUser, new Date(), null, command.getContent(), command.getType(), ShowType.SHOW);
+        messageRepository.save(message);
         return message;
     }
 
@@ -144,12 +158,6 @@ public class MessageService implements IMessageService {
     }
 
     @Override
-    public Message apiShow(String messageId) {
-        Message message = messageRepository.getById(messageId);
-        return message;
-    }
-
-    @Override
     public Pagination<Message> apiAppList(ListMessageCommand command) {
         Map<String, String> aliasMap = new HashMap<String, String>();
         List<Criterion> criterionList = new ArrayList<Criterion>();
@@ -174,15 +182,6 @@ public class MessageService implements IMessageService {
         criterionList.add(Restrictions.eq("receiveBaseUser.id", id));
         criterionList.add(Restrictions.isNull("receiveDate"));
         return messageRepository.list(criterionList, null, null, null, aliasMap).size() > 0;
-    }
-
-    @Override
-    public Message show(String messageId) {
-
-        Message message = messageRepository.getById(messageId);
-        message.setReceiveDate(new Date());
-        messageRepository.update(message);
-        return message;
     }
 
     @Override

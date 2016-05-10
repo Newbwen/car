@@ -127,7 +127,7 @@ public class RechargeService implements IRechargeService {
             command.setOldMoney(recharge.getUser().getBalance());
             moneyDetailedService.create(command);
 
-            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
+            baseUserService.addBalance(recharge.getUser().getId(), recharge.getMoney());
 
             rechargeRepository.update(recharge);
         }
@@ -154,7 +154,7 @@ public class RechargeService implements IRechargeService {
             command.setOldMoney(recharge.getUser().getBalance());
             moneyDetailedService.create(command);
 
-            baseUserService.updateBalance(recharge.getUser().getId(), recharge.getMoney());
+            baseUserService.addBalance(recharge.getUser().getId(), recharge.getMoney());
         }
 
         rechargeRepository.update(recharge);

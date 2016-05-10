@@ -5,7 +5,7 @@
 [/@override]
 
 [@override name="breadcrumbTitle"]
-<li class="active"><a href="[@spring.url '/permission/list'/]">信息管理</a></li>
+<li class="active"><a href="[@spring.url '/message/list'/]">信息管理</a></li>
 <li class="active">查看信息</li>
 [/@override]
 

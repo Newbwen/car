@@ -32,13 +32,12 @@ public class ApiMessageAppService implements IApiMessageAppService {
     @Autowired
     private IMappingService mappingService;
 
-    @Override//1
-    @Transactional(readOnly = true)
+    @Override
     public BaseResponse show(String messageId) {
         if (null != messageId) {
-            Message message = messageService.apiShow(messageId);
+            Message message = messageService.show(messageId);
             if (null != message) {
-                MessageRepresentation representation = mappingService.map(messageService.apiShow(messageId), MessageRepresentation.class, false);
+                MessageRepresentation representation = mappingService.map(message, MessageRepresentation.class, false);
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, representation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
             }
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50004.getMessage());

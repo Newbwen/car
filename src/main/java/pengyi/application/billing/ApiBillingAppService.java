@@ -36,6 +36,7 @@ public class ApiBillingAppService implements IApiBillingAppService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse showByCompany(String id) {
         if (CoreStringUtils.isEmpty(id)) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseMessage.ERROR_10000.getMessage());
@@ -127,6 +128,7 @@ public class ApiBillingAppService implements IApiBillingAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse searchByDriver(SearchBillingCommand command) {
         if (null != command) {
             if (CoreStringUtils.isEmpty(command.getUserName())) {
@@ -152,6 +154,7 @@ public class ApiBillingAppService implements IApiBillingAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse apiPagination(ListBillingCommand command) {
         if (null != command) {
             if (CoreStringUtils.isEmpty(command.getCompany())) {
@@ -168,6 +171,7 @@ public class ApiBillingAppService implements IApiBillingAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BaseResponse show(String id) {
         if (CoreStringUtils.isEmpty(id)) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());

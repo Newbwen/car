@@ -18,30 +18,19 @@ import java.util.Date;
  */
 public class Terrace extends BaseUser {
 
-    private String name;                        //别名
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Terrace() {
         super();
     }
 
     public Terrace(String name) {
-        this.name = name;
+        super(name);
     }
 
     public Terrace(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name) {
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
-        this.name = name;
+        super(name, phone, password, salt, status, balance, createDate, userRole, email, userType);
     }
 
     public Terrace(String phone, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
-        super(phone, password, salt, status, balance, createDate, userRole, email, userType);
+        super("", phone, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

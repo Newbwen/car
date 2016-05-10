@@ -56,7 +56,7 @@ public class RescueService implements IRescueService {
     @Override
     public Pagination<Rescue> pagination(ListRescueCommand command) {
 
-        List<Criterion> criteriaList = new ArrayList();
+        List<Criterion> criteriaList = new ArrayList<Criterion>();
         Map<String, String> aliasMap = new HashMap<String, String>();
         if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
             aliasMap.put("applyUser", "applyUser");
@@ -107,7 +107,7 @@ public class RescueService implements IRescueService {
 
     @Override
     public Rescue show(String id) {
-        Rescue rescue = (Rescue) rescueRepository.getById(id);
+        Rescue rescue = rescueRepository.getById(id);
         if (null == rescue) {
             throw new NoFoundException("没有找到救援id=[" + id + "]的记录");
         }
@@ -187,7 +187,7 @@ public class RescueService implements IRescueService {
 
     @Override
     public Pagination searchRescue(ListRescueCommand command) {
-        List<Criterion> criteriaList = new ArrayList();
+        List<Criterion> criteriaList = new ArrayList<Criterion>();
         if (null != command.getStatus()) {
             criteriaList.add(Restrictions.eq("status.WAIT_RESCUE", command.getStatus()));
         }
@@ -196,6 +196,24 @@ public class RescueService implements IRescueService {
         Map<String, String> aliasMap = new HashMap<String, String>();
         aliasMap.put("applyUser", "a");
         aliasMap.put("driver", "d");
+
+        return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
+    }
+
+    @Override
+    public Pagination<Rescue> userAndDriverList(ListRescueCommand command) {
+        List<Criterion> criteriaList = new ArrayList<Criterion>();
+        Map<String, String> aliasMap = new HashMap<String, String>();
+        if (!CoreStringUtils.isEmpty(command.getApplyUser())) {
+            aliasMap.put("applyUser", "applyUser");
+            criteriaList.add(Restrictions.eq("applyUser.id", command.getApplyUser()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getDriver())) {
+            aliasMap.put("driver", "driver");
+            criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("applyTime"));
 
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
     }

@@ -248,6 +248,42 @@
         <li>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-exchange"></i>
+                <span class="menu-text"> 提现管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url '/withdraw/list'/]">
+                        <i class="icon-calendar"></i>
+                        提现列表
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-exchange"></i>
+                <span class="menu-text"> 扣款管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="[@spring.url '/withhold/list'/]">
+                        <i class="icon-calendar"></i>
+                        扣款列表
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-exchange"></i>
                 <span class="menu-text"> 计费模板管理 </span>
 
                 <b class="arrow icon-angle-down"></b>

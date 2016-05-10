@@ -94,7 +94,7 @@ public class ApiAppRescueController {
         }
         command.setDriver(userRepresentation.getId());
         try {
-            baseResponse=apiRescueAppService.list(command);
+            baseResponse=apiRescueAppService.userAndDriverList(command);
 
         }catch (ConcurrencyException e){
             logger.warn(e.getMessage());
@@ -108,7 +108,7 @@ public class ApiAppRescueController {
     }
 
     /**
-     *(司机)救援列表
+     *(用户)救援列表
      */
     @RequestMapping(value = "/user/list")
     @ResponseBody
@@ -122,7 +122,7 @@ public class ApiAppRescueController {
         }
         command.setApplyUser(userRepresentation.getId());
         try {
-            baseResponse=apiRescueAppService.list(command);
+            baseResponse=apiRescueAppService.userAndDriverList(command);
 
         }catch (ConcurrencyException e){
             logger.warn(e.getMessage());
@@ -137,10 +137,9 @@ public class ApiAppRescueController {
 
     @RequestMapping(value = "/finish")
     @ResponseBody
-    public BaseResponse finish(RescueSuccessCommand command) {
+    public BaseResponse finish(RescueSuccessCommand command, HttpSession session) {
         long startTime = System.currentTimeMillis();
         BaseResponse response = null;
-
         try {
             response = apiRescueAppService.driverSuccessRescue(command);
         } catch (Exception e) {

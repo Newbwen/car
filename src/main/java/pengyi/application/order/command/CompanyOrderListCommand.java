@@ -1,6 +1,8 @@
 package pengyi.application.order.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.CarType;
+import pengyi.core.type.DriverType;
 import pengyi.core.type.OrderStatus;
 
 /**
@@ -13,6 +15,8 @@ public class CompanyOrderListCommand extends BasicPaginationCommand {
     private String orderNumber;         //订单号
     private String startCreateDate;     //开始下单时间
     private String endCreateDate;     //结束下单时间
+    private DriverType driverType;
+    private CarType carType;
 
     public String getCompany() {
         return company;
@@ -52,5 +56,21 @@ public class CompanyOrderListCommand extends BasicPaginationCommand {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(DriverType driverType) {
+        this.driverType = driverType;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 }

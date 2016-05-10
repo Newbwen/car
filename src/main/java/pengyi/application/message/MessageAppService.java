@@ -56,7 +56,7 @@ public class MessageAppService implements IMessageAppService {
     @Override
     public MessageRepresentation show(String messageId) {
 
-        return mappingService.map(messageService.show(messageId), MessageRepresentation.class, false);
+        return mappingService.map(messageService.getById(messageId), MessageRepresentation.class, false);
     }
 
 

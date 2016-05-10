@@ -12,27 +12,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- *
  * update by yjh
- *
+ * <p>
  * 用户
  * Created by pengyi on 2016/3/4.
  */
 public class User extends BaseUser {
 
-    private String name;                    //用户名
     private String head;                    //头像
     private Sex sex;                        //性别（0为男，2为女）
     private Integer integral;                   //积分
     private Integer reportCount;                //举报次数
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getHead() {
         return head;
@@ -71,7 +61,7 @@ public class User extends BaseUser {
     }
 
     public User(String name, String head, Sex sex, Integer integral, Integer reportCount) {
-        this.name = name;
+        super(name);
         this.head = head;
         this.sex = sex;
         this.integral = integral;
@@ -79,15 +69,14 @@ public class User extends BaseUser {
     }
 
     public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Sex sex, Integer integral, Integer reportCount) {
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
-        this.name = name;
+        super(name, userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.head = head;
         this.sex = sex;
         this.integral = integral;
         this.reportCount = reportCount;
     }
 
-    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType){
-        super(userName, password, salt, status, balance, createDate, userRole, email, userType);
+    public User(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
+        super("", userName, password, salt, status, balance, createDate, userRole, email, userType);
     }
 }

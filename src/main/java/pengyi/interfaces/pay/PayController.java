@@ -110,7 +110,7 @@ public class PayController extends BaseController {
                         if (notify.getResult_code().equals("SUCCESS")) {
                             payAppService.wechatSuccess(notify);
                             logger.info(getMessage("pay.success.message", new Object[]{notify.getOut_trade_no(), PayType.WECHAT}, locale));
-                            return "true";
+                            return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
                         } else {
                             logger.info(getMessage("pay.fail.message", new Object[]{notify.getOut_trade_no(), notify.getErr_code_des()}, locale));
                         }

@@ -19,14 +19,12 @@ public interface IMessageService {
 
     Message delete(String messageId);
 
-    Message show(String messageId);
-
     //以下是api方法
     void apiCreate(CompanyCreateMessageCommand command);
 
-    Pagination<Message> apiPagination(CompanyListMessageCommand command);
+    Message show(String messageId);
 
-    Message apiShow(String messageId);
+    Pagination<Message> apiPagination(CompanyListMessageCommand command);
 
     Pagination<Message> apiAppList(ListMessageCommand command);
 
