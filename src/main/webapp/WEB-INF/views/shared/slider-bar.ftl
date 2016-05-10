@@ -145,6 +145,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="[@spring.url "/user/driver/create"/]">
+                        <i class="icon-calendar"></i>
+                        创建司机
+                    </a>
+                </li>
+                <li>
                     <a href="[@spring.url "/user/driver/auth_list"/]">
                         <i class="icon-calendar"></i>
                         待审核司机用户列表

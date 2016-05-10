@@ -1,5 +1,6 @@
 package pengyi.application.user.driver;
 
+import pengyi.application.user.driver.command.CreateDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
@@ -18,4 +19,6 @@ public interface IDriverAppService {
     DriverRepresentation show(String id);
 
     DriverRepresentation updateStatus(EditStatusCommand command);
+
+    DriverRepresentation create(CreateDriverCommand command);
 }

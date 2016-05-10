@@ -9,6 +9,7 @@ import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.mapping.IMappingService;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.repository.generic.Pagination;
@@ -58,5 +59,12 @@ public class CompanyAppService implements ICompanyAppService {
     @Override
     public CompanyRepresentation updateStatus(EditStatusCommand command) {
         return mappingService.map(companyService.updateStatus(command), CompanyRepresentation.class, false);
+    }
+
+    @Override
+    public List<CompanyRepresentation> allList() {
+        BaseListCompanyCommand companyCommand = new BaseListCompanyCommand();
+        companyCommand.setStatus(EnableStatus.ENABLE);
+        return mappingService.mapAsList(companyService.list(companyCommand), CompanyRepresentation.class);
     }
 }

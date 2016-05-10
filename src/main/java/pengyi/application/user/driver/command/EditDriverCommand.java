@@ -15,12 +15,24 @@ public class EditDriverCommand extends BaseEditBaseUserCommand {
     private Sex sex;                        //性别（0为男，1为女）
     private DriverType driverType;                       //类型
 
+    private String company;                 //公司
+    private String identityCardPic;         //身份证照片
+    private String drivingLicencePic;       //驾驶证照片
     private String travelPic;               //行驶证
     private String drivingLicenceType;      //驾驶证类型（C1,C2,B1,B2,A1,A2）
     private Date awardDrivingLicenceDate;   //驾驶证发证日期
     private String phone;               //电话
     private String businessPic;         //营业资格证
     private String workPic;             //从业资格证
+
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getName() {
         return name;
@@ -92,5 +104,21 @@ public class EditDriverCommand extends BaseEditBaseUserCommand {
 
     public void setWorkPic(String workPic) {
         this.workPic = workPic;
+    }
+
+    public String getIdentityCardPic() {
+        return identityCardPic;
+    }
+
+    public void setIdentityCardPic(String identityCardPic) {
+        this.identityCardPic = identityCardPic;
+    }
+
+    public String getDrivingLicencePic() {
+        return drivingLicencePic;
+    }
+
+    public void setDrivingLicencePic(String drivingLicencePic) {
+        this.drivingLicencePic = drivingLicencePic;
     }
 }

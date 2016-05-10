@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.user.driver.command.CreateDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
@@ -50,5 +51,10 @@ public class DriverAppService implements IDriverAppService {
     @Override
     public DriverRepresentation updateStatus(EditStatusCommand command) {
         return mappingService.map(driverService.auth(command), DriverRepresentation.class, false);
+    }
+
+    @Override
+    public DriverRepresentation create(CreateDriverCommand command) {
+        return mappingService.map(driverService.terraceCreate(command),DriverRepresentation.class,false);
     }
 }

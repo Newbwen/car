@@ -130,15 +130,73 @@
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> 是否在线</div>
+                <div class="profile-info-name"> 司机类型</div>
 
                 <div class="profile-info-value">
                     <span class="editable editable-click"
                           id="age">${(driver.driverType.getName())!}</span>
                 </div>
             </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 身份证照片</div>
 
+                <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.identityCardPic!}"/></span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 驾驶证照片</div>
 
+                <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.drivingLicencePic!}"/></span>
+                </div>
+            </div>
+            [#if driver.driverType == "LIMOUSINE"]
+                <div class="profile-info-row">
+                    <div class="profile-info-name"> 行驶证</div>
+
+                    <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.travelPic!}"/></span>
+                    </div>
+                </div>
+            [#elseif driver.driverType == "GENERATION"]
+                <div class="profile-info-row">
+                    <div class="profile-info-name"> 驾照类型</div>
+
+                    <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age">${driver.drivingLicenceType!}</span>
+                    </div>
+                </div>
+            [#else]
+                <div class="profile-info-row">
+                    <div class="profile-info-name"> 行驶证</div>
+
+                    <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.travelPic!}"/></span>
+                    </div>
+                </div>
+                <div class="profile-info-row">
+                    <div class="profile-info-name"> 营业资格证</div>
+
+                    <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.businessPic!}"/></span>
+                    </div>
+                </div>
+                <div class="profile-info-row">
+                    <div class="profile-info-name"> 从业资格证</div>
+
+                    <div class="profile-info-value">
+                    <span class="editable editable-click img-box"
+                          id="age"><img src="${driver.workPic!}"/></span>
+                    </div>
+                </div>
+            [/#if]
         </div>
         <br>
         <br>

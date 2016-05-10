@@ -38,4 +38,9 @@ public class FileUploadController {
         return uploadService.deleteTemp(fileName);
     }
 
+    @RequestMapping(value = "/upload_img", method = RequestMethod.POST)
+    @ResponseBody
+    public FileUploadResult uploadImg(@RequestParam MultipartFile[] file) {
+        return uploadService.upload(file);
+    }
 }

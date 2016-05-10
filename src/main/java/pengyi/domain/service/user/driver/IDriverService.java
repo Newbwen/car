@@ -22,6 +22,8 @@ public interface IDriverService {
 
     Driver create(Driver driver);
 
+    Driver terraceCreate(CreateDriverCommand command);
+
     void addLock();
 
     List<Driver> searchByCompany(String company);

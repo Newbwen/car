@@ -454,3 +454,33 @@ td.colorbox-td .colorbox-list{
     height: 18px;
     width: 18px;
 }
+
+
+.left{
+    float: left;
+}
+.input-file-hidden input{
+    display: none;
+}
+
+
+/*ajax头像上传罩罩*/
+.file_upload_mask, .file_upload_load{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.file_upload_load{
+    background: rgba(0,0,0,0.6) url(images/loading.gif) no-repeat center;
+    opacity: 0.5;
+    z-index: 9999999999999;
+    display: none;
+}
+
+.img-box img{
+    width: 700px;
+    height: 300px;
+}

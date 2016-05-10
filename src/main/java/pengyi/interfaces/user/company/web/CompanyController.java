@@ -24,6 +24,7 @@ import pengyi.repository.generic.Pagination;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -141,7 +142,13 @@ public class CompanyController extends BaseController {
 
     @RequestMapping(value = "/company_list")
     @ResponseBody
-    public Pagination<CompanyRepresentation> permissionList(@RequestBody BaseListCompanyCommand command){
+    public Pagination<CompanyRepresentation> permissionList(@RequestBody BaseListCompanyCommand command) {
         return companyAppService.paginationList(command);
+    }
+
+    @RequestMapping(value = "/all_list")
+    @ResponseBody
+    public List<CompanyRepresentation> jsonList() {
+        return companyAppService.allList();
     }
 }

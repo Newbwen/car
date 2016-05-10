@@ -6,6 +6,8 @@ import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by YJH on 2016/3/7.
  */
@@ -20,5 +22,7 @@ public interface ICompanyAppService {
     CompanyRepresentation show(String id);
 
     CompanyRepresentation updateStatus(EditStatusCommand command);
+
+    List<CompanyRepresentation> allList();
 
 }

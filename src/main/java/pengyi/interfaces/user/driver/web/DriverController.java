@@ -15,6 +15,7 @@ import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.application.user.driver.IDriverAppService;
 import pengyi.application.user.driver.command.BaseListDriverCommand;
+import pengyi.application.user.driver.command.CreateDriverCommand;
 import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
@@ -67,9 +68,9 @@ public class DriverController extends BaseController {
             return new ModelAndView("redirect:/user/driver/list");
         }
         if (url.indexOf("auth") != -1) {
-            return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath","/user/driver/auth_list");
+            return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath", "/user/driver/auth_list");
         }
-        return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath","/user/driver/list");
+        return new ModelAndView("/baseuser/driver/show", "driver", driver).addObject("returnPath", "/user/driver/list");
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -142,6 +143,31 @@ public class DriverController extends BaseController {
         alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         return new ModelAndView("redirect:/user/driver/auth_list");
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView create(CreateDriverCommand command) {
+        return new ModelAndView("/baseuser/driver/create", "command", command);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView create(@Valid @ModelAttribute("command") CreateDriverCommand command, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes, Locale locale) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("/baseuser/driver/create", "command", command);
+        }
+        AlertMessage alertMessage;
+        DriverRepresentation driver;
+        try {
+            driver = driverAppService.create(command);
+        } catch (Exception e) {
+
+            return new ModelAndView();
+        }
+        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        redirectAttributes.addAttribute("id", driver.getId());
+        return new ModelAndView("redirect:/user/driver/show/{id}");
     }
 
 }
