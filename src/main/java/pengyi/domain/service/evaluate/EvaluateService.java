@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.evaluate.command.CreateEvaluateCommand;
 import pengyi.application.evaluate.command.EditEvaluateCommand;
 import pengyi.application.evaluate.command.ListEvaluateCommand;
+import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EvaluateStatus;
+import pengyi.core.type.UserType;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.evaluate.Evaluate;
 import pengyi.domain.model.evaluate.IEvaluateRepository;
@@ -95,7 +97,7 @@ public class EvaluateService implements IEvaluateService {
      */
     @Override
     public Evaluate searchByOrder(String order, String userId) {
-        return evaluateRepository.getByOrder(order,userId);
+        return evaluateRepository.getByOrder(order, userId);
     }
 
 
@@ -120,10 +122,23 @@ public class EvaluateService implements IEvaluateService {
     public Evaluate apiCreateEvaluate(CreateEvaluateCommand command) {
         Order order = orderService.show(command.getOrderId());
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
+        if (order.getEvaluateStatus() == EvaluateStatus.OK_EVALUATE) {
+            throw new ExistException("该订单已完成评价");
+        }
         Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
         evaluateRepository.save(evaluate);
-        driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
-        orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
+        if (baseUser.getUserType() == UserType.USER) {
+            driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
+        }
+        if (order.getEvaluateStatus() == EvaluateStatus.NOT_EVALUATE) {
+            if (baseUser.getUserType() == UserType.USER) {
+                orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
+            } else if (baseUser.getUserType() == UserType.DRIVER) {
+                orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
+            }
+        } else {
+            orderService.updateEvaluate(order.getId(), EvaluateStatus.OK_EVALUATE);
+        }
         return evaluate;
     }
 

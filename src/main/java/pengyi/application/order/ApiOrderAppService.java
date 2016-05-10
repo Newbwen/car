@@ -263,4 +263,18 @@ public class ApiOrderAppService implements IApiOrderAppService {
                     ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
     }
+
+    @Override
+    public BaseResponse driverCreateOrder(DriverCreateOrderCommand command) {
+        if (null != command) {
+            if (CoreStringUtils.isEmpty(command.getUserName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10010.getMessage());
+            }
+            OrderRepresentation order = mappingService.map(orderService.driverCreateOrder(command), OrderRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+        }
+    }
 }

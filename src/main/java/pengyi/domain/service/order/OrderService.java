@@ -13,6 +13,7 @@ import pengyi.core.commons.id.IdFactory;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.core.exception.OrderIsStartException;
+import pengyi.core.sms.service.SmsSender;
 import pengyi.core.type.*;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
@@ -67,6 +68,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private IdFactory idFactory;
+
+    @Autowired
+    private SmsSender smsSender;
 
     @Override
     public Pagination<Order> pagination(ListOrderCommand command) {
@@ -552,6 +556,19 @@ public class OrderService implements IOrderService {
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
         return orderRepository.list(criterionList, orderList);
+    }
+
+    @Override
+    public Order driverCreateOrder(DriverCreateOrderCommand command) {
+        Driver driver = driverService.show(command.getDriverId());
+        User user = (User) baseUserService.searchByUserName(command.getUserName());
+        String orderNo = idFactory.getNextId();
+        Order order = new Order(orderNo, user, new Date(), driver, new Date(), null, new Date(), DriverType.GENERATION,
+                null, null, null, null, OrderStatus.START_ORDER, EvaluateStatus.NOT_EVALUATE, command.getStartAddress(), null, null, 0.0, 0.0, 0.0, 0.0);
+        orderRepository.save(order);
+        //TODO 发送短信
+//        smsSender.send(user.getUserName());
+        return order;
     }
 
     private void sendToUser(String phone, Order order) {

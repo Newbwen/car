@@ -114,6 +114,27 @@ public class ApiAppOrderController {
         return response;
     }
 
+    @RequestMapping(value = "/driver_create_order")
+    @ResponseBody
+    public BaseResponse driverCreateOrder(DriverCreateOrderCommand command, HttpSession session) {
+        long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        command.setDriverId(baseUser.getId());
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.driverCreateOrder(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, ResponseCode.RESPONSE_CODE_FAILURE.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
     @RequestMapping(value = "/receive_order")
     @ResponseBody
     public BaseResponse receiveOrder(ReceiveOrderCommand command, HttpSession session) {

@@ -1,6 +1,7 @@
 package pengyi.application.user.driver.command;
 
 import pengyi.core.commons.command.BasicPaginationCommand;
+import pengyi.core.type.AuthStatus;
 import pengyi.core.type.EnableStatus;
 
 /**
@@ -13,6 +14,16 @@ public class CompanyDriverListCommand extends BasicPaginationCommand {
     private EnableStatus status;
 
     private String userName;
+
+    private AuthStatus authStatus;
+
+    public AuthStatus getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(AuthStatus authStatus) {
+        this.authStatus = authStatus;
+    }
 
     public EnableStatus getStatus() {
         return status;
