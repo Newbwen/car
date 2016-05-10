@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <apifile>
-    <tables/>
+    <tables>
+
+    </tables>
     <apis>
         <api>
             <id>34b1f61e-8139-4111-822b-9186d953dc6c</id>
@@ -635,6 +637,14 @@
             <address>/api/app/message/unread</address>
             <shuoming>无</shuoming>
             <zhuyi>无</zhuyi>
+            <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":false,"debug_time":7,"message":"成功"}</fanhuixinxi>
+        </api>
+        <api>
+            <id>83aab5c2-df0e-4048-891f-a99631239e4e</id>
+            <name>代驾创建报单</name>
+            <address>/api/app/order/driver_create_order</address>
+            <shuoming>司机必须登录,userName(用户账号,手机号码),startAddress(开始地址),endAddress(结束地址)</shuoming>
+            <zhuyi>userName不能为空,startAddress、endAddress可以为空</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":false,"debug_time":7,"message":"成功"}</fanhuixinxi>
         </api>
     </apis>

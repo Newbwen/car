@@ -55,4 +55,6 @@ public interface IOrderService {
     List<Order> exportExcel(ListOrderCommand command);
 
     List<Order> apiExportExcel(CompanyOrderListCommand command);
+
+    Order driverCreateOrder(DriverCreateOrderCommand command);
 }

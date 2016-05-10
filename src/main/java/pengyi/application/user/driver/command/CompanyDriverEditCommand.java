@@ -11,11 +11,75 @@ public class CompanyDriverEditCommand extends BaseEditBaseUserCommand {
 
     private DriverType driverType;
 
+    private String identityCardPic;         //身份证照片
+    private String drivingLicencePic;       //驾驶证照片
+    private String travelPic;               //行驶证
+    private String drivingLicenceType;      //驾驶证类型（C1,C2,B1,B2,A1,A2）
+    private String phone;               //电话
+    private String businessPic;         //营业资格证
+    private String workPic;             //从业资格证
+
     public DriverType getDriverType() {
         return driverType;
     }
 
     public void setDriverType(DriverType driverType) {
         this.driverType = driverType;
+    }
+
+    public String getIdentityCardPic() {
+        return identityCardPic;
+    }
+
+    public void setIdentityCardPic(String identityCardPic) {
+        this.identityCardPic = identityCardPic;
+    }
+
+    public String getDrivingLicencePic() {
+        return drivingLicencePic;
+    }
+
+    public void setDrivingLicencePic(String drivingLicencePic) {
+        this.drivingLicencePic = drivingLicencePic;
+    }
+
+    public String getTravelPic() {
+        return travelPic;
+    }
+
+    public void setTravelPic(String travelPic) {
+        this.travelPic = travelPic;
+    }
+
+    public String getDrivingLicenceType() {
+        return drivingLicenceType;
+    }
+
+    public void setDrivingLicenceType(String drivingLicenceType) {
+        this.drivingLicenceType = drivingLicenceType;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBusinessPic() {
+        return businessPic;
+    }
+
+    public void setBusinessPic(String businessPic) {
+        this.businessPic = businessPic;
+    }
+
+    public String getWorkPic() {
+        return workPic;
+    }
+
+    public void setWorkPic(String workPic) {
+        this.workPic = workPic;
     }
 }

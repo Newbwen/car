@@ -62,10 +62,37 @@ public class ApiDriverAppService implements IApiDriverAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
+            if (CoreStringUtils.isEmpty(command.getIdentityCardPic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10025.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getDrivingLicencePic())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10026.getMessage());
+            }
             if (null == command.getDriverType()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10008.getMessage());
             }
-
+            if (command.getDriverType() == DriverType.LIMOUSINE) {
+                //如果注册用户是专车
+                if (CoreStringUtils.isEmpty(command.getTravelPic())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10044.getMessage());
+                }
+            } else if (command.getDriverType() == DriverType.GENERATION) {
+                //如果注册用户是代驾
+                if (CoreStringUtils.isEmpty(command.getDrivingLicenceType())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10045.getMessage());
+                }
+            } else {
+                //如果注册用户是出租车
+                if (CoreStringUtils.isEmpty(command.getBusinessPic())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10046.getMessage());
+                }
+                if (CoreStringUtils.isEmpty(command.getWorkPic())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10047.getMessage());
+                }
+                if (CoreStringUtils.isEmpty(command.getTravelPic())) {
+                    return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10044.getMessage());
+                }
+            }
             DriverRepresentation driver = mappingService.map(driverService.apiCompanyEditDriver(command), DriverRepresentation.class, false);
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, driver, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
 

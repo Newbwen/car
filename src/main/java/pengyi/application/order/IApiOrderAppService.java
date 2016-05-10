@@ -34,4 +34,6 @@ public interface IApiOrderAppService {
     BaseResponse offLinePay(OffLinePayCommand command);
 
     BaseResponse exportExcel(CompanyOrderListCommand command);
+
+    BaseResponse driverCreateOrder(DriverCreateOrderCommand command);
 }
