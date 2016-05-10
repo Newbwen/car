@@ -19,6 +19,7 @@
 
     <root>
         <level value="info"/>
+        <!--<level value="verbose"/>-->
         <appender-ref ref="stdout"/>
         <appender-ref ref="file"/>
     </root>

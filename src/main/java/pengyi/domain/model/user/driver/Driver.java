@@ -200,6 +200,11 @@ public class Driver extends BaseUser {
         this.drivingLicencePic = drivingLicencePic;
         this.startDriveDate = startDriveDate;
         this.authStatus = authStatus;
+        this.travelPic = travelPic;
+        this.drivingLicenceType = drivingLicenceType;
+        this.phone = phone;
+        this.businessPic = businessPic;
+        this.workPic = workPic;
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {
