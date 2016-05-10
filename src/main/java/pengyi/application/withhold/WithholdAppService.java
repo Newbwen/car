@@ -54,10 +54,10 @@ public class WithholdAppService implements IWithholdAppService {
     @Override
     public BaseResponse apiCreate(CreateWithholdCommand command) {
         if (CoreStringUtils.isEmpty(command.getUserId())) {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10041.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10051.getMessage());
         }
         if (null == command.getMoney()) {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10040.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10050.getMessage());
         }
         if (CoreStringUtils.isEmpty(command.getDetail())) {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_50005.getMessage());

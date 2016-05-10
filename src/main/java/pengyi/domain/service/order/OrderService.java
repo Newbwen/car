@@ -33,10 +33,7 @@ import pengyi.repository.generic.Pagination;
 import pengyi.socketserver.TcpService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by YJH on 2016/3/8.
@@ -525,10 +522,14 @@ public class OrderService implements IOrderService {
     @Override
     public List<Order> exportExcel(ListOrderCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> alias = new HashMap<String, String>();
         if (!CoreStringUtils.isEmpty(command.getOrderUser())) {
-            criterionList.add(Restrictions.eq("orderUser.id", command.getOrderUser()));
-        } else if (!CoreStringUtils.isEmpty(command.getReceiveUser())) {
-            criterionList.add(Restrictions.eq("receiveUser.id", command.getReceiveUser()));
+            criterionList.add(Restrictions.like("orderUser.userName", command.getOrderUser(), MatchMode.ANYWHERE));
+            alias.put("orderUser", "orderUser");
+        }
+        if (!CoreStringUtils.isEmpty(command.getReceiveUser())) {
+            criterionList.add(Restrictions.like("receiveUser.userName", command.getReceiveUser(), MatchMode.ANYWHERE));
+            alias.put("receiveUser", "receiveUser");
         }
 
         if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
@@ -551,7 +552,55 @@ public class OrderService implements IOrderService {
         }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
-        return orderRepository.list(criterionList, orderList);
+        return orderRepository.list(criterionList, orderList, null, null, alias);
+    }
+
+    @Override
+    public List<Order> apiExportExcel(CompanyOrderListCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> alias = new HashMap<String, String>();
+
+        List<Driver> drivers = driverService.searchByCompany(command.getCompany());
+        List<String> driverIds = new ArrayList<String>();
+        for (Driver item : drivers) {
+            driverIds.add(item.getId());
+        }
+        if (driverIds.size() > 0) {
+            criterionList.add(Restrictions.in("receiveUser.id", driverIds.toArray()));
+        } else {
+            return null;
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getOrderUser())) {
+            criterionList.add(Restrictions.like("orderUser.userName", command.getOrderUser(), MatchMode.ANYWHERE));
+            alias.put("orderUser", "orderUser");
+        }
+        if (!CoreStringUtils.isEmpty(command.getReceiveUser())) {
+            criterionList.add(Restrictions.like("receiveUser.userName", command.getReceiveUser(), MatchMode.ANYWHERE));
+            alias.put("receiveUser", "receiveUser");
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
+            criterionList.add(Restrictions.eq("orderNumber", command.getOrderNumber()));
+        }
+
+        if (null != command.getOrderStatus()) {
+            criterionList.add(Restrictions.eq("orderStatus", command.getOrderStatus()));
+        }
+
+        if (null != command.getDriverType()) {
+            criterionList.add(Restrictions.eq("driverType", command.getDriverType()));
+        }
+
+        if (null != command.getCarType()) {
+            criterionList.add(Restrictions.eq("carType", command.getCarType()));
+        }
+        if (!CoreStringUtils.isEmpty(command.getStartCreateDate()) && !CoreStringUtils.isEmpty(command.getEndCreateDate())) {
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartCreateDate()), CoreDateUtils.parseDateEnd(command.getEndCreateDate())));
+        }
+        List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
+        orderList.add(org.hibernate.criterion.Order.desc("createDate"));
+        return orderRepository.list(criterionList, orderList, null, null, alias);
     }
 
     private void sendToUser(String phone, Order order) {

@@ -32,4 +32,6 @@ public interface IApiOrderAppService {
     BaseResponse balancePay(BalancePayCommand command);
 
     BaseResponse offLinePay(OffLinePayCommand command);
+
+    BaseResponse exportExcel(CompanyOrderListCommand command);
 }

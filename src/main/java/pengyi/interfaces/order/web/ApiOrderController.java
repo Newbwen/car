@@ -23,6 +23,22 @@ public class ApiOrderController {
     @Autowired
     private IApiOrderAppService apiOrderAppService;
 
+    @RequestMapping(value = "/export_excel")
+    @ResponseBody
+    public BaseResponse exportExcel(CompanyOrderListCommand command) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse response = null;
+        try {
+            response = apiOrderAppService.exportExcel(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
     @RequestMapping(value = "/company_pagination")
     @ResponseBody
     public BaseResponse companyOrderList(CompanyOrderListCommand command) {

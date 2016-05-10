@@ -185,7 +185,8 @@ public class Driver extends BaseUser {
         super();
     }
 
-    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate, AuthStatus authStatus, String travelPic, String drivingLicenceType, String phone, String businessPic, String workPic) {
+    public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate, AuthStatus authStatus,
+                  String travelPic, String drivingLicenceType, String phone, String businessPic, String workPic) {
         super(name, userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.head = head;
         this.company = company;

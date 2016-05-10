@@ -11,12 +11,30 @@ import pengyi.core.type.OrderStatus;
 public class CompanyOrderListCommand extends BasicPaginationCommand {
 
     private String company;             //公司id
+    private String orderUser;
+    private String receiveUser;
     private OrderStatus orderStatus;    //订单状态
     private String orderNumber;         //订单号
     private String startCreateDate;     //开始下单时间
     private String endCreateDate;     //结束下单时间
     private DriverType driverType;
     private CarType carType;
+
+    public String getOrderUser() {
+        return orderUser;
+    }
+
+    public void setOrderUser(String orderUser) {
+        this.orderUser = orderUser;
+    }
+
+    public String getReceiveUser() {
+        return receiveUser;
+    }
+
+    public void setReceiveUser(String receiveUser) {
+        this.receiveUser = receiveUser;
+    }
 
     public String getCompany() {
         return company;

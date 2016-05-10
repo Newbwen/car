@@ -263,4 +263,10 @@ public class ApiOrderAppService implements IApiOrderAppService {
                     ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
     }
+
+    @Override
+    public BaseResponse exportExcel(CompanyOrderListCommand command) {
+        List<OrderRepresentation> orderRepresentations =  mappingService.mapAsList(orderService.apiExportExcel(command), OrderRepresentation.class);
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, orderRepresentations, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
 }

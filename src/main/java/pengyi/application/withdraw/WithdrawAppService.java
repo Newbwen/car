@@ -34,7 +34,7 @@ public class WithdrawAppService implements IWithdrawAppService {
     @Override
     public BaseResponse apply(CreateWithdrawCommand command) {
         if (null == command.getMoney() || 0 == command.getMoney().intValue()) {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10040.getMessage());
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10050.getMessage());
         }
         try {
             withdrawService.apply(command);
