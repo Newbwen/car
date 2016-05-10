@@ -28,7 +28,7 @@ import java.util.*;
  * Created by pengyi on 2016/5/6.
  */
 @Service("withholdService")
-public class WithholdService implements IWithholdService {
+public class WithholdService implements IWithHoldService {
 
     @Autowired
     private IWithholdRepository<Withhold, String> withholdRepository;
