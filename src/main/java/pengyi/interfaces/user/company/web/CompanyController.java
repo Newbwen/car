@@ -12,11 +12,14 @@ import pengyi.application.permission.command.ListPermissionCommand;
 import pengyi.application.permission.representation.PermissionRepresentation;
 import pengyi.application.user.company.ICompanyAppService;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.exception.ExistException;
+import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
@@ -150,5 +153,38 @@ public class CompanyController extends BaseController {
     @ResponseBody
     public List<CompanyRepresentation> jsonList() {
         return companyAppService.allList();
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView create(CreateCompanyCommand command) {
+        return new ModelAndView("/baseuser/company/create", "command", command);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView create(@Valid @ModelAttribute("command") CreateCompanyCommand command, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes, Locale locale) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("/baseuser/company/create");
+        }
+
+        AlertMessage alertMessage;
+        CompanyRepresentation company;
+        try {
+            company = companyAppService.create(command);
+        } catch (ExistException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("user.userName.exist.message", new Object[]{command.getUserName()}, locale));
+            return new ModelAndView("/baseuser/company/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        } catch (NoFoundException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.create.failure.message", null, locale));
+            return new ModelAndView("/baseuser/company/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        } catch (Exception e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.create.failure.message", null, locale));
+            return new ModelAndView("/baseuser/company/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
+        alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        redirectAttributes.addAttribute("id", company.getId());
+        return new ModelAndView("redirect:/user/company/show/{id}");
     }
 }

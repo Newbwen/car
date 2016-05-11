@@ -21,9 +21,10 @@
                 <!-- 查询条件 -->
                 <div class="row">
                     <form>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>订单号<input type="text" value="${command.orderNumber!}" name="orderNumber" /></label>
+                                <label>订单号<input type="text" value="${command.orderNumber!}"
+                                                 name="orderNumber"/></label>
                                 <label>订单状态
                                     <select name="orderStatus">
                                         [#assign status = (command.orderStatus!)?default("") /]
@@ -56,13 +57,24 @@
                                     </select>
                                 </label>
                                 <label>
-                                开始<input type="date" value="${command.startTime!}" name="startTime" />
+                                    开始<input type="date" value="${command.startTime!}" name="startTime"/>
                                 </label>
                                 <label>
-                                    结束<input type="date" value="${command.endTime!}" name="endTime" />
+                                    结束<input type="date" value="${command.endTime!}" name="endTime"/>
                                 </label>
-                                <label><button type="submit" class="btn-success">查询</button></label>
-                                <label><a href="/order/export_excel?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime}&endTime=${command.endTime}" class="btn-sm btn-success">导出表格</a></label>
+                                <label>
+                                    已选择区域 <input type="text" id="areaName" name="areaName" value="${command.areaName!}" readonly/>
+                                    <div class="area_box">
+                                        <select class="col-xs-3 area_data" name="area">
+                                        </select>
+                                    </div>
+                                </label>
+                                <label>
+                                    <button type="submit" class="btn-success">查询</button>
+                                </label>
+                                <label><a
+                                        href="/order/export_excel?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime}&endTime=${command.endTime}"
+                                        class="btn-sm btn-success">导出表格</a></label>
                             </div>
                         </div>
                     </form>
@@ -79,6 +91,7 @@
                         <th>车辆类型</th>
                         <th>订单状态</th>
                         <th>订单总额</th>
+                        <th>区域</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -97,6 +110,7 @@
                                 <td>${(order.carType.getName())!}</td>
                                 <td>${(order.orderStatus.getName())!}</td>
                                 <td>${order.shouldMoney+order.extraMoney}</td>
+                                <td>${order.receiveUser.company.operateAddress.name!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -110,12 +124,13 @@
                                             </li>
                                             [#if order.orderStatus.getValue()==4 || order.orderStatus.getValue()==5]
                                                 <li>
-                                                    <a class="blue" href="[@spring.url '/order/way/${order.id!}'/]">线路</a>
+                                                    <a class="blue"
+                                                       href="[@spring.url '/order/way/${order.id!}'/]">线路</a>
                                                 </li>
                                             [/#if]
-                                            [#--<li>--]
-                                                [#--<a class="green" href="[@spring.url '/order/edit/${order.id}'/]">编辑</a>--]
-                                            [#--</li>--]
+                                        [#--<li>--]
+                                        [#--<a class="green" href="[@spring.url '/order/edit/${order.id}'/]">编辑</a>--]
+                                        [#--</li>--]
                                         </ul>
                                     </div>
                                 </td>
@@ -126,7 +141,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/order/list?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime!}&endTime=${command.endTime!}' /]
+                    [@mc.showPagination '/order/list?orderNumber=${command.orderNumber!}&orderStatus=${command.orderStatus!}&driverType=${command.driverType!}&carType=${command.carType!}&startTime=${command.startTime!}&endTime=${command.endTime!}&area=${command.area!}&areaName=${command.areaName!}' /]
                 [/#if]
 
             </div>
@@ -137,7 +152,18 @@
 
 [@override name="bottomResources"]
     [@super /]
+<script src="[@spring.url '/resources/assets/app/js/area.js'/]"></script>
+<script type="text/javascript">
+    $(".area_box").areaCascade("area");
 
+    $(".area_box").on('change', 'select', function () {
+        if ($(this).find("option:selected").text() != "请选择") {
+            $("#areaName").val($(this).find("option:selected").text());
+        } else {
+            $("#areaName").val("");
+        }
+    });
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

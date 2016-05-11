@@ -17,14 +17,14 @@
 <div class="row">
     <div class="col-xs-12">
         [@mc.showAlert /]
-        <form action="" class="form-horizontal" id="form-create" method="post">
+        <form action="/user/driver/create" class="form-horizontal" id="form-create" method="post">
 
             [@spring.bind "command.userName"/]
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="userName" name="userName" value="${command.userName!}"
+                    <input type="text" id="userName" name="userName"
                            placeholder="用户名(手机号)" pattern="^1[345678][0-9]{9}$"
                            class="col-xs-10 col-sm-5"
                            required/>
@@ -52,6 +52,17 @@
                            placeholder="确认密码" class="col-xs-10 col-sm-5" minlength="6"
                            onchange="checkPasswords()" required/>
                     [@spring.showErrors "confirmPassword"/]
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属公司* </label>
+
+                <div class="col-sm-9">
+                    <select class="col-xs-10 col-sm-5" id="company" name="company" data-id="${driver.company.id!}"
+                            required>
+                        <option value="">请选择</option>
+                    </select>
                 </div>
             </div>
 
@@ -107,11 +118,10 @@
 
                 <div class="col-sm-9">
                     <select class="col-xs-10 col-sm-5" id="driverType" name="driverType" required>
-                        [#assign status = (command.driverType)?default("") /]
                         <option value="">请选择</option>
-                        <option value="GENERATION" [@mc.selected status "GENERATION"/]>代驾</option>
-                        <option value="LIMOUSINE" [@mc.selected status "LIMOUSINE"/]>专车</option>
-                        <option value="TAXI" [@mc.selected status "TAXI"/]>出租车</option>
+                        <option value="GENERATION">代驾</option>
+                        <option value="LIMOUSINE">专车</option>
+                        <option value="TAXI">出租车</option>
                     </select>
                 </div>
             </div>
@@ -196,6 +206,23 @@
 <script src="[@spring.url '/resources/assets/js/layer/layer.js'/]"></script>
 <script src="[@spring.url '/resources/assets/app/js/driverCreate.js'/]"></script>
 <script type="text/javascript">
+    $.ajax({
+        type: "post",
+        url: "/user/company/all_list",
+        dataType: "json",
+        success: function (data) {
+            $("#company").empty();
+            $("#company").append("<option value=''>请选择</option>");
+            $.each(data, function (a, b) {
+                if (b.id == $("#company").attr("data-id")) {
+                    $("#company").append("<option value='" + b.id + "' selected>" + b.userName + "</option>");
+                } else {
+                    $("#company").append("<option value='" + b.id + "'>" + b.userName + "</option>");
+                }
+            })
+        }
+    })
+
     function checkPasswords() {
         var pass1 = document.getElementById("password");
         var pass2 = document.getElementById("confirmPassword");

@@ -20,6 +20,8 @@ import pengyi.application.user.driver.command.EditDriverCommand;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.exception.ExistException;
+import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.EnableStatus;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
@@ -160,9 +162,15 @@ public class DriverController extends BaseController {
         DriverRepresentation driver;
         try {
             driver = driverAppService.create(command);
+        } catch (ExistException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("user.userName.exist.message", new Object[]{command.getUserName()}, locale));
+            return new ModelAndView("/baseuser/driver/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        } catch (NoFoundException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.create.failure.message", null, locale));
+            return new ModelAndView("/baseuser/driver/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         } catch (Exception e) {
-
-            return new ModelAndView();
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.create.failure.message", null, locale));
+            return new ModelAndView("/baseuser/driver/create", "command", command).addObject(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
         alertMessage = new AlertMessage(this.getMessage("default.create.success.message", null, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);

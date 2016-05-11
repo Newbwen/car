@@ -25,6 +25,8 @@ public interface ICompanyService {
 
     Company create(Company company);
 
+    Company terraceCreate(CreateCompanyCommand command);
+
     Company updateStatus(EditStatusCommand command);
 
     List<Company> list(BaseListCompanyCommand companyCommand);

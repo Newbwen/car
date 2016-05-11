@@ -1,5 +1,6 @@
 package pengyi.application.user.company;
 
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
@@ -25,4 +26,5 @@ public interface ICompanyAppService {
 
     List<CompanyRepresentation> allList();
 
+    CompanyRepresentation create(CreateCompanyCommand command);
 }

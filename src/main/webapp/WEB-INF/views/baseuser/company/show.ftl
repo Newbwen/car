@@ -124,7 +124,7 @@
                 <div class="profile-info-name"> 公司资质图片</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click"
+                    <span class="editable editable-click img-box"
                           id="age"><img src="${company.folder!}"/></span>
                 </div>
             </div>

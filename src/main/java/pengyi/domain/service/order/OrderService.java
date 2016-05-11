@@ -75,6 +75,7 @@ public class OrderService implements IOrderService {
 
         List<org.hibernate.criterion.Order> orders = new ArrayList<org.hibernate.criterion.Order>();
         orders.add(org.hibernate.criterion.Order.desc("createDate"));
+        Map<String, String> aliasMap = new HashMap<String, String>();
 
         if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
             criterionList.add(Restrictions.like("orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
@@ -93,7 +94,17 @@ public class OrderService implements IOrderService {
             criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
         }
 
-        return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orders);
+        if (!CoreStringUtils.isEmpty(command.getArea())) {
+            aliasMap.put("receiveUser", "receiveUser");
+            aliasMap.put("receiveUser.company", "company");
+            aliasMap.put("company.operateAddress", "operateAddress");
+            aliasMap.put("operateAddress.parent", "parent");
+            criterionList.add(Restrictions.or(Restrictions.eq("operateAddress.id", command.getArea()),
+                    Restrictions.eq("parent.id", command.getArea()),
+                    Restrictions.eq("parent.parent.id", command.getArea())));
+        }
+
+        return orderRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orders, null, null);
     }
 
     @Override

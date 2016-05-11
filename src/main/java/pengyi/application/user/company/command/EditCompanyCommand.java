@@ -15,6 +15,8 @@ public class EditCompanyCommand extends BaseEditBaseUserCommand {
     private String registerAddress;   //注册地点
     private String operateAddress;    //运营地点
 
+    private String folder;      //公司纸质照片
+
     public String getName() {
         return name;
     }
@@ -37,5 +39,13 @@ public class EditCompanyCommand extends BaseEditBaseUserCommand {
 
     public void setOperateAddress(String operateAddress) {
         this.operateAddress = operateAddress;
+    }
+
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 }

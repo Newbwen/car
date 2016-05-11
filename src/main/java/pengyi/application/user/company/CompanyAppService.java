@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pengyi.application.user.company.command.CreateCompanyCommand;
 import pengyi.application.user.company.command.EditCompanyCommand;
 import pengyi.application.user.company.command.BaseListCompanyCommand;
 import pengyi.application.user.company.representation.CompanyRepresentation;
@@ -66,5 +67,10 @@ public class CompanyAppService implements ICompanyAppService {
         BaseListCompanyCommand companyCommand = new BaseListCompanyCommand();
         companyCommand.setStatus(EnableStatus.ENABLE);
         return mappingService.mapAsList(companyService.list(companyCommand), CompanyRepresentation.class);
+    }
+
+    @Override
+    public CompanyRepresentation create(CreateCompanyCommand command) {
+        return mappingService.map(companyService.terraceCreate(command), CompanyRepresentation.class, false);
     }
 }

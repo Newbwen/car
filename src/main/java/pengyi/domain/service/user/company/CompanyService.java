@@ -83,16 +83,19 @@ public class CompanyService implements ICompanyService {
         Company company = this.show(command.getId());
         company.fainWhenConcurrencyViolation(command.getVersion());
 
-//        Area registerAddress = areaService.show(command.getRegisterAddress());
-//        Area operateAddress = areaService.show(command.getOperateAddress());
+        Area registerAddress = areaService.show(command.getRegisterAddress());
+        Area operateAddress = areaService.show(command.getOperateAddress());
 
-        company.setEmail(command.getEmail());
+        String folder = command.getFolder().replaceAll("img_tmp", "img");
+
         company.setName(command.getName());
-//        company.setRegisterAddress(registerAddress);
-//        company.setOperateAddress(operateAddress);
+        company.setRegisterAddress(registerAddress);
+        company.setOperateAddress(operateAddress);
+        company.setFolder(folder);
 
         companyRepository.update(company);
 
+        fileUploadService.move(folder.substring(folder.lastIndexOf("/") + 1));
         return company;
     }
 
@@ -108,6 +111,30 @@ public class CompanyService implements ICompanyService {
     @Override
     public Company create(Company company) {
         companyRepository.save(company);
+        return company;
+    }
+
+    @Override
+    public Company terraceCreate(CreateCompanyCommand command) {
+        BaseUser baseUser = baseUserService.searchByUserName(command.getUserName());
+        if (null != baseUser) {
+            throw new ExistException("用户名[" + command.getUserName() + "]已存在");
+        }
+        Area registerAddress = areaService.show(command.getRegisterAddress());
+        Area operateAddress = areaService.show(command.getOperateAddress());
+
+        Role role = roleService.searchByName("company");
+
+        String salt = PasswordHelper.getSalt();
+        String password = PasswordHelper.encryptPassword(command.getPassword(), command.getUserName() + salt);
+
+        String folder = command.getFolder().replaceAll("img_tmp", "img");
+
+        Company company = new Company(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.COMPANY, command.getName(),
+                folder, CoreDateUtils.parseDate(command.getRegisterDate(), "yyyy-MM-dd"), registerAddress, operateAddress, 0.0);
+
+        companyRepository.save(company);
+        fileUploadService.move(folder.substring(folder.lastIndexOf("/") + 1));
         return company;
     }
 

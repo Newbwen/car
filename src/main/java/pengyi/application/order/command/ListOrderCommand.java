@@ -18,6 +18,8 @@ public class ListOrderCommand extends BasicPaginationCommand {
     private CarType carType;
     private String startTime;
     private String endTime;
+    private String area;
+    private String areaName;
 
     public String getOrderNumber() {
         return orderNumber;
@@ -81,5 +83,21 @@ public class ListOrderCommand extends BasicPaginationCommand {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 }

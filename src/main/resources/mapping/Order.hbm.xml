@@ -16,7 +16,7 @@
 
         <property name="createDate" column="create_date" type="java.util.Date"/>
 
-        <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.BaseUser"
+        <many-to-one name="receiveUser" column="receive_user_id" class="pengyi.domain.model.user.driver.Driver"
                      fetch="join"/>
 
         <property name="receiveDate" column="receive_date" type="java.util.Date"/>
@@ -71,14 +71,14 @@
             </type>
         </property>
 
-        <property name="payNo" column="pay_no" type="java.lang.String" />
+        <property name="payNo" column="pay_no" type="java.lang.String"/>
 
         <property name="km" column="km" type="java.lang.Integer"/>
 
-        <property name="startLat" type="java.lang.Double" column="start_lat" />
-        <property name="startLon" type="java.lang.Double" column="start_lon" />
-        <property name="endLat" type="java.lang.Double" column="end_lat" />
-        <property name="endLon" type="java.lang.Double" column="end_lon" />
+        <property name="startLat" type="java.lang.Double" column="start_lat"/>
+        <property name="startLon" type="java.lang.Double" column="start_lon"/>
+        <property name="endLat" type="java.lang.Double" column="end_lat"/>
+        <property name="endLon" type="java.lang.Double" column="end_lon"/>
     </class>
 
 </hibernate-mapping>

@@ -4,6 +4,7 @@ import pengyi.core.type.*;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.report.Report;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.driver.Driver;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class Order extends Identity {
     private String orderNumber;                         //订单号
     private BaseUser orderUser;                         //下单人
     private Date createDate;                          //下单时间
-    private BaseUser receiveUser;                       //接单人
+    private Driver receiveUser;                       //接单人
     private Date receiveDate;                         //接单时间
     private Date subscribeDate;                       //预约时间
     private Date beginTime;                           //开始时间
@@ -63,11 +64,11 @@ public class Order extends Identity {
         this.createDate = createDate;
     }
 
-    public BaseUser getReceiveUser() {
+    public Driver getReceiveUser() {
         return receiveUser;
     }
 
-    public void setReceiveUser(BaseUser receiveUser) {
+    public void setReceiveUser(Driver receiveUser) {
         this.receiveUser = receiveUser;
     }
 
@@ -235,7 +236,7 @@ public class Order extends Identity {
         this.endLat = endLat;
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, BaseUser receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, double startLat, double startLon, double endLat, double endLon) {
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, Driver receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, double startLat, double startLon, double endLat, double endLon) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -258,4 +259,5 @@ public class Order extends Identity {
         this.endLat = endLat;
         this.endLon = endLon;
     }
+
 }
