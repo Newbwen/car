@@ -29,7 +29,7 @@ public class ApiMoneyDetailedAppService implements IApiMoneyDetailedAppService {
     private IMappingService mappingService;
 
     @Override
-    public BaseResponse pagination(ListMoneyDetailedCommand command){
+    public BaseResponse pagination(ListMoneyDetailedCommand command) {
         if (null != command) {
             command.verifyPage();
             command.verifyPageSize(10);
@@ -41,6 +41,11 @@ public class ApiMoneyDetailedAppService implements IApiMoneyDetailedAppService {
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
         }
+    }
+
+    @Override
+    public BaseResponse count(ListMoneyDetailedCommand command) {
+        return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, moneyDetailedService.sum(command), ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
     }
 
 }

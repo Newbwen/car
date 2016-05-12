@@ -12,6 +12,7 @@ import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
+import pengyi.domain.model.user.BaseUser;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +37,7 @@ public class ApiAppMoneyDetailedController {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
                     System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
         }
-        command.setUserName(baseUser.getUserName());
+        command.setUserId(baseUser.getId());
         BaseResponse response = null;
         try {
             response = apiMoneyDetailedAppService.pagination(command);
@@ -47,4 +48,26 @@ public class ApiAppMoneyDetailedController {
         response.setDebug_time(System.currentTimeMillis() - startTime);
         return response;
     }
+
+    @RequestMapping(value = "/count")
+    @ResponseBody
+    public BaseResponse count(ListMoneyDetailedCommand command, HttpSession session) {
+        long startTime = System.currentTimeMillis();
+        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
+        if (null == baseUser) {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
+                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
+        }
+        command.setUserId(baseUser.getId());
+        BaseResponse response = null;
+        try {
+            response = apiMoneyDetailedAppService.count(command);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());
+        }
+        response.setDebug_time(System.currentTimeMillis() - startTime);
+        return response;
+    }
+
 }

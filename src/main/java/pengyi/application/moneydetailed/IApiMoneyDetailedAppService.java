@@ -8,4 +8,6 @@ import pengyi.core.api.BaseResponse;
  */
 public interface IApiMoneyDetailedAppService {
     BaseResponse pagination(ListMoneyDetailedCommand command);
+
+    BaseResponse count(ListMoneyDetailedCommand command);
 }

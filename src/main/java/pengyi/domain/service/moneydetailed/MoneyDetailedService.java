@@ -1,15 +1,14 @@
 package pengyi.domain.service.moneydetailed;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pengyi.application.moneydetailed.command.CreateMoneyDetailedCommand;
 import pengyi.application.moneydetailed.command.EditMoneyDetailedCommand;
 import pengyi.application.moneydetailed.command.ListMoneyDetailedCommand;
 import pengyi.core.exception.NoFoundException;
+import pengyi.core.type.FlowType;
+import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.model.moneydetailed.IMoneyDetailedRepository;
 import pengyi.domain.model.moneydetailed.MoneyDetailed;
@@ -17,6 +16,7 @@ import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.service.user.IBaseUserService;
 import pengyi.repository.generic.Pagination;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -39,13 +39,58 @@ public class MoneyDetailedService implements IMoneyDetailedService {
             criterionList.add(Restrictions.like("baseUser.userName", command.getUserName(), MatchMode.ANYWHERE));
         }
 
+        if (!CoreStringUtils.isEmpty(command.getUserId())) {
+            criterionList.add(Restrictions.eq("baseUser.id", command.getUserId()));
+        }
+
+        if (null != command.getFlowType()) {
+            criterionList.add(Restrictions.eq("flowType", command.getFlowType()));
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getDate())) {
+            String[] sp = command.getDate().split("-");
+            if (sp.length == 2) {
+                Calendar start = Calendar.getInstance();
+                start.set(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]) - 1, 1);
+                start.set(Calendar.DAY_OF_MONTH, start.getActualMaximum(Calendar.DAY_OF_MONTH));
+                start.set(Calendar.HOUR_OF_DAY, 0);
+                start.set(Calendar.MINUTE, 0);
+                start.set(Calendar.SECOND, 0);
+
+                Calendar end = Calendar.getInstance();
+                end.set(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]) - 1, 1);
+                end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
+                end.set(Calendar.HOUR_OF_DAY, 23);
+                end.set(Calendar.MINUTE, 59);
+                end.set(Calendar.SECOND, 59);
+                criterionList.add(Restrictions.between("createDate", start.getTime(), end.getTime()));
+            } else {
+                criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getDate()), CoreDateUtils.parseDateEnd(command.getDate())));
+            }
+        }
+
         List<Order> orders = new ArrayList<Order>();
         orders.add(Order.desc("createDate"));
 
         Map<String, String> aliasMap = new HashMap<String, String>();
         aliasMap.put("baseUser", "baseUser");
-
         return moneyDetailedRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orders, null, null);
+    }
+
+    @Override
+    public Number sum(ListMoneyDetailedCommand command) {
+        if (null == command.getFlowType()) {
+            command.setFlowType(FlowType.IN_FLOW);
+            BigDecimal in = (BigDecimal) moneyDetailedRepository.sum(command);
+            command.setFlowType(FlowType.OUT_FLOW);
+            BigDecimal out = (BigDecimal) moneyDetailedRepository.sum(command);
+            if (null == in) {
+                in = new BigDecimal(0);
+            }
+            return (in.subtract(out));
+        } else {
+            return moneyDetailedRepository.sum(command);
+        }
     }
 
     @Override

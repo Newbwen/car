@@ -499,11 +499,21 @@
             <id>8aaf0bed-8c91-45ad-932d-1b67fab428ca</id>
             <name>用户获取资金明细</name>
             <address>api/app/money_detailed/list</address>
-            <shuoming>page(页码),pageSize(每页大小)</shuoming>
-            <zhuyi>page(默认为1)pageSize(默认为10),</zhuyi>
+            <shuoming>page(页码),pageSize(每页大小),data(时间yyyy-MM-dd),flowType(方式)</shuoming>
+            <zhuyi>page(默认为1)pageSize(默认为10),flowType(IN_FLOW:流入,OUT_FLOW:流出),如果查本月数据data格式为(yyyy-MM),如果是本日(yyyy-MM-dd)</zhuyi>
             <fanhuixinxi>
                 {"code":"RESPONSE_CODE_SUCCESS","data":{"count":1,"data":[{"baseUser":{"balance":0.00,"createDate":"2016-03-21
                 17:03:29.0","email":"13271940409@163.com","head":null,"id":"402881e9539857710153986a30fd0001","integral":0,"money":null,"name":"怪叔叔丶","password":"cc02a9dbbfdafd467d958f67b272fbe5","reportCount":null,"salt":"f5386e338e52190fb5a0edd3eaa47a1e","sex":"MAN","status":"ENABLE","userName":"13271940409","userRole":{"description":"用户(user)角色","id":"402881e9538377ac0153837d6a2b0002","permissions":[],"roleName":"user","status":"ENABLE","version":0},"userType":"USER","version":18},"description":"阿萨德撒打算","flowType":"OUT_FLOW","id":"1231","money":123.00,"newMoney":3152.00,"oldMoney":20.00,"version":1}],"page":1,"pageSize":20},"debug_time":13,"message":"成功"}
+            </fanhuixinxi>
+        </api>
+        <api>
+            <id>8aaf0bed-8c91-45ad-932d-1b67fab41234</id>
+            <name>用户获取资金明细总金额</name>
+            <address>api/app/money_detailed/count</address>
+            <shuoming>data(时间yyyy-MM-dd),flowType(方式)</shuoming>
+            <zhuyi>flowType(IN_FLOW:流入,OUT_FLOW:流出),如果查本月数据data格式为(yyyy-MM),如果是本日(yyyy-MM-dd)</zhuyi>
+            <fanhuixinxi>
+                {"code":"RESPONSE_CODE_SUCCESS","data":-2645.20,"debug_time":15501,"message":"成功"}
             </fanhuixinxi>
         </api>
         <api>

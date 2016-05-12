@@ -56,7 +56,7 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     }
 
     @Override
-    public void addLock(){
+    public void addLock() {
         getSession().createCriteria(getPersistentClass()).setLockMode(LockMode.PESSIMISTIC_WRITE);
     }
 
@@ -216,7 +216,7 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     @Override
     @SuppressWarnings("unchecked")
     public List<T> list(List<Criterion> criteria, List<Order> orders, ProjectionList projectionList,
-                           Map<String, FetchMode> fetchModeMap, Map<String, String> alias) {
+                        Map<String, FetchMode> fetchModeMap, Map<String, String> alias) {
 
         Criteria criteriaCount = getSession().createCriteria(getPersistentClass());
         criteriaCount.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

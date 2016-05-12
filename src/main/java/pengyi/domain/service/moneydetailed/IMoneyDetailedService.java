@@ -13,6 +13,8 @@ public interface IMoneyDetailedService {
 
     Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command);
 
+    Number sum(ListMoneyDetailedCommand command);
+
     MoneyDetailed create(CreateMoneyDetailedCommand command);
 
     MoneyDetailed edit(EditMoneyDetailedCommand command);
