@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.ReportStatus;
 import pengyi.core.util.CoreDateUtils;
@@ -58,7 +59,9 @@ public class ReportService implements IReportService {
 
         reportRepository.save(report);
 
-        driverService.updateReportCount(order.getReceiveUser().getId());
+        if (null != order.getReceiveUser()) {
+            driverService.updateReportCount(order.getReceiveUser().getId());
+        }
         userService.updateReportCount(baseUser.getId());
     }
 
@@ -84,11 +87,11 @@ public class ReportService implements IReportService {
             criterionList.add(Restrictions.like("order.orderNumber", command.getOrderNumber(), MatchMode.ANYWHERE));
         }
 
-        if(!CoreStringUtils.isEmpty(command.getStartDealTime())){
-            criterionList.add(Restrictions.ge("reportTime",CoreDateUtils.parseDate(command.getStartDealTime())));
+        if (!CoreStringUtils.isEmpty(command.getStartDealTime())) {
+            criterionList.add(Restrictions.ge("reportTime", CoreDateUtils.parseDate(command.getStartDealTime())));
         }
-        if(!CoreStringUtils.isEmpty(command.getEndDealTime())){
-            criterionList.add(Restrictions.le("reportTime",CoreDateUtils.parseDate(command.getEndDealTime())));
+        if (!CoreStringUtils.isEmpty(command.getEndDealTime())) {
+            criterionList.add(Restrictions.le("reportTime", CoreDateUtils.parseDate(command.getEndDealTime())));
         }
 //        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
 //            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));
@@ -132,7 +135,7 @@ public class ReportService implements IReportService {
         if (!CoreStringUtils.isEmpty(command.getOrderNumber())) {
             criterionList.add(Restrictions.eq("order.orderNumber", command.getOrderNumber()));
             aliasMap.put("order", "order");
-    }
+        }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
         }
@@ -140,6 +143,29 @@ public class ReportService implements IReportService {
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("reportTime"));
         return reportRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null, null);
+    }
+
+    @Override
+    public void handleReport(EditStatusCommand command) {
+        Report report = this.getById(command.getId());
+        report.fainWhenConcurrencyViolation(command.getVersion());
+
+        report.setStatus(ReportStatus.IN_PROCESS);
+        report.setStartDealTime(new Date());
+
+        reportRepository.update(report);
+    }
+
+    @Override
+    public void successReport(EditReportCommand command) {
+        Report report = this.getById(command.getId());
+        report.fainWhenConcurrencyViolation(command.getVersion());
+
+        report.setStatus(ReportStatus.FIGURE_OUT);
+        report.setEndDealTime(new Date());
+        report.setHandleResult(command.getHandleResult());
+
+        reportRepository.update(report);
     }
 
 }

@@ -35,7 +35,7 @@ import java.util.*;
 public class RescueService implements IRescueService {
 
     @Autowired
-    private IRescueRepository<Rescue,String> rescueRepository;
+    private IRescueRepository<Rescue, String> rescueRepository;
 
     @Autowired
     private BaseUserService baseUserService;
@@ -70,8 +70,8 @@ public class RescueService implements IRescueService {
             criteriaList.add(Restrictions.eq("status", command.getStatus()));
 
         }
-        if(null !=command.getRescueType()){
-            criteriaList.add(Restrictions.eq("rescueType",command.getRescueType()));
+        if (null != command.getRescueType()) {
+            criteriaList.add(Restrictions.eq("rescueType", command.getRescueType()));
         }
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("applyTime"));
@@ -84,7 +84,7 @@ public class RescueService implements IRescueService {
 
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Rescue rescue1 = new Rescue(applyUser, new Date(), command.getRescueType(),
-                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null);
+                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null, command.getRescueAddress());
         rescueRepository.save(rescue1);
 
         return rescue1;

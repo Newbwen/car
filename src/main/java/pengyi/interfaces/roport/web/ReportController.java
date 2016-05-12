@@ -16,7 +16,9 @@ import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.application.report.representation.ReportRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.core.exception.ConcurrencyException;
+import pengyi.core.exception.NoFoundException;
 import pengyi.interfaces.shared.web.AlertMessage;
 import pengyi.interfaces.shared.web.BaseController;
 
@@ -39,7 +41,7 @@ public class ReportController extends BaseController {
     @RequestMapping(value = "/list")
     public ModelAndView list(ListReportCommand command) {
         return new ModelAndView("/report/list", "command", command)
-                .addObject("pagination",reportAppService.pagination(command));
+                .addObject("pagination", reportAppService.pagination(command));
     }
 
    /* @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -90,7 +92,7 @@ public class ReportController extends BaseController {
         return new ModelAndView("/report/show", "report", representation);
     }
 
-   // @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    // @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     /*public ModelAndView edit(@PathVariable String id, @ModelAttribute("command") EditReportCommand command,
                              RedirectAttributes redirectAttributes, Locale locale) {
         AlertMessage alertMessage;
@@ -135,6 +137,40 @@ public class ReportController extends BaseController {
         redirectAttributes.addAttribute("id", representation.getId());
         return new ModelAndView("redirect:/report/show{id}");
     }*/
+
+    @RequestMapping(value = "/handle_report")
+    public ModelAndView handleReport(EditStatusCommand command, RedirectAttributes redirectAttributes, Locale locale) {
+        AlertMessage alertMessage;
+        try {
+            reportAppService.handleReport(command);
+        } catch (NoFoundException e) {
+
+        } catch (ConcurrencyException e) {
+
+        } catch (Exception e) {
+
+        }
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/report/list");
+    }
+
+    @RequestMapping(value = "/success_report")
+    public ModelAndView successReport(EditReportCommand command, RedirectAttributes redirectAttributes, Locale locale) {
+        AlertMessage alertMessage;
+        try {
+            reportAppService.successReport(command);
+        } catch (NoFoundException e) {
+
+        } catch (ConcurrencyException e) {
+
+        } catch (Exception e) {
+
+        }
+        alertMessage = new AlertMessage(this.getMessage("default.edit.success.message", null, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/report/list");
+    }
 
 
 }

@@ -3,6 +3,7 @@ package pengyi.domain.service.report;
 import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.domain.model.report.Report;
 import pengyi.repository.generic.Pagination;
 
@@ -21,4 +22,8 @@ public interface IReportService {
     void apiUpdateReport(EditReportCommand command);
 
     Pagination<Report> apiPagination(ListReportCommand command);
+
+    void handleReport(EditStatusCommand command);
+
+    void successReport(EditReportCommand command);
 }

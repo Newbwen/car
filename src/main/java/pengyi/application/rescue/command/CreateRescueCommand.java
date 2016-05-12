@@ -24,6 +24,8 @@ public class CreateRescueCommand {
     @NotEmpty(message = "{rescue.description.NotEmpty.message}")
     private String description;                 //救援说明
 
+    private String rescueAddress;               //救援地址
+
     public String getApplyUser() {
         return applyUser;
     }
@@ -62,5 +64,13 @@ public class CreateRescueCommand {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getRescueAddress() {
+        return rescueAddress;
+    }
+
+    public void setRescueAddress(String rescueAddress) {
+        this.rescueAddress = rescueAddress;
     }
 }

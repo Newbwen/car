@@ -23,8 +23,9 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>开始<input type="date" value="${command.startDealTime!}" name="startDealTime" /></label>
-                                <label>结束<input type="date" value="${command.endDealTime!}" name="endDealTime" /></label>
+                                <label>开始<input type="date" value="${command.startDealTime!}"
+                                                name="startDealTime"/></label>
+                                <label>结束<input type="date" value="${command.endDealTime!}" name="endDealTime"/></label>
                                 <label>处理状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -34,7 +35,9 @@
                                         <option value="FIGURE_OUT" [@mc.selected status "FIGURE_OUT"/]>处理完成</option>
                                     </select>
                                 </label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>
+                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -68,8 +71,20 @@
 
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="blue" href="[@spring.url '/report/show/${report.id!}'/]">查看</a>
+                                                <a class="blue"
+                                                   href="[@spring.url '/report/show/${report.id!}'/]">查看</a>
                                             </li>
+                                            [#if report.status == "PENDING"]
+                                                <li>
+                                                    <a class="blue" href="[@spring.url '/report/handle_report?id=${report.id}&version=${report.version}'/]">开始处理</a>
+                                                </li>
+                                            [#elseif report.status == "IN_PROCESS"]
+                                                <li>
+                                                    <a class="blue" id="success-process" data-id="${report.id!}"
+                                                       data-version="${report.version!}"
+                                                       data-orderNo="${report.order.orderNumber!}">完成处理</a>
+                                                </li>
+                                            [/#if]
                                         </ul>
                                     </div>
                                 </td>
@@ -87,11 +102,73 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="modalSearch">
+    <div class="large-dialog">
+        <div class="change-bg">
+            <div class="modal-header">
+                <p class="modal-title thin">填写举报处理结果
+                    <small class="text-muted"></small>
+                </p>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/report/success_report" id="from-edit" method="post">
+                            <input type="hidden" name="id" value=""/>
+                            <input type="hidden" name="version" value=""/>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                                    举报订单 </label>
+
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="orderNo" value="" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                                    处理结果* </label>
+
+                                <div class="col-sm-9">
+                                    <textarea type="text" style="height: 150px;" name="handleResult"
+                                              class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-4">
+                                    <button class="btn btn-info" type="submit">
+                                        <i class="icon-ok bigger-110"></i>
+                                        提交
+                                    </button>
+                                    <button class="btn" type="button" data-dismiss="modal">
+                                        <i class="icon-undo bigger-110"></i>
+                                        关闭
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 [/@override]
 
 [@override name="bottomResources"]
     [@super /]
-
+<script type="text/javascript">
+    $("#success-process").click(function () {
+        var id = $(this).attr("data-id");
+        var version = $(this).attr("data-version");
+        var orderNo = $(this).attr("data-orderNo");
+        $("#from-edit").find("input[name='id']").val(id);
+        $("#from-edit").find("input[name='version']").val(version);
+        $("#from-edit").find("input[name='orderNo']").val(orderNo);
+        $("#modalSearch").modal();
+    });
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

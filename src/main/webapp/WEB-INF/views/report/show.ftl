@@ -31,7 +31,7 @@
                 <div class="profile-info-name"> 举报订单</div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username">${report.order.id!}</span>
+                    <span class="editable editable-click" id="username">${report.order.orderNumber!}</span>
                 </div>
             </div>
 

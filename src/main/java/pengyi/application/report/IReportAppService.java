@@ -1,9 +1,9 @@
 package pengyi.application.report;
 
-import pengyi.application.report.command.CreateReportCommand;
 import pengyi.application.report.command.EditReportCommand;
 import pengyi.application.report.command.ListReportCommand;
 import pengyi.application.report.representation.ReportRepresentation;
+import pengyi.core.commons.command.EditStatusCommand;
 import pengyi.repository.generic.Pagination;
 
 /**
@@ -17,5 +17,7 @@ public interface IReportAppService {
     ReportRepresentation show(String reportId);
 
 
+    void handleReport(EditStatusCommand command);
 
+    void successReport(EditReportCommand command);
 }

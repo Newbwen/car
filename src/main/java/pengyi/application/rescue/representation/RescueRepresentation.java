@@ -21,6 +21,7 @@ public class RescueRepresentation {
     private RescueStatus status;                //救援状态（1待救援、2救援中、3已救援）
     private String finishTime;                  //救援完成时间
     private String images;                      //救援图片
+    private String rescueAddress;               //救援地址
 
     public String getId() {
         return id;
@@ -108,5 +109,13 @@ public class RescueRepresentation {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+    public String getRescueAddress() {
+        return rescueAddress;
+    }
+
+    public void setRescueAddress(String rescueAddress) {
+        this.rescueAddress = rescueAddress;
     }
 }
