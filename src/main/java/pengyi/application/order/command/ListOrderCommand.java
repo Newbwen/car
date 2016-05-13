@@ -20,6 +20,7 @@ public class ListOrderCommand extends BasicPaginationCommand {
     private String endTime;
     private String area;
     private String areaName;
+    private String trip;
 
     public String getOrderNumber() {
         return orderNumber;
@@ -99,5 +100,13 @@ public class ListOrderCommand extends BasicPaginationCommand {
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
+    }
+
+    public String getTrip() {
+        return trip;
+    }
+
+    public void setTrip(String trip) {
+        this.trip = trip;
     }
 }

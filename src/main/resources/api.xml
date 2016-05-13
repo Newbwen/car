@@ -336,8 +336,8 @@
             <id>477eacbe-27b3-4179-8f07-5abf46a7cac7</id>
             <name>查看订单分页</name>
             <address>api/app/order/pagination</address>
-            <shuoming>orderNumber(订单号),orderStatus(订单状态),page(当前页码),pageSize(每页显示数量)</shuoming>
-            <zhuyi>必须登录,参数为条件,可有可无,page(默认为1)pageSize(默认为10)</zhuyi>
+            <shuoming>orderNumber(订单号),orderStatus(订单状态),page(当前页码),pageSize(每页显示数量),trip(行程)</shuoming>
+            <zhuyi>必须登录,参数为条件,可有可无,page(默认为1)pageSize(默认为10),trip(new:当前行程,history:历史行程，订单状态就不用传了)</zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":{"count":2,"data":[{"beginTime":"2016-03-22
                 15:34:30.0","createDate":"2016-03-22
                 14:33:21.0","driverType":"LIMOUSINE","endTime":null,"evaluateStatus":"NOT_EVALUATE","extraMoney":20.00,"id":"402881e9539d02da01539d07176f0001","orderNumber":"egg20160322142847225000007835","orderStatus":"SUCCESS","orderUser":{"balance":0.00,"createDate":"2016-03-21

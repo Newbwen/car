@@ -398,6 +398,18 @@ public class OrderService implements IOrderService {
         if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
             criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
         }
+
+        if (!CoreStringUtils.isEmpty(command.getTrip())) {
+            if (command.getTrip().equals("new")) {
+                criterionList.add(Restrictions.or(Restrictions.eq("orderStatus", OrderStatus.WAIT_ORDER),
+                        Restrictions.eq("orderStatus", OrderStatus.HAS_ORDER),
+                        Restrictions.eq("orderStatus", OrderStatus.START_ORDER),
+                        Restrictions.eq("orderStatus", OrderStatus.WAIT_PAY)));
+            } else if (command.getTrip().equals("history")) {
+                criterionList.add(Restrictions.or(Restrictions.eq("orderStatus", OrderStatus.INVALID),
+                        Restrictions.eq("orderStatus", OrderStatus.SUCCESS)));
+            }
+        }
         List<org.hibernate.criterion.Order> orderList = new ArrayList<org.hibernate.criterion.Order>();
         orderList.add(org.hibernate.criterion.Order.desc("createDate"));
 
