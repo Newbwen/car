@@ -75,10 +75,10 @@ public class ApiCarAppService implements IApiCarAppService {
             if (null == command.getVersion()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
             }
-            if(CoreStringUtils.isEmpty(command.getName())){
+            if (CoreStringUtils.isEmpty(command.getName())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10002.getMessage());
             }
-            if(CoreStringUtils.isEmpty(command.getCarNumber())){
+            if (CoreStringUtils.isEmpty(command.getCarNumber())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_30001.getMessage());
             }
             CarRepresentation carRepresentation = mappingService.map(carService.edit(command), CarRepresentation.class, false);
@@ -90,8 +90,13 @@ public class ApiCarAppService implements IApiCarAppService {
     @Override
     public BaseResponse apiInfo(String driverId) {
         if (!CoreStringUtils.isEmpty(driverId)) {
-            ApiAppCarRepresentation car = mappingService.map(carService.searchByDriver(driverId), ApiAppCarRepresentation.class, false);
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, car, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            Car car = carService.searchByDriver(driverId);
+            if (car != null) {
+                ApiAppCarRepresentation date = mappingService.map(car, ApiAppCarRepresentation.class, false);
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, date, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            } else {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+            }
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
         }
