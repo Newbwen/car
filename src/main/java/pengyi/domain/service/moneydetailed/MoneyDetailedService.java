@@ -52,7 +52,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
             if (sp.length == 2) {
                 Calendar start = Calendar.getInstance();
                 start.set(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]) - 1, 1);
-                start.set(Calendar.DAY_OF_MONTH, start.getActualMaximum(Calendar.DAY_OF_MONTH));
+//                start.set(Calendar.DAY_OF_MONTH, start.getActualMaximum(Calendar.DAY_OF_MONTH));
                 start.set(Calendar.HOUR_OF_DAY, 0);
                 start.set(Calendar.MINUTE, 0);
                 start.set(Calendar.SECOND, 0);
