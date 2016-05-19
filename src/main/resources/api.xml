@@ -499,7 +499,7 @@
             <id>8aaf0bed-8c91-45ad-932d-1b67fab428ca</id>
             <name>用户获取资金明细</name>
             <address>api/app/money_detailed/list</address>
-            <shuoming>page(页码),pageSize(每页大小),data(时间yyyy-MM-dd),flowType(方式)</shuoming>
+            <shuoming>page(页码),pageSize(每页大小),date(时间yyyy-MM-dd),flowType(方式)</shuoming>
             <zhuyi>page(默认为1)pageSize(默认为10),flowType(IN_FLOW:流入,OUT_FLOW:流出),如果查本月数据data格式为(yyyy-MM),如果是本日(yyyy-MM-dd)</zhuyi>
             <fanhuixinxi>
                 {"code":"RESPONSE_CODE_SUCCESS","data":{"count":1,"data":[{"baseUser":{"balance":0.00,"createDate":"2016-03-21
@@ -510,7 +510,7 @@
             <id>8aaf0bed-8c91-45ad-932d-1b67fab41234</id>
             <name>用户获取资金明细总金额</name>
             <address>api/app/money_detailed/count</address>
-            <shuoming>data(时间yyyy-MM-dd),flowType(方式)</shuoming>
+            <shuoming>date(时间yyyy-MM-dd),flowType(方式)</shuoming>
             <zhuyi>flowType(IN_FLOW:流入,OUT_FLOW:流出),如果查本月数据data格式为(yyyy-MM),如果是本日(yyyy-MM-dd)</zhuyi>
             <fanhuixinxi>
                 {"code":"RESPONSE_CODE_SUCCESS","data":-2645.20,"debug_time":15501,"message":"成功"}
