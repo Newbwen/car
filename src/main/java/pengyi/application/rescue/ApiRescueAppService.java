@@ -90,6 +90,12 @@ public class ApiRescueAppService implements IApiRescueAppService {
             if (null == command.getDescription()) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_20003.getMessage());
             }
+            if (CoreStringUtils.isEmpty(command.getName())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10042.getMessage());
+            }
+            if (CoreStringUtils.isEmpty(command.getPhone())) {
+                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10043.getMessage());
+            }
             if (redisService.exists(command.getUserName())) {
                 if (!redisService.getCache(command.getUserName()).equals(command.getVerificationCode())) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR, 0, null,

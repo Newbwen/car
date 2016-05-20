@@ -25,6 +25,9 @@ public class Rescue extends Identity {
     private String images;                      //救援图片
     private String rescueAddress;               //救援地址
 
+    private String name;
+    private String phone;
+
     public BaseUser getApplyUser() {
         return applyUser;
     }
@@ -106,11 +109,27 @@ public class Rescue extends Identity {
         this.rescueAddress = rescueAddress;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Rescue() {
         super();
     }
 
-    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime, String images, String rescueAddress) {
+    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime, String images, String rescueAddress,String name,String phone) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;
         this.rescueType = rescueType;
@@ -121,5 +140,7 @@ public class Rescue extends Identity {
         this.finishTime = finishTime;
         this.images = images;
         this.rescueAddress = rescueAddress;
+        this.name = name;
+        this.phone = phone;
     }
 }

@@ -23,6 +23,9 @@ public class RescueRepresentation {
     private String images;                      //救援图片
     private String rescueAddress;               //救援地址
 
+    private String name;
+    private String phone;
+
     public String getId() {
         return id;
     }
@@ -117,5 +120,21 @@ public class RescueRepresentation {
 
     public void setRescueAddress(String rescueAddress) {
         this.rescueAddress = rescueAddress;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

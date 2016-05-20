@@ -84,7 +84,7 @@ public class RescueService implements IRescueService {
 
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Rescue rescue1 = new Rescue(applyUser, new Date(), command.getRescueType(),
-                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null, command.getRescueAddress());
+                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null, command.getRescueAddress(), command.getName(), command.getPhone());
         rescueRepository.save(rescue1);
 
         return rescue1;

@@ -39,6 +39,9 @@
         <property name="images" column="images" type="java.lang.String"/>
 
         <property name="rescueAddress" column="rescue_address" type="java.lang.String"/>
+
+        <property name="name" column="name" type="java.lang.String"/>
+        <property name="phone" column="phone" type="java.lang.String"/>
     </class>
 
 </hibernate-mapping>
