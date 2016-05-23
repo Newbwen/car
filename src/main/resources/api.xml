@@ -63,13 +63,9 @@
             <address>api/app/driver/register</address>
             <shuoming>
                 userName(用户名,手机号),password(密码),verificationCode(短信验证码),identityCardPic(司机身份证照片),drivingLicencePic(司机驾驶证照片,,company(公司id)),driverType(司机类型),
-                startDriveDate(开始驾驶时间，算驾龄用),name(姓名),travelPic(行驶证),drivingLicenceType(驾驶证类型(C1,C2,B1,B2,A1,A2)),phone(电话),businessPic(从业资格证)，workPic(运营许可证)
             </shuoming>
             <zhuyi>
-                参数不能为空，driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)，startDriveDate(格式：yyyy-MM-dd)，drivingLicenceType（C1,C2,B1,B2,A1,A2）
-                当司机类型为专车时：drivingLicenceType,businessPic,workPic可以为空
-                当司机类型为代驾时: travelPic可以为空
-                当司机类型为出租车时：drivingLicenceType可以为空
+                参数不能为空，driverType(GENERATION:代驾,LIMOUSINE:专车,TAXI:出租车)，
             </zhuyi>
             <fanhuixinxi>{"code":"RESPONSE_CODE_SUCCESS","data":null,"debug_time":20,"message":"成功"}</fanhuixinxi>
         </api>
