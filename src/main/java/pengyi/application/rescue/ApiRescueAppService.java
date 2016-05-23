@@ -96,8 +96,8 @@ public class ApiRescueAppService implements IApiRescueAppService {
             if (CoreStringUtils.isEmpty(command.getPhone())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10043.getMessage());
             }
-            if (redisService.exists(command.getUserName())) {
-                if (!redisService.getCache(command.getUserName()).equals(command.getVerificationCode())) {
+            if (redisService.exists(command.getPhone())) {
+                if (!redisService.getCache(command.getPhone()).equals(command.getVerificationCode())) {
                     return new BaseResponse(ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR, 0, null,
                             ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_ERROR.getMessage());
                 }
@@ -106,7 +106,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
                         ResponseCode.RESPONSE_CODE_VERIFICATION_CODE_NOT_SEND.getMessage());
             }
             RescueRepresentation rescueRepresentation = mappingService.map(rescueService.create(command), RescueRepresentation.class, false);
-            redisService.delete(command.getUserName());
+            redisService.delete(command.getPhone());
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, rescueRepresentation, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
