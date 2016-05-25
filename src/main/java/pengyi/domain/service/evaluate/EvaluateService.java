@@ -96,8 +96,11 @@ public class EvaluateService implements IEvaluateService {
      * 通过订单查看评价
      */
     @Override
-    public Evaluate searchByOrder(String order, String userId) {
-        return evaluateRepository.getByOrder(order, userId);
+    public List<Evaluate> searchByOrder(String order, String userId) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("evaluateUser.id", userId));
+        criterionList.add(Restrictions.eq("order.id", order));
+        return evaluateRepository.list(criterionList, null);
     }
 
 

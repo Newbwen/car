@@ -16,6 +16,8 @@ import pengyi.core.mapping.IMappingService;
 import pengyi.core.util.CoreStringUtils;
 import pengyi.domain.service.evaluate.IEvaluateService;
 
+import java.util.List;
+
 /**
  * Created by LvDi on 2016/3/17.
  */
@@ -86,10 +88,12 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     @Override
     public BaseResponse getByOrderId(String orderId, String userId) {
         if (!CoreStringUtils.isEmpty(orderId)) {
-            EvaluateRepresentation data = mappingService.map(evaluateService.searchByOrder(orderId, userId), EvaluateRepresentation.class, false);
-            CarRepresentation car = carAppService.searchByDriver(data.getOrder().getReceiveUser().getId());
-            if (null != car) {
-                data.setCar(car);
+            List<EvaluateRepresentation> data = mappingService.mapAsList(evaluateService.searchByOrder(orderId, userId), EvaluateRepresentation.class);
+            for (int i = 0; i < data.size(); i++) {
+                CarRepresentation car = carAppService.searchByDriver(data.get(i).getOrder().getReceiveUser().getId());
+                if (null != car) {
+                    data.get(i).setCar(car);
+                }
             }
             return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
         } else {
