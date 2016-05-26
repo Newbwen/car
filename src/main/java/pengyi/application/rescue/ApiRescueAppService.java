@@ -155,7 +155,7 @@ public class ApiRescueAppService implements IApiRescueAppService {
     @Override
     public BaseResponse finishRescue(RescueSuccessCommand command) {
         if (null != command) {
-            if (!CoreStringUtils.isEmpty(command.getId())) {
+            if (CoreStringUtils.isEmpty(command.getId())) {
                 return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
             }
             if (null == command.getVersion()) {
