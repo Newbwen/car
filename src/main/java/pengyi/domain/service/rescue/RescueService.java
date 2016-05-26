@@ -213,7 +213,7 @@ public class RescueService implements IRescueService {
             criteriaList.add(Restrictions.eq("driver.id", command.getDriver()));
         }
         List<Order> orderList = new ArrayList<Order>();
-        orderList.add(Order.desc("applyTime"));
+        orderList.add(Order.asc("status"));
 
         return rescueRepository.pagination(command.getPage(), command.getPageSize(), criteriaList, aliasMap, orderList, null, null);
     }
