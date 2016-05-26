@@ -16,11 +16,15 @@ import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.RescueStatus;
 import pengyi.core.util.CoreStringUtils;
+import pengyi.domain.model.area.Area;
 import pengyi.domain.model.rescue.IRescueRepository;
 import pengyi.domain.model.rescue.Rescue;
 import pengyi.domain.model.user.BaseUser;
+import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
+import pengyi.domain.service.area.AreaService;
 import pengyi.domain.service.user.BaseUserService;
+import pengyi.domain.service.user.company.ICompanyService;
 import pengyi.domain.service.user.driver.DriverService;
 import pengyi.repository.generic.Pagination;
 
@@ -42,6 +46,12 @@ public class RescueService implements IRescueService {
 
     @Autowired
     private DriverService driverService;
+
+    @Autowired
+    private AreaService areaService;
+
+    @Autowired
+    private ICompanyService companyService;
 
 //    @Override
 //    public List<Rescue> findAllRescue() {
@@ -73,6 +83,19 @@ public class RescueService implements IRescueService {
         if (null != command.getRescueType()) {
             criteriaList.add(Restrictions.eq("rescueType", command.getRescueType()));
         }
+
+        if (!CoreStringUtils.isEmpty(command.getCompany())) {
+            Company company = companyService.show(command.getCompany());
+            command.setArea(company.getOperateAddress().getId());
+        }
+
+        if (null != command.getArea()) {
+            aliasMap.put("area", "area");
+            aliasMap.put("area.parent", "parent");
+            criteriaList.add(Restrictions.or(Restrictions.eq("area.id", command.getArea()),
+                    Restrictions.eq("parent.id", command.getArea()),
+                    Restrictions.eq("parent.parent.id", command.getArea())));
+        }
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("applyTime"));
 
@@ -82,9 +105,11 @@ public class RescueService implements IRescueService {
     @Override
     public Rescue create(CreateRescueCommand command) {
 
+        Area area = areaService.show(command.getArea());
+
         BaseUser applyUser = baseUserService.show(command.getApplyUser());
         Rescue rescue1 = new Rescue(applyUser, new Date(), command.getRescueType(),
-                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null, command.getRescueAddress(), command.getName(), command.getPhone());
+                command.getDescription(), null, null, RescueStatus.WAIT_RESCUE, null, null, command.getRescueAddress(), command.getName(), command.getPhone(), area);
         rescueRepository.save(rescue1);
 
         return rescue1;

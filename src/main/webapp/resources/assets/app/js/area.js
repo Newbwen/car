@@ -78,6 +78,7 @@ $.fn.areaCascade = function (attrName) {
                 $(data).removeAttr("name");
             }
         });
+        _selects = $(_this).find("select");
         if (_selects.size() < 3 && $(this).val() != "") {
             loadLowerAjax($(this).val(), $(this));
         }

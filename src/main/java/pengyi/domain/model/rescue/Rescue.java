@@ -2,6 +2,7 @@ package pengyi.domain.model.rescue;
 
 import pengyi.core.type.RescueStatus;
 import pengyi.core.type.RescueType;
+import pengyi.domain.model.area.Area;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.user.driver.Driver;
@@ -24,6 +25,7 @@ public class Rescue extends Identity {
     private Date finishTime;                    //救援完成时间
     private String images;                      //救援图片
     private String rescueAddress;               //救援地址
+    private Area area;                          //救援地址
 
     private String name;
     private String phone;
@@ -125,11 +127,19 @@ public class Rescue extends Identity {
         this.phone = phone;
     }
 
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
     public Rescue() {
         super();
     }
 
-    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime, String images, String rescueAddress,String name,String phone) {
+    public Rescue(BaseUser applyUser, Date applyTime, RescueType rescueType, String description, Driver driver, Date rescueTime, RescueStatus status, Date finishTime, String images, String rescueAddress,String name,String phone, Area area) {
         this.applyUser = applyUser;
         this.applyTime = applyTime;
         this.rescueType = rescueType;
@@ -142,5 +152,6 @@ public class Rescue extends Identity {
         this.rescueAddress = rescueAddress;
         this.name = name;
         this.phone = phone;
+        this.area = area;
     }
 }

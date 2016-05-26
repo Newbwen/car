@@ -26,6 +26,8 @@ public class CreateRescueCommand {
 
     private String rescueAddress;               //救援地址
 
+    private String area;
+
     private String name;
     private String phone;
 
@@ -75,6 +77,14 @@ public class CreateRescueCommand {
 
     public void setRescueAddress(String rescueAddress) {
         this.rescueAddress = rescueAddress;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getName() {

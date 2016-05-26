@@ -4,6 +4,7 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pengyi.application.area.representation.AreaRepresentation;
 import pengyi.application.rescue.representation.RescueRepresentation;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
@@ -28,6 +29,10 @@ public class RescueRepresentionMapper extends CustomMapper<Rescue,RescueRepresen
         if(null!=rescue.getDriver()){
             DriverRepresentation driver = mappingService.map(rescue.getDriver(),DriverRepresentation.class,false);
             representation.setDriver(driver);
+        }
+        if (null != rescue.getArea()) {
+            AreaRepresentation area = mappingService.map(rescue.getArea(), AreaRepresentation.class, false);
+            representation.setArea(area);
         }
 
     }
