@@ -39,6 +39,7 @@ public class Order extends Identity {
     private double startLat;                            //开始纬度
     private double endLon;                           //开始经度
     private double endLat;                            //开始纬度
+    private String contactPhone;                        //为别人叫代驾被联系人电话号码
 
     public String getOrderNumber() {
         return orderNumber;
@@ -236,7 +237,15 @@ public class Order extends Identity {
         this.endLat = endLat;
     }
 
-    public Order(String orderNumber, BaseUser orderUser, Date createDate, Driver receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, double startLat, double startLon, double endLat, double endLon) {
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public Order(String orderNumber, BaseUser orderUser, Date createDate, Driver receiveUser, Date receiveDate, Date subscribeDate, Date beginTime, DriverType driverType, Date endTime, BigDecimal shouldMoney, BigDecimal extraMoney, Date payTime, OrderStatus orderStatus, EvaluateStatus evaluateStatus, String startAddress, String endAddress, CarType carType, double startLat, double startLon, double endLat, double endLon,String contactPhone) {
         this.orderNumber = orderNumber;
         this.orderUser = orderUser;
         this.createDate = createDate;
@@ -258,6 +267,7 @@ public class Order extends Identity {
         this.startLon = startLon;
         this.endLat = endLat;
         this.endLon = endLon;
+        this.contactPhone = contactPhone;
     }
 
 }

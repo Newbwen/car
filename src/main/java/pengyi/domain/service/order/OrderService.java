@@ -190,7 +190,7 @@ public class OrderService implements IOrderService {
         Order order = new Order(orderNo, orderUser, new Date(), null, null,
                 CoreDateUtils.parseDate(command.getSubscribeDate(), CoreDateUtils.DATETIME), null, command.getDriverType(),
                 null, null, command.getExtraMoney(), null, OrderStatus.WAIT_ORDER, EvaluateStatus.NOT_EVALUATE,
-                command.getStartAddress(), command.getEndAddress(), null, command.getStartLat(), command.getStartLon(), command.getEndLat(), command.getEndLon());
+                command.getStartAddress(), command.getEndAddress(), null, command.getStartLat(), command.getStartLon(), command.getEndLat(), command.getEndLon(), command.getContactPhone());
         if (null != command.getCarType()) {
             order.setCarType(command.getCarType());
         }
@@ -636,7 +636,7 @@ public class OrderService implements IOrderService {
         User user = (User) baseUserService.searchByUserName(command.getUserName());
         String orderNo = idFactory.getNextId();
         Order order = new Order(orderNo, user, new Date(), driver, new Date(), null, new Date(), DriverType.GENERATION,
-                null, null, null, null, OrderStatus.START_ORDER, EvaluateStatus.NOT_EVALUATE, command.getStartAddress(), null, null, 0.0, 0.0, 0.0, 0.0);
+                null, null, null, null, OrderStatus.START_ORDER, EvaluateStatus.NOT_EVALUATE, command.getStartAddress(), null, null, 0.0, 0.0, 0.0, 0.0, command.getContactPhone());
         orderRepository.save(order);
         //TODO 发送短信
 //        smsSender.send(user.getUserName());

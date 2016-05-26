@@ -9,6 +9,7 @@ public class DriverCreateOrderCommand {
     private String userName;
     private String startAddress;                        //开始地址
     private String endAddress;                          //结束地址
+    private String contactPhone;                        //为别人叫代驾被联系人电话号码
 
     public String getDriverId() {
         return driverId;
@@ -40,5 +41,13 @@ public class DriverCreateOrderCommand {
 
     public void setEndAddress(String endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 }
