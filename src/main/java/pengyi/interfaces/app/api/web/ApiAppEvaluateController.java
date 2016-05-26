@@ -12,6 +12,7 @@ import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
 import pengyi.core.commons.Constants;
+import pengyi.core.exception.NoFoundException;
 
 import javax.servlet.http.HttpSession;
 
@@ -52,17 +53,12 @@ public class ApiAppEvaluateController {
 
     @RequestMapping(value = "/get_by_orderId")
     @ResponseBody
-    public BaseResponse info(String orderId,HttpSession session) {
+    public BaseResponse info(String orderId) {
         long startTime = System.currentTimeMillis();
-        BaseUserRepresentation baseUser = (BaseUserRepresentation) session.getAttribute(Constants.SESSION_USER);
-        if (null == baseUser) {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_NOT_LOGIN,
-                    System.currentTimeMillis() - startTime, null, ResponseCode.RESPONSE_CODE_NOT_LOGIN.getMessage());
-        }
         BaseResponse response = null;
 
         try {
-            response = apiEvaluateAppService.getByOrderId(orderId,baseUser.getId());
+            response = apiEvaluateAppService.getByOrderId(orderId);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             response = new BaseResponse(ResponseCode.RESPONSE_CODE_FAILURE, 0, null, e.getMessage());

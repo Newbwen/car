@@ -96,9 +96,8 @@ public class EvaluateService implements IEvaluateService {
      * 通过订单查看评价
      */
     @Override
-    public List<Evaluate> searchByOrder(String order, String userId) {
+    public List<Evaluate> searchByOrder(String order) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
-        criterionList.add(Restrictions.eq("evaluateUser.id", userId));
         criterionList.add(Restrictions.eq("order.id", order));
         return evaluateRepository.list(criterionList, null);
     }
@@ -125,24 +124,42 @@ public class EvaluateService implements IEvaluateService {
     public Evaluate apiCreateEvaluate(CreateEvaluateCommand command) {
         Order order = orderService.show(command.getOrderId());
         BaseUser baseUser = baseUserService.show(command.getEvaluateUser());
+        if(baseUser.getId() != order.getReceiveUser().getId() && baseUser.getId() != order.getOrderUser().getId()){
+            throw new ExistException("您不能评价此订单");
+        }
         if (order.getEvaluateStatus() == EvaluateStatus.OK_EVALUATE) {
             throw new ExistException("该订单已完成评价");
         }
-        Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
-        evaluateRepository.save(evaluate);
-        if (baseUser.getUserType() == UserType.USER) {
-            driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
-        }
-        if (order.getEvaluateStatus() == EvaluateStatus.NOT_EVALUATE) {
-            if (baseUser.getUserType() == UserType.USER) {
-                orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
-            } else if (baseUser.getUserType() == UserType.DRIVER) {
-                orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
+        if (baseUser.getUserType() == order.getOrderUser().getUserType()) {
+            if (order.getEvaluateStatus() != EvaluateStatus.USER_EVALUATE && order.getEvaluateStatus() != EvaluateStatus.OK_EVALUATE) {
+                Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
+                evaluateRepository.save(evaluate);
+                driverService.updateDriverLevel(order.getReceiveUser().getId(), reckonDriverLevel(order.getReceiveUser().getId()));
+                if (order.getEvaluateStatus() == EvaluateStatus.NOT_EVALUATE) {
+                    orderService.updateEvaluate(order.getId(), EvaluateStatus.USER_EVALUATE);
+                } else {
+                    orderService.updateEvaluate(order.getId(), EvaluateStatus.OK_EVALUATE);
+                }
+                return evaluate;
+            } else {
+                throw new ExistException("您已经评价该订单");
+            }
+        } else if (baseUser.getUserType() == order.getReceiveUser().getUserType()) {
+            if (order.getEvaluateStatus() != EvaluateStatus.DRIVER_EVALUATE && order.getEvaluateStatus() != EvaluateStatus.OK_EVALUATE) {
+                Evaluate evaluate = new Evaluate(baseUser, order, command.getContent(), command.getLevel(), new Date());
+                evaluateRepository.save(evaluate);
+                if (order.getEvaluateStatus() == EvaluateStatus.NOT_EVALUATE) {
+                    orderService.updateEvaluate(order.getId(), EvaluateStatus.DRIVER_EVALUATE);
+                } else {
+                    orderService.updateEvaluate(order.getId(), EvaluateStatus.OK_EVALUATE);
+                }
+                return evaluate;
+            } else {
+                throw new ExistException("您已经评价该订单");
             }
         } else {
-            orderService.updateEvaluate(order.getId(), EvaluateStatus.OK_EVALUATE);
+            throw new ExistException("您与这笔订单没有关系");
         }
-        return evaluate;
     }
 
     /**

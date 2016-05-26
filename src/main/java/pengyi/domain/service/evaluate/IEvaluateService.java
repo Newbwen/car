@@ -22,7 +22,7 @@ public interface IEvaluateService {
 
     Evaluate show(String id);
 
-    List<Evaluate> searchByOrder(String orderId,String userId);
+    List<Evaluate> searchByOrder(String orderId);
 
     void create(CreateEvaluateCommand command);
 

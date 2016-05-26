@@ -86,9 +86,9 @@ public class ApiEvaluateAppService implements IApiEvaluateAppService {
     }
 
     @Override
-    public BaseResponse getByOrderId(String orderId, String userId) {
+    public BaseResponse getByOrderId(String orderId) {
         if (!CoreStringUtils.isEmpty(orderId)) {
-            List<EvaluateRepresentation> data = mappingService.mapAsList(evaluateService.searchByOrder(orderId, userId), EvaluateRepresentation.class);
+            List<EvaluateRepresentation> data = mappingService.mapAsList(evaluateService.searchByOrder(orderId), EvaluateRepresentation.class);
             for (int i = 0; i < data.size(); i++) {
                 CarRepresentation car = carAppService.searchByDriver(data.get(i).getOrder().getReceiveUser().getId());
                 if (null != car) {
