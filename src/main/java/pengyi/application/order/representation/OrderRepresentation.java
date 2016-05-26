@@ -38,6 +38,7 @@ public class OrderRepresentation {
     private double startLat;                            //开始纬度
     private double endLon;                           //开始经度
     private double endLat;                            //开始纬度
+    private String contactPhone;                        //为别人叫代驾被联系人电话号码
 
     public String getId() {
         return id;
@@ -245,5 +246,13 @@ public class OrderRepresentation {
 
     public void setEndLat(double endLat) {
         this.endLat = endLat;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 }

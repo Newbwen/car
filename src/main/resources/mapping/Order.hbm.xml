@@ -79,6 +79,8 @@
         <property name="startLon" type="java.lang.Double" column="start_lon"/>
         <property name="endLat" type="java.lang.Double" column="end_lat"/>
         <property name="endLon" type="java.lang.Double" column="end_lon"/>
+
+        <property name="contactPhone" column="contact_phone" type="java.lang.String"/>
     </class>
 
 </hibernate-mapping>
