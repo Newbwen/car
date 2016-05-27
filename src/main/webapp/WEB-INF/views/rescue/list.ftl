@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>申请人<input type="text" value="${command.applyUser!}" name="applyUser" /></label>
-                                <label>救援司机<input type="text" value="${command.driver!}" name="driver" /></label>
+                                <label>申请人<input type="text" value="${command.applyUser!}" name="applyUser"/></label>
+                                <label>救援司机<input type="text" value="${command.driver!}" name="driver"/></label>
                                 <label>救援状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -32,10 +32,22 @@
                                         <option value="WAIT_RESCUE" [@mc.selected status "WAIT_RESCUE"/]>待救援</option>
                                         <option value="IN_RESCUE" [@mc.selected status "IN_RESCUE"/]>救援中</option>
                                         <option value="WAIT_AUDIT" [@mc.selected status "WAIT_AUDIT"/]>完成待审核</option>
-                                        <option value="SUCCESS_RESCUE" [@mc.selected status "SUCCESS_RESCUE"/]>救援完成</option>
+                                        <option value="SUCCESS_RESCUE" [@mc.selected status "SUCCESS_RESCUE"/]>救援完成
+                                        </option>
                                     </select>
                                 </label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <div class="col-lg-6">
+                                    <label>区域
+                                        <div class="area_box">
+                                            <select class="col-xs-3 area_data">
+                                            </select>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <label>
+                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -77,7 +89,8 @@
 
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="blue" href="[@spring.url '/rescue/show/${rescue.id!}'/]">查看</a>
+                                                <a class="blue"
+                                                   href="[@spring.url '/rescue/show/${rescue.id!}'/]">查看</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -100,7 +113,10 @@
 
 [@override name="bottomResources"]
     [@super /]
-
+<script src="[@spring.url '/resources/assets/app/js/area.js'/]"></script>
+<script>
+    $(".area_box").areaCascade("area");
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

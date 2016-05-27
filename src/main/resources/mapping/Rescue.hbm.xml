@@ -42,6 +42,8 @@
 
         <property name="name" column="name" type="java.lang.String"/>
         <property name="phone" column="phone" type="java.lang.String"/>
+
+        <many-to-one name="area" column="area" class="pengyi.domain.model.area.Area" />
     </class>
 
 </hibernate-mapping>
