@@ -116,9 +116,8 @@ public class Billing extends Identity {
         return status;
     }
 
-    private void setStatus(EnableStatus status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 
-    public void changeStatus(EnableStatus status){this.status=status;}
 }

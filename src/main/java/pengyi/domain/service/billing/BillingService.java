@@ -100,13 +100,12 @@ public class BillingService implements IBillingService {
         billing.setStartingPrice(command.getStartingPrice());
         billing.setStartKm(command.getStartKm());
         billing.setStartMin(command.getStartMin());
-        billing.changeStatus(EnableStatus.DISABLE);
+        billing.setStatus(EnableStatus.DISABLE);
 //        billing.setDriverType(command.getDriverType());
 //        if (null != command.getCarType()) {
 //            billing.setCarType(command.getCarType());
 //        }
         billingRepository.update(billing);
-        this.updateStatus(command);
         return billing;
     }
 
@@ -131,9 +130,9 @@ public class BillingService implements IBillingService {
         Billing billing = this.searchByID(command.getId());
         billing.fainWhenConcurrencyViolation(command.getVersion());
         if (billing.getStatus() == EnableStatus.DISABLE) {
-            billing.changeStatus(EnableStatus.ENABLE);
+            billing.setStatus(EnableStatus.ENABLE);
         } else {
-            billing.changeStatus(EnableStatus.DISABLE);
+            billing.setStatus(EnableStatus.DISABLE);
         }
         billingRepository.update(billing);
     }
@@ -143,9 +142,9 @@ public class BillingService implements IBillingService {
         Billing billing = this.searchByID(command.getId());
         billing.fainWhenConcurrencyViolation(command.getVersion());
         if (billing.getStatus() == EnableStatus.DISABLE) {
-            billing.changeStatus(EnableStatus.ENABLE);
+            billing.setStatus(EnableStatus.ENABLE);
         } else {
-            billing.changeStatus(EnableStatus.DISABLE);
+            billing.setStatus(EnableStatus.DISABLE);
         }
         billingRepository.update(billing);
     }
