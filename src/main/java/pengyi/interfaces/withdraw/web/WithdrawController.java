@@ -73,7 +73,7 @@ public class WithdrawController extends BaseController {
         OutputStream fOut = null;
 
         try {
-            codedFileName = java.net.URLEncoder.encode("体现" + CoreDateUtils.formatDateTime(new Date()), "UTF-8");
+            codedFileName = java.net.URLEncoder.encode("提现" + CoreDateUtils.formatDateTime(new Date()), "UTF-8");
             response.setHeader("content-disposition", "attachment;filename=" + codedFileName + ".xls");
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet();
@@ -95,7 +95,7 @@ public class WithdrawController extends BaseController {
             cellTitle5.setCellType(HSSFCell.CELL_TYPE_STRING);
             cellTitle5.setCellValue("结束时间");
 
-            for (int i = 1; i < representations.size(); i++) {
+            for (int i = 1; i <= representations.size(); i++) {
                 WithdrawRepresentation representation = representations.get(i - 1);
                 HSSFRow row = sheet.createRow(i);//创建一行
                 HSSFCell cell = row.createCell(0);//创建一列

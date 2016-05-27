@@ -122,7 +122,8 @@ public class EditBillingCommand extends SharedCommand{
         return status;
     }
 
-    public void setStatus(EnableStatus status) {
+    public void changeStatus(EnableStatus status){this.status=status;}
+    private void setStatus(EnableStatus status) {
         this.status = status;
     }
 }
