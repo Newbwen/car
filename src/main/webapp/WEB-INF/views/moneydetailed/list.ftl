@@ -23,8 +23,17 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>用户名<input type="text" value="${command.userName!}" name="userName" /></label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>用户名<input type="text" value="${command.userName!}" name="userName" />
+                                    开始<input type="date" value="${command.startTime!}" name="startTime"/>
+                                    </label>
+                                <label>
+                               结束<input type="date" value="${command.endTime!}" name="endTime"/>
+
+
+                               <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                <a href="/money_detailed/export_excel?userName=${command.userName!}&startTime=${command.startTime!}&endTime=${command.endTime!}"
+                                        class="btn-sm btn-success">导出表格</a></label>
+                            </div>
                             </div>
                         </div>
                     </form>
@@ -35,6 +44,7 @@
                         <th>用户名</th>
                         <th>资金流向</th>
                         <th>金额</th>
+                        <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -47,6 +57,7 @@
                                 <td>${moneyDetailed.baseUser.userName!}</td>
                                 <td>${(moneyDetailed.flowType.getName())!}</td>
                                 <td>${moneyDetailed.money!}</td>
+                                <td>${moneyDetailed.createDate!}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm">
@@ -71,7 +82,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/money_detailed/list?userName=${command.userName!}' /]
+                    [@mc.showPagination '/money_detailed/list?userName=${command.userName!}&startTime=${command.startTime!}&endTime=${command.endTime!}' /]
                 [/#if]
 
             </div>
