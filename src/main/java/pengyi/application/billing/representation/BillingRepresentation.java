@@ -3,6 +3,7 @@ package pengyi.application.billing.representation;
 import pengyi.application.user.company.representation.CompanyRepresentation;
 import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
+import pengyi.core.type.EnableStatus;
 
 import java.math.BigDecimal;
 
@@ -29,6 +30,8 @@ public class BillingRepresentation {
     private CarType carType;
 
     private CompanyRepresentation company;
+
+    private EnableStatus status;    //状态
 
     public String getId() {
         return id;
@@ -108,5 +111,13 @@ public class BillingRepresentation {
 
     public void setStartMin(Integer startMin) {
         this.startMin = startMin;
+    }
+
+    public EnableStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EnableStatus status) {
+        this.status = status;
     }
 }

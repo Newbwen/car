@@ -17,7 +17,6 @@ import pengyi.core.type.MessageType;
 import pengyi.core.type.WithdrawStatus;
 import pengyi.core.util.CoreDateUtils;
 import pengyi.core.util.CoreStringUtils;
-import pengyi.domain.model.moneydetailed.MoneyDetailed;
 import pengyi.domain.model.user.BaseUser;
 import pengyi.domain.model.withdraw.IWithdrawRepository;
 import pengyi.domain.model.withdraw.Withdraw;
@@ -116,5 +115,26 @@ public class WithdrawService implements IWithdrawService {
         messageByBaseUserCommand.setContent("您申请的提现" + withdraw.getId() + "已经处理，金额:" + withdraw.getMoney());
         messageByBaseUserCommand.setType(MessageType.SYSTEM_MESSAGE);
         messageService.createByBaseUser(messageByBaseUserCommand);
+    }
+
+    @Override
+    public List<Withdraw> exportExcel(ListWithdrawCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> alias = new HashMap<String, String>();
+        if (!CoreStringUtils.isEmpty(command.getBaseUser())) {
+            criterionList.add(Restrictions.like("baseUser.userName", command.getBaseUser(), MatchMode.ANYWHERE));
+            alias.put("baseUser", "baseUser");
+        }
+
+        if (null != command.getStatus()) {
+            criterionList.add(Restrictions.eq("status", command.getStatus()));
+        }
+
+        if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
+            criterionList.add(Restrictions.between("createTime", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("createTime"));
+        return withdrawRepository.list(criterionList, orderList, null, null, alias);
     }
 }

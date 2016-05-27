@@ -2,6 +2,7 @@ package pengyi.domain.model.billing;
 
 import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.base.Identity;
 import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
@@ -29,11 +30,13 @@ public class Billing extends Identity {
 
     private Company company;
 
+    private EnableStatus status;        //状态
+
     public Billing() {
         super();
     }
 
-    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling,BigDecimal startingPrice, Company company, DriverType driverType, CarType carType, Integer startKm, Integer startMin) {
+    public Billing(BigDecimal kmBilling, BigDecimal minuteBilling,BigDecimal startingPrice, Company company, DriverType driverType, CarType carType, Integer startKm, Integer startMin,EnableStatus status) {
         this.kmBilling = kmBilling;
         this.minuteBilling = minuteBilling;
         this.startingPrice = startingPrice;
@@ -42,6 +45,7 @@ public class Billing extends Identity {
         this.carType = carType;
         this.startKm = startKm;
         this.startMin = startMin;
+        this.status=status;
     }
 
     public BigDecimal getKmBilling() {
@@ -107,4 +111,14 @@ public class Billing extends Identity {
     public void setStartMin(Integer startMin) {
         this.startMin = startMin;
     }
+
+    public EnableStatus getStatus() {
+        return status;
+    }
+
+    private void setStatus(EnableStatus status) {
+        this.status = status;
+    }
+
+    public void changeStatus(EnableStatus status){this.status=status;}
 }

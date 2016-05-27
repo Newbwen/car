@@ -75,6 +75,14 @@
             </div>
 
             <div class="profile-info-row">
+                <div class="profile-info-name"> 状态</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click">${(billing.status.getName())!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
                 <div class="profile-info-name"> 车辆类型</div>
 
                 <div class="profile-info-value">

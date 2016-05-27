@@ -306,7 +306,13 @@
                 <li>
                     <a href="[@spring.url '/billing/list'/]">
                         <i class="icon-calendar"></i>
-                        计费模板列表
+                        计费模板列表(启用)
+                    </a>
+                </li>
+                <li>
+                    <a href="[@spring.url '/billing/wait_list'/]">
+                        <i class="icon-calendar"></i>
+                        计费模板列表(禁用)
                     </a>
                 </li>
             [#--<li>--]

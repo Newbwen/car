@@ -5,6 +5,7 @@ package pengyi.core.type;
  */
 public enum  EnableStatus {
 
+    ALL("全部",0,Boolean.TRUE),
     ENABLE("启用", 1, Boolean.FALSE),
     DISABLE("禁用", 2, Boolean.FALSE);
 

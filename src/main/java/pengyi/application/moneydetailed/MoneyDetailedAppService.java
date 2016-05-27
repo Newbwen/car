@@ -53,4 +53,10 @@ public class MoneyDetailedAppService implements IMoneyDetailedAppService {
     public MoneyDetailedRepresentation show(String id) {
         return mappingService.map(moneyDetailedService.show(id), MoneyDetailedRepresentation.class, false);
     }
+
+    @Override
+    public List<MoneyDetailedRepresentation> exportExcel(ListMoneyDetailedCommand command) {
+        return mappingService.mapAsList(moneyDetailedService.apiexportExcel(command), MoneyDetailedRepresentation.class);
+
+    }
 }

@@ -1,9 +1,6 @@
 package pengyi.application.billing;
 
-import pengyi.application.billing.command.CreateBillingCommand;
-import pengyi.application.billing.command.EditBillingCommand;
-import pengyi.application.billing.command.ListBillingCommand;
-import pengyi.application.billing.command.SearchBillingCommand;
+import pengyi.application.billing.command.*;
 import pengyi.core.api.BaseResponse;
 
 /**
@@ -21,4 +18,6 @@ public interface IApiBillingAppService {
     BaseResponse apiPagination(ListBillingCommand command);
 
     BaseResponse show(String id);
+
+    void updateStatus(SharedCommand command);
 }

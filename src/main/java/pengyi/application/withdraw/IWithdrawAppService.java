@@ -7,6 +7,8 @@ import pengyi.application.withdraw.representation.WithdrawRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by pengyi on 2016/5/6.
  */
@@ -18,4 +20,6 @@ public interface IWithdrawAppService {
     Pagination<WithdrawRepresentation> pagination(ListWithdrawCommand command);
 
     void finish(EditWithdrawCommand command);
+
+    List<WithdrawRepresentation> exportExcel(ListWithdrawCommand command);
 }
