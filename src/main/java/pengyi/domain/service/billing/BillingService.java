@@ -100,6 +100,7 @@ public class BillingService implements IBillingService {
         billing.setStartingPrice(command.getStartingPrice());
         billing.setStartKm(command.getStartKm());
         billing.setStartMin(command.getStartMin());
+        billing.changeStatus(EnableStatus.DISABLE);
 //        billing.setDriverType(command.getDriverType());
 //        if (null != command.getCarType()) {
 //            billing.setCarType(command.getCarType());
