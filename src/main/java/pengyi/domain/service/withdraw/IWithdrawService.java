@@ -7,6 +7,8 @@ import pengyi.core.exception.NotSufficientFundsException;
 import pengyi.domain.model.withdraw.Withdraw;
 import pengyi.repository.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by pengyi on 2016/5/6.
  */
@@ -18,4 +20,6 @@ public interface IWithdrawService {
     Pagination<Withdraw> pagination(ListWithdrawCommand command);
 
     void finish(EditWithdrawCommand command);
+
+    List<Withdraw> exportExcel(ListWithdrawCommand command);
 }

@@ -71,4 +71,5 @@ public class Withdraw extends Identity {
         this.status = status;
         this.finishTime = finishTime;
     }
+
 }

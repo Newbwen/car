@@ -39,6 +39,9 @@
                                     </select>
                                 </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label><a
+                                        href="/withdraw/export_excel?baseUser=${command.baseUser!}&startTime=${command.startTime!}&endTime=${command.endTime!}&status=${command.status!}"
+                                        class="btn-sm btn-success">导出表格</a></label>
                             </div>
                         </div>
                     </form>

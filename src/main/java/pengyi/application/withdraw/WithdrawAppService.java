@@ -67,4 +67,9 @@ public class WithdrawAppService implements IWithdrawAppService {
     public void finish(EditWithdrawCommand command) {
         withdrawService.finish(command);
     }
+
+    @Override
+    public List<WithdrawRepresentation> exportExcel(ListWithdrawCommand command) {
+        return mappingService.mapAsList(withdrawService.exportExcel(command),WithdrawRepresentation.class);
+    }
 }

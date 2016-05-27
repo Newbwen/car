@@ -15,6 +15,7 @@ public class ListWithdrawCommand extends BasicPaginationCommand {
     private String endTime;
     private WithdrawStatus status;                  //提现状态
 
+
     public String getBaseUser() {
         return baseUser;
     }
