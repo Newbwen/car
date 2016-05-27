@@ -1,5 +1,6 @@
 package pengyi.application.rescue.representation;
 
+import pengyi.application.area.representation.AreaRepresentation;
 import pengyi.application.user.driver.representation.DriverRepresentation;
 import pengyi.application.user.representation.BaseUserRepresentation;
 import pengyi.core.type.RescueStatus;
@@ -22,6 +23,8 @@ public class RescueRepresentation {
     private String finishTime;                  //救援完成时间
     private String images;                      //救援图片
     private String rescueAddress;               //救援地址
+
+    private AreaRepresentation area;            //救援地址
 
     private String name;
     private String phone;
@@ -136,5 +139,13 @@ public class RescueRepresentation {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public AreaRepresentation getArea() {
+        return area;
+    }
+
+    public void setArea(AreaRepresentation area) {
+        this.area = area;
     }
 }
