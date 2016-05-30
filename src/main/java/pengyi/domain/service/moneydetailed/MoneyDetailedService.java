@@ -34,6 +34,9 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     @Override
     public Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
+        if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+        }
 
         if (!CoreStringUtils.isEmpty(command.getUserName())) {
             criterionList.add(Restrictions.like("baseUser.userName", command.getUserName(), MatchMode.ANYWHERE));
@@ -122,5 +125,21 @@ public class MoneyDetailedService implements IMoneyDetailedService {
             throw new NoFoundException("没有找到资金流向id=[" + id + "]的记录");
         }
         return moneyDetailed;
+    }
+
+    @Override
+    public List<MoneyDetailed> apiexportExcel(ListMoneyDetailedCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        Map<String, String> alias = new HashMap<String, String>();
+        if(!CoreStringUtils.isEmpty(command.getStartTime()) && !CoreStringUtils.isEmpty(command.getEndTime())){
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+    }
+        if(!CoreStringUtils.isEmpty(command.getUserName())){
+            criterionList.add(Restrictions.like("baseUser.userName",command.getUserName(), MatchMode.ANYWHERE));
+            alias.put("baseUser","baseUser");
+        }
+        List<Order> orderList = new ArrayList<Order>();
+        orderList.add(Order.desc("createDate"));
+        return moneyDetailedRepository.list(criterionList,orderList,null,null,alias);
     }
 }

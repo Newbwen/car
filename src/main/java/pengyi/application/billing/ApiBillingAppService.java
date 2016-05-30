@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pengyi.application.billing.command.CreateBillingCommand;
-import pengyi.application.billing.command.EditBillingCommand;
-import pengyi.application.billing.command.ListBillingCommand;
-import pengyi.application.billing.command.SearchBillingCommand;
+import pengyi.application.billing.command.*;
 import pengyi.application.billing.representation.BillingRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -178,5 +175,10 @@ public class ApiBillingAppService implements IApiBillingAppService {
         }
         BillingRepresentation data = mappingService.map(billingService.show(id), BillingRepresentation.class, false);
         return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+    }
+
+    @Override
+    public void updateStatus(SharedCommand command) {
+        billingService.updateStatus(command);
     }
 }

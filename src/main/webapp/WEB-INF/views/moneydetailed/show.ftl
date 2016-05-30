@@ -65,6 +65,14 @@
                     <span class="editable editable-click" id="age">${moneyDetailed.newMoney!}</span>
                 </div>
             </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 创建时间</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age">${moneyDetailed.createDate!}</span>
+                </div>
+            </div>
         </div>
         <br>
         <br>

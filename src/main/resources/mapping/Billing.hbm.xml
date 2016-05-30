@@ -18,6 +18,13 @@
 
         <many-to-one name="company" column="company_id" class="pengyi.domain.model.user.company.Company"/>
 
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">pengyi.core.type.EnableStatus</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
         <property name="startKm" column="start_km" type="java.lang.Integer" />
 
         <property name="startMin" column="start_min" type="java.lang.Integer" />
@@ -35,6 +42,7 @@
                 <param name="type">4</param>
             </type>
         </property>
+
     </class>
 
 </hibernate-mapping>

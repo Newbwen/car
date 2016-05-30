@@ -3,6 +3,7 @@ package pengyi.application.billing.command;
 import org.hibernate.validator.constraints.NotEmpty;
 import pengyi.core.type.CarType;
 import pengyi.core.type.DriverType;
+import pengyi.core.type.EnableStatus;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -25,8 +26,12 @@ public class CreateBillingCommand {
     @NotNull(message = "{billing.startMin.NotNull.message}")
     private Integer startMin;
 
+
     private DriverType driverType;
     private CarType carType;
+
+    @NotNull(message = "{billing.status.NotNull.messages}")
+    private EnableStatus status;
 
     public BigDecimal getKmBilling() {
         return kmBilling;
@@ -90,5 +95,13 @@ public class CreateBillingCommand {
 
     public void setStartMin(Integer startMin) {
         this.startMin = startMin;
+    }
+
+    public EnableStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EnableStatus status) {
+        this.status = status;
     }
 }

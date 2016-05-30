@@ -69,19 +69,19 @@
                                                 <a class="blue"
                                                    href="[@spring.url '/billing/show/${billing.id!}'/]">查看</a>
                                             </li>
-                                            [#--<li>--]
-                                                [#--<a class="green"--]
-                                                   [#--href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>--]
-                                            [#--</li>--]
+                                        [#--<li>--]
+                                        [#--<a class="green"--]
+                                        [#--href="[@spring.url '/billing/edit/${billing.id}'/]">编辑</a>--]
+                                        [#--</li>--]
 
                                             <li>
                                                 [#if billing.status == "ENABLE"]
-                                                    <a href="[@spring.url '/billing/update_status?id=${billing.id!}&version=${billing.version!}'/]"
+                                                    <a href="[@spring.url '/billing/wait_update_status?id=${billing.id!}&version=${billing.version!}'/]"
                                                        data-toggle="tooltip" data-placement="top" title="点击禁用此数据">
                                                         <span class="label label-danger">禁用</span>
                                                     </a>
                                                 [#else]
-                                                    <a href="[@spring.url '/billing/update_status?id=${billing.id!}&version=${billing.version!}'/]"
+                                                    <a href="[@spring.url '/billing/wait_update_status?id=${billing.id!}&version=${billing.version!}'/]"
                                                        data-toggle="tooltip" data-placement="top" title="点击启用此数据">
                                                         <span class="label label-danger">启用</span>
                                                     </a>
@@ -97,7 +97,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/billing/list?kmBilling=${command.kmBilling!}&minuteBilling=${command.minuteBilling!}&area=${car.area}' /]
+                    [@mc.showPagination '/billing/wait_list?kmBilling=${command.kmBilling!}&minuteBilling=${command.minuteBilling!}&area=${car.area}' /]
                 [/#if]
 
             </div>

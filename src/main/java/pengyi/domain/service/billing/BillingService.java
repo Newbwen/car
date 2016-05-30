@@ -5,13 +5,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pengyi.application.billing.command.CreateBillingCommand;
-import pengyi.application.billing.command.EditBillingCommand;
-import pengyi.application.billing.command.ListBillingCommand;
-import pengyi.application.billing.command.SearchBillingCommand;
+import pengyi.application.billing.command.*;
 import pengyi.core.exception.ExistException;
 import pengyi.core.exception.NoFoundException;
 import pengyi.core.type.DriverType;
+import pengyi.core.type.EnableStatus;
 import pengyi.domain.model.area.Area;
 import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.billing.IBillingRepository;
@@ -43,10 +41,16 @@ public class BillingService implements IBillingService {
     @Override
     public Pagination<Billing> pagination(ListBillingCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
-
-
+        criterionList.add(Restrictions.eq("status", EnableStatus.ENABLE));
         List<Order> orderList = new ArrayList<Order>();
+        return billingRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
+    }
 
+    @Override
+    public Pagination<Billing> waitPagination(ListBillingCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+        criterionList.add(Restrictions.eq("status", EnableStatus.DISABLE));
+        List<Order> orderList = new ArrayList<Order>();
         return billingRepository.pagination(command.getPage(), command.getPageSize(), criterionList, orderList);
     }
 
@@ -68,7 +72,7 @@ public class BillingService implements IBillingService {
             throw new ExistException("该类型数据已存在，无需重复添加");
         }
 
-        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), command.getStartingPrice(), company, command.getDriverType(), null, command.getStartKm(), command.getStartMin());
+        Billing billing = new Billing(command.getKmBilling(), command.getMinuteBilling(), command.getStartingPrice(), company, command.getDriverType(), null, command.getStartKm(), command.getStartMin(),EnableStatus.DISABLE);
 
         if (null != command.getCarType()) {
             billing.setCarType(command.getCarType());
@@ -96,6 +100,7 @@ public class BillingService implements IBillingService {
         billing.setStartingPrice(command.getStartingPrice());
         billing.setStartKm(command.getStartKm());
         billing.setStartMin(command.getStartMin());
+        billing.setStatus(EnableStatus.DISABLE);
 //        billing.setDriverType(command.getDriverType());
 //        if (null != command.getCarType()) {
 //            billing.setCarType(command.getCarType());
@@ -104,9 +109,44 @@ public class BillingService implements IBillingService {
         return billing;
     }
 
+
+    @Override
+    public Billing searchByID(String id) {
+        Billing billing = billingRepository.getById(id);
+        if (null == billing) {
+            throw new NoFoundException("没有找到ID[" + id + "]的Billing数据");
+        }
+        return billing;
+    }
+
     @Override
     public Billing searchByCompany(String id) {
         return billingRepository.searchByCompany(id);
+    }
+
+    @Override
+    public void updateStatus(SharedCommand command) {
+
+        Billing billing = this.searchByID(command.getId());
+        billing.fainWhenConcurrencyViolation(command.getVersion());
+        if (billing.getStatus() == EnableStatus.DISABLE) {
+            billing.setStatus(EnableStatus.ENABLE);
+        } else {
+            billing.setStatus(EnableStatus.DISABLE);
+        }
+        billingRepository.update(billing);
+    }
+
+    @Override
+    public void waitUpdateStatus(SharedCommand command) {
+        Billing billing = this.searchByID(command.getId());
+        billing.fainWhenConcurrencyViolation(command.getVersion());
+        if (billing.getStatus() == EnableStatus.DISABLE) {
+            billing.setStatus(EnableStatus.ENABLE);
+        } else {
+            billing.setStatus(EnableStatus.DISABLE);
+        }
+        billingRepository.update(billing);
     }
 
     @Override
