@@ -81,4 +81,19 @@ public class ApiCarController {
         return baseResponse;
     }
 
+    @RequestMapping(value = "/show_id")
+    @ResponseBody
+    public BaseResponse showId(String id) {
+        long startTime = System.currentTimeMillis();
+        BaseResponse baseResponse = null;
+        try {
+            baseResponse = apiCarAppService.searchByID(id);
+        } catch (ExistException e) {
+            logger.warn(e.getMessage());
+            baseResponse = new BaseResponse(ResponseCode.RESPONSE_CODE_CONCURRENCY_ERROR, 0, ResponseMessage.ERROR_30001, e.getMessage());
+        }
+        baseResponse.setDebug_time(System.currentTimeMillis() - startTime);
+        return baseResponse;
+    }
+
 }

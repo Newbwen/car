@@ -18,4 +18,6 @@ public interface IApiCarAppService {
     BaseResponse updateCar(EditCarCommand command);
 
     BaseResponse apiInfo(String driverId);
+
+    BaseResponse searchByID(String id);
 }

@@ -101,4 +101,14 @@ public class ApiCarAppService implements IApiCarAppService {
             return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
         }
     }
+
+    @Override
+    public BaseResponse searchByID(String id) {
+        if (!CoreStringUtils.isEmpty(id)) {
+            CarRepresentation data = mappingService.map(carService.show(id), CarRepresentation.class, false);
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, data, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+        } else {
+            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10000.getMessage());
+        }
+    }
 }
