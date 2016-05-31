@@ -91,9 +91,9 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 身份证照片* </label>
 
                 <div class="col-sm-9">
-                    <button type="button" class="btn btn-sm btn-primary left input-file-hidden"
+                    <a class="btn btn-sm btn-primary left input-file-hidden"
                             id="identityCardPicUpload">点击上传照片
-                    </button>
+                    </a>
                     <input type="hidden" id="identityCardPic" name="identityCardPic"
                            placeholder="身份证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
@@ -104,9 +104,9 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 驾驶证照片* </label>
 
                 <div class="col-sm-9">
-                    <button type="button" class="btn btn-sm btn-primary left input-file-hidden"
+                    <a class="btn btn-sm btn-primary left input-file-hidden"
                             id="drivingLicencePicUpload">点击上传照片
-                    </button>
+                    </a>
                     <input type="hidden" id="drivingLicencePic" name="drivingLicencePic"
                            placeholder="驾驶证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
@@ -130,9 +130,9 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 行驶证照片* </label>
 
                 <div class="col-sm-9">
-                    <button type="button" class="btn btn-sm btn-primary left input-file-hidden"
+                    <a class="btn btn-sm btn-primary left input-file-hidden"
                             id="travelPicUpload">点击上传照片
-                    </button>
+                    </a>
                     <input type="hidden" id="travelPic" name="travelPic"
                            placeholder="行驶证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
@@ -159,9 +159,9 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 营业资格证照片* </label>
 
                 <div class="col-sm-9">
-                    <button type="button" class="btn btn-sm btn-primary left input-file-hidden"
+                    <a class="btn btn-sm btn-primary left input-file-hidden"
                             id="businessPicUpload">点击上传照片
-                    </button>
+                    </a>
                     <input type="hidden" id="businessPic" name="businessPic"
                            placeholder="营业资格证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
@@ -172,9 +172,9 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 从业资格证照片* </label>
 
                 <div class="col-sm-9">
-                    <button type="button" class="btn btn-sm btn-primary left input-file-hidden" id="workPicUpload">
+                    <a class="btn btn-sm btn-primary left input-file-hidden" id="workPicUpload">
                         点击上传照片
-                    </button>
+                    </a>
                     <input type="hidden" id="workPic" name="workPic"
                            placeholder="从业资格证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
