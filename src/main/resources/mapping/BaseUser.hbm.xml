@@ -87,6 +87,8 @@
             <property name="phone" column="phone" type="java.lang.String"/>
             <property name="businessPic" column="business_pic" type="java.lang.String"/>
             <property name="workPic" column="work_pic" type="java.lang.String"/>
+            <property name="bankCardNo" column="bank_card_no" type="java.lang.String"/>
+            <property name="bankName" column="bank_name" type="java.lang.String"/>
         </joined-subclass>
 
         <joined-subclass name="pengyi.domain.model.user.terrace.Terrace"

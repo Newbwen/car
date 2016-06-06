@@ -3,6 +3,7 @@ package pengyi.application.withdraw;
 import pengyi.application.withdraw.command.CreateWithdrawCommand;
 import pengyi.application.withdraw.command.EditWithdrawCommand;
 import pengyi.application.withdraw.command.ListWithdrawCommand;
+import pengyi.application.withdraw.representation.WithdrawExtendRepresentation;
 import pengyi.application.withdraw.representation.WithdrawRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.repository.generic.Pagination;
@@ -21,5 +22,5 @@ public interface IWithdrawAppService {
 
     void finish(EditWithdrawCommand command);
 
-    List<WithdrawRepresentation> exportExcel(ListWithdrawCommand command);
+    List<WithdrawExtendRepresentation> exportExcel(ListWithdrawCommand command);
 }

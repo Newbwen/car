@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pengyi.application.withdraw.command.CreateWithdrawCommand;
 import pengyi.application.withdraw.command.EditWithdrawCommand;
 import pengyi.application.withdraw.command.ListWithdrawCommand;
+import pengyi.application.withdraw.representation.WithdrawExtendRepresentation;
 import pengyi.application.withdraw.representation.WithdrawRepresentation;
 import pengyi.core.api.BaseResponse;
 import pengyi.core.api.ResponseCode;
@@ -69,7 +70,7 @@ public class WithdrawAppService implements IWithdrawAppService {
     }
 
     @Override
-    public List<WithdrawRepresentation> exportExcel(ListWithdrawCommand command) {
-        return mappingService.mapAsList(withdrawService.exportExcel(command),WithdrawRepresentation.class);
+    public List<WithdrawExtendRepresentation> exportExcel(ListWithdrawCommand command) {
+        return mappingService.mapAsList(withdrawService.exportExcel(command),WithdrawExtendRepresentation.class);
     }
 }

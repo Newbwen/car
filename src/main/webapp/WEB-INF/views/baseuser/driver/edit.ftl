@@ -19,14 +19,14 @@
         [@mc.showAlert /]
         <form action="/user/driver/edit" class="form-horizontal" id="form-edit" method="post">
 
-            <input type="hidden" name="id" value="${driver.id!}"/>
-            <input type="hidden" name="version" value="${driver.version!}"/>
+            <input type="hidden" name="id" value="${driver.id!command.id}"/>
+            <input type="hidden" name="version" value="${driver.version!command.version}"/>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="form-field-1" name="userName" value="${driver.userName!}"
+                    <input type="text" id="form-field-1" name="userName" value="${driver.userName!command.userName}"
                            class="col-xs-10 col-sm-5" disabled/>
                 </div>
             </div>
@@ -35,7 +35,8 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属公司* </label>
 
                 <div class="col-sm-9">
-                    <select class="col-xs-10 col-sm-5" id="company" name="company" data-id="${driver.company.id!}"
+                    <select class="col-xs-10 col-sm-5" id="company" name="company"
+                            data-id="${driver.company.id!command.company}"
                             required>
                         <option value="">请选择</option>
                     </select>
@@ -47,14 +48,14 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="identityCardPicUpload">点击上传照片
+                       id="identityCardPicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="identityCardPic" name="identityCardPic"
-                           value="${driver.identityCardPic!}"
+                           value="${driver.identityCardPic!command.identityCardPic}"
                            placeholder="身份证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box">
                         [#if driver.identityCardPic??]
-                            <img src="${driver.identityCardPic!}">
+                            <img src="${driver.identityCardPic!command.identityCardPic}">
                             <button type="button" class="btn btn-danger del-img">删除</button>
                         [/#if]
                     </p>
@@ -66,14 +67,14 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="drivingLicencePicUpload">点击上传照片
+                       id="drivingLicencePicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="drivingLicencePic" name="drivingLicencePic"
-                           value="${driver.drivingLicencePic!}"
+                           value="${driver.drivingLicencePic!command.drivingLicencePic}"
                            placeholder="驾驶证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box">
                         [#if driver.drivingLicencePic??]
-                            <img src="${driver.drivingLicencePic!}">
+                            <img src="${driver.drivingLicencePic!command.drivingLicencePic}">
                             <button type="button" class="btn btn-danger del-img">删除</button>
                         [/#if]
                     </p>
@@ -86,7 +87,7 @@
 
                 <div class="col-sm-9">
                     <select class="col-xs-10 col-sm-5" id="driverType" name="driverType" required>
-                        [#assign driverType = (driver.driverType)?default("") /]
+                        [#assign driverType = (driver.driverType!command.driverType)?default("") /]
                         <option value="">请选择</option>
                         <option value="GENERATION" [@mc.selected driverType "GENERATION"/]>代驾</option>
                         <option value="LIMOUSINE" [@mc.selected driverType "LIMOUSINE"/]>专车</option>
@@ -101,7 +102,7 @@
 
                 <div class="col-sm-9">
                     <select class="col-xs-10 col-sm-5" id="drivingLicenceType" name="drivingLicenceType">
-                        [#assign drivingLicenceType = (driver.drivingLicenceType!)?default("") /]
+                        [#assign drivingLicenceType = (driver.drivingLicenceType!command.drivingLicenceType)?default("") /]
                         <option value="">请选择</option>
                         <option value="A1" [@mc.selected drivingLicenceType "A1"/]>A1</option>
                         <option value="A2" [@mc.selected drivingLicenceType "A2"/]>A2</option>
@@ -118,13 +119,13 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="travelPicUpload">点击上传照片
+                       id="travelPicUpload">点击上传照片
                     </a>
-                    <input type="hidden" id="travelPic" name="travelPic" value="${driver.travelPic!}"
+                    <input type="hidden" id="travelPic" name="travelPic" value="${driver.travelPic!command.travelPic}"
                            placeholder="行驶证" class="col-xs-10 col-sm-5" required/>
                     <p class="img-box">
                         [#if driver.travelPic??]
-                            <img src="${driver.travelPic!}">
+                            <img src="${driver.travelPic!command.travelPic}">
                             <button type="button" class="btn btn-danger del-img">删除</button>
                         [/#if]
                     </p>
@@ -136,13 +137,14 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="businessPicUpload">点击上传照片
+                       id="businessPicUpload">点击上传照片
                     </a>
-                    <input type="hidden" id="businessPic" name="businessPic" value="${driver.businessPic!}"
+                    <input type="hidden" id="businessPic" name="businessPic"
+                           value="${driver.businessPic!command.businessPic}"
                            class="col-xs-10 col-sm-5" required/>
                     <p class="img-box">
                         [#if driver.businessPic??]
-                            <img src="${driver.businessPic!}">
+                            <img src="${driver.businessPic!command.businessPic}">
                             <button type="button" class="btn btn-danger del-img">删除</button>
                         [/#if]
                     </p>
@@ -156,14 +158,36 @@
                     <a class="btn btn-sm btn-primary left input-file-hidden" id="workPicUpload">
                         点击上传照片
                     </a>
-                    <input type="hidden" id="workPic" name="workPic" value="${driver.workPic!}"
+                    <input type="hidden" id="workPic" name="workPic" value="${driver.workPic!command.workPic}"
                            class="col-xs-10 col-sm-5" required/>
                     <p class="img-box">
                         [#if driver.workPic??]
-                            <img src="${driver.workPic!}">
+                            <img src="${driver.workPic!command.workPic}">
                             <button type="button" class="btn btn-danger del-img">删除</button>
                         [/#if]
                     </p>
+                </div>
+            </div>
+
+            [@spring.bind "command.bankCardNo"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 银行卡号* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="bankCardNo" name="bankCardNo" value="${driver.bankCarNo!command.bankCardNo}"
+                           placeholder="银行卡号" class="col-xs-10 col-sm-5" minlength="6" required/>
+                    [@spring.showErrors "bankCardNo"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.bankName"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 银行名称* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="bankName" name="bankName" value="${driver.bankName!command.bankName}"
+                           placeholder="银行名称" class="col-xs-10 col-sm-5" minlength="6" required/>
+                    [@spring.showErrors "bankName"/]
                 </div>
             </div>
 
@@ -203,9 +227,9 @@
             $("#company").append("<option value=''>请选择</option>");
             $.each(data, function (a, b) {
                 if (b.id == $("#company").attr("data-id")) {
-                    $("#company").append("<option value='" + b.id + "' selected>"+b.userName+"</option>");
+                    $("#company").append("<option value='" + b.id + "' selected>" + b.userName + "</option>");
                 } else {
-                    $("#company").append("<option value='" + b.id + "'>"+b.userName+"</option>");
+                    $("#company").append("<option value='" + b.id + "'>" + b.userName + "</option>");
                 }
             })
         }

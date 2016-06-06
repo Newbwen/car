@@ -36,6 +36,8 @@ public class Driver extends BaseUser {
     private String phone;               //电话
     private String businessPic;         //营业资格证
     private String workPic;             //从业资格证
+    private String bankCardNo;              //银行卡号
+    private String bankName;            //银行名称
 
     public String getHead() {
         return head;
@@ -181,12 +183,28 @@ public class Driver extends BaseUser {
         this.workPic = workPic;
     }
 
+    public String getBankCardNo() {
+        return bankCardNo;
+    }
+
+    public void setBankCardNo(String bankCardNo) {
+        this.bankCardNo = bankCardNo;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
     public Driver() {
         super();
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType, String name, String head, Company company, Sex sex, Double level, Double longitude, Double latitude, Integer reportCount, Boolean online, DriverType driverType, String identityCardPic, String drivingLicencePic, Date startDriveDate, AuthStatus authStatus,
-                  String travelPic, String drivingLicenceType, String phone, String businessPic, String workPic) {
+                  String travelPic, String drivingLicenceType, String phone, String businessPic, String workPic, String bankCardNo, String bankName) {
         super(name, userName, password, salt, status, balance, createDate, userRole, email, userType);
         this.head = head;
         this.company = company;
@@ -206,6 +224,8 @@ public class Driver extends BaseUser {
         this.phone = phone;
         this.businessPic = businessPic;
         this.workPic = workPic;
+        this.bankCardNo = bankCardNo;
+        this.bankName = bankName;
     }
 
     public Driver(String userName, String password, String salt, EnableStatus status, BigDecimal balance, Date createDate, Role userRole, String email, UserType userType) {

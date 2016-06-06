@@ -24,7 +24,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="userName" name="userName"
+                    <input type="text" id="userName" name="userName" value="${command.userName!}"
                            placeholder="用户名(手机号)" pattern="^1[345678][0-9]{9}$"
                            class="col-xs-10 col-sm-5"
                            required/>
@@ -59,7 +59,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属公司* </label>
 
                 <div class="col-sm-9">
-                    <select class="col-xs-10 col-sm-5" id="company" name="company" data-id="${driver.company.id!}"
+                    <select class="col-xs-10 col-sm-5" id="company" name="company" data-id="${command.company!}"
                             required>
                         <option value="">请选择</option>
                     </select>
@@ -71,7 +71,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="phone" name="phone"
+                    <input type="text" id="phone" name="phone" ${command.phone!}
                            placeholder="电话号码" pattern="^1[345678][0-9]{9}$" class="col-xs-10 col-sm-5"
                            required/>
                 </div>
@@ -82,7 +82,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 开始驾驶时间* </label>
 
                 <div class="col-sm-9">
-                    <input type="date" id="startDriveDate" name="startDriveDate"
+                    <input type="date" id="startDriveDate" name="startDriveDate" value="${command.startDriveDate!}"
                            placeholder="开始驾驶时间" class="col-xs-10 col-sm-5" required/>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="identityCardPicUpload">点击上传照片
+                       id="identityCardPicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="identityCardPic" name="identityCardPic"
                            placeholder="身份证照片" class="form-control col-xs-10 col-sm-5" required/>
@@ -105,7 +105,7 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="drivingLicencePicUpload">点击上传照片
+                       id="drivingLicencePicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="drivingLicencePic" name="drivingLicencePic"
                            placeholder="驾驶证照片" class="form-control col-xs-10 col-sm-5" required/>
@@ -118,10 +118,11 @@
 
                 <div class="col-sm-9">
                     <select class="col-xs-10 col-sm-5" id="driverType" name="driverType" required>
+                        [#assign driverType = (command.driverType)?default("") /]
                         <option value="">请选择</option>
-                        <option value="GENERATION">代驾</option>
-                        <option value="LIMOUSINE">专车</option>
-                        <option value="TAXI">出租车</option>
+                        <option value="GENERATION" [@mc.selected driverType "GENERATION"/]>代驾</option>
+                        <option value="LIMOUSINE" [@mc.selected driverType "LIMOUSINE"/]>专车</option>
+                        <option value="TAXI" [@mc.selected driverType "TAXI"/]>出租车</option>
                     </select>
                 </div>
             </div>
@@ -131,7 +132,7 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="travelPicUpload">点击上传照片
+                       id="travelPicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="travelPic" name="travelPic"
                            placeholder="行驶证照片" class="form-control col-xs-10 col-sm-5" required/>
@@ -144,13 +145,14 @@
 
                 <div class="col-sm-9">
                     <select class="col-xs-10 col-sm-5" id="drivingLicenceType" name="drivingLicenceType">
+                        [#assign drivingLicenceType = (command.drivingLicenceType)?default("") /]
                         <option value="">请选择</option>
-                        <option value="A1">A1</option>
-                        <option value="A2">A2</option>
-                        <option value="B1">B1</option>
-                        <option value="B2">B2</option>
-                        <option value="C1">C1</option>
-                        <option value="C2">C2</option>
+                        <option value="A1" [@mc.selected drivingLicenceType "A1"/]>A1</option>
+                        <option value="A2" [@mc.selected drivingLicenceType "A2"/]>A2</option>
+                        <option value="B1" [@mc.selected drivingLicenceType "B1"/]>B1</option>
+                        <option value="B2" [@mc.selected drivingLicenceType "B2"/]>B2</option>
+                        <option value="C1" [@mc.selected drivingLicenceType "C1"/]>C1</option>
+                        <option value="C2" [@mc.selected drivingLicenceType "C2"/]>C2</option>
                     </select>
                 </div>
             </div>
@@ -160,7 +162,7 @@
 
                 <div class="col-sm-9">
                     <a class="btn btn-sm btn-primary left input-file-hidden"
-                            id="businessPicUpload">点击上传照片
+                       id="businessPicUpload">点击上传照片
                     </a>
                     <input type="hidden" id="businessPic" name="businessPic"
                            placeholder="营业资格证照片" class="form-control col-xs-10 col-sm-5" required/>
@@ -178,6 +180,28 @@
                     <input type="hidden" id="workPic" name="workPic"
                            placeholder="从业资格证照片" class="form-control col-xs-10 col-sm-5" required/>
                     <p class="img-box"></p>
+                </div>
+            </div>
+
+            [@spring.bind "command.bankCardNo"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 银行卡号* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="bankCardNo" name="bankCardNo" value="${command.bankCardNo!}"
+                           placeholder="银行卡号" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "bankCardNo"/]
+                </div>
+            </div>
+
+            [@spring.bind "command.bankName"/]
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 银行名称* </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="bankName" name="bankName" value="${command.bankName!}"
+                           placeholder="银行名称" class="col-xs-10 col-sm-5" required/>
+                    [@spring.showErrors "bankName"/]
                 </div>
             </div>
 

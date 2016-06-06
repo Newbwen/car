@@ -34,6 +34,8 @@ public class DriverRepresentation extends BaseUserRepresentation {
     private String phone;               //电话
     private String businessPic;         //营业资格证
     private String workPic;             //从业资格证
+    private String bankCardNo;              //银行卡号
+    private String bankName;            //银行名称
 
     public String getName() {
         return name;
@@ -185,5 +187,21 @@ public class DriverRepresentation extends BaseUserRepresentation {
 
     public void setWorkPic(String workPic) {
         this.workPic = workPic;
+    }
+
+    public String getBankCardNo() {
+        return bankCardNo;
+    }
+
+    public void setBankCardNo(String bankCardNo) {
+        this.bankCardNo = bankCardNo;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

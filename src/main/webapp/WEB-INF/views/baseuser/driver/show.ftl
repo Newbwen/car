@@ -197,6 +197,24 @@
                     </div>
                 </div>
             [/#if]
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 银行卡号</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click"
+                          id="age">${driver.bankCardNo!}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 银行名称</div>
+
+                <div class="profile-info-value">
+                    <span class="editable editable-click"
+                          id="age">${driver.bankName!}</span>
+                </div>
+            </div>
         </div>
         <br>
         <br>

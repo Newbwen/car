@@ -93,6 +93,8 @@ public class DriverService implements IDriverService {
         String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
         driver.setIdentityCardPic(identityCarPic);
         driver.setDrivingLicencePic(drivingLicencePic);
+        driver.setBankCardNo(command.getBankCardNo());
+        driver.setBankName(command.getBankName());
         Car car = carService.searchByDriver(driver.getId());
         if (driver.getDriverType() == DriverType.LIMOUSINE) {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
@@ -167,18 +169,21 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
+                    command.getBankCardNo(), command.getBankName());
         } else if (command.getDriverType() == DriverType.GENERATION) {
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
+                    command.getBankCardNo(), command.getBankName());
         } else {
             String businessPic = command.getBusinessPic().replace("img_tmp", "img");
             String workPic = command.getWorkPic().replaceAll("img_tmp", "img");
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
+                    command.getBankCardNo(), command.getBankName());
         }
 
         driverRepository.save(driver);
@@ -271,6 +276,8 @@ public class DriverService implements IDriverService {
         String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
         driver.setIdentityCardPic(identityCarPic);
         driver.setDrivingLicencePic(drivingLicencePic);
+        driver.setBankCardNo(command.getBankCardNo());
+        driver.setBankName(command.getBankName());
         if (command.getDriverType() == DriverType.LIMOUSINE) {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver.setTravelPic(travelPic);
@@ -348,18 +355,21 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
+                    command.getBankCardNo(), command.getBankName());
         } else if (command.getDriverType() == DriverType.GENERATION) {
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
+                    command.getBankCardNo(), command.getBankName());
         } else {
             String businessPic = command.getBusinessPic().replace("img_tmp", "img");
             String workPic = command.getWorkPic().replaceAll("img_tmp", "img");
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic);
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
+                    command.getBankCardNo(), command.getBankName());
         }
 
         driverRepository.save(driver);
@@ -406,7 +416,7 @@ public class DriverService implements IDriverService {
         Role role = roleService.searchByName("driver");
         Driver driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                 command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, null,
-                null, AuthStatus.AUTH_WAIT, null, null, command.getPhone(), null, null);
+                null, AuthStatus.AUTH_WAIT, null, null, command.getPhone(), null, null, null, null);
 //        if (command.getDriverType() == DriverType.LIMOUSINE) {
 //            String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
 //            driver = new Driver(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
