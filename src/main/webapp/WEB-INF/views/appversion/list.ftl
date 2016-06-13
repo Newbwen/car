@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -25,10 +26,10 @@ App版本列表
                             <div id="sample-table-2_length" class="dataTables_length">
                                 <label>app版本号<input type="text" value="${command.appVersion!}" name="appVersion" /></label>
                                 <label>
-                                    更新时间<input type="date" value="${command.startUpdateDate!}" name="startUpdateDate" />
+                                    更新时间<input type="text" value="${command.startUpdateDate!}" id="startUpdateDate" name="startUpdateDate" />
                                 </label>
                                 <label>
-                                    到<input type="date" value="${command.endUpDateDate!}" name="endUpDateDate" />
+                                    到<input type="text" value="${command.endUpDateDate!}" id="endUpDateDate" name="endUpDateDate" />
                                 </label>
                                 <label>状态
                                     <select name="status">
@@ -105,7 +106,18 @@ App版本列表
 
 [@override name="bottomResources"]
     [@super /]
-
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
+<script type="text/javascript">
+    $.datetimepicker.setLocale('en');
+    $('#startUpdateDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+    $('#endUpDateDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

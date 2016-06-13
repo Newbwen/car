@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -82,7 +83,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 开始驾驶时间* </label>
 
                 <div class="col-sm-9">
-                    <input type="date" id="startDriveDate" name="startDriveDate" value="${command.startDriveDate!}"
+                    <input type="text" id="startDriveDate" name="startDriveDate" value="${command.startDriveDate!}"
                            placeholder="开始驾驶时间" class="col-xs-10 col-sm-5" required/>
                 </div>
             </div>
@@ -229,6 +230,7 @@
 <script src="[@spring.url '/resources/assets/js/upload/webuploader.js'/]"></script>
 <script src="[@spring.url '/resources/assets/js/layer/layer.js'/]"></script>
 <script src="[@spring.url '/resources/assets/app/js/driverCreate.js'/]"></script>
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
 <script type="text/javascript">
     $.ajax({
         type: "post",
@@ -324,6 +326,12 @@
         }
         return true;
     })
+
+    $.datetimepicker.setLocale('en');
+    $('#startDriveDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
 </script>
 [/@override]
 

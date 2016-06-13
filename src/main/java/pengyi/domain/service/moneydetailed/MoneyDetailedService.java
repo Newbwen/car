@@ -35,7 +35,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     public Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command) {
         List<Criterion> criterionList = new ArrayList<Criterion>();
         if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
-            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDate(command.getStartTime(),"yyyy/MM/dd HH:mm"), CoreDateUtils.parseDate(command.getEndTime(),"yyyy/MM/dd HH:mm")));
         }
 
         if (!CoreStringUtils.isEmpty(command.getUserName())) {

@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -27,10 +28,10 @@
                                     用户名<input type="text" value="${command.userName!}" name="userName"/>
                                 </label>
                                 <label>
-                                    开始<input type="date" value="${command.startTime!}" name="startTime"/>
+                                    开始<input type="text" value="${command.startTime!}" id="startTime" name="startTime"/>
                                 </label>
                                 <label>
-                                    结束<input type="date" value="${command.endTime!}" name="endTime"/>
+                                    结束<input type="text" value="${command.endTime!}" id="endTime" name="endTime"/>
                                 </label>
 
                                 <label>
@@ -101,7 +102,18 @@
 
 [@override name="bottomResources"]
     [@super /]
-
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
+<script type="text/javascript">
+    $.datetimepicker.setLocale('en');
+    $('#startTime').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+    $('#endTime').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

@@ -91,7 +91,7 @@ public class OrderService implements IOrderService {
             criterionList.add(Restrictions.eq("carType", command.getCarType()));
         }
         if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
-            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+            criterionList.add(Restrictions.between("createDate", CoreDateUtils.parseDate(command.getStartTime(), "yyyy/MM/dd HH:mm"), CoreDateUtils.parseDate(command.getEndTime(), "yyyy/MM/dd HH:mm")));
         }
 
         if (!CoreStringUtils.isEmpty(command.getArea())) {
@@ -164,10 +164,10 @@ public class OrderService implements IOrderService {
         }
 
         if (!CoreStringUtils.isEmpty(command.getStartCreateDate())) {
-            criterionList.add(Restrictions.ge("createDate", CoreDateUtils.parseDate(command.getStartCreateDate())));
+            criterionList.add(Restrictions.ge("createDate", CoreDateUtils.parseDate(command.getStartCreateDate(), "yyyy/MM/dd HH:mm")));
         }
         if (!CoreStringUtils.isEmpty(command.getEndCreateDate())) {
-            criterionList.add(Restrictions.le("createDate", CoreDateUtils.parseDate(command.getEndCreateDate())));
+            criterionList.add(Restrictions.le("createDate", CoreDateUtils.parseDate(command.getEndCreateDate(), "yyyy/MM/dd HH:mm")));
         }
         if (null != command.getDriverType()) {
             criterionList.add(Restrictions.eq("driverType", command.getDriverType()));

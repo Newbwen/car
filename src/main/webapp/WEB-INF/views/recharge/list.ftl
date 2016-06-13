@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -25,10 +26,10 @@
                             <div id="sample-table-2_length" class="dataTables_length">
                                 <label>充值用户名<input type="text" value="${command.userName!}" name="userName" /></label>
                                 <label>
-                                    创建时间<input type="date" value="${command.startCreateDate!}" name="startCreateDate" />
+                                    创建时间<input type="text" value="${command.startCreateDate!}" id="startCreateDate" name="startCreateDate" />
                                 </label>
                                 <label>
-                                    到<input type="date" value="${command.endCreateDate!}" name="endCreateDate" />
+                                    到<input type="text" value="${command.endCreateDate!}" id="endCreateDate" name="endCreateDate" />
                                 </label>
                                 <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
                             </div>
@@ -78,7 +79,18 @@
 
 [@override name="bottomResources"]
     [@super /]
-
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
+<script type="text/javascript">
+    $.datetimepicker.setLocale('en');
+    $('#startCreateDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+    $('#endCreateDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+</script>
 [/@override]
 
 [@extends name="/decorator.ftl"/]

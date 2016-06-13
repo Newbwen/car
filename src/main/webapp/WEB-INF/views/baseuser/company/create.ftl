@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -68,7 +69,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 公司注册时间* </label>
 
                 <div class="col-sm-9">
-                    <input type="date" id="registerDate" name="registerDate"
+                    <input type="text" id="registerDate" name="registerDate"
                            placeholder="公司注册时间" class="col-xs-10 col-sm-5" required/>
                 </div>
             </div>
@@ -132,6 +133,7 @@
 <script src="[@spring.url '/resources/assets/js/upload/webuploader.js'/]"></script>
 <script src="[@spring.url '/resources/assets/js/layer/layer.js'/]"></script>
 <script src="[@spring.url '/resources/assets/app/js/area.js'/]"></script>
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
 <script type="text/javascript">
     function checkPasswords() {
         var pass1 = document.getElementById("password");
@@ -208,6 +210,12 @@
         }
         return true;
     })
+
+    $.datetimepicker.setLocale('en');
+    $('#registerDate').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
 </script>
 [/@override]
 

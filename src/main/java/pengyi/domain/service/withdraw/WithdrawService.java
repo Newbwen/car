@@ -92,7 +92,7 @@ public class WithdrawService implements IWithdrawService {
             criterionList.add(Restrictions.eq("status", command.getStatus()));
         }
         if (!CoreStringUtils.isEmpty(command.getEndTime()) && !CoreStringUtils.isEmpty(command.getStartTime())) {
-            criterionList.add(Restrictions.between("createTime", CoreDateUtils.parseDateStart(command.getStartTime()), CoreDateUtils.parseDateEnd(command.getEndTime())));
+            criterionList.add(Restrictions.between("createTime", CoreDateUtils.parseDate(command.getStartTime(),"yyyy/MM/dd HH:mm"), CoreDateUtils.parseDate(command.getEndTime(),"yyyy/MM/dd HH:mm")));
         }
 
         List<Order> orderList = new ArrayList<Order>();

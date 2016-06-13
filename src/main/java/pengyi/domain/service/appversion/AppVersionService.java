@@ -36,11 +36,11 @@ public class AppVersionService implements IAppVersionService {
         if (!CoreStringUtils.isEmpty(command.getAppVersion())) {
             criterionList.add(Restrictions.like("appVersion", command.getAppVersion(), MatchMode.ANYWHERE));
         }
-        if (!CoreStringUtils.isEmpty(command.getStartUpdateDate()) && null != CoreDateUtils.parseDate(command.getStartUpdateDate())) {
-            criterionList.add(Restrictions.ge("updateDate", CoreDateUtils.parseDate(command.getStartUpdateDate())));
+        if (!CoreStringUtils.isEmpty(command.getStartUpdateDate()) && null != CoreDateUtils.parseDate(command.getStartUpdateDate(),"yyyy/MM/dd HH:mm")) {
+            criterionList.add(Restrictions.ge("updateDate", CoreDateUtils.parseDate(command.getStartUpdateDate(),"yyyy/MM/dd HH:mm")));
         }
-        if (!CoreStringUtils.isEmpty(command.getEndUpDateDate()) && null != CoreDateUtils.parseDate(command.getEndUpDateDate())) {
-            criterionList.add(Restrictions.le("updateDate", CoreDateUtils.parseDate(command.getEndUpDateDate())));
+        if (!CoreStringUtils.isEmpty(command.getEndUpDateDate()) && null != CoreDateUtils.parseDate(command.getEndUpDateDate(),"yyyy/MM/dd HH:mm")) {
+            criterionList.add(Restrictions.le("updateDate", CoreDateUtils.parseDate(command.getEndUpDateDate(),"yyyy/MM/dd HH:mm")));
         }
         if (null != command.getStatus()) {
             criterionList.add(Restrictions.eq("status", command.getStatus()));

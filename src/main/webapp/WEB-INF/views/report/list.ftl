@@ -2,6 +2,7 @@
 
 [@override name="topResources"]
     [@super /]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -23,9 +24,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>开始<input type="date" value="${command.startDealTime!}"
-                                                name="startDealTime"/></label>
-                                <label>结束<input type="date" value="${command.endDealTime!}" name="endDealTime"/></label>
+                                <label>开始<input type="text" value="${command.startDealTime!}" id="startDealTime" name="startDealTime"/></label>
+                                <label>结束<input type="text" value="${command.endDealTime!}" id="endDealTime" name="endDealTime"/></label>
                                 <label>处理状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -158,6 +158,7 @@
 
 [@override name="bottomResources"]
     [@super /]
+<script src="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.full.js'/]"></script>
 <script type="text/javascript">
     $("#success-process").click(function () {
         var id = $(this).attr("data-id");
@@ -167,6 +168,16 @@
         $("#from-edit").find("input[name='version']").val(version);
         $("#from-edit").find("input[name='orderNo']").val(orderNo);
         $("#modalSearch").modal();
+    });
+
+    $.datetimepicker.setLocale('en');
+    $('#startDealTime').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
+    });
+    $('#endDealTime').datetimepicker({
+        dayOfWeekStart : 1,
+        lang:'en',
     });
 </script>
 [/@override]

@@ -99,10 +99,10 @@ public class MessageService implements IMessageService {
             criterionList.add(Restrictions.like("sendBaseUser.userName", command.getSendBaseUser(), MatchMode.ANYWHERE));
         }
         if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
-            criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime())));
+            criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime(), "yyyy/MM/dd HH:mm")));
         }
         if (!CoreStringUtils.isEmpty(command.getEndTime())) {
-            criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
+            criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime(), "yyyy/MM/dd HH:mm")));
         }
 
         criterionList.add(Restrictions.eq("showType", ShowType.SHOW));
@@ -143,10 +143,10 @@ public class MessageService implements IMessageService {
         }
 
         if (!CoreStringUtils.isEmpty(command.getBeginTime())) {
-            criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime())));
+            criterionList.add(Restrictions.ge("sendDate", CoreDateUtils.parseDate(command.getBeginTime(), "yyyy/MM/dd HH:mm")));
         }
         if (!CoreStringUtils.isEmpty(command.getEndTime())) {
-            criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime())));
+            criterionList.add(Restrictions.le("sendDate", CoreDateUtils.parseDate(command.getEndTime(), "yyyy/MM/dd HH:mm")));
         }
         if (!CoreStringUtils.isEmpty(command.getReceiveBaseUser())) {
             criterionList.add(Restrictions.like("receiveBaseUser.userName", command.getReceiveBaseUser(), MatchMode.ANYWHERE));

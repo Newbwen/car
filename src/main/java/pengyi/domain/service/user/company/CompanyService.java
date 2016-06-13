@@ -131,7 +131,7 @@ public class CompanyService implements ICompanyService {
         String folder = command.getFolder().replaceAll("img_tmp", "img");
 
         Company company = new Company(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.COMPANY, command.getName(),
-                folder, CoreDateUtils.parseDate(command.getRegisterDate(), "yyyy-MM-dd"), registerAddress, operateAddress, 0.0);
+                folder, CoreDateUtils.parseDate(command.getRegisterDate(), "yyyy/MM/dd HH:mm"), registerAddress, operateAddress, 0.0);
 
         companyRepository.save(company);
         fileUploadService.move(folder.substring(folder.lastIndexOf("/") + 1));
@@ -216,7 +216,7 @@ public class CompanyService implements ICompanyService {
 
         Company company = new Company(command.getUserName(), password, salt, EnableStatus.DISABLE, new BigDecimal(0), new Date(),
                 role, command.getEmail(), UserType.COMPANY, command.getName(), folder,
-                CoreDateUtils.parseDate(command.getRegisterDate()), registerAddress, operateAddress, 0.0);
+                CoreDateUtils.parseDate(command.getRegisterDate(), "yyyy/MM/dd HH:mm"), registerAddress, operateAddress, 0.0);
 
         companyRepository.save(company);
 

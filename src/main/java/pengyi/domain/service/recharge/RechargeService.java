@@ -168,11 +168,11 @@ public class RechargeService implements IRechargeService {
             criterionList.add(Restrictions.like("user.userName", command.getUserName(), MatchMode.ANYWHERE));
             alias.put("user", "user");
         }
-        if (!CoreStringUtils.isEmpty(command.getStartCreateDate()) && null != CoreDateUtils.parseDate(command.getStartCreateDate())) {
-            criterionList.add(Restrictions.ge("createTime", CoreDateUtils.parseDate(command.getStartCreateDate())));
+        if (!CoreStringUtils.isEmpty(command.getStartCreateDate()) && null != CoreDateUtils.parseDate(command.getStartCreateDate(),"yyyy/MM/dd HH:mm")) {
+            criterionList.add(Restrictions.ge("createTime", CoreDateUtils.parseDate(command.getStartCreateDate(),"yyyy/MM/dd HH:mm")));
         }
-        if (!CoreStringUtils.isEmpty(command.getEndCreateDate()) && null != CoreDateUtils.parseDate(command.getEndCreateDate())) {
-            criterionList.add(Restrictions.le("createTime", CoreDateUtils.parseDate(command.getEndCreateDate())));
+        if (!CoreStringUtils.isEmpty(command.getEndCreateDate()) && null != CoreDateUtils.parseDate(command.getEndCreateDate(),"yyyy/MM/dd HH:mm")) {
+            criterionList.add(Restrictions.le("createTime", CoreDateUtils.parseDate(command.getEndCreateDate(),"yyyy/MM/dd HH:mm")));
         }
         List<Order> orderList = new ArrayList<Order>();
         orderList.add(Order.desc("createTime"));

@@ -88,10 +88,10 @@ public class ReportService implements IReportService {
         }
 
         if (!CoreStringUtils.isEmpty(command.getStartDealTime())) {
-            criterionList.add(Restrictions.ge("reportTime", CoreDateUtils.parseDate(command.getStartDealTime())));
+            criterionList.add(Restrictions.ge("reportTime", CoreDateUtils.parseDate(command.getStartDealTime(), "yyyy/MM/dd HH:mm")));
         }
         if (!CoreStringUtils.isEmpty(command.getEndDealTime())) {
-            criterionList.add(Restrictions.le("reportTime", CoreDateUtils.parseDate(command.getEndDealTime())));
+            criterionList.add(Restrictions.le("reportTime", CoreDateUtils.parseDate(command.getEndDealTime(), "yyyy/MM/dd HH:mm")));
         }
 //        if (!CoreStringUtils.isEmpty(command.getEndDealTime()) && !CoreStringUtils.isEmpty(command.getStartDealTime())) {
 //            criterionList.add(Restrictions.between("reportTime", CoreDateUtils.parseDate(command.getStartDealTime()), CoreDateUtils.parseDate(command.getEndDealTime())));

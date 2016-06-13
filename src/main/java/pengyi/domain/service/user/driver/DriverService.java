@@ -169,12 +169,12 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
                     command.getBankCardNo(), command.getBankName());
         } else if (command.getDriverType() == DriverType.GENERATION) {
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
                     command.getBankCardNo(), command.getBankName());
         } else {
             String businessPic = command.getBusinessPic().replace("img_tmp", "img");
@@ -182,7 +182,7 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
                     command.getBankCardNo(), command.getBankName());
         }
 
@@ -355,12 +355,12 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), null, null,
                     command.getBankCardNo(), command.getBankName());
         } else if (command.getDriverType() == DriverType.GENERATION) {
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, null, command.getDrivingLicenceType(), command.getPhone(), null, null,
                     command.getBankCardNo(), command.getBankName());
         } else {
             String businessPic = command.getBusinessPic().replace("img_tmp", "img");
@@ -368,7 +368,7 @@ public class DriverService implements IDriverService {
             String travelPic = command.getTravelPic().replaceAll("img_tmp", "img");
             driver = new Driver(command.getUserName(), password, salt, EnableStatus.ENABLE, new BigDecimal(0), new Date(), role, null, UserType.DRIVER,
                     command.getName(), null, company, null, 0.0, 0.0, 0.0, 0, false, command.getDriverType(), identityCarPic, drivingLicencePic,
-                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy-MM-dd"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
+                    CoreDateUtils.parseDate(command.getStartDriveDate(), "yyyy/MM/dd HH:mm"), AuthStatus.AUTH_TERRACE, travelPic, null, command.getPhone(), businessPic, workPic,
                     command.getBankCardNo(), command.getBankName());
         }
 
