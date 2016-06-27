@@ -52,22 +52,9 @@ public class PayService implements IPayService {
             order.setPayType(PayType.ALIPAY);
             order.setPayNo(notify.getTrade_no());
 
-            String phone = order.getReceiveUser().getUserName();
-
-//            BaseUser orderUser = order.getOrderUser();
-//            orderUser.setUserRole(null);
-//            Driver driver = (Driver) order.getReceiveUser();
-//
-//            driver.setUserRole(null);
-//            driver.setCompany(null);
-//
-//            order.setOrderUser(orderUser);
-//            order.setReceiveUser(driver);
-
-            sendToDriver(phone, order);
         }
 
-        orderService.paySuccress(order);
+        orderService.paySuccess(order);
     }
 
     @Override
@@ -81,22 +68,9 @@ public class PayService implements IPayService {
             order.setPayType(PayType.WECHAT);
             order.setPayNo(notify.getTransaction_id());
 
-            String phone = order.getReceiveUser().getUserName();
-
-//            BaseUser orderUser = order.getOrderUser();
-//            orderUser.setUserRole(null);
-//            Driver driver = (Driver) order.getReceiveUser();
-//
-//            driver.setUserRole(null);
-//            driver.setCompany(null);
-//
-//            order.setOrderUser(orderUser);
-//            order.setReceiveUser(driver);
-
-            sendToDriver(phone, order);
         }
 
-        orderService.paySuccress(order);
+        orderService.paySuccess(order);
     }
 
     @Override
@@ -139,27 +113,5 @@ public class PayService implements IPayService {
             throw new WechatSignException("未知错误");
         }
 
-    }
-
-    private void sendToDriver(String phone, Order order) {
-        if (TcpService.driverClients.containsKey(phone)) {
-            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))) {
-                putDriverMessage(phone, order);
-            }
-        } else {
-            putDriverMessage(phone, order);
-        }
-    }
-
-    private void putDriverMessage(String phone, Order order) {
-        if (TcpService.driverMessages.containsKey(phone)) {
-            List<String> messages = TcpService.driverMessages.get(phone);
-            messages.add(JSON.toJSONString(order));
-            TcpService.driverMessages.replace(phone, messages);
-        } else {
-            List<String> messages = new ArrayList<String>();
-            messages.add(JSON.toJSONString(order));
-            TcpService.driverMessages.put(phone, messages);
-        }
     }
 }

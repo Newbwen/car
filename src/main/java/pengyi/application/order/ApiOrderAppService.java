@@ -177,22 +177,22 @@ public class ApiOrderAppService implements IApiOrderAppService {
         }
     }
 
-    @Override
-    public BaseResponse payOrder(UpDateOrderStatusCommand command) {
-        if (null != command) {
-            if (CoreStringUtils.isEmpty(command.getOrderId())) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
-            }
-            if (null == command.getVersion()) {
-                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
-            }
-            OrderRepresentation order = mappingService.map(orderService.apiPayOrder(command), OrderRepresentation.class, false);
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
-        } else {
-            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
-                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
-        }
-    }
+//    @Override
+//    public BaseResponse payOrder(UpDateOrderStatusCommand command) {
+//        if (null != command) {
+//            if (CoreStringUtils.isEmpty(command.getOrderId())) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10024.getMessage());
+//            }
+//            if (null == command.getVersion()) {
+//                return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null, ResponseMessage.ERROR_10001.getMessage());
+//            }
+//            OrderRepresentation order = mappingService.map(orderService.apiPayOrder(command), OrderRepresentation.class, false);
+//            return new BaseResponse(ResponseCode.RESPONSE_CODE_SUCCESS, 0, null, ResponseCode.RESPONSE_CODE_SUCCESS.getMessage());
+//        } else {
+//            return new BaseResponse(ResponseCode.RESPONSE_CODE_PARAMETER_ERROR, 0, null,
+//                    ResponseCode.RESPONSE_CODE_PARAMETER_ERROR.getMessage());
+//        }
+//    }
 
     @Override
     public BaseResponse cancelOrder(UpDateOrderStatusCommand command) {

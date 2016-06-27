@@ -33,43 +33,11 @@ public class Client implements Runnable {
         try {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
-//            String str = dis.readUTF();
-//            ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-//            phone = obj.getPhone();
-//            userType = obj.getType();
-//            switch (obj.getType()) {
-//                case USER:
-//                    TcpService.userClients.put(phone, this);
-//                    if (TcpService.userMessages.containsKey(phone)){
-//                        List<String> messages = TcpService.userMessages.get(phone);
-//                        List<String> newMessages = new ArrayList<String>();
-//                        for (String message : messages) {
-//                            if (!send(message)) {
-//                                newMessages.add(message);
-//                            }
-//                        }
-//                        TcpService.userMessages.replace(phone, newMessages);
-//                    }
-//                    break;
-//                case DRIVER:
-//                    TcpService.driverClients.put(phone, this);
-//                    if (TcpService.driverMessages.containsKey(phone)){
-//                        List<String> messages = TcpService.driverMessages.get(phone);
-//                        List<String> newMessages = new ArrayList<String>();
-//                        for (String message : messages) {
-//                            if (!send(message)) {
-//                                newMessages.add(message);
-//                            }
-//                        }
-//                        TcpService.driverMessages.replace(phone, newMessages);
-//                    }
-//                    break;
-//            }
         } catch (EOFException e) {
-            logger.info("socket.shutdown.message");
+            logger.info("socket.shutdown.message" + phone);
             close();
-        }  catch (IOException e) {
-            logger.info("socket.connection.fail.message");
+        } catch (IOException e) {
+            logger.info("socket.connection.fail.message" + phone);
             close();
         }
     }
@@ -77,9 +45,10 @@ public class Client implements Runnable {
     public boolean send(String str) {
         try {
             dos.writeUTF(str.replace(" ", "").replace("\n", "").replace("\t", ""));
+            logger.info("socket.server.sendMessage.success.message" + phone);
             return true;
         } catch (IOException e) {
-            logger.info("socket.server.sendMessage.fail.message");
+            logger.info("socket.server.sendMessage.fail.message" + phone);
             close();
             return false;
         }
@@ -118,37 +87,39 @@ public class Client implements Runnable {
                 userType = obj.getType();
                 switch (obj.getType()) {
                     case USER:
-                    TcpService.userClients.put(phone, this);
-                    if (TcpService.userMessages.containsKey(phone)){
-                        List<String> messages = TcpService.userMessages.get(phone);
-                        List<String> newMessages = new ArrayList<String>();
-                        for (String message : messages) {
-                            if (!send(message)) {
-                                newMessages.add(message);
+                        TcpService.userClients.put(phone, this);
+                        if (TcpService.userMessages.containsKey(phone)) {
+                            List<String> messages = TcpService.userMessages.get(phone);
+                            List<String> newMessages = new ArrayList<String>();
+                            for (String message : messages) {
+                                if (!send(message)) {
+                                    newMessages.add(message);
+                                }
                             }
+                            TcpService.userMessages.remove(phone);
+                            TcpService.userMessages.put(phone, newMessages);
                         }
-                        TcpService.userMessages.replace(phone, newMessages);
-                    }
-                    break;
-                case DRIVER:
-                    TcpService.driverClients.put(phone, this);
-                    if (TcpService.driverMessages.containsKey(phone)){
-                        List<String> messages = TcpService.driverMessages.get(phone);
-                        List<String> newMessages = new ArrayList<String>();
-                        for (String message : messages) {
-                            if (!send(message)) {
-                                newMessages.add(message);
+                        break;
+                    case DRIVER:
+                        TcpService.driverClients.put(phone, this);
+                        if (TcpService.driverMessages.containsKey(phone)) {
+                            List<String> messages = TcpService.driverMessages.get(phone);
+                            List<String> newMessages = new ArrayList<String>();
+                            for (String message : messages) {
+                                if (!send(message)) {
+                                    newMessages.add(message);
+                                }
                             }
+                            TcpService.driverMessages.remove(phone);
+                            TcpService.driverMessages.put(phone, newMessages);
                         }
-                        TcpService.driverMessages.replace(phone, newMessages);
-                    }
-                    break;
+                        break;
                 }
             }
         } catch (EOFException e) {
-            logger.info("socket.shutdown.message");
+            logger.info("socket.shutdown.message" + phone);
         } catch (IOException e) {
-            logger.info("socket.dirty.shutdown.message");
+            logger.info("socket.dirty.shutdown.message" + phone);
         } finally {
             close();
         }

@@ -23,7 +23,7 @@ public interface IOrderService {
 
     Order byOrderNumber(String orderNumber);
 
-    void paySuccress(Order order);
+    void paySuccess(Order order);
 
     /********
      * api 方法
@@ -38,7 +38,7 @@ public interface IOrderService {
 
     Order apiWaitPayOrder(UpDateOrderStatusCommand command);
 
-    Order apiPayOrder(UpDateOrderStatusCommand command);
+//    Order apiPayOrder(UpDateOrderStatusCommand command);
 
     Order apiCancelOrder(UpDateOrderStatusCommand command);
 

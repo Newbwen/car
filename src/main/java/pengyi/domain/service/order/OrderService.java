@@ -137,8 +137,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void paySuccress(Order order) {
+    public void paySuccess(Order order) {
         orderRepository.save(order);
+
+        sendToUser(order.getOrderUser().getUserName(), order);
+        sendToDriver(order.getReceiveUser().getUserName(), order);
     }
 
     @Override
@@ -197,10 +200,6 @@ public class OrderService implements IOrderService {
 
         orderRepository.save(order);
 
-//        Order responseOrder = order;
-//        orderUser.setUserRole(null);
-//        responseOrder.setOrderUser(orderUser);
-
         String[] drivers = command.getDrivers().split(",");
         for (String driver : drivers) {
             if (TcpService.driverClients.containsKey(driver)) {
@@ -224,14 +223,6 @@ public class OrderService implements IOrderService {
         orderRepository.update(order);
 
         String phone = order.getOrderUser().getUserName();
-
-//        BaseUser orderUser = order.getOrderUser();
-//        orderUser.setUserRole(null);
-//        driver.setUserRole(null);
-//        driver.setCompany(null);
-
-//        order.setOrderUser(orderUser);
-//        order.setReceiveUser(driver);
         sendToUser(phone, order);
         return order;
     }
@@ -246,18 +237,7 @@ public class OrderService implements IOrderService {
 
         orderRepository.update(order);
 
-//        Order responseOrder = order;
-//
         String phone = order.getOrderUser().getUserName();
-//
-//        BaseUser orderUser = order.getOrderUser();
-//        orderUser.setUserRole(null);
-//        Driver driver = (Driver) order.getReceiveUser();
-//        driver.setUserRole(null);
-//        driver.setCompany(null);
-//
-//        responseOrder.setOrderUser(orderUser);
-//        responseOrder.setReceiveUser(driver);
 
         sendToUser(phone, order);
 
@@ -308,34 +288,23 @@ public class OrderService implements IOrderService {
         }
         orderRepository.update(order);
 
-//        Order responseOrder = order;
-//
         String phone = order.getOrderUser().getUserName();
-//
-//        BaseUser orderUser = order.getOrderUser();
-//        orderUser.setUserRole(null);
-//        driver.setUserRole(null);
-//        driver.setCompany(null);
-//
-//        responseOrder.setOrderUser(orderUser);
-//        responseOrder.setReceiveUser(driver);
-
         sendToUser(phone, order);
 
         return order;
     }
 
-    @Override
-    public Order apiPayOrder(UpDateOrderStatusCommand command) {
-        Order order = this.show(command.getOrderId());
-        order.fainWhenConcurrencyViolation(command.getVersion());
-
-        order.setOrderStatus(OrderStatus.SUCCESS);
-
-        orderRepository.update(order);
-
-        return order;
-    }
+//    @Override
+//    public Order apiPayOrder(UpDateOrderStatusCommand command) {
+//        Order order = this.show(command.getOrderId());
+//        order.fainWhenConcurrencyViolation(command.getVersion());
+//
+//        order.setOrderStatus(OrderStatus.SUCCESS);
+//
+//        orderRepository.update(order);
+//
+//        return order;
+//    }
 
     @Override
     public Order apiCancelOrder(UpDateOrderStatusCommand command) {
@@ -351,19 +320,7 @@ public class OrderService implements IOrderService {
 
         if (null != order.getReceiveUser()) {
 
-//            Order responseOrder = order;
-
             String phone = order.getReceiveUser().getUserName();
-
-//            BaseUser orderUser = order.getOrderUser();
-//            orderUser.setUserRole(null);
-//            Driver driver = (Driver) order.getReceiveUser();
-//
-//            driver.setUserRole(null);
-//            driver.setCompany(null);
-
-//            responseOrder.setOrderUser(orderUser);
-//            responseOrder.setReceiveUser(driver);
 
             sendToDriver(phone, order);
         }
@@ -432,10 +389,8 @@ public class OrderService implements IOrderService {
         }
 
         moneyDetailedCommand.setOldMoney(user.getBalance());//设置资金明细原有金额
-//        userService.addLock();
         user.setBalance(user.getBalance().subtract(order.getShouldMoney()));
         userService.update(user);
-//        companyService.addLock();
         company.setBalance(company.getBalance().add(order.getShouldMoney()));
         companyService.update(company);
 
@@ -454,16 +409,6 @@ public class OrderService implements IOrderService {
         moneyDetailedService.create(moneyDetailedCommand);
 
         String phone = order.getReceiveUser().getUserName();
-
-//        Order responseOrder = order;
-
-//        BaseUser orderUser = order.getOrderUser();
-//        orderUser.setUserRole(null);
-//        driver.setUserRole(null);
-//        driver.setCompany(null);
-//
-//        responseOrder.setOrderUser(orderUser);
-//        responseOrder.setReceiveUser(driver);
 
         sendToDriver(phone, order);
 
@@ -504,17 +449,6 @@ public class OrderService implements IOrderService {
         moneyDetailedService.create(moneyDetailedCommand);
 
         String phone = order.getOrderUser().getUserName();
-
-//        Order responseOrder = order;
-//
-//        BaseUser orderUser = order.getOrderUser();
-//        orderUser.setUserRole(null);
-//        driver.setUserRole(null);
-//        driver.setCompany(null);
-//
-//        responseOrder.setOrderUser(orderUser);
-//        responseOrder.setReceiveUser(driver);
-
         sendToUser(phone, order);
         return order;
     }
@@ -667,7 +601,8 @@ public class OrderService implements IOrderService {
         if (TcpService.userMessages.containsKey(phone)) {
             List<String> messages = TcpService.userMessages.get(phone);
             messages.add(JSON.toJSONString(order));
-            TcpService.userMessages.replace(phone, messages);
+            TcpService.userMessages.remove(phone);
+            TcpService.userMessages.put(phone, messages);
         } else {
             List<String> messages = new ArrayList<String>();
             messages.add(JSON.toJSONString(order));
@@ -679,7 +614,8 @@ public class OrderService implements IOrderService {
         if (TcpService.driverMessages.containsKey(phone)) {
             List<String> messages = TcpService.driverMessages.get(phone);
             messages.add(JSON.toJSONString(order));
-            TcpService.driverMessages.replace(phone, messages);
+            TcpService.userMessages.remove(phone);
+            TcpService.userMessages.put(phone, messages);
         } else {
             List<String> messages = new ArrayList<String>();
             messages.add(JSON.toJSONString(order));
