@@ -34,10 +34,10 @@ public class Client implements Runnable {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
         } catch (EOFException e) {
-            logger.info("socket.shutdown.message" + phone);
+            logger.info("socket.shutdown.message" + phone + userType);
             close();
         } catch (IOException e) {
-            logger.info("socket.connection.fail.message" + phone);
+            logger.info("socket.connection.fail.message" + phone + userType + e.getMessage());
             close();
         }
     }
@@ -45,24 +45,16 @@ public class Client implements Runnable {
     public boolean send(String str) {
         try {
             dos.writeUTF(str.replace(" ", "").replace("\n", "").replace("\t", ""));
-            logger.info("socket.server.sendMessage.success.message" + phone);
+            logger.info("socket.server.sendMessage.success.message" + phone + userType);
             return true;
         } catch (IOException e) {
-            logger.info("socket.server.sendMessage.fail.message" + phone);
+            logger.info("socket.server.sendMessage.fail.message" + phone + userType + e.getMessage());
             close();
             return false;
         }
     }
 
     public void close() {
-        switch (userType) {
-            case USER:
-                TcpService.userClients.remove(phone);
-                break;
-            case DRIVER:
-                TcpService.driverClients.remove(phone);
-                break;
-        }
 
         try {
             if (dis != null)
@@ -74,6 +66,17 @@ public class Client implements Runnable {
             }
         } catch (IOException e1) {
             e1.printStackTrace();
+        } finally {
+            if (null != userType && null != phone) {
+                switch (userType) {
+                    case USER:
+                        TcpService.userClients.remove(phone);
+                        break;
+                    case DRIVER:
+                        TcpService.driverClients.remove(phone);
+                        break;
+                }
+            }
         }
     }
 
@@ -85,8 +88,13 @@ public class Client implements Runnable {
                 ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
                 phone = obj.getPhone();
                 userType = obj.getType();
+                logger.info("socket.connection.success.message" + phone + userType);
                 switch (obj.getType()) {
                     case USER:
+                        if (TcpService.userClients.containsKey(phone)) {
+                            TcpService.userClients.get(phone).send("exit");
+                            TcpService.userClients.remove(phone);
+                        }
                         TcpService.userClients.put(phone, this);
                         if (TcpService.userMessages.containsKey(phone)) {
                             List<String> messages = TcpService.userMessages.get(phone);
@@ -101,6 +109,10 @@ public class Client implements Runnable {
                         }
                         break;
                     case DRIVER:
+                        if (TcpService.driverClients.containsKey(phone)) {
+                            TcpService.driverClients.get(phone).send("exit");
+                            TcpService.driverClients.remove(phone);
+                        }
                         TcpService.driverClients.put(phone, this);
                         if (TcpService.driverMessages.containsKey(phone)) {
                             List<String> messages = TcpService.driverMessages.get(phone);
@@ -117,9 +129,9 @@ public class Client implements Runnable {
                 }
             }
         } catch (EOFException e) {
-            logger.info("socket.shutdown.message" + phone);
+            logger.info("socket.shutdown.message" + phone + userType);
         } catch (IOException e) {
-            logger.info("socket.dirty.shutdown.message" + phone);
+            logger.info("socket.dirty.shutdown.message" + phone + userType + e.getMessage());
         } finally {
             close();
         }
