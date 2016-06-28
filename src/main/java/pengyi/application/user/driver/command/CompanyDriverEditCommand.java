@@ -11,6 +11,7 @@ public class CompanyDriverEditCommand extends BaseEditBaseUserCommand {
 
     private DriverType driverType;
 
+    private String name;                    //司机名字
     private String identityCardPic;         //身份证照片
     private String drivingLicencePic;       //驾驶证照片
     private String travelPic;               //行驶证
@@ -20,6 +21,14 @@ public class CompanyDriverEditCommand extends BaseEditBaseUserCommand {
     private String workPic;             //从业资格证
     private String bankCardNo;              //银行卡号
     private String bankName;            //银行名称
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public DriverType getDriverType() {
         return driverType;

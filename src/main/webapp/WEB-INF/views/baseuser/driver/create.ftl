@@ -2,7 +2,8 @@
 
 [@override name="topResources"]
     [@super /]
-<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
+<link rel="stylesheet" type="text/css"
+      href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
@@ -53,6 +54,15 @@
                            placeholder="确认密码" class="col-xs-10 col-sm-5" minlength="6"
                            onchange="checkPasswords()" required/>
                     [@spring.showErrors "confirmPassword"/]
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 司机名字 </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="name" name="name"
+                           placeholder="司机名字" class="col-xs-10 col-sm-5"/>
                 </div>
             </div>
 
@@ -329,8 +339,8 @@
 
     $.datetimepicker.setLocale('en');
     $('#startDriveDate').datetimepicker({
-        dayOfWeekStart : 1,
-        lang:'en',
+        dayOfWeekStart: 1,
+        lang: 'en',
     });
 </script>
 [/@override]

@@ -32,6 +32,15 @@
             </div>
 
             <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 司机名字 </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="name" name="name" value="${driver.name!command.name}"
+                           placeholder="司机名字" class="col-xs-10 col-sm-5"/>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属公司* </label>
 
                 <div class="col-sm-9">
@@ -174,7 +183,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 银行卡号* </label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="bankCardNo" name="bankCardNo" value="${driver.bankCarNo!command.bankCardNo}"
+                    <input type="text" id="bankCardNo" name="bankCardNo" value="${driver.bankCardNo!command.bankCardNo}"
                            placeholder="银行卡号" class="col-xs-10 col-sm-5" minlength="6" required/>
                     [@spring.showErrors "bankCardNo"/]
                 </div>
