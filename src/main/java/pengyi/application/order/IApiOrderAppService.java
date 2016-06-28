@@ -22,7 +22,7 @@ public interface IApiOrderAppService {
 
     BaseResponse waitPayOrder(UpDateOrderStatusCommand command);
 
-    BaseResponse payOrder(UpDateOrderStatusCommand command);
+//    BaseResponse payOrder(UpDateOrderStatusCommand command);
 
     BaseResponse cancelOrder(UpDateOrderStatusCommand command);
 
