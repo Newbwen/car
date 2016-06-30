@@ -2,7 +2,7 @@
  * Created by YJH on 2016/5/9.
  */
 
-    //身份证图片上传
+//身份证图片上传
 identityCardPic = WebUploader.create({
     // 自动上传。
     auto: true,
@@ -79,6 +79,7 @@ drivingLicencePic.on('uploadSuccess', function (file, result) {
     layer.msg("上传成功！", {icon: 1});
     var url = result.files[0].url;
     $("#drivingLicencePic").val(url);
+    console.log(url);
     $("#drivingLicencePic").parent().find(".img-box").empty();
     $("#drivingLicencePic").parent().find(".img-box").append('<img src=' + url + '/><button type="button" class="btn btn-danger del-img">删除</button>');
 });
@@ -223,7 +224,7 @@ function bindWorkPic() {
     });
 }
 
-$(".img-box").on("click", "button",function () {
+$(".img-box").on("click", "button", function () {
     $(this).parent().parent().find("input").val("");
     $(this).parent().empty();
 })

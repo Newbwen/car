@@ -87,6 +87,7 @@ public class DriverService implements IDriverService {
 
         Company company = companyService.show(command.getCompany());
 
+        driver.setName(command.getName());
         driver.setCompany(company);
         driver.setDriverType(command.getDriverType());
         String identityCarPic = command.getIdentityCardPic().replaceAll("img_tmp", "img");
@@ -271,6 +272,7 @@ public class DriverService implements IDriverService {
         Driver driver = this.show(command.getId());
         driver.fainWhenConcurrencyViolation(command.getVersion());
 
+        driver.setName(command.getName());
         driver.setDriverType(command.getDriverType());
         String identityCarPic = command.getIdentityCardPic().replaceAll("img_tmp", "img");
         String drivingLicencePic = command.getDrivingLicencePic().replaceAll("img_tmp", "img");
