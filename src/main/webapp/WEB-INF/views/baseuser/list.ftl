@@ -23,7 +23,7 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>用户名<input type="text" value="${command.userName!}" name="userName" /></label>
+                                <label>用户名<input type="text" value="${command.userName!}" name="userName"/></label>
                                 <label>用户状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -42,7 +42,9 @@
                                         <option value="DRIVER" [@mc.selected status "DRIVER"/]>司机</option>
                                     </select>
                                 </label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>
+                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -83,21 +85,25 @@
                                                 <a class="blue" href="[@spring.url '/base_user/show/${baseUser.id!}'/]">查看</a>
                                             </li>
                                             <li>
-                                                <a class="orange" href="[@spring.url '/base_user/authorize/${baseUser.id!}'/]">授权</a>
+                                                <a class="orange"
+                                                   href="[@spring.url '/base_user/authorize/${baseUser.id!}'/]">授权</a>
                                             </li>
                                             <li>
-                                                <a class="pink" href="[@spring.url '/base_user/reset_password/${baseUser.id!}'/]">重置密码</a>
+                                                <a class="pink"
+                                                   href="[@spring.url '/base_user/reset_password/${baseUser.id!}'/]">重置密码</a>
                                             </li>
                                             <li>
                                                 <a class="red" href="[@spring.url '/withhold/create/${baseUser.id!}'/]">扣款</a>
                                             </li>
                                             <li>
                                                 [#if baseUser.status == "ENABLE"]
-                                                    <a class="red" href="[@spring.url '/base_user/update_status?id=${baseUser.id!}&version=${baseUser.version!}'/]">
+                                                    <a class="red"
+                                                       href="[@spring.url '/base_user/update_status?id=${baseUser.id!}&version=${baseUser.version!}'/]">
                                                         禁用
                                                     </a>
                                                 [#else ]
-                                                    <a class="red" href="[@spring.url '/base_user/update_status?id=${baseUser.id!}&version=${baseUser.version!}'/]">
+                                                    <a class="red"
+                                                       href="[@spring.url '/base_user/update_status?id=${baseUser.id!}&version=${baseUser.version!}'/]">
                                                         启用
                                                     </a>
                                                 [/#if]
@@ -112,7 +118,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/base_user/list?userName=${command.userName!}&status=${command.status!}' /]
+                    [@mc.showPagination '/base_user/list?userName=${command.userName!}&status=${command.status!}&userType=${command.userType!}' /]
                 [/#if]
 
             </div>

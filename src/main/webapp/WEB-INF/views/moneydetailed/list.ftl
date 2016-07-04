@@ -2,11 +2,12 @@
 
 [@override name="topResources"]
     [@super /]
-<link rel="stylesheet" type="text/css" href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
+<link rel="stylesheet" type="text/css"
+      href="[@spring.url '/resources/assets/js/datetimepicker/jquery.datetimepicker.css'/]"/>
 [/@override]
 
 [@override name="breadcrumbTitle"]
-<li class="active" xmlns="http://www.w3.org/1999/html">资金流向列表</li>
+<li class="active">资金流向列表</li>
 [/@override]
 
 [@override name="pageHeaderTitle"]
@@ -21,7 +22,7 @@
             <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                 <!-- 查询条件 -->
                 <div class="row">
-                    <form>
+                    <form role="form">
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
                                 <label>
@@ -43,8 +44,8 @@
                                 </label>
                             </div>
                         </div>
+                    </form>
                 </div>
-                </form>
             </div>
             <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable text-center">
                 <thead>
@@ -56,8 +57,6 @@
                     <th>操作</th>
                 </tr>
                 </thead>
-
-
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     [#if pagination.data??]
                         [#list pagination.data as moneyDetailed ]
@@ -89,14 +88,11 @@
                     [/#if]
                 </tbody>
             </table>
-
             [#if pagination??]
                 [@mc.showPagination '/money_detailed/list?userName=${command.userName!}&startTime=${command.startTime!}&endTime=${command.endTime!}' /]
             [/#if]
-
         </div>
     </div>
-</div>
 </div>
 [/@override]
 
@@ -106,12 +102,12 @@
 <script type="text/javascript">
     $.datetimepicker.setLocale('en');
     $('#startTime').datetimepicker({
-        dayOfWeekStart : 1,
-        lang:'en',
+        dayOfWeekStart: 1,
+        lang: 'en',
     });
     $('#endTime').datetimepicker({
-        dayOfWeekStart : 1,
-        lang:'en',
+        dayOfWeekStart: 1,
+        lang: 'en',
     });
 </script>
 [/@override]

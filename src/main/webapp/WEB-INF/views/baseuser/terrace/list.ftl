@@ -23,8 +23,8 @@
                     <form>
                         <div class="col-sm-6">
                             <div id="sample-table-2_length" class="dataTables_length">
-                                <label>用户名<input type="text" value="${command.userName!}" name="userName" /></label>
-                                <label>昵称名<input type="text" value="${command.name!}" name="name" /></label>
+                                <label>用户名<input type="text" value="${command.userName!}" name="userName"/></label>
+                                <label>昵称名<input type="text" value="${command.name!}" name="name"/></label>
                                 <label>用户状态
                                     <select name="status">
                                         [#assign status = (command.status!)?default("") /]
@@ -33,7 +33,9 @@
                                         <option value="DISABLE" [@mc.selected status "DISABLE"/]>禁用</option>
                                     </select>
                                 </label>
-                                <label><button type="submit" class="btn btn-app btn-sm btn-success">查询</button></label>
+                                <label>
+                                    <button type="submit" class="btn btn-app btn-sm btn-success">查询</button>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -71,10 +73,12 @@
 
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="blue" href="[@spring.url '/user/terrace/show/${baseUser.id!}'/]">查看详情</a>
+                                                <a class="blue"
+                                                   href="[@spring.url '/user/terrace/show/${baseUser.id!}'/]">查看详情</a>
                                             </li>
                                             <li>
-                                                <a class="orange" href="[@spring.url '/user/terrace/edit/${baseUser.id!}'/]">修改信息</a>
+                                                <a class="orange"
+                                                   href="[@spring.url '/user/terrace/edit/${baseUser.id!}'/]">修改信息</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -86,7 +90,7 @@
                 </table>
 
                 [#if pagination??]
-                    [@mc.showPagination '/role/list?roleName=${command.roleName!}&status=${command.status!}' /]
+                    [@mc.showPagination '/user/terrace/list?userName=${command.userName!}&name=${command.name!}&status=${command.status!}' /]
                 [/#if]
 
             </div>
