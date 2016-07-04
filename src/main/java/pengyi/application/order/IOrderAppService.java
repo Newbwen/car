@@ -16,4 +16,6 @@ public interface IOrderAppService {
     OrderRepresentation show(String id);
 
     List<OrderRepresentation> exportExcel(ListOrderCommand command);
+
+    OrderRepresentation byOrderNumber(String message);
 }

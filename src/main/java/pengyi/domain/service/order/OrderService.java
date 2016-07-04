@@ -579,46 +579,40 @@ public class OrderService implements IOrderService {
 
     private void sendToUser(String phone, Order order) {
         if (TcpService.userClients.containsKey(phone)) {
-            if (!TcpService.userClients.get(phone).send(JSON.toJSONString(order))) {
-                putUserMessage(phone, order);
-            }
-        } else {
-            putUserMessage(phone, order);
+            TcpService.userClients.get(phone).send(JSON.toJSONString(order));
         }
+        putUserMessage(phone, order.getOrderNumber());
     }
 
     private void sendToDriver(String phone, Order order) {
         if (TcpService.driverClients.containsKey(phone)) {
-            if (!TcpService.driverClients.get(phone).send(JSON.toJSONString(order))) {
-                putDriverMessage(phone, order);
-            }
-        } else {
-            putDriverMessage(phone, order);
+            TcpService.driverClients.get(phone).send(JSON.toJSONString(order));
         }
+        putDriverMessage(phone, order.getOrderNumber());
     }
 
-    private void putUserMessage(String phone, Order order) {
+    private void putUserMessage(String phone, String orderNumber) {
         if (TcpService.userMessages.containsKey(phone)) {
             List<String> messages = TcpService.userMessages.get(phone);
-            messages.add(JSON.toJSONString(order));
+            messages.add(orderNumber);
             TcpService.userMessages.remove(phone);
             TcpService.userMessages.put(phone, messages);
         } else {
             List<String> messages = new ArrayList<String>();
-            messages.add(JSON.toJSONString(order));
+            messages.add(orderNumber);
             TcpService.userMessages.put(phone, messages);
         }
     }
 
-    private void putDriverMessage(String phone, Order order) {
+    private void putDriverMessage(String phone, String orderNumber) {
         if (TcpService.driverMessages.containsKey(phone)) {
             List<String> messages = TcpService.driverMessages.get(phone);
-            messages.add(JSON.toJSONString(order));
+            messages.add(orderNumber);
             TcpService.userMessages.remove(phone);
             TcpService.userMessages.put(phone, messages);
         } else {
             List<String> messages = new ArrayList<String>();
-            messages.add(JSON.toJSONString(order));
+            messages.add(orderNumber);
             TcpService.driverMessages.put(phone, messages);
         }
     }

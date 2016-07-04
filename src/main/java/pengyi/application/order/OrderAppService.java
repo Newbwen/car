@@ -46,4 +46,10 @@ public class OrderAppService implements IOrderAppService {
     public List<OrderRepresentation> exportExcel(ListOrderCommand command) {
         return mappingService.mapAsList(orderService.exportExcel(command), OrderRepresentation.class);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrderRepresentation byOrderNumber(String orderNumber) {
+        return mappingService.map(orderService.byOrderNumber(orderNumber), OrderRepresentation.class, false);
+    }
 }

@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import pengyi.application.order.IOrderAppService;
+
 import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
@@ -31,6 +33,9 @@ public class TcpService implements Runnable {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private IOrderAppService orderAppService;
+
     @Override
     public void run() {
         int port = 8888;
@@ -38,6 +43,7 @@ public class TcpService implements Runnable {
         while (used) {
             try {
                 serverSocket = new ServerSocket(port);
+                serverSocket.setReuseAddress(true);
                 started = true;
                 used = false;
                 logger.info(messageSource.getMessage("socket.open.success.message", new Object[]{port}, Locale.CHINA));
@@ -53,7 +59,7 @@ public class TcpService implements Runnable {
         try {
             while (started) {
                 Socket s = serverSocket.accept();
-                new Thread(new Client(s)).start();
+                new Thread(new Client(s, orderAppService)).start();
             }
         } catch (IOException e) {
             logger.error("socket.server.dirty.shutdown.message");

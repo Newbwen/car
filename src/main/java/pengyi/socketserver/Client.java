@@ -3,7 +3,7 @@ package pengyi.socketserver;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import pengyi.application.order.IOrderAppService;
 import pengyi.core.type.UserType;
 import pengyi.socketserver.model.ReceiveObj;
 
@@ -12,7 +12,6 @@ import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +25,12 @@ public class Client implements Runnable {
     private UserType userType;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
+    private IOrderAppService orderAppService;
 
 
-    public Client(Socket s) {
+    public Client(Socket s, IOrderAppService orderAppService) {
         this.s = s;
+        this.orderAppService = orderAppService;
         try {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
@@ -45,7 +46,7 @@ public class Client implements Runnable {
     public boolean send(String str) {
         try {
             dos.writeUTF(str.replace(" ", "").replace("\n", "").replace("\t", ""));
-            logger.info("socket.server.sendMessage.success.message" + phone + userType);
+            logger.info("socket.server.sendMessage.success.message" + phone + userType + s.isConnected());
             return true;
         } catch (IOException e) {
             logger.info("socket.server.sendMessage.fail.message" + phone + userType + e.getMessage());
@@ -70,10 +71,14 @@ public class Client implements Runnable {
             if (null != userType && null != phone) {
                 switch (userType) {
                     case USER:
-                        TcpService.userClients.remove(phone);
+                        if (TcpService.userClients.containsKey(phone) && TcpService.userClients.get(phone) == this) {
+                            TcpService.userClients.remove(phone);
+                        }
                         break;
                     case DRIVER:
-                        TcpService.driverClients.remove(phone);
+                        if (TcpService.driverClients.containsKey(phone) && TcpService.driverClients.get(phone) == this) {
+                            TcpService.driverClients.remove(phone);
+                        }
                         break;
                 }
             }
@@ -85,51 +90,62 @@ public class Client implements Runnable {
         try {
             while (true) {
                 String str = dis.readUTF();
-                ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
-                phone = obj.getPhone();
-                userType = obj.getType();
-                logger.info("socket.connection.success.message" + phone + userType);
-                switch (obj.getType()) {
-                    case USER:
-                        if (TcpService.userClients.containsKey(phone)) {
-                            if (TcpService.userClients.get(phone) != this) {
+                if (str.length() == 24 && str.startsWith("xg")) {
+                    switch (userType) {
+                        case USER:
+                            if (TcpService.userMessages.containsKey(phone)) {
+                                List<String> messages = TcpService.userMessages.get(phone);
+                                if (messages.contains(str)) {
+                                    messages.remove(str);
+                                }
+                                TcpService.userMessages.remove(phone);
+                                TcpService.userMessages.put(phone, messages);
+                            }
+                            break;
+                        case DRIVER:
+                            if (TcpService.driverMessages.containsKey(phone)) {
+                                List<String> messages = TcpService.driverMessages.get(phone);
+                                if (messages.contains(str)) {
+                                    messages.remove(str);
+                                }
+                                TcpService.driverMessages.remove(phone);
+                                TcpService.driverMessages.put(phone, messages);
+                            }
+                            break;
+                    }
+                } else {
+                    ReceiveObj obj = JSON.parseObject(str, ReceiveObj.class);
+                    phone = obj.getPhone();
+                    userType = obj.getType();
+                    logger.info("socket.connection.success.message" + phone + userType);
+                    switch (obj.getType()) {
+                        case USER:
+                            if (TcpService.userClients.containsKey(phone) && TcpService.userClients.get(phone) != this) {
                                 TcpService.userClients.get(phone).send("exit");
+                                TcpService.userClients.get(phone).close();
                             }
-                            TcpService.userClients.remove(phone);
-                        }
-                        TcpService.userClients.put(phone, this);
-                        if (TcpService.userMessages.containsKey(phone)) {
-                            List<String> messages = TcpService.userMessages.get(phone);
-                            List<String> newMessages = new ArrayList<String>();
-                            for (String message : messages) {
-                                if (!send(message)) {
-                                    newMessages.add(message);
+                            TcpService.userClients.put(phone, this);
+                            if (TcpService.userMessages.containsKey(phone)) {
+                                List<String> messages = TcpService.userMessages.get(phone);
+                                for (String message : messages) {
+                                    send(JSON.toJSONString(orderAppService.byOrderNumber(message)));
                                 }
                             }
-                            TcpService.userMessages.remove(phone);
-                            TcpService.userMessages.put(phone, newMessages);
-                        }
-                        break;
-                    case DRIVER:
-                        if (TcpService.driverClients.containsKey(phone)) {
-                            if (TcpService.driverClients.get(phone) != this) {
+                            break;
+                        case DRIVER:
+                            if (TcpService.driverClients.containsKey(phone) && TcpService.driverClients.get(phone) != this) {
                                 TcpService.driverClients.get(phone).send("exit");
+                                TcpService.driverClients.get(phone).close();
                             }
-                            TcpService.driverClients.remove(phone);
-                        }
-                        TcpService.driverClients.put(phone, this);
-                        if (TcpService.driverMessages.containsKey(phone)) {
-                            List<String> messages = TcpService.driverMessages.get(phone);
-                            List<String> newMessages = new ArrayList<String>();
-                            for (String message : messages) {
-                                if (!send(message)) {
-                                    newMessages.add(message);
+                            TcpService.driverClients.put(phone, this);
+                            if (TcpService.driverMessages.containsKey(phone)) {
+                                List<String> messages = TcpService.driverMessages.get(phone);
+                                for (String message : messages) {
+                                    send(JSON.toJSONString(orderAppService.byOrderNumber(message)));
                                 }
                             }
-                            TcpService.driverMessages.remove(phone);
-                            TcpService.driverMessages.put(phone, newMessages);
-                        }
-                        break;
+                            break;
+                    }
                 }
             }
         } catch (EOFException e) {
