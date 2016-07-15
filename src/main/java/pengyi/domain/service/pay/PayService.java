@@ -52,9 +52,9 @@ public class PayService implements IPayService {
             order.setPayType(PayType.ALIPAY);
             order.setPayNo(notify.getTrade_no());
 
+            orderService.paySuccess(order);
         }
 
-        orderService.paySuccess(order);
     }
 
     @Override
@@ -68,9 +68,9 @@ public class PayService implements IPayService {
             order.setPayType(PayType.WECHAT);
             order.setPayNo(notify.getTransaction_id());
 
+            orderService.paySuccess(order);
         }
 
-        orderService.paySuccess(order);
     }
 
     @Override

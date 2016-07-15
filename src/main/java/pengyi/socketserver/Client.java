@@ -122,7 +122,7 @@ public class Client implements Runnable {
                         case USER:
                             if (TcpService.userClients.containsKey(phone) && TcpService.userClients.get(phone) != this) {
                                 TcpService.userClients.get(phone).send("exit");
-                                TcpService.userClients.get(phone).close();
+//                                TcpService.userClients.get(phone).close();
                             }
                             TcpService.userClients.put(phone, this);
                             if (TcpService.userMessages.containsKey(phone)) {
@@ -135,7 +135,7 @@ public class Client implements Runnable {
                         case DRIVER:
                             if (TcpService.driverClients.containsKey(phone) && TcpService.driverClients.get(phone) != this) {
                                 TcpService.driverClients.get(phone).send("exit");
-                                TcpService.driverClients.get(phone).close();
+//                                TcpService.driverClients.get(phone).close();
                             }
                             TcpService.driverClients.put(phone, this);
                             if (TcpService.driverMessages.containsKey(phone)) {

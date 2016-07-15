@@ -140,6 +140,22 @@ public class OrderService implements IOrderService {
     public void paySuccess(Order order) {
         orderRepository.save(order);
 
+        Driver driver = driverService.show(order.getReceiveUser().getId());
+
+        CreateMoneyDetailedCommand moneyDetailedCommand_driver = new CreateMoneyDetailedCommand();
+        moneyDetailedCommand_driver.setOldMoney(driver.getBalance());
+        //司机创建资金明细
+        moneyDetailedCommand_driver.setBaseUser(order.getReceiveUser().getId());
+        moneyDetailedCommand_driver.setFlowType(FlowType.IN_FLOW);
+        moneyDetailedCommand_driver.setMoney(order.getShouldMoney().multiply(new BigDecimal(0.8)).subtract(new BigDecimal(0.23)));
+        moneyDetailedCommand_driver.setExplain("订单收入:" + order.getOrderNumber());
+        moneyDetailedCommand_driver.setNewMoney(driver.getBalance());
+        moneyDetailedService.create(moneyDetailedCommand_driver);
+
+
+        driver.setBalance(driver.getBalance().add(order.getShouldMoney().multiply(new BigDecimal(0.8))).subtract(new BigDecimal(0.23)));
+        driverService.update(driver);
+
         sendToUser(order.getOrderUser().getUserName(), order);
         sendToDriver(order.getReceiveUser().getUserName(), order);
     }
@@ -377,22 +393,23 @@ public class OrderService implements IOrderService {
     public Order balancePay(BalancePayCommand command) {
         //资金明细
         CreateMoneyDetailedCommand moneyDetailedCommand = new CreateMoneyDetailedCommand();
+        CreateMoneyDetailedCommand moneyDetailedCommand_driver = new CreateMoneyDetailedCommand();
 
         Order order = this.show(command.getOrderId());
         order.fainWhenConcurrencyViolation(command.getVersion());
         User user = userService.show(order.getOrderUser().getId());
         Driver driver = driverService.show(order.getReceiveUser().getId());
-        Company company = driver.getCompany();
 
         if (user.getBalance().compareTo(order.getShouldMoney()) == -1) {
             throw new NotSufficientFundsException("用户余额不足");
         }
 
         moneyDetailedCommand.setOldMoney(user.getBalance());//设置资金明细原有金额
+        moneyDetailedCommand_driver.setOldMoney(driver.getBalance());
         user.setBalance(user.getBalance().subtract(order.getShouldMoney()));
         userService.update(user);
-        company.setBalance(company.getBalance().add(order.getShouldMoney()));
-        companyService.update(company);
+        driver.setBalance(driver.getBalance().add(order.getShouldMoney().multiply(new BigDecimal(0.8))).subtract(new BigDecimal(0.23)));
+        driverService.update(driver);
 
         order.setPayTime(new Date());
         order.setOrderStatus(OrderStatus.SUCCESS);
@@ -407,6 +424,15 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setExplain("订单支付:" + order.getOrderNumber());
         moneyDetailedCommand.setNewMoney(user.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
+
+        //司机创建资金明细
+        moneyDetailedCommand_driver.setBaseUser(order.getReceiveUser().getId());
+        moneyDetailedCommand_driver.setFlowType(FlowType.IN_FLOW);
+        moneyDetailedCommand_driver.setMoney(order.getShouldMoney().multiply(new BigDecimal(0.8)).subtract(new BigDecimal(0.23)));
+        moneyDetailedCommand_driver.setExplain("订单收入:" + order.getOrderNumber());
+        moneyDetailedCommand_driver.setNewMoney(driver.getBalance());
+        moneyDetailedService.create(moneyDetailedCommand_driver);
+
 
         String phone = order.getReceiveUser().getUserName();
 
@@ -425,15 +451,10 @@ public class OrderService implements IOrderService {
         order.fainWhenConcurrencyViolation(command.getVersion());
 
         Driver driver = driverService.show(order.getReceiveUser().getId());
-        Company company = companyService.show(driver.getCompany().getId());
 
         moneyDetailedCommand.setOldMoney(driver.getBalance());
-//        driverService.addLock();
-        driver.setBalance(driver.getBalance().subtract(order.getShouldMoney()));
+        driver.setBalance(driver.getBalance().subtract(order.getShouldMoney().multiply(new BigDecimal(0.2).add(new BigDecimal(0.23)))));
         driverService.update(driver);
-//        companyService.addLock();
-        company.setBalance(company.getBalance().add(order.getShouldMoney()));
-        companyService.update(company);
 
         order.setPayTime(new Date());
         order.setOrderStatus(OrderStatus.SUCCESS);
@@ -444,7 +465,7 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setBaseUser(order.getReceiveUser().getId());
         moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
         moneyDetailedCommand.setMoney(order.getShouldMoney());
-        moneyDetailedCommand.setExplain("订单支付:" + order.getOrderNumber());
+        moneyDetailedCommand.setExplain("订单线下支付:" + order.getShouldMoney().multiply(new BigDecimal(0.2).add(new BigDecimal(0.23))));
         moneyDetailedCommand.setNewMoney(driver.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
