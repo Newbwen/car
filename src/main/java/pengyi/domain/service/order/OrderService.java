@@ -452,7 +452,7 @@ public class OrderService implements IOrderService {
         Driver driver = driverService.show(order.getReceiveUser().getId());
 
         moneyDetailedCommand.setOldMoney(driver.getBalance());
-        driver.setBalance(driver.getBalance().subtract(order.getShouldMoney().multiply(new BigDecimal(0.2).add(new BigDecimal(0.23)))));
+        driver.setBalance(driver.getBalance().subtract(order.getShouldMoney().multiply(new BigDecimal(0.2)).add(new BigDecimal(0.23))));
         driverService.update(driver);
 
         order.setPayTime(new Date());
@@ -464,7 +464,7 @@ public class OrderService implements IOrderService {
         moneyDetailedCommand.setBaseUser(order.getReceiveUser().getId());
         moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
         moneyDetailedCommand.setMoney(order.getShouldMoney());
-        moneyDetailedCommand.setExplain("订单线下支付:" + order.getShouldMoney().multiply(new BigDecimal(0.2).add(new BigDecimal(0.23))));
+        moneyDetailedCommand.setExplain("订单线下支付:" + order.getShouldMoney().multiply(new BigDecimal(0.2)).add(new BigDecimal(0.23)));
         moneyDetailedCommand.setNewMoney(driver.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
