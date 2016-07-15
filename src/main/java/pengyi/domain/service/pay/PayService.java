@@ -1,6 +1,5 @@
 package pengyi.domain.service.pay;
 
-import com.alibaba.fastjson.JSON;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
@@ -21,16 +20,13 @@ import pengyi.core.util.XMLParser;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.pay.AlipayNotify;
 import pengyi.domain.model.pay.WechatNotify;
-import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.service.order.IOrderService;
-import pengyi.socketserver.TcpService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by pengyi on 2016/3/30.

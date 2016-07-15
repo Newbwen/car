@@ -3,7 +3,6 @@ package pengyi.domain.service.order;
 import pengyi.application.order.command.*;
 import pengyi.core.type.EvaluateStatus;
 import pengyi.domain.model.order.Order;
-import pengyi.domain.model.user.BaseUser;
 import pengyi.repository.generic.Pagination;
 
 import java.util.List;

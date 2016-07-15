@@ -21,7 +21,6 @@ import pengyi.domain.model.billing.Billing;
 import pengyi.domain.model.order.IOrderRepository;
 import pengyi.domain.model.order.Order;
 import pengyi.domain.model.user.BaseUser;
-import pengyi.domain.model.user.company.Company;
 import pengyi.domain.model.user.driver.Driver;
 import pengyi.domain.model.user.user.User;
 import pengyi.domain.service.billing.IBillingService;
