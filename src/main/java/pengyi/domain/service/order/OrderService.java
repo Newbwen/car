@@ -463,8 +463,8 @@ public class OrderService implements IOrderService {
         //创建资金明细
         moneyDetailedCommand.setBaseUser(order.getReceiveUser().getId());
         moneyDetailedCommand.setFlowType(FlowType.OUT_FLOW);
-        moneyDetailedCommand.setMoney(order.getShouldMoney());
-        moneyDetailedCommand.setExplain("订单线下支付:" + order.getShouldMoney().multiply(new BigDecimal(0.2)).add(new BigDecimal(0.23)));
+        moneyDetailedCommand.setMoney(order.getShouldMoney().multiply(new BigDecimal(0.2)).add(new BigDecimal(0.23)));
+        moneyDetailedCommand.setExplain("订单线下支付:" + order.getOrderNumber());
         moneyDetailedCommand.setNewMoney(driver.getBalance());
         moneyDetailedService.create(moneyDetailedCommand);
 
